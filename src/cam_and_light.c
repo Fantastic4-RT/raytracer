@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
+#include "../includes/rt.h"
 
 void	cam_params(char *str, t_main *main, int pos_rot_fov)
 {

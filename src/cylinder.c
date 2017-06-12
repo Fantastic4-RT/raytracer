@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
-
+#include "../includes/rt.h"
 void	*default_cylinder(t_cyl *cyl)
 {
 	cyl->p1.x = 0;

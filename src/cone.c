@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
-
+#include "../includes/rt.h"
 void	*default_cone(t_cone *cone)
 {
 	cone->p1.x = 0;

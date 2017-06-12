@@ -3,24 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/02 12:13:45 by aradiuk           #+#    #+#             */
-/*   Updated: 2016/12/02 12:13:52 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/11/29 13:06:16 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/11/29 13:14:13 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-void	ft_putendl(char const *s)
+void	ft_putendl(char *str)
 {
 	int i;
 
-	i = 0;
-	if (s)
+	if (str)
 	{
-		while (s[i++] != '\0')
-			write(1, &s[i - 1], 1);
+		i = 0;
+		while (str[i])
+		{
+			write(1, &str[i], 1);
+			i++;
+		}
 		write(1, "\n", 1);
 	}
 }

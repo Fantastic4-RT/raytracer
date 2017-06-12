@@ -3,38 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 16:30:32 by aradiuk           #+#    #+#             */
-/*   Updated: 2016/12/01 16:30:36 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/11/30 17:04:57 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/12/01 14:44:28 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-char	*ft_strtrim(char const *s)
+char	*ft_strtrim(const char *s)
 {
 	char	*new;
 	size_t	i;
-	size_t	length;
 	size_t	j;
 
 	i = 0;
 	j = 0;
 	if (!s)
 		return (NULL);
-	length = ft_strlen(s);
-	while ((s[length - 1] == ' ' || s[length - 1] == '\n' ||
-						s[length - 1] == '\t') && length)
-		length--;
-	while ((s[i] == ' ' || s[i] == '\n' || s[i] == '\t') && length)
-		i++;
-	if (!(new = ft_strnew(length - i)))
+	while (*s == '\n' || *s == '\t' || *s == ' ')
+		s += 1;
+	j = ft_strlen(s);
+	while ((s[j - 1] == '\n' || s[j - 1] == '\t' || s[j - 1] == ' ') && j)
+		j--;
+	new = ft_strnew(j);
+	if (!(new))
 		return (NULL);
-	while (j + i < length)
-	{
-		new[j] = s[i + j];
-		j++;
-	}
+	new[j] = '\0';
+	while (j--)
+		new[j] = s[j];
 	return (new);
 }

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
-
+#include "../includes/rt.h"
 void	*default_sphere(t_sphere *sphere)
 {
 	sphere->pos.x = 0;

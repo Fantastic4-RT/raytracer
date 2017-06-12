@@ -2,7 +2,7 @@
 // Created by Andrew Radiuk on 6/7/17.
 //
 
-#include "rt.h"
+#include "../includes/rt.h"
 
 void	ipp_fill(t_main *main, int x, int y, int color)
 {

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
-
+#include "../includes/rt.h"
 void	*default_plane(t_plane *plane)
 {
 	plane->pos.x = 0;

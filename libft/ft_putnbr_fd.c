@@ -3,65 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/02 13:21:13 by aradiuk           #+#    #+#             */
-/*   Updated: 2016/12/02 13:21:21 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/11/30 18:33:40 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/11/30 18:48:27 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-static int	ft_power(int a)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int power;
+	int exception;
 
-	power = 1;
-	while (a > 0)
-	{
-		power = power * 10;
-		a--;
-	}
-	return (power);
-}
-
-static int	ft_count(int a)
-{
-	int count;
-
-	count = 0;
-	while (a >= 10)
-	{
-		a = a / 10;
-		count++;
-	}
-	return (count);
-}
-
-void		ft_putnbr_fd(int n, int fd)
-{
-	int count;
-
+	exception = 0;
 	if (n == -2147483648)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
+		n = n / 10;
+		exception = -1;
 	}
-	if (n == 0)
-		ft_putchar_fd('0', fd);
-	else
+	if (n < 0)
 	{
-		if (n < 0)
-		{
-			ft_putchar_fd('-', fd);
-			n = -n;
-		}
-		count = ft_count(n);
-		while (count > 0)
-		{
-			ft_putchar_fd((((n / ft_power(count)) % 10) + '0'), fd);
-			count--;
-		}
-		ft_putchar_fd((n % 10 + '0'), fd);
+		write(fd, "-", 1);
+		n = -n;
 	}
+	if (n >= 10 && n <= 2147483647)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	if (n >= 0 && n <= 9)
+	{
+		n += '0';
+		write(fd, &n, 1);
+	}
+	if (exception < 0)
+		write(fd, "8", 1);
 }

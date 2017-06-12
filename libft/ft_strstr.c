@@ -3,38 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 17:37:40 by aradiuk           #+#    #+#             */
-/*   Updated: 2016/11/30 17:37:47 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/11/28 12:53:10 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/11/30 10:11:35 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-char	*ft_strstr(const char *big, const char *little)
+char	*ft_strstr(const char *str, const char *to_find)
 {
 	int i;
 	int j;
-	int check;
-	int length;
+	int len;
 
 	i = 0;
-	length = ft_strlen(little);
-	if (length == 0)
-		return ((char *)big);
-	while (big[i] != '\0')
+	j = 0;
+	len = ft_strlen(to_find);
+	if (len == 0 || to_find[i] == '\0')
+		return ((char*)str);
+	while (str[i])
 	{
-		check = 0;
-		j = 0;
-		while (big[i + j] == little[j] &&
-				big[i + j] != '\0' && little[j] != '\0')
+		while (to_find[j] == str[j + i])
 		{
-			check += 1;
+			if (j == len - 1)
+				return ((char*)str + i);
 			j++;
 		}
-		if (check == length)
-			return (&((char *)big)[i]);
+		j = 0;
 		i++;
 	}
 	return (0);

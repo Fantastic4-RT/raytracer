@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/28 17:32:23 by aradiuk           #+#    #+#             */
-/*   Updated: 2016/11/28 17:32:24 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/11/30 10:36:00 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/11/30 12:30:13 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+void	*ft_memccpy(void *d, const void *s, int c, size_t n)
 {
-	size_t			i;
-	unsigned char	check;
+	char *dst;
+	char *src;
 
-	i = 0;
-	check = (unsigned char)c;
-	while (i < n)
+	dst = d;
+	src = (void*)s;
+	while (n != 0)
 	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		if (((unsigned char *)src)[i] == check)
-			return (&dst[i + 1]);
-		i++;
+		if ((*dst++ = *src++) == c)
+			return (dst);
+		n--;
 	}
-	return (NULL);
+	return (0);
 }
