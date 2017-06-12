@@ -34,7 +34,7 @@ void	*render(void *data)
 			th->main.cam.ray.dir = vec3_norm(vec3_sub(p, th->main.cam.ray.pos));
 //			if (x < 800 && x > 400 && y < 600 && y > 300)
 //				ipp_fill(&th->main, x, y, 0x1F2313);
-			hitcolor = cast_ray(&th->main, 0);
+			hitcolor = cast_ray(&th->main, th->main.cam.ray, 0);
 			ipp_fill(&th->main, x, y, hitcolor);
 		}
 	}

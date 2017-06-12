@@ -77,9 +77,10 @@ t_vec3 reflection_and_refraction()
 
 }
 
-t_vec3 reflection()
+t_vec3 reflection(t_vec3 hitpoint, t_ray ray, t_main *main, int depth)
 {
-
+	double amount;
+	frensel()
 }
 
 t_vec3 diffuse()
@@ -91,7 +92,7 @@ t_vec3 diffuse()
  * trace light
  * Returns true if the ray intersects an object, false otherwise.
  */
-int trace(t_main *main, double *t, t_vec2 *uv, ssize_t *curr)
+int trace(t_main *main, double *t, ssize_t *curr)
 {
 	ssize_t i;
 	i = 0;
@@ -103,7 +104,7 @@ int trace(t_main *main, double *t, t_vec2 *uv, ssize_t *curr)
 		{
 			*curr = i;
 			*t = t1;
-			*uv = uv1; //ЗАЧЕМ нам u and v barycentric coordinates of the intersected point? для текстур?
+//			*uv = uv1; //ЗАЧЕМ нам u and v barycentric coordinates of the intersected point? для текстур?
 		}
 	}
 	return (*curr == -1 ? 0 : 1);
@@ -111,7 +112,7 @@ int trace(t_main *main, double *t, t_vec2 *uv, ssize_t *curr)
 /*
  * Cast rays recursive algorithm
  */
-int cast_ray(t_main *main, int depth)
+int cast_ray(t_main *main, t_ray ray, int depth)
 {
 	if (depth > MAXDEPTH)
 		return (0); // returns background color
@@ -119,19 +120,21 @@ int cast_ray(t_main *main, int depth)
 	hitcolor = vec3_create(0, 0, 0);
 	double t;
 	t = 1000000;
-	t_vec2 uv; //uv coordinates of intersection point
+//	t_vec2 uv; //uv coordinates of intersection point
 	ssize_t curr = -1;
-	if (trace(main, &t, &uv, &curr))
+	if (trace(main, &t, &curr))
 	{
 		t_vec3 hitpoint = vec3_add(main->cam.ray.pos, vec3_mult(main->cam.ray.dir, t));
-		t_vec3 norm;
+		find_normal(main);
+/*		t_vec3 norm;
 		t_vec2 st;
 		//get_surface_properties(hitpoint, e->cam.ray.dir, uv, &norm, &st); //(*main) different for each obj
+*/
 		t_vec3 tmp;
 		/*
 		 * three types of material
 		 */
-		if ("object.material is reflective && refractive") //transtarent
+		if ("object.material is reflective && refractive") //transparent
 			hitcolor = reflection_and_refraction();
 		else if ("object.material is reflective") //mirror-like
 			hitcolor = reflection();

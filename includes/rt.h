@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <fcntl.h>
+# include <time.h>
 
 
 # define THREADS 4
@@ -312,6 +313,7 @@ typedef	struct 		s_obj
 	char	*type;
 	void	*data;
 	int		(*intersect)();
+	//function to count normal
 }					t_obj;
 
 typedef struct		s_main
@@ -408,6 +410,5 @@ void	print_scene(t_main *main);
 /*
  * whitted algorithm
  */
-int cast_ray(t_main *main, int depth);
-
+int cast_ray(t_main *main, t_ray ray, int depth);
 #endif
