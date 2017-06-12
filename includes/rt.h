@@ -34,9 +34,13 @@
 # define SPECULAR 0.2
 # define OBJECTS 3
 # define LIGHTS 1
+# define MAXDEPTH 5
 
-
-
+typedef struct	s_vec2
+{
+	int u;
+	int v;
+}				t_vec2;
 
 //typedef	struct 	s_vec3
 //{
@@ -244,6 +248,7 @@ typedef	struct 	s_material
 	double	diff;
 	double	spec;
 	double	reflect;
+	double 	refract; //index of refraction
 	t_vec3	color;
 }				t_material;
 
@@ -399,7 +404,10 @@ double	vec3_length(t_vec3 vec);
 ** 		REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 void	vec3_print(t_vec3 vec, char *str);
-
 void	print_scene(t_main *main);
+/*
+ * whitted algorithm
+ */
+int cast_ray(t_main *main, int depth);
 
 #endif
