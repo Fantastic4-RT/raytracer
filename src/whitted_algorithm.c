@@ -125,6 +125,7 @@ int cast_ray(t_main *main, t_ray ray, int depth)
 		/*
 		 * three types of material
 		 */
+		//цикл для багатьох джерел світла ???????????????????? (compute vectors, trace light)
 		if ("object.material is reflective && refractive") //transparent
 			hitcolor = reflection_and_refraction();
 		else if ("object.material is reflective") //mirror-like
