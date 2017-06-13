@@ -3,6 +3,22 @@
 //
 #include "../includes/rt.h"
 
+double		square_cos(double n)
+{
+	double res;
+
+	res = (1 + cos(2 * n * RAD)) / 2;
+	return (res);
+}
+
+double		square_sin(double n)
+{
+	double res;
+
+	res = (1 - cos(2 * n * RAD)) / 2;
+	return (res);
+}
+
 int			solve_quadric(double discr, double *t, double b, double a)
 {
 	int		retval;
@@ -63,23 +79,22 @@ int		intersect_cone(t_ray *r, void *con, double *t)
 	t_vec3	delta_p;
 	t_vec3	tmp;
 	t_vec3	tmp2;
-
-	r->dir = unit_vector(r->direction);
-	con->rotation = unit_vector(con->rotation);
-	delta_p = vector_sub(r->origin, con->pos);
-	tmp = vector_sub(r->direction, vector_scalar(vector_dot(r->direction, \
-	con->rotation), con->rotation));
-	solve.a = square_cos(con->radius) * vector_dot(tmp, tmp)\
-		- square_sin(con->radius) * vector_dot(r->direction, con->rotation)
-		* vector_dot(r->direction, con->rotation);
-	tmp2 = vector_sub(delta_p, \
-	vector_scalar(vector_dot(delta_p, con->rotation), con->rotation));
-	solve.b = 2 * square_cos(con->radius) * vector_dot(tmp, tmp2)
-		- 2 * square_sin(con->radius) * vector_dot(r->direction, con->rotation)\
-		* vector_dot(delta_p, con->rotation);
-	solve.c = square_cos(con->radius) * vector_dot(tmp2, tmp2)
-		- square_sin(con->radius) * vector_dot(delta_p, con->rotation)
-		* vector_dot(delta_p, con->rotation);
+	t_cone *cone = (t_cone*)con;
+	r->dir = vec3_norm(r->dir);
+	cone->axis = vec3_norm(cone->axis);
+	delta_p = vec3_sub(r->pos, cone->pos);
+	tmp = vec3_sub(r->dir, vec3_mult(cone->axis, vec3_dp(r->dir, cone->axis)));
+	solve.a = square_cos(cone->angle) * vec3_dp(tmp, tmp)
+		- square_sin(cone->angle) * vec3_dp(r->dir, cone->axis)
+		* vec3_dp(r->dir, cone->axis);
+	tmp2 = vec3_sub(delta_p,
+	vec3_mult(cone->axis, vec3_dp(delta_p, cone->axis)));
+	solve.b = 2 * square_cos(cone->angle) * vec3_dp(tmp, tmp2)
+		- 2 * square_sin(cone->angle) * vec3_dp(r->dir, cone->axis)
+		* vec3_dp(delta_p, cone->axis);
+	solve.c = square_cos(cone->angle) * vec3_dp(tmp2, tmp2)
+		- square_sin(cone->angle) * vec3_dp(delta_p, cone->axis)
+		* vec3_dp(delta_p, cone->axis);
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }
@@ -94,15 +109,15 @@ int		intersect_cylind(t_ray *r, void *cyl, double *t)
 
 	cylind = (t_cyl*)cyl;
 	r->dir = vec3_norm(r->dir);
-	delta_p = vec3_sub(r->pos, cylind->pos);
-	cyl->rotation = unit_vector(cyl->rotation);
-	tmp = vector_sub(r->direction, vector_scalar(vector_dot(r->direction,
-	cyl->rotation), cyl->rotation));
-	solve.a = vector_dot(tmp, tmp);
-	tmp2 = vector_sub(delta_p, vector_scalar(vector_dot(delta_p,
-	cyl->rotation), cyl->rotation));
-	solve.b = 2 * vector_dot(tmp, tmp2);
-	solve.c = vector_dot(tmp2, tmp2) - cyl->radius * cyl->radius;
+	delta_p = vec3_sub(r->pos, cylind->p1);
+	cylind->axis= vec3_norm(cylind->axis);
+	tmp = vec3_sub(r->dir, vec3_mult(cylind->axis, vec3_dp(r->dir,
+														   cylind->axis)));
+	solve.a = vec3_dp(tmp, tmp);
+	tmp2 = vec3_sub(delta_p, vec3_mult(cylind->axis, vec3_dp(delta_p,
+															 cylind->axis)));
+	solve.b = 2 * vec3_dp(tmp, tmp2);
+	solve.c = vec3_dp(tmp2, tmp2) - cylind->rad * cylind->rad;
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }

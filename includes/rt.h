@@ -413,4 +413,15 @@ void	print_scene(t_main *main);
  * whitted algorithm
  */
 int cast_ray(t_main *main, t_ray ray, int depth);
+
+/*
+ * intersections.c
+ */
+int		solve_quadric(double discr, double *t, double b, double a);
+int		intersect_plane(t_ray *r, void *p, double *t);
+int		intersect_cone(t_ray *r, void *con, double *t);
+int		intersect_cylind(t_ray *r, void *cyl, double *t);
+int		inter_ray_sphere(t_ray *r, void *s, double *t);
+
+
 #endif
