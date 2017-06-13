@@ -37,11 +37,13 @@
 # define LIGHTS 1
 # define MAXDEPTH 5
 
-typedef struct	s_vec2
+typedef struct	s_abs
 {
-	int u;
-	int v;
-}				t_vec2;
+	double a;
+	double b;
+	double c;
+	double discr;
+}				t_abs;
 
 //typedef	struct 	s_vec3
 //{
@@ -312,8 +314,8 @@ typedef	struct 		s_obj
 {
 	char	*type;
 	void	*data;
-	int		(*intersect)();
-	//function to count normal
+	int		(*intersect)(t_ray *r, void *data, double *t);
+	t_vec3	(*normal)(); //function to count normal
 }					t_obj;
 
 typedef struct		s_main
@@ -325,7 +327,7 @@ typedef struct		s_main
 	t_flag		flag;
 	t_scene		scene;
 //	t_sample	sample;
-	int 		num_lights;
+//	int 		num_lights;
 	double		t;
 	int			light_i;
 	int			obj_i;

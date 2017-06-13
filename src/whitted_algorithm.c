@@ -90,22 +90,17 @@ t_vec3 diffuse()
 
 /*
  * trace light
+ * check intersection
  * Returns true if the ray intersects an object, false otherwise.
  */
 int trace(t_main *main, double *t, ssize_t *curr)
 {
 	ssize_t i;
-	i = 0;
-	while (i < main->obj_i) //nb of objects?
+	i = -1;
+	while (++i < main->scene.objs)
 	{
-		double t1 = 1000000;
-		t_vec2 uv1;
-		if (/*object intersected*/ && t1 < *t) //intersection functions
-		{
+		if (main->obj[i].intersect(&main->cam.ray, main->obj[i].data, t)) //intersection functions
 			*curr = i;
-			*t = t1;
-//			*uv = uv1; //ЗАЧЕМ нам u and v barycentric coordinates of the intersected point? для текстур?
-		}
 	}
 	return (*curr == -1 ? 0 : 1);
 }
@@ -114,23 +109,19 @@ int trace(t_main *main, double *t, ssize_t *curr)
  */
 int cast_ray(t_main *main, t_ray ray, int depth)
 {
+	t_vec3 hitcolor;
+	t_vec3 hitpoint;
+	double t;
+	ssize_t curr;
+
 	if (depth > MAXDEPTH)
 		return (0); // returns background color
-	t_vec3 hitcolor;
 	hitcolor = vec3_create(0, 0, 0);
-	double t;
-	t = 1000000;
-//	t_vec2 uv; //uv coordinates of intersection point
-	ssize_t curr = -1;
+	t = 2000000.0;
+	curr = -1;
 	if (trace(main, &t, &curr))
 	{
-		t_vec3 hitpoint = vec3_add(main->cam.ray.pos, vec3_mult(main->cam.ray.dir, t));
-		find_normal(main);
-/*		t_vec3 norm;
-		t_vec2 st;
-		//get_surface_properties(hitpoint, e->cam.ray.dir, uv, &norm, &st); //(*main) different for each obj
-*/
-		t_vec3 tmp;
+		hitpoint = vec3_add(main->cam.ray.pos, vec3_mult(main->cam.ray.dir, t));
 		/*
 		 * three types of material
 		 */
