@@ -126,5 +126,11 @@ void	fill_cone_data(char *str, t_cone *cone)
 
 void	add_cone(char *str, t_main *main)
 {
+	t_cone *c;
 	fill_cone_data(str, (t_cone *)main->obj[main->obj_i].data);
+	main->obj[main->obj_i].intersect = &intersect_cone;
+	main->obj[main->obj_i].normal = &cone_norm;
+	c = (t_cone *)main->obj[main->obj_i].data;
+	main->obj[main->obj_i].mat = c->mat;
+	main->obj[main->obj_i].mattype = get_material_type(c->mat);
 }

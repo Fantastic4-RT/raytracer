@@ -116,5 +116,12 @@ void	fill_cylinder_data(char *str, t_cyl *cyl)
 
 void	add_cylinder(char *str, t_main *main)
 {
+	t_cyl *c;
+
 	fill_cylinder_data(str, (t_cyl *)main->obj[main->obj_i].data);
+	main->obj[main->obj_i].intersect = &intersect_cylind;
+	main->obj[main->obj_i].normal = &cylinder_norm;
+	c = (t_cyl *)main->obj[main->obj_i].data;
+	main->obj[main->obj_i].mat = c->mat;
+	main->obj[main->obj_i].mattype = get_material_type(c->mat);
 }

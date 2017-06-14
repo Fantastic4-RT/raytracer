@@ -82,9 +82,15 @@ void	fill_sphere_data(char *str, t_sphere *sphere)
 	else if (ft_strstr(str, "<reflection>"))
 		sphere_params(str + ft_strlen("<reflection>"), sphere, 6);
 }
-
+//fill obj struct we need
 void	add_sphere(char *str, t_main *main)
 {
+	t_sphere *s;
+
 	fill_sphere_data(str, (t_sphere *)main->obj[main->obj_i].data);
-	//main->obj[main->obj_i].intersect = sphere_intersect;
+	main->obj[main->obj_i].intersect = &inter_ray_sphere; //pointer to func
+	main->obj[main->obj_i].normal = &sphere_norm;
+	s = (t_sphere *)main->obj[main->obj_i].data;
+	main->obj[main->obj_i].mat = s->mat;
+	main->obj[main->obj_i].mattype = get_material_type(s->mat);
 }

@@ -109,6 +109,12 @@ typedef	struct	s_light
 	int 	blocked;
 }				t_light;
 
+typedef enum 	e_mattype {
+	LAMBERT,
+	REFLECT_REFRACT,
+	REFLECT
+}				t_mattype;
+
 typedef	struct 	s_material
 {
 	double	diff;
@@ -122,7 +128,7 @@ typedef struct	s_plane
 {
 	t_vec3		pos;
 	t_vec3		normal;
-	t_material	mat;
+	t_material	mat; //materials should be better in the general structures but easier to save them here for reading
 }				t_plane;
 
 typedef	struct 	s_sphere
@@ -177,7 +183,12 @@ typedef	struct 		s_obj
 {
 	char	*type;
 	void	*data;
+	t_material	mat;
+	t_mattype mattype; //added here so that we do not need cast object
 	int		(*intersect)(t_ray *r, void *data, double *t);
+	t_vec3	n;
+	t_vec3		hitpoint;
+
 	t_vec3	(*normal)(); //function to count normal
 }					t_obj;
 
@@ -194,6 +205,9 @@ typedef struct		s_main
 	double		t;
 	int			light_i;
 	int			obj_i;
+
+	ssize_t			curr;
+	//point where the current obj is hit
 }					t_main;
 
 
@@ -275,7 +289,7 @@ void	print_scene(t_main *main);
 /*
  * whitted algorithm
  */
-int cast_ray(t_main *main, t_ray ray, int depth);
+t_vec3 cast_ray(t_main *main, t_ray ray, int depth);
 
 /*
  * intersections.c
@@ -286,5 +300,13 @@ int		intersect_cone(t_ray *r, void *con, double *t);
 int		intersect_cylind(t_ray *r, void *cyl, double *t);
 int		inter_ray_sphere(t_ray *r, void *s, double *t);
 
+int vec3_to_int(t_vec3 hitcolor);
 
+int trace(t_main *main, t_ray ray, double *t, ssize_t *curr);
+t_vec3 cylinder_norm(void * data, t_vec3 hitpoint);
+t_vec3 cone_norm(void *data, t_vec3 hitpoint);
+t_vec3 plane_norm(void *data, t_vec3 hitpoint);
+t_vec3 sphere_norm(void *data, t_vec3 hitpoint);
+
+t_mattype get_material_type(t_material mat);
 #endif

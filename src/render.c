@@ -17,7 +17,7 @@ void	*render(void *data)
 	int 		x;
 	int 		y;
 	double		dist;
-	int hitcolor;
+	t_vec3 hitcolor;
 
 	th = (t_thread *)data;
 	dist = 1. / (2 * tan(FOV / 2.));
@@ -25,14 +25,14 @@ void	*render(void *data)
 	while (++y < th->end)
 	{
 		x = -1;
-		while (++x < HEIGHT)
+		while (++x < WIDTH)
 		{
 			p.x = (2 * (x + 0.5) / WIDTH - 1) * ASPECT * tan(FOV / 2);
 			p.y = (1 - 2 * (y + 0.5) / HEIGHT) * tan(FOV / 2);
 			p.z = th->main.cam.ray.pos.z - dist;
 			th->main.cam.ray.dir = vec3_norm(vec3_sub(p, th->main.cam.ray.pos));
 			hitcolor = cast_ray(&th->main, th->main.cam.ray, 0);
-			ipp_fill(&th->main, x, y, hitcolor);
+			ipp_fill(&th->main, x, y, vec3_to_int(hitcolor));
 		}
 	}
 	pthread_exit(NULL);

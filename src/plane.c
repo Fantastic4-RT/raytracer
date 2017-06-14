@@ -90,9 +90,14 @@ void	fill_plane_data(char *str, t_plane *plane)
 	else if (ft_strstr(str, "<reflection>"))
 		plane_params(str + ft_strlen("<reflection>"), plane, 6);
 }
-
+//fill obj struct we need
 void	add_plane(char *str, t_main *main)
 {
+	t_plane *p;
 	fill_plane_data(str, (t_plane *)main->obj[main->obj_i].data);
-	//main->obj[main->obj_i].intersect = plane_intersect;
+	main->obj[main->obj_i].intersect = &intersect_plane;
+	main->obj[main->obj_i].normal = &plane_norm;
+	p = (t_plane *)main->obj[main->obj_i].data;
+	main->obj[main->obj_i].mat = p->mat;
+	main->obj[main->obj_i].mattype = get_material_type(p->mat);
 }

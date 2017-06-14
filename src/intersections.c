@@ -1,7 +1,18 @@
-//
-// Created by Anastasiia Trepyton on 6/13/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersections.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/14 14:59:07 by atrepyto          #+#    #+#             */
+/*   Updated: 2017/06/14 14:59:11 by atrepyto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/rt.h"
+
+//remove these functions for cos2 sin2
 
 double		square_cos(double n)
 {
