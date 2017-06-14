@@ -55,7 +55,7 @@ void	frensel(const t_vec3 i, const t_vec3 n, const double irefract, double *amou
 	double etai = 1;
 	double etat = irefract;
 	if (cosi > 0)
-		ft_swap(&etai, &etat);
+		ft_swap(&etai, &etat); //double
 
 	double sint = etai / etat * sqrt(fmax(0.0, 1 - cosi * cosi));
 	if (sint >= 1)

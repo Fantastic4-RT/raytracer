@@ -17,7 +17,6 @@ void	*render(void *data)
 	int 		x;
 	int 		y;
 	double		dist;
-
 	int hitcolor;
 
 	th = (t_thread *)data;

@@ -82,7 +82,7 @@ int		intersect_cone(t_ray *r, void *con, double *t)
 	t_cone *cone = (t_cone*)con;
 	r->dir = vec3_norm(r->dir);
 	cone->axis = vec3_norm(cone->axis);
-	delta_p = vec3_sub(r->pos, cone->pos);
+	delta_p = vec3_sub(r->pos, cone->p1);
 	tmp = vec3_sub(r->dir, vec3_mult(cone->axis, vec3_dp(r->dir, cone->axis)));
 	solve.a = square_cos(cone->angle) * vec3_dp(tmp, tmp)
 		- square_sin(cone->angle) * vec3_dp(r->dir, cone->axis)

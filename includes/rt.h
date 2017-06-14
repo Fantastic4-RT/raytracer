@@ -36,6 +36,7 @@
 # define OBJECTS 3
 # define LIGHTS 1
 # define MAXDEPTH 5
+# define RAD M_PI / 180
 
 typedef struct	s_abs
 {

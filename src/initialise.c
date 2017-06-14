@@ -12,14 +12,14 @@
 
 #include "../includes/rt.h"
 
-void	scene_initialise(t_main *main)
+/*void	scene_initialise(t_main *main)
 {
 //	main->objs.num_plane = 2;
 //	main->objs.num_sph = 2;
 //	main->objs.num_cyl = 1;
 //	main->objs.num_cone = 1;
-	main->num_lights = 2;
-	main->light = (t_light *)malloc(sizeof(t_light) * main->num_lights);
+	main->scene.lights = 2;
+	main->light = (t_light *)malloc(sizeof(t_light) * main->scene.lights);
 //	main->objs.plane = (t_plane *)malloc(sizeof(t_plane) * main->objs.num_plane);
 //	main->objs.sph = (t_sphere *)malloc(sizeof(t_sphere) * main->objs.num_sph);
 //	main->objs.cyl = (t_cyl *)malloc(sizeof(t_cyl) * main->objs.num_cyl);
@@ -29,7 +29,7 @@ void	scene_initialise(t_main *main)
 	main->light[0].color = vec3_create(255, 255, 255);
 	main->light[1].ray.pos = vec3_create(0, -10, 50);
 	main->light[1].color = vec3_create(255, 255, 255);
-}
+}*/
 
 void	pthreading(t_main *main)
 {
