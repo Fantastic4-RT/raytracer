@@ -11,11 +11,15 @@
 /* ************************************************************************** */
 
 
-#include "../includes/rt.h"
+#include "rt.h"
 
 int vec3_to_int(t_vec3 hitcolor)
 {
-	return (((int)hitcolor.x << 16 | (int)hitcolor.y << 8 | (int)hitcolor.z));
+	int res;
+
+	hitcolor = vec3_mult(hitcolor, 255);
+	res = ((int)hitcolor.x << 16) + ((int)hitcolor.y << 8) + (int)hitcolor.z;
+	return (res);
 }
 
 double clamp(const double low, const double high, const double value)
@@ -123,33 +127,34 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main)
 	t_ray lightray;
 	t_vec3 lightamt = vec3_create(0, 0, 0);
 	t_vec3 specularcol = vec3_create(0, 0, 0);
+	double	tmp;
 	lightray.pos = (vec3_dp(ray->dir, main->obj[main->curr].n) < 0) ?
 						  vec3_add(main->obj[main->curr].hitpoint, vec3_mult(main->obj[main->curr].n, 0.0001)) :
 						  vec3_sub(main->obj[main->curr].hitpoint, vec3_mult(main->obj[main->curr].n, 0.0001));
 	int i;
 	i = -1;
+	ssize_t curr;
 	while (++i < main->scene.lights)
 	{
+		curr = -1;
 		lightray.dir = vec3_sub(main->light[i].ray.pos, main->obj[main->curr].hitpoint);
 		double t = sqrt(vec3_dp(lightray.dir, lightray.dir)); //square of the distance to the light
 		lightray.dir = vec3_norm(lightray.dir);
-		double dp = fmax(0, vec3_dp(lightray.dir, main->obj[main->curr].n));
-		ssize_t curr = -1;
+		double dp = fmax(0., vec3_dp(lightray.dir, main->obj[main->curr].n));
 		int in_shadow = trace(main, lightray, &t, &curr);
-		lightamt.x = (1 - in_shadow) * main->light[i].color.x * dp;
-		lightamt.y = (1 - in_shadow) * main->light[i].color.y * dp;
-		lightamt.z = (1 - in_shadow) * main->light[i].color.z * dp;
+		curr = curr == -1 ? 0 : curr;
+		lightamt.x += (1 - in_shadow) * main->light[i].color.x * dp;
+		lightamt.y += (1 - in_shadow) * main->light[i].color.y * dp;
+		lightamt.z += (1 - in_shadow) * main->light[i].color.z * dp;
 		t_vec3 reflectray_dir = reflect_ray(vec3_invert(lightray.dir), main->obj[main->curr].n);
-		specularcol.x += pow(fmax(0, -vec3_dp(reflectray_dir, ray->dir)),
-							 main->obj[curr].mat.spec) * main->light[i].color.x;
-		specularcol.y += pow(fmax(0, -vec3_dp(reflectray_dir, ray->dir)),
-							 main->obj[curr].mat.spec) * main->light[i].color.y;
-		specularcol.z += pow(fmax(0, -vec3_dp(reflectray_dir, ray->dir)),
-							 main->obj[curr].mat.spec) * main->light[i].color.z; // main->obj[curr].mat.spec -- specular exponent
+		tmp = pow(fmax(0., -vec3_dp(reflectray_dir, ray->dir)), main->obj[curr].mat.spec);
+		specularcol.x += tmp * main->light[i].color.x;
+		specularcol.y += tmp * main->light[i].color.y;
+		specularcol.z += tmp * main->light[i].color.z;
 	}
-	hitcolor.x = lightamt.x * main->obj[main->curr].mat.diff * DIFFUSE + 255 * SPECULAR;
-	hitcolor.y = lightamt.y * main->obj[main->curr].mat.diff * DIFFUSE + 255 * SPECULAR;
-	hitcolor.z = lightamt.z * main->obj[main->curr].mat.diff * DIFFUSE + 255 * SPECULAR;
+	hitcolor.x += lightamt.x * main->obj[main->curr].mat.color.x * DIFFUSE + specularcol.x * SPECULAR;
+	hitcolor.y += lightamt.y * main->obj[main->curr].mat.color.y * DIFFUSE + specularcol.y * SPECULAR;
+	hitcolor.z += lightamt.z * main->obj[main->curr].mat.color.z * DIFFUSE + specularcol.z * SPECULAR;
 	return (hitcolor);
 }
 
@@ -160,7 +165,7 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main)
  */
 int trace(t_main *main, t_ray ray, double *t, ssize_t *curr)
 {
-	ssize_t i;
+	int i;
 	i = -1;
 	while (++i < main->scene.objs)
 	{
@@ -179,13 +184,14 @@ t_vec3 cast_ray(t_main *main, t_ray ray, int depth)
 //	ssize_t curr;
 
 	if (depth > MAXDEPTH)
-		return (vec3_create(0, 255, 0)); // returns background color
+		return (vec3_create(0, 0, 0)); // returns background color
 	hitcolor = vec3_create(0, 0, 0);
 	t = 2000000.0;
 	main->curr = -1;
-	if (trace(main, main->cam.ray, &t, &main->curr)) //never returns true!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	if (trace(main, main->cam.ray, &t, &main->curr))
 	{
 		main->obj[main->curr].hitpoint = vec3_add(main->cam.ray.pos, vec3_mult(main->cam.ray.dir, t));
+		main->obj[main->curr].n = vec3_norm(main->obj[main->curr].normal(main->obj[main->curr].data, main->obj[main->curr].hitpoint));
 		/*
 		 * three types of material
 		 */
@@ -194,8 +200,12 @@ t_vec3 cast_ray(t_main *main, t_ray ray, int depth)
 		else if (main->obj[main->curr].mattype == REFLECT) //mirror-like
 			hitcolor = reflection(hitcolor, &ray, main, depth);
 		else //diffuse
+		{
+			hitcolor = vec3_create(AMBIENT * main->obj[main->curr].mat.color.x,
+								   AMBIENT * main->obj[main->curr].mat.color.y,
+								   AMBIENT * main->obj[main->curr].mat.color.z);
 			hitcolor = diffuse(hitcolor, &ray, main);
-		printf("is hit\n");
+		}
 	}
 	return(hitcolor);
 }

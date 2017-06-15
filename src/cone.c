@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "rt.h"
 void	*default_cone(t_cone *cone)
 {
 	cone->p1.x = 0;

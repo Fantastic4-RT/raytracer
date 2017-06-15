@@ -25,7 +25,7 @@
 # include <time.h>
 
 
-# define THREADS 4
+# define THREADS 2
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -36,7 +36,7 @@
 # define OBJECTS 3
 # define LIGHTS 1
 # define MAXDEPTH 5
-# define RAD M_PI / 180
+# define RAD M_PI / 180.
 
 typedef struct	s_abs
 {
@@ -97,7 +97,7 @@ typedef	struct 	s_inter
 
 typedef	struct	s_cam
 {
-	int		fov;
+	double	fov;
 	t_ray	ray;
 	t_vec3	rot;
 }				t_cam;
@@ -185,11 +185,13 @@ typedef	struct 		s_obj
 	void	*data;
 	t_material	mat;
 	t_mattype mattype; //added here so that we do not need cast object
-	int		(*intersect)(t_ray *r, void *data, double *t);
-	t_vec3	n;
-	t_vec3		hitpoint;
 
-	t_vec3	(*normal)(); //function to count normal
+	int		(*intersect)(t_ray *r, void *data, double *t);
+
+	t_vec3	n;
+	t_vec3	hitpoint;
+
+	t_vec3	(*normal)(void *data, t_vec3 hitpoint); //function to count normal
 }					t_obj;
 
 typedef struct		s_main

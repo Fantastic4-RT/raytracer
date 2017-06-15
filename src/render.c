@@ -2,7 +2,7 @@
 // Created by Andrew Radiuk on 6/7/17.
 //
 
-#include "../includes/rt.h"
+#include "rt.h"
 
 void	ipp_fill(t_main *main, int x, int y, int color)
 {
@@ -17,11 +17,11 @@ void	*render(void *data)
 	int 		x;
 	int 		y;
 	double		dist;
-	t_vec3 hitcolor;
 
 	th = (t_thread *)data;
 	dist = 1. / (2 * tan(FOV / 2.));
 	y = th->start - 1;
+	printf("%d - %d", th->start, th->end);
 	while (++y < th->end)
 	{
 		x = -1;
@@ -31,8 +31,7 @@ void	*render(void *data)
 			p.y = (1 - 2 * (y + 0.5) / HEIGHT) * tan(FOV / 2);
 			p.z = th->main.cam.ray.pos.z - dist;
 			th->main.cam.ray.dir = vec3_norm(vec3_sub(p, th->main.cam.ray.pos));
-			hitcolor = cast_ray(&th->main, th->main.cam.ray, 0);
-			ipp_fill(&th->main, x, y, vec3_to_int(hitcolor));
+			ipp_fill(&th->main, x, y, vec3_to_int(cast_ray(&th->main, th->main.cam.ray, 0)));
 		}
 	}
 	pthread_exit(NULL);

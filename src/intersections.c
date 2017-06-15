@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "rt.h"
 
 //remove these functions for cos2 sin2
 

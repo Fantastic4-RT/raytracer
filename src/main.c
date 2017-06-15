@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "rt.h"
 //#include "../includes/parser.h"
 //#define PRINT
 #ifdef PRINT
@@ -153,6 +153,8 @@ void	read_file(int fd, t_main *main)
 			set_flag(str, main, 1);
 		else if (main->flag.cam == 1 || main->flag.light == 1 || main->flag.obj == 1)
 			set_flag(str, main, 2);
+		if (main->obj_i == main->scene.objs)
+			return ;
 		if (main->flag.cam == 1)
 			cam_light_obj_line(str, main, 1);
 		else if (main->flag.light == 1)
@@ -161,8 +163,6 @@ void	read_file(int fd, t_main *main)
 			cam_light_obj_line(str, main, 3);
 		free(str);
 	}
-//
-//	while (1);
 }
 
 int main(int argc, char **argv)

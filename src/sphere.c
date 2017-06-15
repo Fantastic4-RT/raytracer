@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "rt.h"
 void	*default_sphere(t_sphere *sphere)
 {
 	sphere->pos.x = 0;
@@ -46,9 +46,9 @@ void	sphere_params(char *str, t_sphere *sphere, int param)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
 		color = ft_atoi_base(tmp, "0123456789abcdef");
-		sphere->mat.color.x = color >> 16 & 0xFF;
-		sphere->mat.color.y = color >> 8 & 0xFF;
-		sphere->mat.color.z = color & 0xFF;
+		sphere->mat.color.x = (color >> 16 & 0xFF) / 255.;
+		sphere->mat.color.y = (color >> 8 & 0xFF) / 255.;
+		sphere->mat.color.z = (color & 0xFF) / 255.;
 		free(tmp);
 	}
 	else if (param == 4)
@@ -57,6 +57,8 @@ void	sphere_params(char *str, t_sphere *sphere, int param)
 		sphere->mat.spec = ft_atoi(str);
 	else if (param == 6)
 		sphere->mat.reflect = ft_atoi(str);
+	else if (param == 7)
+		sphere->mat.refract = ft_atoi(str);
 	if (param == 1)
 	{
 		free(arr[0]);
@@ -81,6 +83,8 @@ void	fill_sphere_data(char *str, t_sphere *sphere)
 		sphere_params(str + ft_strlen("<specular>"), sphere, 5);
 	else if (ft_strstr(str, "<reflection>"))
 		sphere_params(str + ft_strlen("<reflection>"), sphere, 6);
+	else if (ft_strstr(str, "<refraction>"))
+		sphere_params(str + ft_strlen("<refraction>"), sphere, 7);
 }
 //fill obj struct we need
 void	add_sphere(char *str, t_main *main)
