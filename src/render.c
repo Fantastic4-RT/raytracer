@@ -21,7 +21,6 @@ void	*render(void *data)
 	th = (t_thread *)data;
 	dist = 1. / (2 * tan(FOV / 2.));
 	y = th->start - 1;
-	printf("%d - %d", th->start, th->end);
 	while (++y < th->end)
 	{
 		x = -1;

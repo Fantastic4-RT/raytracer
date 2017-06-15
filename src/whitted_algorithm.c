@@ -184,8 +184,8 @@ t_vec3 cast_ray(t_main *main, t_ray ray, int depth)
 //	ssize_t curr;
 
 	if (depth > MAXDEPTH)
-		return (vec3_create(0, 0, 0)); // returns background color
-	hitcolor = vec3_create(0, 0, 0);
+		return (vec3_create(0, 1, 0)); // returns background color
+	hitcolor = vec3_create(0, 0, 1);
 	t = 2000000.0;
 	main->curr = -1;
 	if (trace(main, main->cam.ray, &t, &main->curr))
@@ -196,10 +196,15 @@ t_vec3 cast_ray(t_main *main, t_ray ray, int depth)
 		 * three types of material
 		 */
 		if (main->obj[main->curr].mattype == REFLECT_REFRACT) //transparent
+		{
 			hitcolor = reflection_and_refraction(hitcolor, &ray, main, depth);
+//			printf("reflect\n");
+		}
 		else if (main->obj[main->curr].mattype == REFLECT) //mirror-like
+		{
 			hitcolor = reflection(hitcolor, &ray, main, depth);
-		else //diffuse
+		}
+		else
 		{
 			hitcolor = vec3_create(AMBIENT * main->obj[main->curr].mat.color.x,
 								   AMBIENT * main->obj[main->curr].mat.color.y,
