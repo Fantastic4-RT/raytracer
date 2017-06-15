@@ -3,73 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/30 12:11:02 by aradiuk           #+#    #+#             */
-/*   Updated: 2017/01/30 12:11:04 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/11/29 10:58:42 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/12/01 20:03:52 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-static int	length_of_n(int n)
+static int	ft_nblen(int value)
 {
 	int i;
 
 	i = 0;
-	if (n < 0)
+	if (value < 0)
 	{
-		n = n * (-1);
-		i++;
-	}
-	if (n == 0)
 		i = 1;
-	while (n > 0)
+		value = -value;
+	}
+	while (value != 0)
 	{
-		n = n / 10;
+		value = value / 10;
 		i++;
 	}
 	return (i);
 }
 
-static int	power(int length)
-{
-	int pow;
-
-	pow = 1;
-	while (length > 1)
-	{
-		pow = pow * 10;
-		length--;
-	}
-	return (pow);
-}
-
-char		*ft_itoa(int n)
+char		*ft_itoa(int value)
 {
 	char	*result;
+	int		tval;
 	int		i;
-	int		length;
-	int		check;
 
-	check = n;
-	i = 0;
-	if (n == -2147483648)
-		n = -214748364;
-	length = length_of_n(n);
-	if (!(result = ft_strnew(length)))
+	tval = value;
+	if (value == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (value == 0)
+		return (ft_strdup("0"));
+	i = ft_nblen(value);
+	if (!(result = (char *)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
-	if (n < 0 && length--)
+	if (value < 0 && value > -2147483648)
+		tval = -tval;
+	result[i] = '\0';
+	while (tval != 0 && tval <= 2147483647)
 	{
-		result[i++] = '-';
-		n = n * (-1);
+		result[--i] = tval % 10 + '0';
+		tval = tval / 10;
 	}
-	while (length > 0)
-		result[i++] = (n / power(length--)) % 10 + '0';
-	if (check == -2147483648)
-	{
-		result[i++] = '8';
-		result[i] = '\0';
-	}
+	if (value < 0 && value > -2147483648)
+		result[--i] = '-';
 	return (result);
 }

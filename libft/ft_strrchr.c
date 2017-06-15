@@ -3,39 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 16:51:49 by aradiuk           #+#    #+#             */
-/*   Updated: 2016/11/30 16:51:58 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/11/28 17:20:42 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/11/28 17:45:02 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char	symb;
-	size_t	i;
-	char	*str;
-	size_t	found;
+	char *temp;
 
-	symb = (char)c;
-	i = 0;
-	found = 0;
-	str = NULL;
-	while (s[i] != '\0')
+	temp = 0;
+	while (*s)
 	{
-		if (s[i] == symb)
-		{
-			str = &((char *)s)[i];
-			found = 1;
-		}
-		i++;
+		if (*s == (char)c)
+			temp = (char*)s;
+		s++;
 	}
-	if (symb == '\0')
-		str = &((char *)s)[i];
-	if (i == ft_strlen(s) && symb != '\0' && found == 0)
-		return (NULL);
-	else
-		return (str);
+	if ((char)c == '\0' && *s == '\0')
+		return ((char*)s);
+	return (temp);
 }

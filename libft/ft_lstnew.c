@@ -3,40 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/02 15:08:05 by aradiuk           #+#    #+#             */
-/*   Updated: 2016/12/02 15:08:11 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/12/02 19:19:25 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/12/03 16:21:09 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
 t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	t_list	*new_lst;
-	size_t	content_size_new;
-	size_t	i;
-	void	*content_new;
+	t_list *fresh;
 
-	i = 0;
-	new_lst = NULL;
-	if ((new_lst = (t_list *)malloc(sizeof(t_list))) && content_size)
+	fresh = (t_list *)malloc(sizeof(t_list));
+	if (!fresh)
+		return (NULL);
+	if (!content)
 	{
-		content_size_new = content_size;
-		if (content == NULL)
-		{
-			new_lst->content = NULL;
-			new_lst->content_size = 0;
-		}
-		else if ((content_new = malloc(content_size_new)) && content)
-		{
-			while (i++ < content_size)
-				((char *)content_new)[i - 1] = ((char *)content)[i - 1];
-			new_lst->content = content_new;
-			new_lst->content_size = content_size_new;
-			new_lst->next = NULL;
-		}
+		fresh->content = NULL;
+		fresh->content_size = 0;
 	}
-	return (new_lst);
+	else
+	{
+		fresh->content_size = content_size;
+		fresh->content = ft_memalloc(fresh->content_size);
+		if (!fresh->content)
+			return (NULL);
+		fresh->content = ft_memcpy(fresh->content, content,
+				fresh->content_size + 1);
+		((char *)(fresh->content))[fresh->content_size] = '\0';
+	}
+	fresh->next = NULL;
+	return (fresh);
 }

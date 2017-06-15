@@ -24,14 +24,13 @@ void	*render(void *data)
 	while (++y < th->end)
 	{
 		x = -1;
-		while (++x < HEIGHT)
+		while (++x < WIDTH)
 		{
 			p.x = (2 * (x + 0.5) / WIDTH - 1) * ASPECT * tan(FOV / 2);
 			p.y = (1 - 2 * (y + 0.5) / HEIGHT) * tan(FOV / 2);
 			p.z = th->main.cam.ray.pos.z - dist;
 			th->main.cam.ray.dir = vec3_norm(vec3_sub(p, th->main.cam.ray.pos));
-			if (x < 800 && x > 400 && y < 600 && y > 300)
-				ipp_fill(&th->main, x, y, 0x1F2313);
+			ipp_fill(&th->main, x, y, vec3_to_int(cast_ray(&th->main, th->main.cam.ray, 0)));
 		}
 	}
 	pthread_exit(NULL);

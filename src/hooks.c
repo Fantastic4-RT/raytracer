@@ -13,6 +13,9 @@ int		cross_exit(void *a)
 
 int 	key_hook(int keycode, t_main *main)
 {
+	void *a;
+
+	a = main;
 	if (keycode == 53)
 		exit(0);
 	return (0);

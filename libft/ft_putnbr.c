@@ -3,65 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/02 12:38:47 by aradiuk           #+#    #+#             */
-/*   Updated: 2016/12/02 12:38:51 by aradiuk          ###   ########.fr       */
+/*   Created: 2016/11/29 13:02:02 by atrepyto          #+#    #+#             */
+/*   Updated: 2016/11/29 13:02:04 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-static int	ft_power(int a)
+void	ft_putnbr(int nb)
 {
-	int power;
+	int exception;
 
-	power = 1;
-	while (a > 0)
+	exception = 0;
+	if (nb == -2147483648)
 	{
-		power = power * 10;
-		a--;
+		nb = nb / 10;
+		exception = -1;
 	}
-	return (power);
-}
-
-static int	ft_count(int a)
-{
-	int count;
-
-	count = 0;
-	while (a >= 10)
+	if (nb < 0)
 	{
-		a = a / 10;
-		count++;
+		write(1, "-", 1);
+		nb = -nb;
 	}
-	return (count);
-}
-
-void		ft_putnbr(int n)
-{
-	int count;
-
-	if (n == -2147483648)
+	if (nb >= 10 && nb <= 2147483647)
 	{
-		write(1, "-2147483648", 11);
-		return ;
+		ft_putnbr(nb / 10);
+		ft_putnbr(nb % 10);
 	}
-	if (n == 0)
-		ft_putchar('0');
-	else
+	if (nb >= 0 && nb <= 9)
 	{
-		if (n < 0)
-		{
-			ft_putchar('-');
-			n = -n;
-		}
-		count = ft_count(n);
-		while (count > 0)
-		{
-			ft_putchar(((n / ft_power(count)) % 10) + '0');
-			count--;
-		}
-		ft_putchar(n % 10 + '0');
+		nb = nb + '0';
+		write(1, &nb, 1);
 	}
+	if (exception < 0)
+		write(1, "8", 1);
 }
