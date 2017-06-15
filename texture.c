@@ -3,7 +3,7 @@
 //
 
 
-#include "../includes/rt.h"
+#include "includes/rt.h"
 
 void perlin_noise(t_env *e, int i,float zoom)
 {

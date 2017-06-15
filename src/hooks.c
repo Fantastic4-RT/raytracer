@@ -2,7 +2,7 @@
 // Created by Andrew Radiuk on 6/7/17.
 //
 
-#include "../includes/rt.h"
+#include "rt.h"
 
 int		cross_exit(void *a)
 {
@@ -13,6 +13,9 @@ int		cross_exit(void *a)
 
 int 	key_hook(int keycode, t_main *main)
 {
+	void *a;
+
+	a = main;
 	if (keycode == 53)
 		exit(0);
 	return (0);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "rt.h"
 void	*default_plane(t_plane *plane)
 {
 	plane->pos.x = 0;

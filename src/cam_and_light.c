@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "rt.h"
 
 void	cam_params(char *str, t_main *main, int pos_rot_fov)
 {
@@ -37,7 +37,7 @@ void	cam_params(char *str, t_main *main, int pos_rot_fov)
 	else if (pos_rot_fov == 3)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</fov>"));
-		main->cam.fov = ft_atoi(tmp);
+		main->cam.fov = ft_atoi(tmp) * RAD;
 	}
 	if (pos_rot_fov == 1 || pos_rot_fov == 2)
 	{
@@ -84,9 +84,9 @@ void	light_params(char *str, t_main *main, int pos_dir_col)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
 		color = ft_atoi_base(tmp, "0123456789abcdef");
-		main->light[main->light_i].color.x = color >> 16 & 0xFF;
-		main->light[main->light_i].color.y = color >> 8 & 0xFF;
-		main->light[main->light_i].color.z = color & 0xFF;
+		main->light[main->light_i].color.x = (color >> 16 & 0xFF) / 255.;
+		main->light[main->light_i].color.y = (color >> 8 & 0xFF) / 255.;
+		main->light[main->light_i].color.z = (color & 0xFF) / 255.;
 	}
 	free(tmp);
 }

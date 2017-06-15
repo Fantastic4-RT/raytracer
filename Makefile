@@ -6,11 +6,11 @@
 #    By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/28 11:50:38 by aradiuk           #+#    #+#              #
-#    Updated: 2017/04/19 15:44:56 by aradiuk          ###   ########.fr        #
+#    Updated: 2017/06/15 13:47:40 by atrepyto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = RTv1
+NAME = rt
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -20,7 +20,7 @@ SRC_FILES = $(shell ls $(SRC_DIR))
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC =	-I includes/ \
-		-I ./libft/includes/
+		-I ./libft
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
@@ -35,7 +35,7 @@ $(NAME): $(OBJ) ./libft/libft.a
 ./libft/libft.a:
 	make -C libft
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c includes/rtv1.h
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c includes/rt.h
 	$(GCC) $(INC) -c $< -o $@
 
 clean:
