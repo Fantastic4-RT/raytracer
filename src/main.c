@@ -176,6 +176,11 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr("Wrong file.");
+		return (1);
+	}
 	read_file(fd, &main);
 //	scene_initialise(&main);
 #ifdef PRINT

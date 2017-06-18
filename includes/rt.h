@@ -25,7 +25,7 @@
 # include <time.h>
 
 
-# define THREADS 4
+# define THREADS 10
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
