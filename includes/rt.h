@@ -33,7 +33,7 @@
 # define AMBIENT 0.2
 # define DIFFUSE 0.5
 # define SPECULAR 0.2
-# define OBJECTS 3
+# define OBJECTS 1
 # define LIGHTS 1
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
@@ -164,7 +164,7 @@ typedef struct	s_flag
 {
 	int		cam;
 	int		obj;
-	int		light;
+	int		lgh;
 }				t_flag;
 
 typedef	struct	s_mlx
@@ -221,6 +221,7 @@ typedef	struct 		s_thread
 	int 	end;
 }					t_thread;
 
+void	error(int param);
 void	read_file(int fd, t_main *main);
 void	default_values(t_main *main);
 void	set_flag(char *str, t_main *main, int set_rem);
@@ -230,6 +231,7 @@ void	cam_params(char *str, t_main *main, int pos_rot_fov);
 void	light_params(char *str, t_main *main, int pos_dir_col);
 void	choose_object(char *str, t_main *main);
 void	*mal_object(t_main *main);
+void	free_arr_tmp(char **arr, char *tmp);
 
 /*
 ** 		PLANE
@@ -263,8 +265,7 @@ void	*default_cone(t_cone *cone);
 void	fill_cone_data(char *str, t_cone *cone);
 void	cone_params(char *str, t_cone *cone, int param);
 
-void	scene_initialise(t_main *main);
-void	mlx_initialise(t_main *main);
+void	mlx_initialise(t_main *main, double a);
 void	*render(void *data);
 
 int		cross_exit(void *a);
@@ -280,6 +281,7 @@ t_vec3	vec3_invert(t_vec3 vector);
 t_vec3	vec3_add(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vec3_sub(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vec3_mult(t_vec3 vec, double multiplier);
+t_vec3	vec3_fill_atoi(char **arr);
 double	vec3_dp(t_vec3 vec1, t_vec3 vec2);
 double	vec3_length(t_vec3 vec);
 
@@ -292,7 +294,7 @@ void	print_scene(t_main *main);
 /*
  * whitted algorithm
  */
-t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth);
+t_vec3	cast_ray(t_thread *th, t_main *main, t_ray ray, int depth);
 
 /*
  * intersections.c
@@ -303,13 +305,13 @@ int		intersect_cone(t_ray *r, void *con, double *t);
 int		intersect_cylind(t_ray *r, void *cyl, double *t);
 int		inter_ray_sphere(t_ray *r, void *s, double *t);
 
-int vec3_to_int(t_vec3 hitcolor);
+int		vec3_to_int(t_vec3 hitcolor);
 
-int trace(t_main *main, t_ray ray, double *t, ssize_t *curr, t_thread *th);
-t_vec3 cylinder_norm(void * data, t_vec3 hitpoint);
-t_vec3 cone_norm(void *data, t_vec3 hitpoint);
-t_vec3 plane_norm(void *data, t_vec3 hitpoint);
-t_vec3 sphere_norm(void *data, t_vec3 hitpoint);
+int		trace(t_main *main, t_ray ray, double *t, ssize_t *curr, t_thread *th);
+t_vec3	cylinder_norm(void * data, t_vec3 hitpoint);
+t_vec3	cone_norm(void *data, t_vec3 hitpoint);
+t_vec3	plane_norm(void *data, t_vec3 hitpoint);
+t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
 #endif

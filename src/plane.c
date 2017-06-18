@@ -11,20 +11,16 @@
 /* ************************************************************************** */
 
 #include "rt.h"
+
 void	*default_plane(t_plane *plane)
 {
-	plane->pos.x = 0;
-	plane->pos.y = 0;
-	plane->pos.z = 0;
-	plane->normal.x = 0;
-	plane->normal.x = 1;
-	plane->normal.x = 0;
-	plane->mat.color.x = 0;
-	plane->mat.color.y = 0;
-	plane->mat.color.z = 0;
+	plane->pos = vec3_create(0, 0, 0);
+	plane->normal = vec3_create(0, 0, 0);
+	plane->mat.color = vec3_create(0, 0, 0);
 	plane->mat.diff = 0.5;
 	plane->mat.spec = 100;
 	plane->mat.reflect = 0;
+	plane->mat.refract = 0;
 	return ((void *)plane);
 }
 
@@ -34,45 +30,27 @@ void	plane_params(char *str, t_plane *plane, int param)
 	char	**arr;
 	int		color;
 
-	if (param == 1)
-	{
-		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</position>"));
-		arr = ft_strsplit(tmp, ',');
-		plane->pos.x = ft_atoi(arr[0]);
-		plane->pos.y = ft_atoi(arr[1]);
-		plane->pos.z = ft_atoi(arr[2]);
-	}
-	else if (param == 2)
-	{
-		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</normal>"));
-		arr = ft_strsplit(tmp, ',');
-		plane->normal.x = ft_atoi(arr[0]);
-		plane->normal.y = ft_atoi(arr[1]);
-		plane->normal.z = ft_atoi(arr[2]);
-	}
-	else if (param == 3)
+	if (param == 3)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
 		color = ft_atoi_base(tmp, "0123456789abcdef");
-		plane->mat.color.x = color >> 16 & 0xFF;
-		plane->mat.color.y = color >> 8 & 0xFF;
-		plane->mat.color.z = color & 0xFF;
+		plane->mat.color = vec3_create((color >> 16 & 0xFF) / 255.,
+				(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
 	}
-	else if (param == 4)
-		plane->mat.diff = ft_atoi(str) / 100.;
-	else if (param == 5)
-		plane->mat.spec = ft_atoi(str);
-	else if (param == 6)
-		plane->mat.reflect = ft_atoi(str);
-	if (param == 1 || param == 2)
+	else if (param == 1 || param == 2)
 	{
-		free(arr[0]);
-		free(arr[1]);
-		free(arr[2]);
-		free(arr);
-		free(tmp);
+		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen(param == 1 ?
+														   "</position>" : "</normal>"));
+		arr = ft_strsplit(tmp, ' ');
+		plane->pos = param == 1 ? vec3_fill_atoi(arr) : plane->pos;
+		plane->normal = param == 2 ? vec3_fill_atoi(arr) : plane->normal;
+		free_arr_tmp(arr, tmp);
 	}
+	plane->mat.diff = param == 4 ? ft_atoi(str) / 100. : plane->mat.diff;
+	plane->mat.spec = param == 5 ? ft_atoi(str) : plane->mat.spec;
+	plane->mat.reflect = param == 6 ? ft_atoi(str) : plane->mat.reflect;
+	plane->mat.refract = param == 7 ? ft_atoi(str) : plane->mat.refract;
 }
 
 void	fill_plane_data(char *str, t_plane *plane)
@@ -89,15 +67,19 @@ void	fill_plane_data(char *str, t_plane *plane)
 		plane_params(str + ft_strlen("<specular>"), plane, 5);
 	else if (ft_strstr(str, "<reflection>"))
 		plane_params(str + ft_strlen("<reflection>"), plane, 6);
+	else if (ft_strstr(str, "<refraction>"))
+		plane_params(str + ft_strlen("<refraction>"), plane, 7);
 }
+
 //fill obj struct we need
 void	add_plane(char *str, t_main *main)
 {
-	t_plane *p;
+	t_plane *data;
+
 	fill_plane_data(str, (t_plane *)main->obj[main->obj_i].data);
 	main->obj[main->obj_i].intersect = &intersect_plane;
 	main->obj[main->obj_i].normal = &plane_norm;
-	p = (t_plane *)main->obj[main->obj_i].data;
-	main->obj[main->obj_i].mat = p->mat;
-	main->obj[main->obj_i].mattype = get_material_type(p->mat);
+	data = (t_plane *)main->obj[main->obj_i].data;
+	main->obj[main->obj_i].mat = data->mat;
+	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }
