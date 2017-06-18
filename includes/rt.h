@@ -13,7 +13,7 @@
 #ifndef RT_H
 # define RT_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 //# include "parser.h"
 # include <mlx.h>
 # include <math.h>
@@ -101,7 +101,7 @@ typedef	struct	s_cam
 	t_ray	ray;
 	t_vec3	rot;
 }				t_cam;
-//
+
 typedef	struct	s_light
 {
 	t_ray	ray;
