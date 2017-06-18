@@ -154,7 +154,10 @@ void	read_file(int fd, t_main *main)
 		else if (main->flag.cam == 1 || main->flag.light == 1 || main->flag.obj == 1)
 			set_flag(str, main, 2);
 		if (main->obj_i == main->scene.objs)
+		{
+			free(str);
 			return ;
+		}
 		if (main->flag.cam == 1)
 			cam_light_obj_line(str, main, 1);
 		else if (main->flag.light == 1)
@@ -173,6 +176,11 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr("Wrong file.");
+		return (1);
+	}
 	read_file(fd, &main);
 //	scene_initialise(&main);
 #ifdef PRINT

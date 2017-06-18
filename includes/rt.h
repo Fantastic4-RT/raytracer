@@ -13,7 +13,7 @@
 #ifndef RT_H
 # define RT_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 //# include "parser.h"
 # include <mlx.h>
 # include <math.h>
@@ -25,7 +25,7 @@
 # include <time.h>
 
 
-# define THREADS 2
+# define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -101,7 +101,7 @@ typedef	struct	s_cam
 	t_ray	ray;
 	t_vec3	rot;
 }				t_cam;
-//
+
 typedef	struct	s_light
 {
 	t_ray	ray;
@@ -207,8 +207,7 @@ typedef struct		s_main
 	double		t;
 	int			light_i;
 	int			obj_i;
-
-	ssize_t			curr;
+	ssize_t		curr;
 	//point where the current obj is hit
 }					t_main;
 
@@ -216,6 +215,8 @@ typedef struct		s_main
 typedef	struct 		s_thread
 {
 	t_main	main;
+	t_obj	*obj;
+	t_light *light;
 	int		start;
 	int 	end;
 }					t_thread;
@@ -291,7 +292,7 @@ void	print_scene(t_main *main);
 /*
  * whitted algorithm
  */
-t_vec3 cast_ray(t_main *main, t_ray ray, int depth);
+t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth);
 
 /*
  * intersections.c
@@ -304,7 +305,7 @@ int		inter_ray_sphere(t_ray *r, void *s, double *t);
 
 int vec3_to_int(t_vec3 hitcolor);
 
-int trace(t_main *main, t_ray ray, double *t, ssize_t *curr);
+int trace(t_main *main, t_ray ray, double *t, ssize_t *curr, t_thread *th);
 t_vec3 cylinder_norm(void * data, t_vec3 hitpoint);
 t_vec3 cone_norm(void *data, t_vec3 hitpoint);
 t_vec3 plane_norm(void *data, t_vec3 hitpoint);
