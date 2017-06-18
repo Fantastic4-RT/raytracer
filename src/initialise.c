@@ -15,7 +15,6 @@
 void	pthreading(t_main *main)
 {
 	pthread_t	threads[THREADS];
-	pthread_attr_t attr;
 	t_thread	data[THREADS];
 	int 		i;
 	int			j;
