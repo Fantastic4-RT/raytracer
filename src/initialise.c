@@ -22,7 +22,7 @@ void	pthreading(t_main *main)
 	int			line_per_th;
 
 	i = -1;
-	line_per_th = HEIGHT / THREADS + 1;
+	line_per_th = main->scene.hei / THREADS + 1;
 	while (++i < THREADS)
 	{
 		data[i].obj = (t_obj *)malloc(sizeof(t_obj) * main->scene.objs);
@@ -36,7 +36,7 @@ void	pthreading(t_main *main)
 		data[i].main = *main;
 		data[i].start = i * line_per_th;
 		data[i].end = (i + 1) * line_per_th;
-		data[i].end = data[i].end > HEIGHT ? HEIGHT : data[i].end;
+		data[i].end = data[i].end > main->scene.hei ? main->scene.hei : data[i].end;
 		pthread_create(&threads[i], NULL, render, &data[i]);
 	}
 	i = -1;
@@ -44,13 +44,36 @@ void	pthreading(t_main *main)
 		pthread_join(threads[i], NULL);
 }
 
+void outputfile(t_main *main)
+{
+
+	FILE *fp = fopen("out11.ppm", "wb");
+	(void) fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
+	int i = -1;
+
+	while (++i < main->scene.hei)
+	{
+		int j = -1;
+		while (++j < main->scene.wid)
+		{
+			char color[3];
+			color[0] = main->mlx.ipp[j * 4 + i * main->mlx.size_line];  /* red */
+			color[1] = main->mlx.ipp[(++j) * 4 + i * main->mlx.size_line];  /* green */
+			color[2] = main->mlx.ipp[(++j) * 4 + i * main->mlx.size_line];  /* blue */
+
+			(void) fwrite(color, 3, 3, fp);
+		}
+	}
+	fclose(fp);
+}
+
 
 void	mlx_initialise(t_main *main, double a)
 {
 	clock_t begin1 = clock();
 	main->mlx.mlx = mlx_init();
-	main->mlx.win = mlx_new_window(main->mlx.mlx, WIDTH, HEIGHT, "Scene");
-	main->mlx.img = mlx_new_image(main->mlx.mlx, WIDTH, HEIGHT);
+	main->mlx.win = mlx_new_window(main->mlx.mlx, main->scene.wid, main->scene.hei, "Scene");
+	main->mlx.img = mlx_new_image(main->mlx.mlx, main->scene.wid, main->scene.hei);
 	main->mlx.ipp = mlx_get_data_addr(main->mlx.img, &main->mlx.bpp,
 									  &main->mlx.size_line, &main->mlx.endian);
 	pthreading(main);

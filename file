@@ -1,4 +1,4 @@
-<scene width=1000 height=500 objects=1 lights=1>
+<scene width=1200 height=720 objects=1 lights=1>
     <camera>
         <position>0, 0, 150</position>
         <rotation>0, 0, 0</rotation>
@@ -18,7 +18,7 @@
         <radius2>0</radius2>
         <angle>15</angle>
         <axis>0, 1, 0</axis>
-        <color>50aa3c</color>
+        <color>ffffff</color>
         <diffuse>50</diffuse>
         <specular>100</specular>
         <reflection>0</reflection>

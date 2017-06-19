@@ -120,7 +120,6 @@ int		main(int argc, char **argv)
 {
 	int fd;
 	t_main	main;
-
 	if (argc != 2)
 		error(0);
 	fd = open(argv[1], O_RDONLY);
