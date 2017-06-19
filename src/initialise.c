@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <memory.h>
 #include "rt.h"
 
 void	pthreading(t_main *main)
@@ -43,6 +44,18 @@ void	pthreading(t_main *main)
 		pthread_join(threads[i], NULL);
 }
 
+void outputfile(t_main *main)
+{
+	FILE * fp;
+	const char *comment = "# this is my new binary ppm file";
+	fp = fopen("out.ppm", "wb");
+	fprintf(fp, "P5\n %s\n %d\n %d\n %d\n", comment, WIDTH , HEIGHT, 255 * 4);
+	fwrite(main->mlx.ipp, (size_t)(WIDTH * 4 * HEIGHT), 1, fp);
+	printf("%lu\n",  (size_t)(WIDTH * 4 * HEIGHT));
+	fclose(fp);
+}
+
+
 void	mlx_initialise(t_main *main)
 {
 	main->mlx.mlx = mlx_init();
@@ -51,6 +64,7 @@ void	mlx_initialise(t_main *main)
 	main->mlx.ipp = mlx_get_data_addr(main->mlx.img, &main->mlx.bpp,
 									  &main->mlx.size_line, &main->mlx.endian);
 	pthreading(main);
+	outputfile(main);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, main->mlx.img, 0, 0);
 	mlx_destroy_image(main->mlx.mlx, main->mlx.img);
 	mlx_hook(main->mlx.win, 2, 3, key_hook, main);
