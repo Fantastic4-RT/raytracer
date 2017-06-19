@@ -1,0 +1,100 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_help.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/18 16:03:15 by aradiuk           #+#    #+#             */
+/*   Updated: 2017/06/18 16:03:16 by aradiuk          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt.h"
+
+void	free_arr_tmp(char **arr, char *tmp)
+{
+	free(arr[0]);
+	free(arr[1]);
+	free(arr[2]);
+	free(arr);
+	free(tmp);
+}
+
+t_vec3	vec3_fill_atoi(char **arr)
+{
+	return (vec3_create(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2])));
+}
+
+void	scene_line(int fd, t_main *main)
+{
+	char	*tmp;
+	char	*str;
+
+	get_next_line(fd, &str);
+	tmp = ft_strstr(str, "width=");
+	main->scene.wid = tmp == 0 ? WIDTH :
+					ft_atoi(tmp + ft_strlen("width="));
+	tmp = ft_strstr(str, "height=");
+	main->scene.hei = tmp == 0 ? HEIGHT :
+					ft_atoi(tmp + ft_strlen("height="));
+	tmp = ft_strstr(str, "objects=");
+	main->scene.objs = tmp == 0 ? OBJECTS :
+					ft_atoi(tmp + ft_strlen("objects="));
+	tmp = ft_strstr(str, "lights=");
+	main->scene.lights = tmp == 0 ? LIGHTS :
+					ft_atoi(tmp + ft_strlen("lights="));
+	main->scene.objs == 0 ? error(4) : 0;
+	main->scene.lights == 0 ? error(5) : 0;
+	free(str);
+}
+
+void	set_flag(char *str, t_main *main, int set_rem)
+{
+	while (ft_isspace(*str) == 1)
+		str++;
+	if (set_rem == 1)
+	{
+		main->flag.cam = ft_strcmp(str, "<camera>") == 0 ? 1 : 0;
+		main->flag.lgh = ft_strcmp(str, "<light>") == 0 ? 1 : 0;
+		main->flag.obj = ft_strstr(str, "<object") != 0 ? 1 : 0;
+	}
+	else if (set_rem == 2)
+	{
+		main->flag.cam = ft_strcmp(str, "</camera>") == 0 ? 0 : main->flag.cam;
+		main->flag.lgh = ft_strcmp(str, "</light>") == 0 ? 0 : main->flag.lgh;
+		main->flag.obj = ft_strcmp(str, "</object>") == 0 ? 0 : main->flag.obj;
+		main->obj_i += ft_strcmp(str, "</object>") == 0 ? 1 : 0;
+		main->light_i += ft_strcmp(str, "</light>") == 0 ? 1 : 0;
+	}
+	main->obj_i > main->scene.objs ? error(6) : 0;
+	main->light_i > main->scene.lights ? error(7) : 0;
+}
+
+void	read_file(int fd, t_main *main)
+{
+	char	*str;
+
+	scene_line(fd, main);
+	default_values(main);
+	while (get_next_line(fd, &str))
+	{
+		if (ft_strcmp(str, "</scene") == 0)
+			break ;
+		if (main->flag.cam == 0 && main->flag.lgh == 0 && main->flag.obj == 0)
+			set_flag(str, main, 1);
+		else if (main->flag.cam == 1 || main->flag.lgh == 1 ||
+				main->flag.obj == 1)
+			set_flag(str, main, 2);
+		if (main->flag.cam == 1)
+			cam_light_obj_line(str, main, 1);
+		else if (main->flag.lgh == 1)
+			cam_light_obj_line(str, main, 2);
+		else if (main->flag.obj == 1)
+			cam_light_obj_line(str, main, 3);
+		free(str);
+	}
+	main->obj_i == main->scene.objs ? 0 : error(2);
+	main->light_i == main->scene.lights ? 0 : error(3);
+	// PROBLEM WITH WRONG NUMBER OF LIGHT SOURCES
+}

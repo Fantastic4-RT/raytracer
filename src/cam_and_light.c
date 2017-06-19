@@ -14,39 +14,25 @@
 
 void	cam_params(char *str, t_main *main, int pos_rot_fov)
 {
-	char 	*tmp;
+	char	*tmp;
 	char	**arr;
 
-	tmp = 0;
 	if (pos_rot_fov == 1)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</position>"));
-		arr = ft_strsplit(tmp, ',');
-		main->cam.ray.pos.x = ft_atoi(arr[0]);
-		main->cam.ray.pos.y = ft_atoi(arr[1]);
-		main->cam.ray.pos.z = ft_atoi(arr[2]);
+		arr = ft_strsplit(tmp, ' ');
+		main->cam.ray.pos = vec3_fill_atoi(arr);
+		free_arr_tmp(arr, tmp);
 	}
 	else if (pos_rot_fov == 2)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</rotation>"));
-		arr = ft_strsplit(tmp, ',');
-		main->cam.rot.x = ft_atoi(arr[0]);
-		main->cam.rot.y = ft_atoi(arr[1]);
-		main->cam.rot.z = ft_atoi(arr[2]);
+		arr = ft_strsplit(tmp, ' ');
+		main->cam.rot = vec3_fill_atoi(arr);
+		free_arr_tmp(arr, tmp);
 	}
 	else if (pos_rot_fov == 3)
-	{
-		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</fov>"));
-		main->cam.fov = ft_atoi(tmp) * RAD;
-	}
-	if (pos_rot_fov == 1 || pos_rot_fov == 2)
-	{
-		free(arr[0]);
-		free(arr[1]);
-		free(arr[2]);
-		free(arr);
-	}
-	free(tmp);
+		main->cam.fov = ft_atoi(str) * RAD;
 }
 
 void	light_params(char *str, t_main *main, int pos_dir_col)
@@ -55,40 +41,25 @@ void	light_params(char *str, t_main *main, int pos_dir_col)
 	char	**arr;
 	int		color;
 
-	tmp = 0;
-	if (pos_dir_col == 1)
-	{
-		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</position>"));
-		arr = ft_strsplit(tmp, ',');
-		main->light[main->light_i].ray.pos.x = ft_atoi(arr[0]);
-		main->light[main->light_i].ray.pos.y = ft_atoi(arr[1]);
-		main->light[main->light_i].ray.pos.z = ft_atoi(arr[2]);
-		free(arr[0]);
-		free(arr[1]);
-		free(arr[2]);
-		free(arr);
-	}
-	else if (pos_dir_col == 2)
-	{
-		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</direction>"));
-		arr = ft_strsplit(tmp, ',');
-		main->light[main->light_i].ray.dir.x = ft_atoi(arr[0]);
-		main->light[main->light_i].ray.dir.y = ft_atoi(arr[1]);
-		main->light[main->light_i].ray.dir.z = ft_atoi(arr[2]);
-		free(arr[0]);
-		free(arr[1]);
-		free(arr[2]);
-		free(arr);
-	}
-	else if (pos_dir_col == 3)
+	if (pos_dir_col == 3)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
 		color = ft_atoi_base(tmp, "0123456789abcdef");
-		main->light[main->light_i].color.x = (color >> 16 & 0xFF) / 255.;
-		main->light[main->light_i].color.y = (color >> 8 & 0xFF) / 255.;
-		main->light[main->light_i].color.z = (color & 0xFF) / 255.;
+		main->light[main->light_i].color = vec3_create((color >> 16 & 0xFF) /
+						255, (color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
+		free(tmp);
 	}
-	free(tmp);
+	else
+	{
+		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen(pos_dir_col == 1 ?
+											"</position>" : "</direction>"));
+		arr = ft_strsplit(tmp, ' ');
+		if (pos_dir_col == 1)
+			main->light[main->light_i].ray.pos = vec3_fill_atoi(arr);
+		else
+			main->light[main->light_i].ray.dir = vec3_fill_atoi(arr);
+		free_arr_tmp(arr, tmp);
+	}
 }
 
 void	choose_object(char *str, t_main *main)
@@ -113,12 +84,13 @@ void	*mal_object(t_main *main)
 		return (default_cylinder((t_cyl *)malloc(sizeof(t_cyl))));
 	if (ft_strcmp(main->obj[main->obj_i].type, "cone") == 0)
 		return (default_cone((t_cone *)malloc(sizeof(t_cone))));
-	return (NULL);
+	error(9);
+	return (0);
 }
 
 void	cam_light_obj_line(char *str, t_main *main, int cam_light_obj)
 {
-	char	*tmp;
+	char	*t;
 
 	while (ft_isspace(*str) == 1)
 		str++;
@@ -136,8 +108,10 @@ void	cam_light_obj_line(char *str, t_main *main, int cam_light_obj)
 		light_params(str + ft_strlen("<color>"), main, 3);
 	if (cam_light_obj == 3 && ft_strstr(str, "<object"))
 	{
-		tmp = ft_strstr(str, "type=") + 6;
-		main->obj[main->obj_i].type = ft_strsub(tmp, 0, ft_strchr(tmp, '\"') - tmp);
+		t = ft_strstr(str, "type=") + 6;
+		(int)t == 6 ? error(8) : 0;
+		ft_strchr(t, '\"') == 0 ? error(9) : 0;
+		main->obj[main->obj_i].type = ft_strsub(t, 0, ft_strchr(t, '\"') - t);
 		main->obj[main->obj_i].data = mal_object(main);
 	}
 	else if (cam_light_obj == 3)

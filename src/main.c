@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "rt.h"
-//#include "../includes/parser.h"
-//#define PRINT
+/*
+ //#define PRINT
 #ifdef PRINT
 void	print_scene(t_main *main)
 {
@@ -83,41 +83,22 @@ void	print_scene(t_main *main)
 	}
 }
 #endif
-void	scene_line(int fd, t_main *main)
-{
-	char 	*tmp;
-	char	*str;
+*/
+#include <time.h>
 
-	get_next_line(fd, &str);
-	tmp = ft_strstr(str, "width=");
-	main->scene.wid = tmp == 0 ? WIDTH : ft_atoi(tmp + ft_strlen("width="));
-	tmp = ft_strstr(str, "height=");
-	main->scene.hei = tmp == 0 ? HEIGHT : ft_atoi(tmp + ft_strlen("height="));
-	tmp = ft_strstr(str, "objects=");
-	main->scene.objs = tmp == 0 ? OBJECTS : ft_atoi(tmp + ft_strlen("objects="));
-	tmp = ft_strstr(str, "lights=");
-	main->scene.lights = tmp == 0 ? LIGHTS : ft_atoi(tmp + ft_strlen("lights="));
-	free(str);
-}
-
-void	set_flag(char *str, t_main *main, int set_rem)
+void	error(int param)
 {
-	while (ft_isspace(*str) == 1)
-		str++;
-	if (set_rem == 1)
-	{
-		main->flag.cam = ft_strcmp(str, "<camera>") == 0 ? 1 : 0;
-		main->flag.light = ft_strcmp(str, "<light>") == 0 ? 1 : 0;
-		main->flag.obj = ft_strstr(str, "<object") != 0 ? 1 : 0;
-	}
-	else if (set_rem == 2)
-	{
-		main->flag.cam = ft_strcmp(str, "</camera>") == 0 ? 0 : main->flag.cam;
-		main->flag.light = ft_strcmp(str, "</light>") == 0 ? 0 : main->flag.light;
-		main->flag.obj = ft_strcmp(str, "</object>") == 0 ? 0 : main->flag.obj;
-		main->obj_i += ft_strcmp(str, "</object>") == 0 ? 1 : 0;
-		main->light_i += ft_strcmp(str, "</light>") == 0 ? 1 : 0;
-	}
+	param == 0 ? ft_putstr("Wrong number of arguments.\n") : 0;
+	param == 1 ? ft_putstr("Wront file.\n") : 0;
+	param == 2 ? ft_putstr("Wrong number of objects.\n") : 0;
+	param == 3 ? ft_putstr("Wrong number of lights.\n") : 0;
+	param == 4 ? ft_putstr("Scene has no objects.\n") : 0;
+	param == 5 ? ft_putstr("Scene has no lights.\n") : 0;
+	param == 6 ? ft_putstr("More objects than declared.\n") : 0;
+	param == 7 ? ft_putstr("More lights than declared.\n") : 0;
+	param == 8 ? ft_putstr("Wrong object tag.\n") : 0;
+	param == 9 ? ft_putstr("Wrong object type.\n") : 0;
+	exit(0);
 }
 
 void	default_values(t_main *main)
@@ -127,77 +108,32 @@ void	default_values(t_main *main)
 	main->obj_i = 0;
 	main->light_i = 0;
 	main->flag.cam = 0;
-	main->flag.light = 0;
+	main->flag.lgh = 0;
 	main->flag.obj = 0;
-	main->cam.ray.pos.x = 0;
-	main->cam.ray.pos.y = 0;
-	main->cam.ray.pos.z = 0;
-	main->cam.rot.x = 0;
-	main->cam.rot.y = 0;
-	main->cam.rot.z = 0;
+	main->cam.ray.pos = vec3_create(0, 0, 50);
+	main->cam.rot = vec3_create(0, 0, 0);
 	main->cam.fov = 45;
 }
 
-void	read_file(int fd, t_main *main)
-{
-	char	*str;
 
-	scene_line(fd, main);
-	default_values(main);
-	while (get_next_line(fd, &str))
-	{
-		//line_validation
-		if (ft_strcmp(str, "</scene") == 0)
-			break ;
-		if (main->flag.cam == 0 && main->flag.light == 0 && main->flag.obj == 0)
-			set_flag(str, main, 1);
-		else if (main->flag.cam == 1 || main->flag.light == 1 || main->flag.obj == 1)
-			set_flag(str, main, 2);
-		if (main->obj_i == main->scene.objs)
-		{
-			free(str);
-			return ;
-		}
-		if (main->flag.cam == 1)
-			cam_light_obj_line(str, main, 1);
-		else if (main->flag.light == 1)
-			cam_light_obj_line(str, main, 2);
-		else if (main->flag.obj == 1)
-			cam_light_obj_line(str, main, 3);
-		free(str);
-	}
-}
-
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	int fd;
 	t_main	main;
 
 	if (argc != 2)
-		return (1);
+		error(0);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-	{
-		ft_putstr("Wrong file.");
-		return (1);
-	}
+		error(1);
+	clock_t begin = clock();
 	read_file(fd, &main);
-//	scene_initialise(&main);
+	clock_t end = clock();
+	double a = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("reading: %f\n", a);
 #ifdef PRINT
 	print_scene(&main);
 #endif
-	mlx_initialise(&main);
+	mlx_initialise(&main, a);
 	return (0);
 }
-
-
-//int 	main(int argc, char **argv)
-//{
-//	t_main	main;
-//
-//	if (argc != 1)
-//		return (1);
-//	//read_input(&main);
-//	scene_initialise(&main);
-//	mlx_initialise(&main);
-//}
