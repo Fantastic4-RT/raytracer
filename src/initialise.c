@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <memory.h>
 #include "rt.h"
 
 void	pthreading(t_main *main)
@@ -46,45 +45,43 @@ void	pthreading(t_main *main)
 
 void outputfile(t_main *main)
 {
+	FILE *fp;
+	int i;
+	int j;
+	int	index;
+	static unsigned char color[3];
 
-	FILE *fp = fopen("out11.ppm", "wb");
-	(void) fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
-	int i = -1;
-
+	fp  = fopen("out4.ppm", "wb");
+	fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
+	i = -1;
 	while (++i < main->scene.hei)
 	{
-		int j = -1;
+		j = -1;
 		while (++j < main->scene.wid)
 		{
-			char color[3];
-			color[0] = main->mlx.ipp[j * 4 + i * main->mlx.size_line];  /* red */
-			color[1] = main->mlx.ipp[(++j) * 4 + i * main->mlx.size_line];  /* green */
-			color[2] = main->mlx.ipp[(++j) * 4 + i * main->mlx.size_line];  /* blue */
-
-			(void) fwrite(color, 3, 3, fp);
+			index = j * main->mlx.bpp / 8 + i * main->mlx.size_line;
+			color[2] = main->mlx.ipp[index];
+			color[1] = main->mlx.ipp[index + 1];
+			color[0] = main->mlx.ipp[index + 2];
+			printf("%d %d %d\n", color[0], color[1],color[2]);
+			fwrite(color, 1, 3, fp);
 		}
 	}
 	fclose(fp);
 }
 
-
-void	mlx_initialise(t_main *main, double a)
+void	mlx_initialise(t_main *main)
 {
-	clock_t begin1 = clock();
 	main->mlx.mlx = mlx_init();
 	main->mlx.win = mlx_new_window(main->mlx.mlx, main->scene.wid, main->scene.hei, "Scene");
 	main->mlx.img = mlx_new_image(main->mlx.mlx, main->scene.wid, main->scene.hei);
 	main->mlx.ipp = mlx_get_data_addr(main->mlx.img, &main->mlx.bpp,
 									  &main->mlx.size_line, &main->mlx.endian);
 	pthreading(main);
-	outputfile(main);
+//	outputfile(main);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, main->mlx.img, 0, 0);
 	mlx_destroy_image(main->mlx.mlx, main->mlx.img);
 	mlx_hook(main->mlx.win, 2, 3, key_hook, main);
 	mlx_hook(main->mlx.win, 17, 1L << 17, cross_exit, main);
-	clock_t end1 = clock();
-	double b = (double)(end1 - begin1) / CLOCKS_PER_SEC;
-	printf("rendering: %f\n", b);
-	printf("read vs render: %f\n", a / b * 100);
 	mlx_loop(main->mlx.mlx);
 }

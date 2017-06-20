@@ -84,7 +84,6 @@ void	print_scene(t_main *main)
 }
 #endif
 */
-#include <time.h>
 
 void	error(int param)
 {
@@ -127,12 +126,10 @@ int		main(int argc, char **argv)
 		error(1);
 	clock_t begin = clock();
 	read_file(fd, &main);
-	clock_t end = clock();
-	double a = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("reading: %f\n", a);
+	printf("plane1: %d, plane2: %d, sphere: %d\n", main.obj[0].mattype, main.obj[1].mattype, main.obj[2].mattype);
 #ifdef PRINT
 	print_scene(&main);
 #endif
-	mlx_initialise(&main, a);
+	mlx_initialise(&main);
 	return (0);
 }

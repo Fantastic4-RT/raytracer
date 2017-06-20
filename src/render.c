@@ -17,6 +17,7 @@ void	*render(void *data)
 	int 		x;
 	int 		y;
 	double		dist;
+	t_vec3		col;
 
 	th = (t_thread *)data;
 	dist = 1. / (2 * tan(FOV / 2.));
@@ -30,7 +31,8 @@ void	*render(void *data)
 			p.y = (1 - 2 * (y + 0.5) / HEIGHT) * tan(FOV / 2);
 			p.z = th->main.cam.ray.pos.z - dist;
 			th->main.cam.ray.dir = vec3_norm(vec3_sub(p, th->main.cam.ray.pos));
-			ipp_fill(&th->main, x, y, vec3_to_int(cast_ray(th, &th->main, th->main.cam.ray, 0)));
+			col = cast_ray(th, &th->main, th->main.cam.ray, 0);
+			ipp_fill(&th->main, x, y, vec3_to_int(col));
 		}
 	}
 	free(((t_thread *)data)->light);

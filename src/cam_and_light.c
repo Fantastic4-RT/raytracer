@@ -22,6 +22,8 @@ void	cam_params(char *str, t_main *main, int pos_rot_fov)
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</position>"));
 		arr = ft_strsplit(tmp, ' ');
 		main->cam.ray.pos = vec3_fill_atoi(arr);
+		main->cam.ray.pos.x /= main->scene.wid;
+		main->cam.ray.pos.y /= main->scene.hei;
 		free_arr_tmp(arr, tmp);
 	}
 	else if (pos_rot_fov == 2)

@@ -169,13 +169,13 @@ typedef struct	s_flag
 
 typedef	struct	s_mlx
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*ipp;
-	int		bpp;
-	int		size_line;
-	int		endian;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*ipp;
+	int				bpp;
+	int				size_line;
+	int				endian;
 }				t_mlx;
 
 
@@ -265,7 +265,7 @@ void	*default_cone(t_cone *cone);
 void	fill_cone_data(char *str, t_cone *cone);
 void	cone_params(char *str, t_cone *cone, int param);
 
-void	mlx_initialise(t_main *main, double a);
+void	mlx_initialise(t_main *main);
 void	*render(void *data);
 
 int		cross_exit(void *a);
@@ -284,6 +284,7 @@ t_vec3	vec3_mult(t_vec3 vec, double multiplier);
 t_vec3	vec3_fill_atoi(char **arr);
 double	vec3_dp(t_vec3 vec1, t_vec3 vec2);
 double	vec3_length(t_vec3 vec);
+t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
 
 
 /*
