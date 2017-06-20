@@ -47,10 +47,9 @@ void	pthreading(t_main *main)
 void outputfile(t_main *main)
 {
 
-	FILE *fp = fopen("out11.ppm", "wb");
-	(void) fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
+	FILE *fp = fopen("out.ppm", "wb");
+	fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
 	int i = -1;
-
 	while (++i < main->scene.hei)
 	{
 		int j = -1;
@@ -60,8 +59,7 @@ void outputfile(t_main *main)
 			color[0] = main->mlx.ipp[j * 4 + i * main->mlx.size_line];  /* red */
 			color[1] = main->mlx.ipp[(++j) * 4 + i * main->mlx.size_line];  /* green */
 			color[2] = main->mlx.ipp[(++j) * 4 + i * main->mlx.size_line];  /* blue */
-
-			(void) fwrite(color, 3, 3, fp);
+			fwrite(color, 3, 3, fp);
 		}
 	}
 	fclose(fp);

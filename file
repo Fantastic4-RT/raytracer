@@ -18,7 +18,7 @@
         <radius2>0</radius2>
         <angle>15</angle>
         <axis>0, 1, 0</axis>
-        <color>ffffff</color>
+        <color>ff0000</color>
         <diffuse>50</diffuse>
         <specular>100</specular>
         <reflection>0</reflection>

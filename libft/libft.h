@@ -94,4 +94,5 @@ int					ft_isspace(int c);
 char				*ft_strndup(const char *s1, size_t n);
 int					get_next_line(const int fd, char **line);
 int					ft_atoi_base(char *str, char *base);
+double				ft_atof(const char *str);
 #endif
