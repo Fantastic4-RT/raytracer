@@ -167,6 +167,26 @@ typedef struct	s_flag
 	int		lgh;
 }				t_flag;
 
+typedef struct s_menu
+{
+	void	*menu_win;
+	void	*main_menu;
+	char	*data1;
+	int		bpp1;
+	int		size_line1;
+	int		endian1;
+//	void	*text_menu;
+//	char	*data2;
+//	int		bpp2;
+//	int		size_line2;
+//	int		endian2;
+//	void	*color_menu;
+//	char	*data3;
+//	int		bpp3;
+//	int		size_line3;
+//	int		endian3;
+}				t_menu;
+
 typedef	struct	s_mlx
 {
 	void			*mlx;
@@ -176,6 +196,7 @@ typedef	struct	s_mlx
 	int				bpp;
 	int				size_line;
 	int				endian;
+	t_menu			menu;
 }				t_mlx;
 
 
@@ -191,6 +212,14 @@ typedef	struct 		s_obj
 	t_vec3	(*normal)(void *data, t_vec3 hitpoint); //function to count normal
 }					t_obj;
 
+typedef struct	s_pmode
+{
+	int obj_mode;
+	int cam_mode;
+	int off;
+	int obj_index;
+}				t_pmode;
+
 typedef struct		s_main
 {
 	t_obj		*obj;
@@ -199,6 +228,7 @@ typedef struct		s_main
 	t_light		*light;
 	t_flag		flag;
 	t_scene		scene;
+	t_pmode		mode;
 //	t_sample	sample;
 //	int 		num_lights;
 	int			light_i;
@@ -311,4 +341,12 @@ t_vec3	plane_norm(void *data, t_vec3 hitpoint);
 t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
+
+
+void outputfile(t_main *main);
+/*
+ * envinronment.c
+ */
+
+void init_images(t_main *main);
 #endif
