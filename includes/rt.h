@@ -25,7 +25,7 @@
 # include <time.h>
 
 
-# define THREADS 4
+# define THREADS 1
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -80,12 +80,6 @@ typedef struct	s_scene
 	int		objs;
 	int 	lights;
 }				t_scene;
-
-typedef	struct 	s_sample
-{
-	int x;
-	int	y;
-}				t_sample;
 
 typedef	struct 	s_inter
 {
@@ -185,7 +179,7 @@ typedef	struct 		s_obj
 	void	*data;
 	t_material	mat;
 	t_mattype mattype; //added here so that we do not need cast object
-	int		(*intersect)(t_ray *r, void *data, double *t);
+	int		(*intersect)(t_ray r, void *data, double *t);
 	t_vec3	n;
 	t_vec3	hitpoint;
 	t_vec3	(*normal)(void *data, t_vec3 hitpoint); //function to count normal
@@ -199,11 +193,10 @@ typedef struct		s_main
 	t_light		*light;
 	t_flag		flag;
 	t_scene		scene;
-//	t_sample	sample;
-//	int 		num_lights;
 	int			light_i;
 	int			obj_i;
 	ssize_t		curr;
+	t_vec3		diff_col;
 	//point where the current obj is hit
 }					t_main;
 
@@ -297,18 +290,20 @@ t_vec3	cast_ray(t_thread *th, t_main *main, t_ray ray, int depth);
  * intersections.c
  */
 int		solve_quadric(double discr, double *t, double b, double a);
-int		intersect_plane(t_ray *r, void *p, double *t);
-int		intersect_cone(t_ray *r, void *con, double *t);
-int		intersect_cylind(t_ray *r, void *cyl, double *t);
-int		inter_ray_sphere(t_ray *r, void *s, double *t);
+int		intersect_plane(t_ray r, void *p, double *t);
+int		intersect_cone(t_ray r, void *con, double *t);
+int		intersect_cylind(t_ray r, void *cyl, double *t);
+int		inter_ray_sphere(t_ray r, void *s, double *t);
 
 int		vec3_to_int(t_vec3 hitcolor);
 
-int		trace(t_main *main, t_ray ray, double *t, ssize_t *curr, t_thread *th);
+int		trace(t_ray ray, double *t, ssize_t *curr, t_thread *th);
 t_vec3	cylinder_norm(void * data, t_vec3 hitpoint);
 t_vec3	cone_norm(void *data, t_vec3 hitpoint);
 t_vec3	plane_norm(void *data, t_vec3 hitpoint);
 t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
+
+t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
 #endif
