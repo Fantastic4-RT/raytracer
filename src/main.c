@@ -117,16 +117,15 @@ void	default_values(t_main *main)
 
 int		main(int argc, char **argv)
 {
-	int fd;
+	int 	fd;
 	t_main	main;
+
 	if (argc != 2)
 		error(0);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error(1);
-	clock_t begin = clock();
 	read_file(fd, &main);
-	printf("plane1: %d, plane2: %d, sphere: %d\n", main.obj[0].mattype, main.obj[1].mattype, main.obj[2].mattype);
 #ifdef PRINT
 	print_scene(&main);
 #endif

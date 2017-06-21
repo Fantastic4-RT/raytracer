@@ -185,12 +185,9 @@ typedef	struct 		s_obj
 	void	*data;
 	t_material	mat;
 	t_mattype mattype; //added here so that we do not need cast object
-
 	int		(*intersect)(t_ray *r, void *data, double *t);
-
 	t_vec3	n;
 	t_vec3	hitpoint;
-
 	t_vec3	(*normal)(void *data, t_vec3 hitpoint); //function to count normal
 }					t_obj;
 
@@ -204,7 +201,6 @@ typedef struct		s_main
 	t_scene		scene;
 //	t_sample	sample;
 //	int 		num_lights;
-	double		t;
 	int			light_i;
 	int			obj_i;
 	ssize_t		curr;

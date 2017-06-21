@@ -9,23 +9,18 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
-    <object type="cone">
-        <position1>0, 0, -15</position1>
-        <position2>-0, 0, -0</position2>
-        <cut>0</cut>
-        <radius1>0</radius1>
-        <radius2>0</radius2>
-        <angle>15</angle>
-        <axis>0, 1, 0</axis>
-        <color>ff0000</color>
+    <object type="plane">
+        <position>0, -20, 0</position>
+        <normal>0, 1, 0</position>
+        <color>f0f1f3</color>
         <diffuse>50</diffuse>
-        <specular>100</specular>
+        <specular>500</specular>
         <reflection>1</reflection>
         <refraction>0</refraction>
     </object>
     <object type="cylinder">
-        <position1>0, 10, -50</position1>
-        <axis>0, 0, 1</axis>
+        <position1>0, 15, -10</position1>
+        <axis>1, 0, 0</axis>
         <cut>0</cut>
         <radius>1</radius>
         <color>f85f1f</color>
@@ -35,8 +30,8 @@
         <refraction>0</refraction>
     </object>
     <object type="cylinder">
-        <position1>10, 10, -50</position1>
-        <axis>0, 0, 1</axis>
+        <position1>0, 10, -5</position1>
+        <axis>1, 0, 0</axis>
         <cut>0</cut>
         <radius>1</radius>
         <color>f85f1f</color>
@@ -46,8 +41,8 @@
         <refraction>0</refraction>
     </object>
     <object type="cylinder">
-        <position1>-10, 10, -50</position1>
-        <axis>0, 0, 1</axis>
+        <position1>0, 5, 0</position1>
+        <axis>1, 0, 0</axis>
         <cut>0</cut>
         <radius>1</radius>
         <color>f85f1f</color>

@@ -128,11 +128,11 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th)
 	t_vec3 lightamt = vec3_create(0, 0, 0);
 	t_vec3 specularcol = vec3_create(0, 0, 0);
 	double	tmp;
+	int i;
 
 	lightray.pos = (vec3_dp(ray->dir, th->obj[main->curr].n) < 0) ?
-						  vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001)) :
-						  vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
-	int i;
+					vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.00001)) :
+					vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.00001));
 	i = -1;
 	ssize_t curr;
 	while (++i < main->scene.lights)

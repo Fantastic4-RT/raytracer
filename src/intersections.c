@@ -61,7 +61,7 @@ int		intersect_plane(t_ray *r, void *p, double *t)
 	double		t0;
 	double		dp;
 	t_vec3	tmp;
-	t_plane *plane = (t_plane*)p;
+	t_plane *plane = (t_plane *)p;
 
 	r->dir = vec3_norm(r->dir);
 	plane->normal = vec3_norm(plane->normal);
@@ -140,8 +140,8 @@ int		inter_ray_sphere(t_ray *r, void *s, double *t)
 	t_sphere *sphere = (t_sphere *) s;
 
 	r->dir = vec3_norm(r->dir);
-	solve.a = vec3_dp(r->dir, r->dir);
 	dist = vec3_sub(r->pos, sphere->pos);
+	solve.a = vec3_dp(r->dir, r->dir);
 	solve.b = 2 * vec3_dp(r->dir, dist);
 	solve.c = vec3_dp(dist, dist) - (sphere->rad * sphere->rad);
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
