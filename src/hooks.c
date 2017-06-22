@@ -36,7 +36,6 @@ void 	change_mode(int keycode, t_main *main)
 		main->mode.cam_mode = 0;
 		main->mode.off = 1;
 	}
-//	printf("obj mode %d\n", main->mode.obj_mode);
 }
 
 int 	key_hook(int keycode, t_main *main)
@@ -46,21 +45,11 @@ int 	key_hook(int keycode, t_main *main)
 	else if (keycode == 113)
 		outputfile(main);
 	change_mode(keycode, main);
-	if (main->mode.obj_mode == 1)
-	{
-		//put img indicating the mode in menu
-		if (keycode == 123 && main->mode.obj_index > 0)
-			main->mode.obj_index--;
-		else if (keycode == 124 && main->mode.obj_index < main->obj_i - 1)
-			main->mode.obj_index++;
-		mlx_clear_window(main->mlx.mlx, main->mlx.menu.menu_win);
-		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
-								main->mlx.menu.main_menu, 0, 0);
-		mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 100,  300,
-					   0xff0000, main->obj[main->mode.obj_index].type);
-		mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 200,  300,
-					   0xff0000, ft_itoa(main->mode.obj_index));
-
-	}
+	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+							main->mlx.menu.main_menu, 0, 0);
+	if (main->mode.obj_mode == 1 && main->mode.off == 0)
+		switch_obj_mode(keycode, main); // O
+	else if (main->mode.cam_mode == 1 && main->mode.off == 0)
+		switch_cam_mode(keycode, main); // C
 	return (0);
 }

@@ -110,9 +110,9 @@ t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int 
 
 t_vec3 reflection(t_vec3 hitcolor, t_ray ray, t_main *main, int depth, t_thread *th)
 {
-//	double amount;
-//	frensel(ray->dir, th->obj[main->curr].n,
-//			th->obj[main->curr].mat.refract, &amount);
+	double amount;
+	frensel(ray.dir, th->obj[main->curr].n,
+			th->obj[main->curr].mat.refract, &amount);
 	t_ray reflectray;
 
 	frensel(ray.dir, th->obj[main->curr].n, th->obj[main->curr].mat.refract, &amount);

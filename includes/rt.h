@@ -209,9 +209,21 @@ typedef	struct 		s_obj
 typedef struct	s_pmode
 {
 	int obj_mode;
-	int cam_mode;
-	int off;
+	int move_mode;
 	int obj_index;
+	int rot_obj_mode; //(to implement)
+	int text_mode; // to implement
+	int text_index;
+	int color_mode;
+	char channel;
+
+	int cam_mode;
+	int dir_mode;
+	int rot_cam_mode;
+	int cam_pos_mode;
+
+	int off;
+
 }				t_pmode;
 
 typedef struct		s_main
@@ -339,10 +351,15 @@ t_mattype get_material_type(t_material mat);
 
 
 void outputfile(t_main *main);
+void 	image(t_main *main);
 /*
  * envinronment.c
  */
-
+void	pthreading(t_main *main);
+void move_objects(int keycode, t_main *main);
+void change_color(int keycode, t_main *main);
 void init_images(t_main *main);
 t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
+void switch_obj_mode(int keycode, t_main *main);
+void switch_cam_mode(int keycode, t_main *main);
 #endif

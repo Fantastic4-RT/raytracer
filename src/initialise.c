@@ -69,12 +69,8 @@ void outputfile(t_main *main)
 	fclose(fp);
 }
 
-void	mlx_initialise(t_main *main)
+void 	image(t_main *main)
 {
-	main->mlx.mlx = mlx_init();
-	main->mlx.win = mlx_new_window(main->mlx.mlx, main->scene.wid, main->scene.hei, "Scene");
-	main->mlx.menu.menu_win = mlx_new_window(main->mlx.mlx, 400, 400, "Menu"); //menu
-	init_images(main); //menu
 	main->mlx.img = mlx_new_image(main->mlx.mlx, main->scene.wid, main->scene.hei);
 	main->mlx.ipp = mlx_get_data_addr(main->mlx.img, &main->mlx.bpp,
 									  &main->mlx.size_line, &main->mlx.endian);
@@ -82,9 +78,17 @@ void	mlx_initialise(t_main *main)
 //	outputfile(main);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, main->mlx.img, 0, 0);
 	mlx_destroy_image(main->mlx.mlx, main->mlx.img);
+}
+
+void	mlx_initialise(t_main *main)
+{
+	main->mlx.mlx = mlx_init();
+	main->mlx.win = mlx_new_window(main->mlx.mlx, main->scene.wid, main->scene.hei, "Scene");
+	main->mlx.menu.menu_win = mlx_new_window(main->mlx.mlx, 400, 400, "Menu"); //menu
+	init_images(main); //menu
+	image(main);
 	mlx_hook(main->mlx.win, 2, 3, key_hook, main);
 	mlx_hook(main->mlx.win, 17, 1L << 17, cross_exit, main);
-
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
 							main->mlx.menu.main_menu, 0, 0); //menu
 	mlx_hook(main->mlx.menu.menu_win, 2, 3, key_hook, main); //menu
