@@ -48,8 +48,8 @@ void	sphere_params(char *str, t_sphere *sphere, int param)
 	sphere->rad = param == 2 ? ft_atoi(str) : sphere->rad;
 	sphere->mat.diff = param == 4 ? ft_atoi(str) / 100. : sphere->mat.diff;
 	sphere->mat.spec = param == 5 ? ft_atoi(str) : sphere->mat.spec;
-	sphere->mat.reflect = param == 6 ? ft_atoi(str) : sphere->mat.reflect;
-	sphere->mat.refract = param == 7 ? ft_atoi(str) : sphere->mat.refract;
+	sphere->mat.reflect = param == 6 ? ft_atoi(str) / 100. : sphere->mat.reflect;
+	sphere->mat.refract = param == 7 ? ft_atoi(str) / 100.: sphere->mat.refract;
 }
 
 void	fill_sphere_data(char *str, t_sphere *sphere)
