@@ -75,7 +75,6 @@ void 	image(t_main *main)
 	main->mlx.ipp = mlx_get_data_addr(main->mlx.img, &main->mlx.bpp,
 									  &main->mlx.size_line, &main->mlx.endian);
 	pthreading(main);
-//	outputfile(main);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, main->mlx.img, 0, 0);
 	mlx_destroy_image(main->mlx.mlx, main->mlx.img);
 }
@@ -93,6 +92,5 @@ void	mlx_initialise(t_main *main)
 							main->mlx.menu.main_menu, 0, 0); //menu
 	mlx_hook(main->mlx.menu.menu_win, 2, 3, key_hook, main); //menu
 	mlx_hook(main->mlx.menu.menu_win, 17, 1L << 17, cross_exit, main); //menu
-
 	mlx_loop(main->mlx.mlx);
 }

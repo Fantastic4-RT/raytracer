@@ -49,7 +49,7 @@ int 	key_hook(int keycode, t_main *main)
 							main->mlx.menu.main_menu, 0, 0);
 	if (main->mode.obj_mode == 1 && main->mode.off == 0)
 		switch_obj_mode(keycode, main); // O
-	else if (main->mode.cam_mode == 1 && main->mode.off == 0)
-		switch_cam_mode(keycode, main); // C
+//	else if (main->mode.cam_mode == 1 && main->mode.off == 0)
+//		switch_cam_mode(keycode, main); // C
 	return (0);
 }
