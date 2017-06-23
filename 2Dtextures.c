@@ -2,7 +2,7 @@
 // Created by Anastasiia Trepyton on 6/10/17.
 //
 
-#include "rtv1.h"
+#include "rt.h"
 
 void texture2d(t_env *e, int curr)
 {

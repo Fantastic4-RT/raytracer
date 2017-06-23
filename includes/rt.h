@@ -160,6 +160,15 @@ typedef struct		s_cone
 	t_material	mat;
 }					t_cone;
 
+typedef struct 	s_torus
+{
+	t_vec3		pos;
+	t_vec3		axis;
+	double		r_min;
+	double		r_mjr;
+	t_material	mat;
+}				t_torus;
+
 typedef struct	s_flag
 {
 	int		cam;
@@ -268,6 +277,15 @@ int		cross_exit(void *a);
 int 	key_hook(int keycode, t_main *main);
 
 /*
+** 		TORUS
+*/
+
+void	*default_torus(t_torus *torus);
+void	torus_params(char *str, t_torus *torus, int param);
+void	fill_torus_data(char *str, t_torus *torus);
+void	add_torus(char *str, t_main *main);
+
+/*
 **		VECTORS
 */
 
@@ -301,6 +319,7 @@ int		intersect_plane(t_ray *r, void *p, double *t);
 int		intersect_cone(t_ray *r, void *con, double *t);
 int		intersect_cylind(t_ray *r, void *cyl, double *t);
 int		inter_ray_sphere(t_ray *r, void *s, double *t);
+int 	intersect_torus(t_ray *r, void *tor, double *t);
 
 int		vec3_to_int(t_vec3 hitcolor);
 
@@ -311,4 +330,5 @@ t_vec3	plane_norm(void *data, t_vec3 hitpoint);
 t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
+
 #endif

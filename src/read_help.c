@@ -79,7 +79,7 @@ void	read_file(int fd, t_main *main)
 	default_values(main);
 	while (get_next_line(fd, &str))
 	{
-		if (ft_strcmp(str, "</scene") == 0)
+		if (ft_strstr(str, "</scene") != 0)
 			break ;
 		if (main->flag.cam == 0 && main->flag.lgh == 0 && main->flag.obj == 0)
 			set_flag(str, main, 1);

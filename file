@@ -1,4 +1,4 @@
-<scene width=1200 height=720 objects=4 lights=1>
+<scene width=1200 height=720 objects=1 lights=1>
     <camera>
         <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>
@@ -9,16 +9,19 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
-    <object type="plane">
-        <position>0, -20, 0</position>
-        <normal>0, 1, 0</position>
-        <color>f0f1f3</color>
-        <diffuse>50</diffuse>
-        <specular>500</specular>
-        <reflection>1</reflection>
-        <refraction>0</refraction>
-    </object>
-    <object type="cylinder">
+    <object type="sphere">
+                <position1>0, 15, -10</position1>
+                <radius>5</radius>
+                <color>f85f1f</color>
+                <diffuse>50</diffuse>
+                <specular>500</specular>
+                <reflection>0</reflection>
+                <refraction>0</refraction>
+            </object>
+</scene>
+
+
+ <object type="cylinder">
         <position1>0, 15, -10</position1>
         <axis>1, 0, 0</axis>
         <cut>0</cut>
@@ -51,4 +54,23 @@
         <reflection>0</reflection>
         <refraction>0</refraction>
     </object>
-</scene>
+    <object type="sphere">
+            <position1>0, 15, -10</position1>
+            <radius>5</radius>
+            <color>f85f1f</color>
+            <diffuse>50</diffuse>
+            <specular>500</specular>
+            <reflection>0</reflection>
+            <refraction>0</refraction>
+        </object>
+        <object type="torus">
+                <position>0, -20, 0</position>
+                <axis>1, 0, 0</axis>
+                <radius_minor>1</radius_minor>
+                <radius_major>4</radius_major>
+                <color>f85f1f</color>
+                <diffuse>50</diffuse>
+                <specular>500</specular>
+                <reflection>1</reflection>
+                <refraction>0</refraction>
+            </object>

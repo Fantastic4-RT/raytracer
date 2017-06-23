@@ -147,3 +147,8 @@ int		inter_ray_sphere(t_ray *r, void *s, double *t)
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }
+
+//int 	intersect_torus(t_ray *r, void *tor, double *t)
+//{
+//
+//}
