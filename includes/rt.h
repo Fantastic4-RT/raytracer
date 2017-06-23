@@ -165,10 +165,10 @@ typedef struct s_menu
 {
 	void	*menu_win;
 	void	*main_menu;
-	char	*data1;
-	int		bpp1;
-	int		size_line1;
-	int		endian1;
+//	char	*data1;
+//	int		bpp1;
+//	int		size_line1;
+//	int		endian1;
 //	void	*text_menu;
 //	char	*data2;
 //	int		bpp2;
@@ -349,17 +349,27 @@ t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
 
-
+void	pthreading(t_main *main);
 void outputfile(t_main *main);
 void 	image(t_main *main);
+t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
 /*
  * envinronment.c
  */
-void	pthreading(t_main *main);
+void init_images(t_main *main);
+void switch_cam_mode(int keycode, t_main *main);
+/*
+ * object_mode.c
+ */
+void switch_obj_mode(int keycode, t_main *main);
+void	color_mode(int keycode, t_main *main);
+void 	texture_mode(int keycode, t_main *main);
+void 	move_mode(int keycode, t_main *main);
+void 	rotation_mode(int keycode, t_main *main);
+/*
+ * object_functions.c
+ */
+void change_texture(int keycode, t_main *main);
 void move_objects(int keycode, t_main *main);
 void change_color(int keycode, t_main *main);
-void init_images(t_main *main);
-t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
-void switch_obj_mode(int keycode, t_main *main);
-void switch_cam_mode(int keycode, t_main *main);
 #endif
