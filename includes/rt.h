@@ -37,6 +37,7 @@
 # define LIGHTS 1
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
+# define TEXT_SIZE 128 // size of the texture
 
 typedef struct	s_abs
 {
@@ -241,7 +242,6 @@ typedef struct		s_main
 	int			obj_i;
 	ssize_t		curr;
 	t_vec3		diff_col;
-	//point where the current obj is hit
 }					t_main;
 
 
@@ -348,7 +348,6 @@ t_vec3	plane_norm(void *data, t_vec3 hitpoint);
 t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
-
 void	pthreading(t_main *main);
 void outputfile(t_main *main);
 void 	image(t_main *main);
@@ -372,4 +371,6 @@ void 	rotation_mode(int keycode, t_main *main);
 void change_texture(int keycode, t_main *main);
 void move_objects(int keycode, t_main *main);
 void change_color(int keycode, t_main *main);
+
+
 #endif
