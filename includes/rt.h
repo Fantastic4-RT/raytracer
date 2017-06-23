@@ -37,7 +37,7 @@
 # define LIGHTS 1
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
-# define TEXT_SIZE 128 // size of the texture
+# define TEXT_SIZE 128// size of the texture
 
 typedef struct	s_abs
 {
@@ -223,9 +223,16 @@ typedef struct	s_pmode
 	int rot_cam_mode;
 	int cam_pos_mode;
 
+	int anti_alias;
 	int off;
 
 }				t_pmode;
+
+typedef struct s_text
+{
+	double text_arr[TEXT_SIZE][TEXT_SIZE][TEXT_SIZE];
+	int zoom;
+}				t_text;
 
 typedef struct		s_main
 {
@@ -236,6 +243,7 @@ typedef struct		s_main
 	t_flag		flag;
 	t_scene		scene;
 	t_pmode		mode;
+	t_text 		*textures;
 //	t_sample	sample;
 //	int 		num_lights;
 	int			light_i;
@@ -357,6 +365,8 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
  */
 void init_images(t_main *main);
 void switch_cam_mode(int keycode, t_main *main);
+void generate_textures(t_main *main);
+void 	find_pixel_color(t_main *main);
 /*
  * object_mode.c
  */
@@ -371,6 +381,8 @@ void 	rotation_mode(int keycode, t_main *main);
 void change_texture(int keycode, t_main *main);
 void move_objects(int keycode, t_main *main);
 void change_color(int keycode, t_main *main);
-
-
+/*
+ * textures.c
+ */
+void sin_stripes(t_main *main, int w);
 #endif

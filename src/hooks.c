@@ -51,7 +51,8 @@ int 	key_hook(int keycode, t_main *main)
 		exit(0);
 	else if (keycode == 113)
 		outputfile(main);
-	else if (keycode == )
+//	else if (keycode == 37) // L = anti-aliasing mode
+//		main->mode.anti_alias = 1;
 	change_mode(keycode, main);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
 							main->mlx.menu.main_menu, 0, 0);

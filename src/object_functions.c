@@ -7,6 +7,7 @@ void change_texture(int keycode, t_main *main)
 {
 	if (keycode == 83)
 		main->mode.text_index = 1; // checkerboard
+	printf("%d\n", main->mode.text_index);
 //	else if (keycode == 84)
 //		main->mode.text_index = 2; //vert stripes
 //	else if (keycode == 85)
