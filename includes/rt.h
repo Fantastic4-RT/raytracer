@@ -392,6 +392,6 @@ void switch_cam_mode(int keycode, t_main *main);
 void sin_stripes(t_main *main, int w);
 void perlin_noise(t_main *main, float zoom);
 double smooth_noise(t_vec3 p, t_main *main);
-double turbulence(t_vec3 p, t_main * main,  double size);
+double turbulence(t_vec3 p, t_main * main, double size);
 void wood(t_main *main);
 #endif

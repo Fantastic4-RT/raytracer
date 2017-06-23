@@ -90,6 +90,7 @@ void change_texture(int keycode, t_main *main)
 		main->mode.text_index = 8; // turbulence
 	else if (keycode == 91)
 		main->mode.text_index = 0;
+	image(main);
 }
 
 void change_color(int keycode, t_main *main)

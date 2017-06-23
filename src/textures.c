@@ -11,7 +11,6 @@ void sin_stripes(t_main *main, int w)
 	int z;
 	int c1 = 0xFF0000;
 	int c2 = 0x00FF00;
-	double t;
 
 	main->textures[0].zoom = 2;
 	main->textures[1].zoom = 2;
@@ -86,7 +85,7 @@ void wood(t_main *main)
 				double yval = (y - TEXT_SIZE) / (double)TEXT_SIZE;
 				double zval = (z - TEXT_SIZE) / (double)TEXT_SIZE;
 				double distval = sqrt(xval * xval + yval * yval + zval * zval) +
-								 twist * turbulence(main, turb_size) / 256.0;
+								 twist * turbulence(vec3_create(x, y, z), main, turb_size) / 256.0;
 
 				double sinval = 128.0 * fabs(sin(2 * rings * distval * M_PI));
 				color.x = 80 + sinval;
