@@ -87,7 +87,7 @@ void switch_obj_mode(int keycode, t_main *main)
 	mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 200,  300,
 				   0xff0000, ft_itoa(main->mode.obj_index));
 	color_mode(keycode, main);
-	texture_mode(keycode, main);
+//	texture_mode(keycode, main);
 	move_mode(keycode, main);
-	rotation_mode(keycode, main);
+//	rotation_mode(keycode, main);
 }

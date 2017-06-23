@@ -39,12 +39,12 @@ void 	find_pixel_color(t_main *main)
 	}
 }
 
-void generate_textures(t_main *main)
-{
-	sin_stripes(main, 2);
-	perlin_noise(main, 2);
-	wood(main);
-}
+//void generate_textures(t_main *main)
+//{
+//	sin_stripes(main, 2);
+//	perlin_noise(main, 2);
+//	wood(main);
+//}
 
 void init_images(t_main *main)
 {
@@ -67,7 +67,7 @@ void init_images(t_main *main)
 	main->mode.rot_obj_mode = 0;
 	main->mode.text_mode = 0;
 	main->mode.text_index = 0;
-	generate_textures(main);
+//	generate_textures(main);
 }
 
 void change_texture(int keycode, t_main *main)

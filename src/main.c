@@ -123,12 +123,13 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		error(0);
 	fd = open(argv[1], O_RDONLY);
+	printf("%d\n", fd);
 	if (fd == -1)
 		error(1);
 	read_file(fd, &main);
 #ifdef PRINT
 	print_scene(&main);
 #endif
-	mlx_initialise(&main);
+//	mlx_initialise(&main);
 	return (0);
 }

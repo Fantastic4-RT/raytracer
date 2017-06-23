@@ -245,7 +245,7 @@ typedef struct		s_main
 	t_flag		flag;
 	t_scene		scene;
 	t_pmode		mode;
-	t_text		textures[6];
+	t_text		textures[10];
 //	t_sample	sample;
 //	int 		num_lights;
 	int			light_i;
