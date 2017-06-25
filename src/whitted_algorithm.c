@@ -121,7 +121,6 @@ t_vec3 reflection(t_vec3 hitcolor, t_ray ray, t_main *main, int depth, t_thread 
 	hitcolor = vec3_mult(cast_ray(th, main, reflectray, depth + 1),  0.8);
 	if (hitcolor.x < 0.0001 && hitcolor.y < 0.0001 && hitcolor.z < 0.0001)
 		hitcolor = main->diff_col;
-	else
 	return (hitcolor);
 }
 
