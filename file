@@ -1,4 +1,5 @@
 <scene width=1200 height=720 objects=6 lights=1>
+
     <camera>
         <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>
@@ -46,7 +47,7 @@
               <refraction>0</refraction>
           </object>
     <object type="plane">
-        <position>0, -4, 0</position>
+        <position>0, -20, 0</position>
         <normal>0, 1, 0</position>
         <color>f001f3</color>
         <diffuse>50</diffuse>
