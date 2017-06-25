@@ -104,12 +104,10 @@ t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int 
 					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
 	t_vec3 reflectcol = cast_ray(th, main, reflectray, ++depth);
 	t_vec3 refractcol = cast_ray(th, main, refractray, ++depth);
-	vec3_print(reflectcol, "reflect");
-	vec3_print(refractcol, "refract");
 	fresnel(ray->dir, th->obj[main->curr].n, REFRACT, &amount);
-	amount = 0.2;
+	amount = 0.5;
 	hitcolor = vec3_add(vec3_mult(reflectcol, amount), vec3_mult(refractcol, 1 - amount));
-	hitcolor = vec3_add(vec3_mult(prev_col, 0.5), vec3_mult(hitcolor, 0.5));
+//	hitcolor = vec3_add(vec3_mult(prev_col, 0.5), vec3_mult(hitcolor, 0.5));
 	return (hitcolor);
 }
 
@@ -218,7 +216,6 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 								   th->obj[main->curr].mat.color.z), AMBIENT);
 			hitcolor = diffuse(hitcolor, &ray, main, th);
 		}
-
 	}
 	return(hitcolor);
 }

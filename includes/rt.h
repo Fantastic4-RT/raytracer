@@ -24,7 +24,7 @@
 # include <time.h>
 
 
-# define THREADS 1
+# define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -32,7 +32,7 @@
 # define AMBIENT 0.2
 # define DIFFUSE 0.5
 # define SPECULAR 0.2
-# define REFRACT 10
+# define REFRACT 1.5
 # define OBJECTS 1
 # define LIGHTS 1
 # define MAXDEPTH 5
@@ -79,6 +79,7 @@ typedef struct	s_scene
 	int		hei;
 	int		objs;
 	int 	lights;
+    int     a_a;
 }				t_scene;
 
 typedef	struct 	s_inter
@@ -307,4 +308,12 @@ t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 t_mattype get_material_type(t_material mat);
 
 t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
+
+/*
+** antialiasing
+*/
+
+void    ft_aa(t_thread *th, double dist, int x, int y);
+void	ipp_fill(t_main *main, int x, int y, int color);
+
 #endif

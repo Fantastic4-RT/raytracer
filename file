@@ -1,5 +1,4 @@
-<scene width=1200 height=720 objects=6 lights=1>
-
+<scene width=1200 height=720 objects=6 lights=1 aa=1>
     <camera>
         <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>
@@ -73,7 +72,7 @@
         <color>f0f1f3</color>
         <diffuse>50</diffuse>
         <specular>500</specular>
-        <reflection>1</reflection>
+        <reflection>0</reflection>
         <refraction>0</refraction>
     </object>
     <object type="cylinder">
@@ -109,3 +108,51 @@
         <reflection>0</reflection>
         <refraction>0</refraction>
     </object>
+    <object type="sphere">
+            <position>0, 1, 20</position>
+            <radius>5</radius>
+            <color>00f103</color>
+            <diffuse>50</diffuse>
+            <specular>100</specular>
+            <reflection>0</reflection>
+            <refraction>0</refraction>
+        </object>
+        <object type="sphere">
+            <position>-10, 1, 20</position>
+            <radius>5</radius>
+            <color>d1f103</color>
+            <diffuse>50</diffuse>
+            <specular>100</specular>
+            <reflection>0</reflection>
+            <refraction>0</refraction>
+        </object>
+        <object type="plane">
+            <position>0, -4, 0</position>
+            <normal>0, 1, 0</position>
+            <color>f001f3</color>
+            <diffuse>50</diffuse>
+            <specular>500</specular>
+            <reflection>0</reflection>
+            <refraction>0</refraction>
+        </object>
+        <object type="plane">
+             <position>100, -4, 0</position>
+             <normal>0, 1, 0</position>
+             <color>f001f3</color>
+             <diffuse>50</diffuse>
+             <specular>500</specular>
+             <reflection>0</reflection>
+             <refraction>0</refraction>
+         </object>
+
+</scene>
+
+<object type="sphere">
+            <position1>0, 15, -10</position1>
+            <radius>5</radius>
+            <color>f85f1f</color>
+            <diffuse>50</diffuse>
+            <specular>500</specular>
+            <reflection>0</reflection>
+            <refraction>0</refraction>
+        </object>
