@@ -51,7 +51,7 @@ void outputfile(t_main *main)
 	int	index;
 	static unsigned char color[3];
 
-	fp  = fopen("out4.ppm", "wb");
+	fp  = fopen("out5.ppm", "wb");
 	fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
 	i = -1;
 	while (++i < main->scene.hei)
@@ -63,7 +63,6 @@ void outputfile(t_main *main)
 			color[2] = main->mlx.ipp[index];
 			color[1] = main->mlx.ipp[index + 1];
 			color[0] = main->mlx.ipp[index + 2];
-			printf("%d %d %d\n", color[0], color[1],color[2]);
 			fwrite(color, 1, 3, fp);
 		}
 	}
@@ -78,7 +77,7 @@ void	mlx_initialise(t_main *main)
 	main->mlx.ipp = mlx_get_data_addr(main->mlx.img, &main->mlx.bpp,
 									  &main->mlx.size_line, &main->mlx.endian);
 	pthreading(main);
-//	outputfile(main);
+	outputfile(main);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, main->mlx.img, 0, 0);
 	mlx_destroy_image(main->mlx.mlx, main->mlx.img);
 	mlx_hook(main->mlx.win, 2, 3, key_hook, main);

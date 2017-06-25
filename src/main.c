@@ -88,7 +88,7 @@ void	print_scene(t_main *main)
 void	error(int param)
 {
 	param == 0 ? ft_putstr("Wrong number of arguments.\n") : 0;
-	param == 1 ? ft_putstr("Wront file.\n") : 0;
+	param == 1 ? ft_putstr("Wrong file.\n") : 0;
 	param == 2 ? ft_putstr("Wrong number of objects.\n") : 0;
 	param == 3 ? ft_putstr("Wrong number of lights.\n") : 0;
 	param == 4 ? ft_putstr("Scene has no objects.\n") : 0;
