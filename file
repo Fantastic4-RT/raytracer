@@ -1,4 +1,4 @@
-<scene width=1200 height=720 objects=4 lights=1>
+<scene width=1200 height=720 objects=3 lights=1>
     <camera>
         <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>
@@ -28,23 +28,12 @@
         <refraction>0</refraction>
     </object>
     <object type="plane">
-        <position>0, -4, 0</position>
+        <position>0, -20, 0</position>
         <normal>0, 1, 0</position>
         <color>f001f3</color>
         <diffuse>50</diffuse>
         <specular>500</specular>
-        <reflection>50</reflection>
-        <refraction>0</refraction>
-    </object>
-    <object type="cylinder">
-        <position1>10, 15, -10</position1>
-        <axis>1, 0, 0</axis>
-        <cut>0</cut>
-        <radius>2</radius>
-        <color>0c3f8d</color>
-        <diffuse>50</diffuse>
-        <specular>500</specular>
-        <reflection>50</reflection>
+        <reflection>0</reflection>
         <refraction>0</refraction>
     </object>
 </scene>

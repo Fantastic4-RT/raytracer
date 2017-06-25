@@ -87,8 +87,8 @@ void	frensel(const t_vec3 i, const t_vec3 n, const double irefract, double *amou
  */
 t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int depth, t_thread *th)
 {
-	t_ray reflectray;
-	double amount;
+	double	amount;
+	t_ray	reflectray;
 
 	reflectray.dir = vec3_norm(reflect_ray(ray->dir, th->obj[main->curr].n));
 	reflectray.pos = (vec3_dp(reflectray.dir, th->obj[main->curr].n) < 0) ?
@@ -110,17 +110,18 @@ t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int 
 
 t_vec3 reflection(t_vec3 hitcolor, t_ray ray, t_main *main, int depth, t_thread *th)
 {
-	double amount;
-	t_ray reflectray;
+	double	amount;
+	t_ray	reflectray;
 
 	frensel(ray.dir, th->obj[main->curr].n, th->obj[main->curr].mat.refract, &amount);
 	reflectray.dir = vec3_norm(reflect_ray(vec3_norm(ray.dir), vec3_norm(th->obj[main->curr].n)));
 	reflectray.pos = (vec3_dp(reflectray.dir, th->obj[main->curr].n) > 0) ?
 					 vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001)) :
 					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
-	hitcolor = vec3_mult(cast_ray(th, main, reflectray, depth + 1),  amount);
-	if (hitcolor.x == 0. && hitcolor.y == 0. && hitcolor.z == 0)
+	hitcolor = vec3_mult(cast_ray(th, main, reflectray, depth + 1),  0.8);
+	if (hitcolor.x < 0.0001 && hitcolor.y < 0.0001 && hitcolor.z < 0.0001)
 		hitcolor = main->diff_col;
+	else
 	return (hitcolor);
 }
 

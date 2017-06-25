@@ -63,7 +63,6 @@ void outputfile(t_main *main)
 			color[2] = main->mlx.ipp[index];
 			color[1] = main->mlx.ipp[index + 1];
 			color[0] = main->mlx.ipp[index + 2];
-			printf("%d %d %d\n", color[0], color[1],color[2]);
 			fwrite(color, 1, 3, fp);
 		}
 	}
