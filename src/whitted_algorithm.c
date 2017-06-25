@@ -208,7 +208,6 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 								   AMBIENT * th->obj[main->curr].mat.color.z);
 			hitcolor = diffuse(hitcolor, &ray, main, th);
 		}
-
 	}
 	return(hitcolor);
 }
