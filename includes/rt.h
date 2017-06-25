@@ -14,7 +14,6 @@
 # define RT_H
 
 # include "libft.h"
-//# include "parser.h"
 # include <mlx.h>
 # include <math.h>
 # include <stdlib.h>
@@ -33,6 +32,7 @@
 # define AMBIENT 0.2
 # define DIFFUSE 0.5
 # define SPECULAR 0.2
+# define REFRACT 10
 # define OBJECTS 1
 # define LIGHTS 1
 # define MAXDEPTH 5
@@ -274,6 +274,7 @@ t_vec3	vec3_fill_atoi(char **arr);
 double	vec3_dp(t_vec3 vec1, t_vec3 vec2);
 double	vec3_length(t_vec3 vec);
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
+int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
 
 
 /*

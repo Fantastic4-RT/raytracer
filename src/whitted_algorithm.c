@@ -62,22 +62,22 @@ t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract)
  * Compute Fresnel equation
  */
 
-void	frensel(const t_vec3 i, const t_vec3 n, const double irefract, double *amount)
+void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amount)
 {
 	double cosi = clamp(-1, 1, vec3_dp(i, n));
 	double etai = 1;
 	double etat = irefract;
 
 	if (cosi > 0)
-		ft_swap(&etai, &etat); //double
-	double sint = etai / etat * sqrt(fmax(0.0, 1 - cosi * cosi));
+		ft_swap(&etai, &etat);
+ 	double sint = etai / etat * sqrt(fmax(0.0, 1 - cosi * cosi));
 	if (sint >= 1)
 		*amount = 1;
 	else
 	{
 		double cost = sqrt(fmax(0.0, 1 - sint * sint));
 		cosi = fabs(cosi);
-		double rs = ((etat * cosi) - (etai * cost)) / ((etat * cosi) + (etai * cost));
+		double rs = ((etai * cost) - (etat * cosi)) / ((etai * cost) + (etat * cosi));
 		double rp = ((etai * cosi) - (etat * cost)) / ((etai * cosi) + (etat * cost));
 		*amount = (rs * rs + rp * rp) / 2;
 	}
@@ -88,39 +88,48 @@ void	frensel(const t_vec3 i, const t_vec3 n, const double irefract, double *amou
 t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int depth, t_thread *th)
 {
 	t_ray reflectray;
+	t_ray refractray;
+	t_vec3 prev_col;
 	double amount;
 
+	prev_col = main->diff_col;
 	reflectray.dir = vec3_norm(reflect_ray(ray->dir, th->obj[main->curr].n));
 	reflectray.pos = (vec3_dp(reflectray.dir, th->obj[main->curr].n) < 0) ?
 					 vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001)) :
 					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
-	t_ray refractray;
 	refractray.dir = vec3_norm(refract_ray(ray->dir, th->obj[main->curr].n,
-										   th->obj[main->curr].mat.refract));
+										   REFRACT));
 	refractray.pos = (vec3_dp(refractray.dir, th->obj[main->curr].n) < 0) ?
 					 vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001)) :
 					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
 	t_vec3 reflectcol = cast_ray(th, main, reflectray, ++depth);
 	t_vec3 refractcol = cast_ray(th, main, refractray, ++depth);
-	frensel(ray->dir, th->obj[main->curr].n,
-			th->obj[main->curr].mat.refract, &amount);
+	vec3_print(reflectcol, "reflect");
+	vec3_print(refractcol, "refract");
+	fresnel(ray->dir, th->obj[main->curr].n, REFRACT, &amount);
+	amount = 0.2;
 	hitcolor = vec3_add(vec3_mult(reflectcol, amount), vec3_mult(refractcol, 1 - amount));
+	hitcolor = vec3_add(vec3_mult(prev_col, 0.5), vec3_mult(hitcolor, 0.5));
 	return (hitcolor);
 }
 
 t_vec3 reflection(t_vec3 hitcolor, t_ray ray, t_main *main, int depth, t_thread *th)
 {
-	double amount;
-	t_ray reflectray;
+	double	amount;
+	t_ray	reflectray;
+	t_vec3	prev_col;
 
-	frensel(ray.dir, th->obj[main->curr].n, th->obj[main->curr].mat.refract, &amount);
+	prev_col = main->diff_col;
+	fresnel(ray.dir, th->obj[main->curr].n, REFRACT, &amount);//th->obj[main->curr].mat.refract, &amount);
 	reflectray.dir = vec3_norm(reflect_ray(vec3_norm(ray.dir), vec3_norm(th->obj[main->curr].n)));
 	reflectray.pos = (vec3_dp(reflectray.dir, th->obj[main->curr].n) > 0) ?
 					 vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001)) :
 					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
 	hitcolor = vec3_mult(cast_ray(th, main, reflectray, depth + 1),  amount);
-	if (hitcolor.x == 0. && hitcolor.y == 0. && hitcolor.z == 0)
+	if (vec3_eq(hitcolor, vec3_create(0, 0, 0)) == 1)
 		hitcolor = main->diff_col;
+	else
+		hitcolor = vec3_add(vec3_mult(prev_col, 0.5), vec3_mult(vec3_mult(cast_ray(th, main, reflectray, depth + 1),  amount), 0.5));
 	return (hitcolor);
 }
 
@@ -192,8 +201,9 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 	main->curr = -1;
 	if (trace(ray, &t, &main->curr, th))
 	{
-		main->diff_col = diffuse(vec3_create(AMBIENT * th->obj[main->curr].mat.color.x,
-			AMBIENT * th->obj[main->curr].mat.color.y, AMBIENT * th->obj[main->curr].mat.color.z),
+		main->diff_col = diffuse(vec3_mult(vec3_create(th->obj[main->curr].mat.color.x,
+											th->obj[main->curr].mat.color.y,
+											th->obj[main->curr].mat.color.z), AMBIENT),
 			&ray, main, th);
 		th->obj[main->curr].hitpoint = vec3_add(ray.pos, vec3_mult(ray.dir, t));
 		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(th->obj[main->curr].data, th->obj[main->curr].hitpoint));
@@ -203,9 +213,9 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 			hitcolor = reflection(hitcolor, ray, main, depth, th);
 		else
 		{
-			hitcolor = vec3_create(AMBIENT * th->obj[main->curr].mat.color.x,
-								   AMBIENT * th->obj[main->curr].mat.color.y,
-								   AMBIENT * th->obj[main->curr].mat.color.z);
+			hitcolor = vec3_mult(vec3_create(th->obj[main->curr].mat.color.x,
+								   th->obj[main->curr].mat.color.y,
+								   th->obj[main->curr].mat.color.z), AMBIENT);
 			hitcolor = diffuse(hitcolor, &ray, main, th);
 		}
 
