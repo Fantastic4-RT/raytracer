@@ -45,3 +45,11 @@ double	vec3_dp(t_vec3 vec1, t_vec3 vec2)
 {
 	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
 }
+
+int		vec3_eq(t_vec3 vec1, t_vec3 vec2)
+{
+	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
+		return (1);
+	else
+		return (0);
+}
