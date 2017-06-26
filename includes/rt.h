@@ -14,7 +14,6 @@
 # define RT_H
 
 # include "libft.h"
-//# include "parser.h"
 # include <mlx.h>
 # include <math.h>
 # include <stdlib.h>
@@ -25,7 +24,7 @@
 # include <time.h>
 
 
-# define THREADS 1
+# define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -80,6 +79,7 @@ typedef struct	s_scene
 	int		hei;
 	int		objs;
 	int 	lights;
+    int     a_a;
 }				t_scene;
 
 typedef	struct 	s_inter
@@ -326,6 +326,7 @@ t_vec3	vec3_fill_atoi(char **arr);
 double	vec3_dp(t_vec3 vec1, t_vec3 vec2);
 double	vec3_length(t_vec3 vec);
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
+int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
 
 
 /*
@@ -385,4 +386,13 @@ void change_color(int keycode, t_main *main);
  * textures.c
  */
 void sin_stripes(t_main *main, int w);
+
+
+/*
+** antialiasing
+*/
+
+void    ft_aa(t_thread *th, double dist, int x, int y);
+void	ipp_fill(t_main *main, int x, int y, int color);
+
 #endif

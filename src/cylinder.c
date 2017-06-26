@@ -43,7 +43,7 @@ void	cyl_params_2(char *str, t_cyl *cyl, int param)
 	cyl->mat.diff = param == 6 ? ft_atoi(str) / 100. : cyl->mat.diff;
 	cyl->mat.spec = param == 7 ? ft_atoi(str) : cyl->mat.spec;
 	cyl->mat.reflect = param == 8 ? ft_atoi(str) : cyl->mat.reflect;
-	cyl->mat.refract = param == 9 ? ft_atoi(str) : cyl->mat.refract;
+	cyl->mat.refract = param == 9 ? ft_atof(str) : cyl->mat.refract;
 }
 
 void	cyl_params(char *str, t_cyl *cyl, int param)
@@ -52,6 +52,8 @@ void	cyl_params(char *str, t_cyl *cyl, int param)
 	char	**arr;
 
 	cyl->cut = param == 0 ? ft_atoi(str) : cyl->cut;
+	if (cyl->cut != 1 && cyl->cut != 0)
+		error(10);
 	cyl->rad = param == 4 ? ft_atoi(str) : cyl->rad;
 	if (param == 1 || param == 2)
 	{
@@ -102,9 +104,14 @@ void	add_cylinder(char *str, t_main *main)
 	t_cyl *data;
 
 	fill_cylinder_data(str, (t_cyl *)main->obj[main->obj_i].data);
-	main->obj[main->obj_i].intersect = &intersect_cylind;
+	if (((t_cyl *)main->obj[main->obj_i].data)->cut == 0)
+		main->obj[main->obj_i].intersect = &intersect_cylind;
+//	else if (((t_cyl *)main->obj[main->obj_i].data)->cut == 1)
+//		main->obj[main->obj_i].intersect = &intersect_cylind_cut;
 	main->obj[main->obj_i].normal = &cylinder_norm;
 	data = (t_cyl *)main->obj[main->obj_i].data;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }
+
+

@@ -51,7 +51,7 @@ void outputfile(t_main *main)
 	int	index;
 	static unsigned char color[3];
 
-	fp  = fopen("out4.ppm", "wb");
+	fp  = fopen("out5.ppm", "wb");
 	fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
 	i = -1;
 	while (++i < main->scene.hei)
