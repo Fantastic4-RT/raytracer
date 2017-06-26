@@ -370,7 +370,7 @@ void 	find_pixel_color(t_main *main);
 /*
  * object_mode.c
  */
-void switch_obj_mode(int keycode, t_main *main);
+void	switch_obj_mode(int keycode, t_main *main);
 void	color_mode(int keycode, t_main *main);
 void 	texture_mode(int keycode, t_main *main);
 void 	move_mode(int keycode, t_main *main);
