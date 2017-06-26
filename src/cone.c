@@ -46,7 +46,7 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 	cone->mat.diff = param == 8 ? ft_atoi(str) / 100. : cone->mat.diff;
 	cone->mat.spec = param == 9 ? ft_atoi(str) : cone->mat.spec;
 	cone->mat.reflect = param == 10 ? ft_atoi(str) : cone->mat.reflect;
-	cone->mat.refract = param == 11 ? ft_atoi(str) : cone->mat.refract;
+	cone->mat.refract = param == 11 ? ft_atof(str) : cone->mat.refract;
 }
 
 void	cone_params(char *str, t_cone *cone, int param)

@@ -43,7 +43,7 @@ void	cyl_params_2(char *str, t_cyl *cyl, int param)
 	cyl->mat.diff = param == 6 ? ft_atoi(str) / 100. : cyl->mat.diff;
 	cyl->mat.spec = param == 7 ? ft_atoi(str) : cyl->mat.spec;
 	cyl->mat.reflect = param == 8 ? ft_atoi(str) : cyl->mat.reflect;
-	cyl->mat.refract = param == 9 ? ft_atoi(str) : cyl->mat.refract;
+	cyl->mat.refract = param == 9 ? ft_atof(str) : cyl->mat.refract;
 }
 
 void	cyl_params(char *str, t_cyl *cyl, int param)

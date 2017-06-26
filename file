@@ -1,4 +1,4 @@
-<scene width=1200 height=720 objects=6 lights=1 aa=1>
+<scene width=1200 height=720 objects=6 lights=1 aa=0>
     <camera>
         <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>
@@ -16,7 +16,7 @@
         <diffuse>50</diffuse>
         <specular>100</specular>
         <reflection>1</reflection>
-        <refraction>1</refraction>
+        <refraction>1.5</refraction>
     </object>
         <object type="sphere">
             <position>18, 0, -1</position>
@@ -24,7 +24,7 @@
             <color>f74001</color>
             <diffuse>50</diffuse>
             <specular>100</specular>
-            <reflection>0</reflection>
+            <reflection>1</reflection>
             <refraction>0</refraction>
         </object>
          <object type="sphere">
@@ -33,7 +33,7 @@
              <color>f0f0f0</color>
              <diffuse>50</diffuse>
              <specular>100</specular>
-             <reflection>0</reflection>
+             <reflection>1</reflection>
              <refraction>0</refraction>
          </object>
           <object type="sphere">
@@ -42,7 +42,7 @@
               <color>07f301</color>
               <diffuse>50</diffuse>
               <specular>100</specular>
-              <reflection>0</reflection>
+              <reflection>1</reflection>
               <refraction>0</refraction>
           </object>
     <object type="plane">
@@ -51,7 +51,7 @@
         <color>f001f3</color>
         <diffuse>50</diffuse>
         <specular>500</specular>
-        <reflection>0</reflection>
+        <reflection>1</reflection>
         <refraction>0</refraction>
     </object>
      <object type="plane">

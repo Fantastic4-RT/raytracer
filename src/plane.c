@@ -50,7 +50,7 @@ void	plane_params(char *str, t_plane *plane, int param)
 	plane->mat.diff = param == 4 ? ft_atoi(str) / 100. : plane->mat.diff;
 	plane->mat.spec = param == 5 ? ft_atoi(str) : plane->mat.spec;
 	plane->mat.reflect = param == 6 ? ft_atoi(str) : plane->mat.reflect;
-	plane->mat.refract = param == 7 ? ft_atoi(str) : plane->mat.refract;
+	plane->mat.refract = param == 7 ? ft_atof(str) : plane->mat.refract;
 }
 
 void	fill_plane_data(char *str, t_plane *plane)

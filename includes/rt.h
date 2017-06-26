@@ -32,7 +32,6 @@
 # define AMBIENT 0.2
 # define DIFFUSE 0.5
 # define SPECULAR 0.2
-# define REFRACT 1.5
 # define OBJECTS 1
 # define LIGHTS 1
 # define MAXDEPTH 5
