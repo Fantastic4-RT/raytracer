@@ -29,12 +29,14 @@ void	*render(void *data)
 		{
 			p.x = (2 * (x + 0.5) / WIDTH - 1) * ASPECT * tan(FOV / 2);
 			p.y = (1 - 2 * (y + 0.5) / HEIGHT) * tan(FOV / 2);
-			p.z = th->main.cam.ray.pos.z - dist;
+			p.z = th->main.cam.start.z - dist;
 			if (th->main.scene.a_a == 1 || th->main.scene.a_a == 2)
 				ft_aa(th, dist, x, y);
 			else
 			{
-				th->main.cam.ray.dir = vec3_norm(vec3_sub(p, th->main.cam.ray.pos));
+				th->main.cam.ray.dir = vec3_norm(vec3_sub(p, th->main.cam.start));
+				th->main.cam.ray.dir = m_apply(th->main.mxs.rot_cam, th->main.cam.ray.dir);
+				th->main.cam.ray.dir = m_apply(th->main.mxs.rot_dir, th->main.cam.ray.dir);
 				col = cast_ray(th, &th->main, th->main.cam.ray, 0);
 				ipp_fill(&th->main, x, y, vec3_to_int(col));
 			}

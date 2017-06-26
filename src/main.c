@@ -111,8 +111,12 @@ void	default_values(t_main *main)
 	main->flag.lgh = 0;
 	main->flag.obj = 0;
 	main->cam.ray.pos = vec3_create(0, 0, 50);
-	main->cam.rot = vec3_create(0, 0, 0);
+	main->mxs.cam_angle = vec3_create(0, 0, 0);
+	main->mxs.dir_angle = vec3_create(0, 0, 0);
+	matrices(main);
 	main->cam.fov = 45;
+	main->cam.start = main->cam.ray.pos;
+	main->cam.ray.pos = m_apply(main->mxs.rot_cam, main->cam.ray.pos);
 }
 
 

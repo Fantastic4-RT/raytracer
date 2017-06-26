@@ -24,6 +24,7 @@ void	*default_cylinder(t_cyl *cyl)
 	cyl->mat.spec = 100;
 	cyl->mat.reflect = 0;
 	cyl->mat.refract = 0;
+	cyl->mat.transp = 0;
 	return ((void *)cyl);
 }
 
@@ -44,6 +45,7 @@ void	cyl_params_2(char *str, t_cyl *cyl, int param)
 	cyl->mat.spec = param == 7 ? ft_atoi(str) : cyl->mat.spec;
 	cyl->mat.reflect = param == 8 ? ft_atoi(str) : cyl->mat.reflect;
 	cyl->mat.refract = param == 9 ? ft_atof(str) : cyl->mat.refract;
+	cyl->mat.transp = param == 10 ? ft_atof(str) : cyl->mat.transp;
 }
 
 void	cyl_params(char *str, t_cyl *cyl, int param)
@@ -97,6 +99,8 @@ void	fill_cylinder_data(char *str, t_cyl *cyl)
 		cyl_params(str + ft_strlen("<reflection>"), cyl, 8);
 	else if (ft_strstr(str, "<refraction>"))
 		cyl_params(str + ft_strlen("<refraction>"), cyl, 9);
+	else if (ft_strstr(str, "<transparency>"))
+		cyl_params(str + ft_strlen("<transparency>"), cyl, 10);
 }
 
 void	add_cylinder(char *str, t_main *main)

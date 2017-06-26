@@ -100,7 +100,8 @@ t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int 
 	refractray.pos = (vec3_dp(refractray.dir, th->obj[main->curr].n) < 0) ?
 					 vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001)) :
 					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
-	fresnel(ray->dir, th->obj[main->curr].n, th->obj[main->curr].mat.refract, &amount);
+//	fresnel(ray->dir, th->obj[main->curr].n, th->obj[main->curr].mat.refract, &amount);
+	amount = 1 - th->obj[main->curr].mat.transp;
 	t_vec3 reflectcol = cast_ray(th, main, reflectray, ++depth);
 	t_vec3 refractcol = cast_ray(th, main, refractray, ++depth);
 	hitcolor = vec3_add(vec3_mult(reflectcol, amount), vec3_mult(refractcol, 1 - amount));
@@ -121,9 +122,11 @@ t_vec3 reflection(t_vec3 hitcolor, t_ray ray, t_main *main, int depth, t_thread 
 					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
 	hitcolor = vec3_mult(cast_ray(th, main, reflectray, depth + 1),  amount);
 	if (vec3_eq(hitcolor, vec3_create(0, 0, 0)) == 1)
-		hitcolor = main->diff_col;
+		hitcolor = prev_col;
 	else
-		hitcolor = vec3_add(vec3_mult(prev_col, 0.5), vec3_mult(vec3_mult(cast_ray(th, main, reflectray, depth + 1),  amount), 0.5));
+		hitcolor = vec3_add(vec3_mult(prev_col, 0.5),
+							vec3_mult(vec3_mult(cast_ray(th, main, reflectray,
+							depth + 1),  amount), 0.5));
 	return (hitcolor);
 }
 
@@ -133,8 +136,10 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th)
 	t_vec3 lightamt = vec3_create(0, 0, 0);
 	t_vec3 specularcol = vec3_create(0, 0, 0);
 	double	tmp;
+	double	amount;
 	int i;
 
+	fresnel(ray->dir, th->obj[main->curr].n, th->obj[main->curr].mat.refract, &amount);
 	lightray.pos = (vec3_dp(ray->dir, th->obj[main->curr].n) < 0) ?
 					vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.00001)) :
 					vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.00001));
@@ -148,9 +153,9 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th)
 		lightray.dir = vec3_norm(lightray.dir);
 		double dp = fmax(0., vec3_dp(lightray.dir, th->obj[main->curr].n));
 		int in_shadow = trace(lightray, &t, &curr, th);
-		lightamt.x += (1 - in_shadow) * th->light[i].color.x * dp;
-		lightamt.y += (1 - in_shadow) * th->light[i].color.y * dp;
-		lightamt.z += (1 - in_shadow) * th->light[i].color.z * dp;
+		lightamt.x += (1 - in_shadow * (th->obj[curr].mattype == 1 ? th->obj[curr].mat.transp : 1)) * th->light[i].color.x * dp;
+		lightamt.y += (1 - in_shadow * (th->obj[curr].mattype == 1 ? th->obj[curr].mat.transp : 1)) * th->light[i].color.y * dp;
+		lightamt.z += (1 - in_shadow * (th->obj[curr].mattype == 1 ? th->obj[curr].mat.transp : 1)) * th->light[i].color.z * dp;
 		t_vec3 reflectray_dir = reflect_ray(vec3_invert(lightray.dir), th->obj[main->curr].n);
 		tmp = pow(fmax(0., -vec3_dp(reflectray_dir, ray->dir)), th->obj[main->curr].mat.spec);
 		specularcol.x += tmp * th->light[i].color.x;

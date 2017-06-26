@@ -26,6 +26,7 @@ void	*default_cone(t_cone *cone)
 	cone->mat.spec = 100;
 	cone->mat.reflect = 0;
 	cone->mat.refract = 0;
+	cone->mat.transp = 0;
 	return ((void *)cone);
 }
 
@@ -47,6 +48,7 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 	cone->mat.spec = param == 9 ? ft_atoi(str) : cone->mat.spec;
 	cone->mat.reflect = param == 10 ? ft_atoi(str) : cone->mat.reflect;
 	cone->mat.refract = param == 11 ? ft_atof(str) : cone->mat.refract;
+	cone->mat.transp = param == 12 ? ft_atof(str) : cone->mat.transp;
 }
 
 void	cone_params(char *str, t_cone *cone, int param)
@@ -105,6 +107,8 @@ void	fill_cone_data(char *str, t_cone *cone)
 		cone_params(str + ft_strlen("<reflection>"), cone, 10);
 	else if (ft_strstr(str, "<refraction>"))
 		cone_params(str + ft_strlen("<refraction>"), cone, 11);
+	else if (ft_strstr(str, "<transparency>"))
+		cone_params(str + ft_strlen("<transparency>"), cone, 12);
 }
 
 void	add_cone(char *str, t_main *main)
