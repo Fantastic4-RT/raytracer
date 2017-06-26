@@ -23,7 +23,6 @@
 # include <fcntl.h>
 # include <time.h>
 
-
 # define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
@@ -37,6 +36,7 @@
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
 # define ROT_ANGLE 15 * RAD
+# define TEXT_SIZE 128// size of the texture
 
 typedef struct	s_abs
 {
@@ -171,6 +171,26 @@ typedef struct	s_flag
 	int		lgh;
 }				t_flag;
 
+typedef struct s_menu
+{
+	void	*menu_win;
+	void	*main_menu;
+//	char	*data1;
+//	int		bpp1;
+//	int		size_line1;
+//	int		endian1;
+//	void	*text_menu;
+//	char	*data2;
+//	int		bpp2;
+//	int		size_line2;
+//	int		endian2;
+//	void	*color_menu;
+//	char	*data3;
+//	int		bpp3;
+//	int		size_line3;
+//	int		endian3;
+}				t_menu;
+
 typedef	struct	s_mlx
 {
 	void			*mlx;
@@ -180,6 +200,7 @@ typedef	struct	s_mlx
 	int				bpp;
 	int				size_line;
 	int				endian;
+	t_menu			menu;
 }				t_mlx;
 
 
@@ -195,6 +216,33 @@ typedef	struct 		s_obj
 	t_vec3	(*normal)(void *data, t_vec3 hitpoint); //function to count normal
 }					t_obj;
 
+typedef struct	s_pmode
+{
+	int obj_mode;
+	int move_mode;
+	int obj_index;
+	int rot_obj_mode; //(to implement)
+	int text_mode; // to implement
+	int text_index;
+	int color_mode;
+	char channel;
+
+	int cam_mode;
+	int dir_mode;
+	int rot_cam_mode;
+	int cam_pos_mode;
+
+	int anti_alias;
+	int off;
+
+}				t_pmode;
+
+typedef struct s_text
+{
+	double text_arr[TEXT_SIZE][TEXT_SIZE][TEXT_SIZE];
+	int zoom;
+}				t_text;
+
 typedef struct		s_main
 {
 	t_obj		*obj;
@@ -203,6 +251,10 @@ typedef struct		s_main
 	t_light		*light;
 	t_flag		flag;
 	t_scene		scene;
+	t_pmode		mode;
+	t_text 		*textures;
+//	t_sample	sample;
+//	int 		num_lights;
 	int			light_i;
 	int			obj_i;
 	ssize_t		curr;
@@ -327,10 +379,38 @@ t_matrix			y_rot(double angle);
 t_matrix			z_rot(double angle);
 t_vec3				m_apply(t_matrix matrix, t_vec3 vec);
 void				camera_rotation(t_main *main, int param);
+void	pthreading(t_main *main);
+void 	outputfile(t_main *main);
+void 	image(t_main *main);
+t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
+/*
+ * envinronment.c
+ */
+void init_images(t_main *main);
+void switch_cam_mode(int keycode, t_main *main);
+void generate_textures(t_main *main);
+void 	find_pixel_color(t_main *main);
+/*
+ * object_mode.c
+ */
+void 	switch_obj_mode(int keycode, t_main *main);
+void	color_mode(int keycode, t_main *main);
+void 	texture_mode(int keycode, t_main *main);
+void 	move_mode(int keycode, t_main *main);
+void 	rotation_mode(int keycode, t_main *main);
+/*
+ * object_functions.c
+ */
+void change_texture(int keycode, t_main *main);
+void move_objects(int keycode, t_main *main);
+void change_color(int keycode, t_main *main);
+/*
+ * textures.c
+ */
+void sin_stripes(t_main *main, int w);
 /*
 ** antialiasing
 */
-
 void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);
 void	pthreading(t_main *main);

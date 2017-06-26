@@ -206,6 +206,10 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 			&ray, main, th);
 		th->obj[main->curr].hitpoint = vec3_add(ray.pos, vec3_mult(ray.dir, t));
 		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(th->obj[main->curr].data, th->obj[main->curr].hitpoint));
+
+//		if (main->mode.text_mode == 1 && main->mode.text_index != 0)
+//			find_pixel_color(main);
+
 		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent
 			hitcolor = reflection_and_refraction(hitcolor, &ray, main, depth, th);
 		else if (th->obj[main->curr].mattype == REFLECT) //mirror-like

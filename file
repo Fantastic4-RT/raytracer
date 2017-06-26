@@ -1,22 +1,32 @@
+<<<<<<< HEAD
 <scene width=1200 height=720 objects=1 lights=1 aa=0>
+=======
+<scene width=1200 height=720 objects=3 lights=1 aa=0>
+>>>>>>> d1a0be7d48b1d6ec553fb8a818beb025c54690dd
     <camera>
         <position>0, 0, 30</position>
         <rotation>0, 0, 0</rotation>
         <fov>45</fov>
     </camera>
     <light>
-        <position>0, 0, 150</position>
+        <position>20, 20, 50</position>
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
+<<<<<<< HEAD
  <object type="sphere">
         <position>0, 0, 0</position>
+=======
+    <object type="sphere">
+        <position>0, 5, -1</position>
+>>>>>>> d1a0be7d48b1d6ec553fb8a818beb025c54690dd
         <radius>5</radius>
-        <color>d1f103</color>
+        <color>00f103</color>
         <diffuse>50</diffuse>
         <specular>100</specular>
         <reflection>0</reflection>
         <refraction>0</refraction>
+<<<<<<< HEAD
         <transparency>50</transparency>
     </object>
 </scene>
@@ -47,12 +57,15 @@
         <specular>100</specular>
         <reflection>1</reflection>
         <refraction>0</refraction>
+=======
+>>>>>>> d1a0be7d48b1d6ec553fb8a818beb025c54690dd
     </object>
     <object type="plane">
-        <position>0, -20, 0</position>
+        <position>0, -4, 0</position>
         <normal>0, 1, 0</position>
         <color>f001f3</color>
         <diffuse>50</diffuse>
+<<<<<<< HEAD
         <specular>100</specular>
         <reflection>0</reflection>
         <refraction>0</refraction>
@@ -80,6 +93,13 @@
 
 
  <object type="plane">
+=======
+        <specular>500</specular>
+        <reflection>0</reflection>
+        <refraction>0</refraction>
+    </object>
+    <object type="plane">
+>>>>>>> d1a0be7d48b1d6ec553fb8a818beb025c54690dd
         <position>0, -20, 0</position>
         <normal>0, 1, 0</position>
         <color>f0f1f3</color>
@@ -88,6 +108,7 @@
         <reflection>0</reflection>
         <refraction>0</refraction>
     </object>
+<<<<<<< HEAD
     <object type="cylinder">
         <position1>0, 15, -10</position1>
         <axis>1, 0, 0</axis>
@@ -169,3 +190,6 @@
             <reflection>0</reflection>
             <refraction>0</refraction>
         </object>
+=======
+</scene>
+>>>>>>> d1a0be7d48b1d6ec553fb8a818beb025c54690dd

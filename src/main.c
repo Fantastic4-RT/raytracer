@@ -12,7 +12,7 @@
 
 #include "rt.h"
 /*
- //#define PRINT
+// #define PRINT
 #ifdef PRINT
 void	print_scene(t_main *main)
 {
