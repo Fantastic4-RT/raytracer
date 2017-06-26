@@ -23,7 +23,6 @@
 # include <fcntl.h>
 # include <time.h>
 
-
 # define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
@@ -36,7 +35,7 @@
 # define LIGHTS 1
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
-# define TEXT_SIZE 128 // size of the texture
+# define TEXT_SIZE 128// size of the texture
 
 typedef struct	s_abs
 {
@@ -166,13 +165,10 @@ typedef struct s_menu
 {
 	void	*menu_win;
 	void	*main_menu;
-/*
- * dont really need these
- 	char	*data1;
-	int		bpp1;
-	int		size_line1;
-	int		endian1;
- */
+//	char	*data1;
+//	int		bpp1;
+//	int		size_line1;
+//	int		endian1;
 //	void	*text_menu;
 //	char	*data2;
 //	int		bpp2;
@@ -226,15 +222,16 @@ typedef struct	s_pmode
 	int rot_cam_mode;
 	int cam_pos_mode;
 
+	int anti_alias;
 	int off;
 
 }				t_pmode;
 
-typedef struct		s_text
+typedef struct s_text
 {
 	double text_arr[TEXT_SIZE][TEXT_SIZE][TEXT_SIZE];
-	float zoom;
-}					t_text;
+	int zoom;
+}				t_text;
 
 typedef struct		s_main
 {
@@ -245,7 +242,7 @@ typedef struct		s_main
 	t_flag		flag;
 	t_scene		scene;
 	t_pmode		mode;
-	t_text		textures[10];
+	t_text 		*textures;
 //	t_sample	sample;
 //	int 		num_lights;
 	int			light_i;
@@ -359,47 +356,41 @@ t_vec3	plane_norm(void *data, t_vec3 hitpoint);
 t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
+
 t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
+
 void	pthreading(t_main *main);
 void outputfile(t_main *main);
 void 	image(t_main *main);
-
+t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
 /*
  * envinronment.c
  */
-void change_texture(int keycode, t_main *main);
-void move_objects(int keycode, t_main *main);
-void change_color(int keycode, t_main *main);
-void rotate_objects(int keycode, t_main *main);
 void init_images(t_main *main);
+void switch_cam_mode(int keycode, t_main *main);
 void generate_textures(t_main *main);
 void 	find_pixel_color(t_main *main);
-
 /*
  * object_mode.c
  */
+void switch_obj_mode(int keycode, t_main *main);
 void	color_mode(int keycode, t_main *main);
 void 	texture_mode(int keycode, t_main *main);
 void 	move_mode(int keycode, t_main *main);
 void 	rotation_mode(int keycode, t_main *main);
-void switch_obj_mode(int keycode, t_main *main);
 /*
- * camera_mode.c
+ * object_functions.c
  */
-void switch_cam_mode(int keycode, t_main *main);
+void change_texture(int keycode, t_main *main);
+void move_objects(int keycode, t_main *main);
+void change_color(int keycode, t_main *main);
 /*
  * textures.c
  */
 void sin_stripes(t_main *main, int w);
-void perlin_noise(t_main *main, float zoom);
-double smooth_noise(t_vec3 p, t_main *main);
-double turbulence(t_vec3 p, t_main * main, double size);
-void wood(t_main *main);
-
 /*
 ** antialiasing
 */
-
 void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);
 
