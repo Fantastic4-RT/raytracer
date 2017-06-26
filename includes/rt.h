@@ -23,7 +23,6 @@
 # include <fcntl.h>
 # include <time.h>
 
-
 # define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
