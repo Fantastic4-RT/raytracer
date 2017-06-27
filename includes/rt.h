@@ -35,6 +35,7 @@
 # define LIGHTS 1
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
+# define ROT_ANGLE 15 * RAD
 # define TEXT_SIZE 128// size of the texture
 
 typedef struct	s_abs
@@ -67,9 +68,16 @@ typedef	struct 	s_matrix
 
 typedef struct	s_matrices
 {
-	t_matrix	rot_x;
-	t_matrix	rot_y;
-	t_matrix	rot_z;
+	t_matrix	rot_x_cam;
+	t_matrix	rot_y_cam;
+	t_matrix	rot_z_cam;
+	t_matrix	rot_cam;
+	t_matrix	rot_x_dir;
+	t_matrix	rot_y_dir;
+	t_matrix	rot_z_dir;
+	t_matrix	rot_dir;
+	t_vec3		cam_angle;
+	t_vec3		dir_angle;
 }				t_matrices;
 
 typedef struct	s_scene
@@ -94,6 +102,7 @@ typedef	struct	s_cam
 	double	fov;
 	t_ray	ray;
 	t_vec3	rot;
+	t_vec3	start;
 }				t_cam;
 
 typedef	struct	s_light
@@ -114,7 +123,8 @@ typedef	struct 	s_material
 	double	diff;
 	double	spec;
 	double	reflect;
-	double 	refract; //index of refraction
+	double 	refract;
+	double	transp;
 	t_vec3	color;
 }				t_material;
 
@@ -249,6 +259,8 @@ typedef struct		s_main
 	int			obj_i;
 	ssize_t		curr;
 	t_vec3		diff_col;
+	t_matrices	mxs;
+	//point where the current obj is hit
 }					t_main;
 
 
@@ -356,8 +368,19 @@ t_vec3	plane_norm(void *data, t_vec3 hitpoint);
 t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
+
+t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
+
+
+void				matrices(t_main *main);
+t_matrix			m_mult(t_matrix m1, t_matrix m2);
+t_matrix			x_rot(double angle);
+t_matrix			y_rot(double angle);
+t_matrix			z_rot(double angle);
+t_vec3				m_apply(t_matrix matrix, t_vec3 vec);
+void				camera_rotation(t_main *main, int param);
 void	pthreading(t_main *main);
-void outputfile(t_main *main);
+void 	outputfile(t_main *main);
 void 	image(t_main *main);
 t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
 /*
@@ -370,7 +393,8 @@ void 	find_pixel_color(t_main *main);
 /*
  * object_mode.c
  */
-void	switch_obj_mode(int keycode, t_main *main);
+void 	switch_obj_mode(int keycode, t_main *main);
+
 void	color_mode(int keycode, t_main *main);
 void 	texture_mode(int keycode, t_main *main);
 void 	move_mode(int keycode, t_main *main);
@@ -385,13 +409,12 @@ void change_color(int keycode, t_main *main);
  * textures.c
  */
 void sin_stripes(t_main *main, int w);
-
-
 /*
 ** antialiasing
 */
-
 void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);
+void	pthreading(t_main *main);
+void	new_image(t_main *main);
 
 #endif

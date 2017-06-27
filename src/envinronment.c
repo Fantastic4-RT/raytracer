@@ -1,5 +1,6 @@
 #include <rt.h>
 
+
 void init_images(t_main *main)
 {
 	int w;
@@ -20,7 +21,7 @@ void init_images(t_main *main)
 	main->mode.rot_obj_mode = 0;
 	main->mode.text_mode = 0;
 	main->mode.text_index = 0;
-	main->mode.anti_alias = 0;
+//	main->mode.anti_alias = 0;
 }
 
 //void switch_cam_mode(int keycode, t_main *main)

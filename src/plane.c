@@ -21,6 +21,7 @@ void	*default_plane(t_plane *plane)
 	plane->mat.spec = 100;
 	plane->mat.reflect = 0;
 	plane->mat.refract = 0;
+	plane->mat.transp = 0;
 	return ((void *)plane);
 }
 
@@ -51,6 +52,7 @@ void	plane_params(char *str, t_plane *plane, int param)
 	plane->mat.spec = param == 5 ? ft_atoi(str) : plane->mat.spec;
 	plane->mat.reflect = param == 6 ? ft_atoi(str) : plane->mat.reflect;
 	plane->mat.refract = param == 7 ? ft_atof(str) : plane->mat.refract;
+	plane->mat.transp = param == 8 ? ft_atof(str) / 100. : plane->mat.transp;
 }
 
 void	fill_plane_data(char *str, t_plane *plane)
@@ -69,6 +71,8 @@ void	fill_plane_data(char *str, t_plane *plane)
 		plane_params(str + ft_strlen("<reflection>"), plane, 6);
 	else if (ft_strstr(str, "<refraction>"))
 		plane_params(str + ft_strlen("<refraction>"), plane, 7);
+	else if (ft_strstr(str, "<transparency>"))
+		plane_params(str + ft_strlen("<transparency>"), plane, 8);
 }
 
 //fill obj struct we need

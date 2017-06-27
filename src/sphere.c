@@ -21,6 +21,7 @@ void	*default_sphere(t_sphere *sphere)
 	sphere->mat.spec = 100;
 	sphere->mat.reflect = 0;
 	sphere->mat.refract = 0;
+	sphere->mat.transp = 0;
 	return ((void *)sphere);
 }
 
@@ -50,6 +51,7 @@ void	sphere_params(char *str, t_sphere *sphere, int param)
 	sphere->mat.spec = param == 5 ? ft_atoi(str) : sphere->mat.spec;
 	sphere->mat.reflect = param == 6 ? ft_atoi(str) : sphere->mat.reflect;
 	sphere->mat.refract = param == 7 ? ft_atof(str) : sphere->mat.refract;
+	sphere->mat.transp = param == 8 ? ft_atof(str) / 100. : sphere->mat.transp;
 }
 
 void	fill_sphere_data(char *str, t_sphere *sphere)
@@ -68,6 +70,8 @@ void	fill_sphere_data(char *str, t_sphere *sphere)
 		sphere_params(str + ft_strlen("<reflection>"), sphere, 6);
 	else if (ft_strstr(str, "<refraction>"))
 		sphere_params(str + ft_strlen("<refraction>"), sphere, 7);
+	else if (ft_strstr(str, "<transparency>"))
+		sphere_params(str + ft_strlen("<transparency>"), sphere, 8);
 }
 
 //fill obj struct we need

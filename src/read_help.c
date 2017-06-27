@@ -101,5 +101,4 @@ void	read_file(int fd, t_main *main)
 	}
 	main->obj_i == main->scene.objs ? 0 : error(2);
 	main->light_i == main->scene.lights ? 0 : error(3);
-	// PROBLEM WITH WRONG NUMBER OF LIGHT SOURCES
 }
