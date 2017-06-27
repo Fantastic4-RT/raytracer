@@ -8,7 +8,6 @@ void	ipp_fill(t_main *main, int x, int y, int color)
 {
 	*((int *)(main->mlx.ipp + x * main->mlx.bpp / 8 +
 			  y * main->mlx.size_line)) = color;
-	printf("%d\n", color);
 }
 
 void	*render(void *data)

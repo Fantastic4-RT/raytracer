@@ -88,12 +88,12 @@ void	fill_torus_data(char *str, t_torus *torus)
 
 void	add_torus(char *str, t_main *main)
 {
-//	t_torus *data;
+	t_torus *data;
 
 	fill_torus_data(str, (t_torus *)main->obj[main->obj_i].data);
-//	main->obj[main->obj_i].intersect = &intersect_torus; //pointer to func
-//	main->obj[main->obj_i].normal = &sphere_norm;
-//	data = (t_torus *)main->obj[main->obj_i].data;
-//	main->obj[main->obj_i].mat = data->mat;
-//	main->obj[main->obj_i].mattype = get_material_type(data->mat);
+	main->obj[main->obj_i].intersect = &intersect_torus; //pointer to func
+	main->obj[main->obj_i].normal = &torus_norm;
+	data = (t_torus *)main->obj[main->obj_i].data;
+	main->obj[main->obj_i].mat = data->mat;
+	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }

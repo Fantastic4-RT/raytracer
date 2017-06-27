@@ -43,6 +43,16 @@ t_vec3 cylinder_norm(void * data, t_vec3 hitpoint)
 
 }
 
+t_vec3 torus_norm(void * data, t_vec3 hitpoint)
+{
+	t_torus *tor = (t_torus *)data;
+
+	double y = vec3_dp(vec3_sub(hitpoint, tor->pos), tor->axis);
+	t_vec3 d = vec3_sub(vec3_sub(hitpoint, tor->pos), vec3_mult(tor->axis, y));
+	t_vec3 x = vec3_mult(d, (1 / sqrt(vec3_dp(d, d))) * tor->r_mjr);
+	return (vec3_norm(vec3_sub(vec3_sub(hitpoint, tor->pos), x)));
+}
+
 
 t_mattype get_material_type(t_material mat)
 {

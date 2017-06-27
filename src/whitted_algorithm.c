@@ -186,7 +186,7 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 	if (depth > MAXDEPTH)
 		return (vec3_create(0, 0, 0)); // returns background color
 	hitcolor = vec3_create(0, 0, 0);
-	t = 2000000.0;
+	t = 100.0;
 	main->curr = -1;
 	if (trace(main, main->cam.ray, &t, &main->curr, th))
 	{

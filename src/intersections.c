@@ -30,6 +30,61 @@ double		square_sin(double n)
 	return (res);
 }
 
+double		min_res(t_polynome4 *solve)
+{
+	double res;
+	double	max;
+
+	res = 0.;
+	if (solve->x[0] == 0 && solve->x[1] == 0 && solve->x[2] == 0 && solve->x[3] == 0)
+		return (0);
+	max = fmax(fmax(solve->x[0], solve->x[1]), fmax(solve->x[2], solve->x[3]));
+	solve->x[0] = solve->x[0] == 0 ? max : solve->x[0];
+	solve->x[1] = solve->x[1] == 0 ? max : solve->x[1];
+	solve->x[2] = solve->x[2] == 0 ? max : solve->x[2];
+	solve->x[3] = solve->x[3] == 0 ? max : solve->x[3];
+	res = fmin(fmin(solve->x[0], solve->x[1]), fmin(solve->x[2], solve->x[3]));
+	return (res);
+}
+
+int			solve_polynome_4(double *t, t_polynome4 *solve)
+{
+	int 	retval;
+//	double	result;
+//	double	x;
+	double	t_0;
+//	int i = 0;
+
+	solve->x[0] = 0.;
+	solve->x[1] = 0.;
+	solve->x[2] = 0.;
+	solve->x[3] = 0.;
+	solve_p4(solve->x, solve->b, solve->c, solve->d, solve->e);
+//	x = 0.1;
+//	while (x <= 100.)
+//	{
+//		result = (solve->a * pow(x, 4.)) + (solve->b * pow(x, 3.)) +
+//				(solve->c * pow(x, 2.)) + (solve->d * x) + solve->e;
+//		printf("%f\n", result);
+//		if (result == 0)
+//		{
+//			solve->x[i] = x;
+//			i++;
+//		}
+//		x = x + 0.1;
+//	}
+	t_0 = min_res(solve);
+	if ((t_0 >= 0.001) && (t_0 < *t))
+	{
+		*t = t_0;
+		retval = 1;
+	}
+	else
+		retval = 0;
+//	printf("%f %f %f %f t_0 == %f\n", solve->x[0], solve->x[1], solve->x[2], solve->x[3], t_0);
+	return (retval);
+}
+
 int			solve_quadric(double discr, double *t, double b, double a)
 {
 	int		retval;
@@ -148,7 +203,30 @@ int		inter_ray_sphere(t_ray *r, void *s, double *t)
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }
 
-//int 	intersect_torus(t_ray *r, void *tor, double *t)
-//{
-//
-//}
+int 	intersect_torus(t_ray *r, void *tor, double *t)
+{
+	t_polynome4 solve;
+	t_vec3 tmp_q;
+	double tmp_u;
+	double tmp_v;
+	double tmp_a;
+	double tmp_b;
+	double tmp_c;
+	double tmp_d;
+
+	t_torus *torus = (t_torus *) tor;
+	r->dir = vec3_norm(r->dir);
+	tmp_q = vec3_sub(r->pos, torus->pos);
+	tmp_u = vec3_dp(torus->axis, tmp_q);
+	tmp_v = vec3_dp(torus->axis, r->dir);
+	tmp_a = 1 - pow(tmp_v, 2.);
+	tmp_b = 2 * (vec3_dp(tmp_q, r->dir) - (tmp_u * tmp_v));
+	tmp_c = vec3_dp(tmp_q, tmp_q) - pow(tmp_u, 2.);
+	tmp_d = (vec3_dp(tmp_q, tmp_q) + pow(torus->r_mjr, 2.) - pow(torus->r_min, 2.));
+	solve.a = 1;
+	solve.b = 4 * (vec3_dp(tmp_q, r->dir));
+	solve.c = (2 * tmp_d) + (pow(solve.b, 2.) / 4) - (4 * pow(torus->r_mjr, 2.) * tmp_a);
+	solve.d = solve.b * tmp_d - (4 * pow(torus->r_mjr, 2.) * tmp_b);
+	solve.e = pow(tmp_d, 2.) - (4 * pow(torus->r_mjr, 2.) * tmp_c);
+	return(solve_polynome_4(t, &solve));
+}

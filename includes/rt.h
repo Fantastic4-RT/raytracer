@@ -46,6 +46,16 @@ typedef struct	s_abs
 	double discr;
 }				t_abs;
 
+typedef struct	s_polynome4
+{
+	double a;
+	double b;
+	double c;
+	double d;
+	double e;
+	double x[4];
+}				t_polynome4;
+
 typedef	struct 	s_vec3
 {
 	double x;
@@ -284,6 +294,8 @@ void	*default_torus(t_torus *torus);
 void	torus_params(char *str, t_torus *torus, int param);
 void	fill_torus_data(char *str, t_torus *torus);
 void	add_torus(char *str, t_main *main);
+int   solve_p4(double *x,double a,double b,double c,double d);
+int			solve_polynome_4(double *t, t_polynome4 *solve);
 
 /*
 **		VECTORS
@@ -328,6 +340,7 @@ t_vec3	cylinder_norm(void * data, t_vec3 hitpoint);
 t_vec3	cone_norm(void *data, t_vec3 hitpoint);
 t_vec3	plane_norm(void *data, t_vec3 hitpoint);
 t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
+t_vec3 torus_norm(void * data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
 
