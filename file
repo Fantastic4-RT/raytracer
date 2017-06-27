@@ -1,4 +1,4 @@
-<scene width=1200 height=720 objects=2 lights=1 aa=0>
+<scene width=1200 height=720 objects=2 lights=1 aa=2>
     <camera>
         <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>

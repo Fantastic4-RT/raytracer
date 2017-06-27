@@ -5,7 +5,7 @@ void init_images(t_main *main)
 	int w;
 	int h;
 
-	generate_textures(main);
+//	generate_textures(main);
 	main->mlx.menu.main_menu = mlx_xpm_file_to_image(main->mlx.mlx, "menu.xpm", &w, &h);
 	main->mode.off = 1;
 	main->mode.cam_mode = 0;

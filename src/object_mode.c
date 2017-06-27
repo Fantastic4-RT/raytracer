@@ -86,7 +86,7 @@ void switch_obj_mode(int keycode, t_main *main)
 				   0xff0000, ft_itoa(main->mode.obj_index));
 	color_mode(keycode, main);
 	move_mode(keycode, main);
-	texture_mode(keycode, main);
+//	texture_mode(keycode, main);
 //	rotation_mode(keycode, main);
 }
 

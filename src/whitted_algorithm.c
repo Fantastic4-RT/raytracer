@@ -203,8 +203,8 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(th->obj[main->curr].data, th->obj[main->curr].hitpoint));
 //		if (main->obj[main->curr].hitpoint.y > 1000)
 //			printf("%zd\n", main->curr);
-		if (main->curr == 0)
-			vec3_print(main->obj[main->curr].hitpoint, "hitpoint");
+//		if (main->curr == 0)
+//			vec3_print(main->obj[main->curr].hitpoint, "hitpoint");
 //		if (main->mode.text_mode == 1 && main->mode.text_index != 0 && main->curr == main->mode.obj_index)
 //			find_pixel_color(main);
 		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent
