@@ -33,7 +33,7 @@ void	camera_rotation(t_main *main, int param)
 	image(main);
 }
 
-int 	key_hook_cam(int keycode, t_main *main)
+void 	key_hook_cam(int keycode, t_main *main)
 {
 	if (keycode == 83)
 		camera_rotation(main, -1);
