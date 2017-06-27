@@ -23,6 +23,11 @@
 # include <fcntl.h>
 # include <time.h>
 
+//--------------------------
+#define TEXT_MODE
+
+
+
 # define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
@@ -36,7 +41,7 @@
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
 # define ROT_ANGLE 15 * RAD
-# define TEXT_SIZE 128// size of the texture
+# define TEXT_SIZE 256// size of the texture
 
 typedef struct	s_abs
 {
@@ -209,11 +214,12 @@ typedef	struct 		s_obj
 	char	*type;
 	void	*data;
 	t_material	mat;
-	t_mattype mattype; //added here so that we do not need cast object
+	t_mattype mattype;
 	int		(*intersect)(t_ray r, void *data, double *t);
 	t_vec3	n;
 	t_vec3	hitpoint;
-	t_vec3	(*normal)(void *data, t_vec3 hitpoint); //function to count normal
+	t_vec3	tmp_color;
+	t_vec3	(*normal)(void *data, t_vec3 hitpoint);
 }					t_obj;
 
 typedef struct	s_pmode
@@ -232,7 +238,6 @@ typedef struct	s_pmode
 	int rot_cam_mode;
 	int cam_pos_mode;
 
-	int anti_alias;
 	int off;
 
 }				t_pmode;
@@ -386,10 +391,11 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
 /*
  * envinronment.c
  */
+void alias_mode(int keycode, t_main *main);
 void init_images(t_main *main);
 void switch_cam_mode(int keycode, t_main *main);
 void generate_textures(t_main *main);
-void 	find_pixel_color(t_main *main);
+void 	find_pixel_color(t_thread *th, t_main *main);
 /*
  * object_mode.c
  */
@@ -412,6 +418,7 @@ void sin_stripes(t_main *main, int w);
 /*
 ** antialiasing
 */
+
 void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);
 void	pthreading(t_main *main);

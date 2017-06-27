@@ -92,7 +92,6 @@ void 	image(t_main *main)
 	matrices(main);
 	main->cam.ray.pos = m_apply(main->mxs.rot_cam, main->cam.ray.pos);
 	pthreading(main);
-//	outputfile(main);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, main->mlx.img, 0, 0);
 	mlx_destroy_image(main->mlx.mlx, main->mlx.img);
 }

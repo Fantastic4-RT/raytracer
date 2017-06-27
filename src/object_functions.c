@@ -3,8 +3,16 @@
 //
 #include "rt.h"
 
+//void rotate_objects(int keycode, t_main *main)
+//{
+//
+//}
+
+#ifdef TEXT_MODE
 void change_texture(int keycode, t_main *main)
 {
+	if (keycode >= 83 && keycode <= 90 && main->mode.text_index == 0)
+		main->obj[main->curr].tmp_color = main->obj[main->curr].mat.color;
 	if (keycode == 83)
 		main->mode.text_index = 1; // checkerboard
 	else if (keycode == 84)
@@ -18,14 +26,17 @@ void change_texture(int keycode, t_main *main)
 	else if (keycode == 88)
 		main->mode.text_index = 6; // wood
 	else if (keycode == 89)
-		main->mode.text_index = 7; // smoth noise
-	else if (keycode == 90)
-		main->mode.text_index = 8; // turbulence
+		main->mode.text_index = 7; // smooth noise
 	else if (keycode == 91)
+		main->mode.text_index = 8; // turbulence
+	else if (keycode == 92)
+	{
 		main->mode.text_index = 0;
+		main->obj[main->mode.obj_index].mat.color = main->obj[main->mode.obj_index].tmp_color;
+	}
 	image(main);
 }
-
+#endif
 
 void change_color(int keycode, t_main *main)
 {
@@ -184,7 +195,3 @@ void move_objects(int keycode, t_main *main)
 	}
 }
 
-//void rotate_objects(int keycode, t_main *main)
-//{
-//
-//}

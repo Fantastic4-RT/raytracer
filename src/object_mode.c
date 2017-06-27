@@ -17,7 +17,7 @@ void	color_mode(int keycode, t_main *main)
 	if (main->mode.color_mode == 1)
 		change_color(keycode, main);
 }
-
+#ifdef TEXT_MODE
 void 	texture_mode(int keycode, t_main *main)
 {
 	//change texture
@@ -29,10 +29,11 @@ void 	texture_mode(int keycode, t_main *main)
 		main->mode.text_mode = 1;
 	else if (keycode == 105 && main->mode.text_mode == 1)
 		main->mode.text_mode = 0;
-	printf("texture mode = %d\n", main->mode.text_mode);
+//	printf("texture mode = %d\n", main->mode.text_mode);
 	if (main->mode.text_mode == 1)
 		change_texture(keycode, main); // IMPLEMENT
 }
+#endif
 
 void 	move_mode(int keycode, t_main *main)
 {
@@ -50,21 +51,21 @@ void 	move_mode(int keycode, t_main *main)
 		move_objects(keycode, main);
 }
 
-void 	rotation_mode(int keycode, t_main *main)
-{
-	// rotate obj (R QAWSED)
-	if (keycode == 15
-		&& main->mode.rot_obj_mode == 0
-		&& main->mode.move_mode == 0
-		&& main->mode.text_mode == 0
-		&& main->mode.color_mode == 0)
-		main->mode.rot_obj_mode = 1;
-	else if (keycode == 15 && main->mode.rot_obj_mode == 1)
-		main->mode.rot_obj_mode = 0;
-//	if (main->mode.rot_obj_mode == 1
-//		&& ((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)))
-//		rotate_objects(keycode, main);
-}
+//void 	rotation_mode(int keycode, t_main *main)
+//{
+//	// rotate obj (R QAWSED)
+//	if (keycode == 15
+//		&& main->mode.rot_obj_mode == 0
+//		&& main->mode.move_mode == 0
+//		&& main->mode.text_mode == 0
+//		&& main->mode.color_mode == 0)
+//		main->mode.rot_obj_mode = 1;
+//	else if (keycode == 15 && main->mode.rot_obj_mode == 1)
+//		main->mode.rot_obj_mode = 0;
+////	if (main->mode.rot_obj_mode == 1
+////		&& ((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)))
+////		rotate_objects(keycode, main);
+//}
 
 void switch_obj_mode(int keycode, t_main *main)
 {
@@ -86,6 +87,8 @@ void switch_obj_mode(int keycode, t_main *main)
 				   0xff0000, ft_itoa(main->mode.obj_index));
 	color_mode(keycode, main);
 	move_mode(keycode, main);
-//	texture_mode(keycode, main);
+#ifdef TEXT_MODE
+	texture_mode(keycode, main);
+#endif
 //	rotation_mode(keycode, main);
 }

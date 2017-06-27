@@ -24,15 +24,11 @@ t_vec3 cone_norm(void *data, t_vec3 hitpoint)
 	t_vec3 tmp;
 	t_cone *c = (t_cone*)data;
 	t_vec3	n;
-	t_vec3	n1;
 
-	n = vec3_norm(vec3_sub(hitpoint, vec3_add(c->p1, vec3_mult(c->axis,
-				vec3_length(vec3_sub(hitpoint,c->p1)) /
-			vec3_dp(c->axis, vec3_norm(vec3_sub(hitpoint, c->p1)))))));
 	tmp = vec3_sub(hitpoint, c->p1);//position
 	double t = vec3_length(tmp) / (vec3_dp(c->axis, vec3_norm(tmp)));
-	n1 = vec3_norm(vec3_sub(hitpoint, vec3_add(c->p1, vec3_mult(c->axis, t))));
-	return (n1);
+	n = vec3_norm(vec3_sub(hitpoint, vec3_add(c->p1, vec3_mult(c->axis, t))));
+	return (n);
 }
 
 t_vec3 cylinder_norm(void * data, t_vec3 hitpoint)

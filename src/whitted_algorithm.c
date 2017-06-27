@@ -18,7 +18,8 @@ int vec3_to_int(t_vec3 hitcolor)
 	int res;
 
 	hitcolor = vec3_mult(hitcolor, 255);
-	res = ((int)fmin(255, hitcolor.x) << 16) + ((int)fmin(255, hitcolor.y) << 8) + (int)fmin(255, hitcolor.z);
+	res = ((int)fmin(255, hitcolor.x) << 16) + ((int)fmin(255, hitcolor.y) << 8)
+		  + (int)fmin(255, hitcolor.z);
 	return (res);
 }
 
@@ -50,7 +51,7 @@ t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract)
 		cosi = -cosi;
 	else
 	{
-		ft_swap(&etai, &etat);
+		ft_swap_double(&etai, &etat);
 		norm = vec3_invert(n);
 	}
 	double eta = etai / etat;
@@ -69,7 +70,7 @@ void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amou
 	double etat = irefract;
 
 	if (cosi > 0)
-		ft_swap(&etai, &etat);
+		ft_swap_double(&etai, &etat);
  	double sint = etai / etat * sqrt(fmax(0.0, 1 - cosi * cosi));
 	if (sint >= 1)
 		*amount = 1;
@@ -206,12 +207,8 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 			&ray, main, th);
 		th->obj[main->curr].hitpoint = vec3_add(ray.pos, vec3_mult(ray.dir, t));
 		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(th->obj[main->curr].data, th->obj[main->curr].hitpoint));
-//		if (main->obj[main->curr].hitpoint.y > 1000)
-//			printf("%zd\n", main->curr);
-//		if (main->curr == 0)
-//			vec3_print(main->obj[main->curr].hitpoint, "hitpoint");
-//		if (main->mode.text_mode == 1 && main->mode.text_index != 0 && main->curr == main->mode.obj_index)
-//			find_pixel_color(main);
+		if (main->mode.text_mode == 1 && main->mode.text_index != 0 && main->curr == main->mode.obj_index)
+			find_pixel_color(th, main);
 		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent
 			hitcolor = reflection_and_refraction(hitcolor, &ray, main, depth, th);
 		else if (th->obj[main->curr].mattype == REFLECT) //mirror-like
