@@ -3,10 +3,85 @@
 //
 #include "rt.h"
 
-//void rotate_objects(int keycode, t_main *main)
-//{
-//
-//}
+void rotate_objects(int keycode, t_main *main)
+{
+	if (keycode == 12 || keycode == 0)
+	{// x
+		if (ft_strcmp(main->obj[main->mode.obj_index].type, "cylinder") == 0)
+		{
+			t_cyl *data = (t_cyl *) main->obj[main->mode.obj_index].data;
+			data->axis = keycode == 12 ? m_apply(x_rot(2 * RAD), data->axis) :
+						 m_apply(x_rot(-2 * RAD), data->axis);
+		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
+		{
+			t_cone *data = (t_cone *) main->obj[main->mode.obj_index].data;
+			data->axis = keycode == 12 ? m_apply(x_rot(2 * RAD), data->axis) :
+						 m_apply(x_rot(-2 * RAD), data->axis);
+		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "plane") == 0)
+		{
+			t_plane *data = (t_plane *) main->obj[main->mode.obj_index].data;
+			data->normal = keycode == 12 ? m_apply(x_rot(2 * RAD), data->normal) :
+						 m_apply(x_rot(-2 * RAD), data->normal);
+		}
+//		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
+//		{
+//			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
+//		}
+	}
+	if (keycode == 13 || keycode == 1)
+	{// y
+		if (ft_strcmp(main->obj[main->mode.obj_index].type, "cylinder") == 0)
+		{
+			t_cyl *data = (t_cyl *) main->obj[main->mode.obj_index].data;
+			data->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data->axis) :
+						 m_apply(y_rot(-2 * RAD), data->axis);
+		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
+		{
+			t_cone *data = (t_cone *) main->obj[main->mode.obj_index].data;
+			data->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data->axis) :
+						 m_apply(y_rot(-2 * RAD), data->axis);
+		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "plane") == 0)
+		{
+			t_plane *data = (t_plane *) main->obj[main->mode.obj_index].data;
+			data->normal = keycode == 13 ? m_apply(y_rot(2 * RAD), data->normal) :
+						   m_apply(y_rot(-2 * RAD), data->normal);
+		}
+//		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
+//		{
+//			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
+//		}
+	}
+	if (keycode == 14 || keycode == 2)
+	{// z
+		if (ft_strcmp(main->obj[main->mode.obj_index].type, "cylinder") == 0)
+		{
+			t_cyl *data = (t_cyl *) main->obj[main->mode.obj_index].data;
+			data->axis = keycode == 14 ? m_apply(z_rot(2 * RAD), data->axis) :
+						 m_apply(z_rot(-2 * RAD), data->axis);
+		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
+		{
+			t_cone *data = (t_cone *) main->obj[main->mode.obj_index].data;
+			data->axis = keycode == 14 ? m_apply(z_rot(2 * RAD), data->axis) :
+						 m_apply(z_rot(-2 * RAD), data->axis);
+		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "plane") == 0)
+		{
+			t_plane *data = (t_plane *) main->obj[main->mode.obj_index].data;
+			data->normal = keycode == 14 ? m_apply(z_rot(2 * RAD), data->normal) :
+						   m_apply(z_rot(-2 * RAD), data->normal);
+		}
+//		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
+//		{
+//			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
+//		}
+	}
+	image(main);
+}
 
 #ifdef TEXT_MODE
 void change_texture(int keycode, t_main *main)

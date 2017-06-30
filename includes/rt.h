@@ -418,6 +418,7 @@ void sin_stripes(t_main *main, int w);
 /*
 ** antialiasing
 */
+void rotate_objects(int keycode, t_main *main);
 
 void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);

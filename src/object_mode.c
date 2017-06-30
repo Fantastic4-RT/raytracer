@@ -51,21 +51,21 @@ void 	move_mode(int keycode, t_main *main)
 		move_objects(keycode, main);
 }
 
-//void 	rotation_mode(int keycode, t_main *main)
-//{
-//	// rotate obj (R QAWSED)
-//	if (keycode == 15
-//		&& main->mode.rot_obj_mode == 0
-//		&& main->mode.move_mode == 0
-//		&& main->mode.text_mode == 0
-//		&& main->mode.color_mode == 0)
-//		main->mode.rot_obj_mode = 1;
-//	else if (keycode == 15 && main->mode.rot_obj_mode == 1)
-//		main->mode.rot_obj_mode = 0;
-////	if (main->mode.rot_obj_mode == 1
-////		&& ((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)))
-////		rotate_objects(keycode, main);
-//}
+void 	rotation_mode(int keycode, t_main *main)
+{
+	// rotate obj (R QAWSED)
+	if (keycode == 15
+		&& main->mode.rot_obj_mode == 0
+		&& main->mode.move_mode == 0
+		&& main->mode.text_mode == 0
+		&& main->mode.color_mode == 0)
+		main->mode.rot_obj_mode = 1;
+	else if (keycode == 15 && main->mode.rot_obj_mode == 1)
+		main->mode.rot_obj_mode = 0;
+	if (main->mode.rot_obj_mode == 1
+		&& ((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)))
+		rotate_objects(keycode, main);
+}
 
 void switch_obj_mode(int keycode, t_main *main)
 {
@@ -90,5 +90,5 @@ void switch_obj_mode(int keycode, t_main *main)
 #ifdef TEXT_MODE
 	texture_mode(keycode, main);
 #endif
-//	rotation_mode(keycode, main);
+	rotation_mode(keycode, main);
 }

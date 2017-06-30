@@ -9,9 +9,9 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
- <object type="sphere">
+ <object type="cylinder">
         <position>0, 0, 0</position>
-        <radius>5</radius>
+        <axis>0, 1, 0</axis>
         <color>00f103</color>
         <diffuse>50</diffuse>
         <specular>100</specular>

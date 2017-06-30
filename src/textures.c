@@ -23,7 +23,6 @@ void perlin_noise(t_main *main, float zoom)
 	}
 }
 
-
 double smooth_noise(t_vec3 p, t_main *main)
 {
 
