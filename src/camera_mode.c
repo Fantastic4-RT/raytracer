@@ -1,72 +1,80 @@
-//
-// Created by Anastasiia Trepyton on 6/22/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera_mode.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/30 19:01:39 by atrepyto          #+#    #+#             */
+/*   Updated: 2017/06/30 19:01:42 by atrepyto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
-void	camera_rotation(t_main *main, int param)
+void	camera_rotation(int keycode, t_main *main)
 {
-	if (param == 0)
+	if(keycode == 15 && main->mode.rot_cam_mode == 0 && main->mode.dir_mode == 0
+	   && main->mode.cam_pos_mode == 0)
+		main->mode.rot_cam_mode = 1;
+	else if(keycode == 15 && main->mode.rot_cam_mode == 1)
+		main->mode.rot_cam_mode = 0;
+	if (main->mode.rot_cam_mode == 1 &&
+			((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)))
 	{
-		main->mxs.cam_angle = vec3_create(0, 0, 0);
-		main->mxs.dir_angle = vec3_create(0, 0, 0);
+		if (keycode == 12 || keycode == 0)
+			main->mxs.cam_angle.x += keycode == 12 ? ROT_ANGLE : -ROT_ANGLE;
+		else if (keycode == 13 || keycode == 1)
+			main->mxs.cam_angle.y += keycode == 13 ? ROT_ANGLE : -ROT_ANGLE;
+		else if (keycode == 14 || keycode == 2)
+			main->mxs.cam_angle.z += keycode == 14 ? ROT_ANGLE : -ROT_ANGLE;
+		image(main);
 	}
-	if (param == 1 || param == -1)
-		main->mxs.cam_angle.x += param * ROT_ANGLE;
-	if (param == 2 || param == -2)
-		main->mxs.cam_angle.y += param / 2. * ROT_ANGLE;
-	if (param == 3 || param == -3)
-		main->mxs.cam_angle.z += param / 3. * ROT_ANGLE;
-	if (param == 4 || param == -4)
-		main->mxs.dir_angle.x += param / 4. * ROT_ANGLE;
-	if (param == 5 || param == -5)
-		main->mxs.dir_angle.y += param / 5. * ROT_ANGLE;
-	if (param == 6 || param == -6)
-		main->mxs.dir_angle.z += param / 6. * ROT_ANGLE;
-	image(main);
 }
 
-void 	key_hook_cam(int keycode, t_main *main)
+void	camera_direction(int keycode, t_main *main)
 {
-	if (keycode == 83)
-		camera_rotation(main, -1);
-	if (keycode == 85)
-		camera_rotation(main, 1);
-	if (keycode == 86)
-		camera_rotation(main, -2);
-	if (keycode == 88)
-		camera_rotation(main, 2);
-	if (keycode == 89)
-		camera_rotation(main, 3);
-	if (keycode == 92)
-		camera_rotation(main, -3);
-	if (keycode == 1)
-		camera_rotation(main, -4);
-	if (keycode == 13)
-		camera_rotation(main, 4);
-	if (keycode == 0)
-		camera_rotation(main, -5);
-	if (keycode == 2)
-		camera_rotation(main, 5);
-	keycode == 12 ? camera_rotation(main, 6) : 0;
-	keycode == 14 ? camera_rotation(main, -6) : 0;
-	keycode == 87 ? camera_rotation(main, 0) : 0;
-	keycode == 53 ? exit(0) : 0;
+	if (keycode == 17 && main->mode.rot_cam_mode == 0
+		&& main->mode.dir_mode == 0
+		&& main->mode.cam_pos_mode == 0)
+		main->mode.dir_mode = 1;
+	else if (keycode == 17 && main->mode.dir_mode == 1)
+		main->mode.dir_mode = 0;
+	if (main->mode.dir_mode == 1 &&
+		((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)))
+	{
+		if (keycode == 12 || keycode == 0)
+			main->mxs.dir_angle.x += keycode == 12 ? ROT_ANGLE : -ROT_ANGLE;
+		else if (keycode == 13 || keycode == 1)
+			main->mxs.dir_angle.y += keycode == 13 ? ROT_ANGLE : -ROT_ANGLE;
+		else if (keycode == 14 || keycode == 2)
+			main->mxs.dir_angle.z += keycode == 14 ? ROT_ANGLE : -ROT_ANGLE;
+		image(main);
+	}
 }
-
-
-
-//void switch_cam_mode(int keycode, t_main *main)
-//{
-////put img indicating the mode in menu
-//
-////cam_rotation (R - QAWSED)
-//	if(keycode == 15)
-//		main->mode.rot_cam_mode = 1;
-//// cam_direction (T - QAWSED)
-//	else if (keycode == T)
-//		main->mode.dir_mode = 1;
-//// cam_position (M - QAWSED)
-//	else if (keycode == 43)
-//		main->mode.cam_pos_mode = 1;
-//
-//}
+void switch_cam_mode(int keycode, t_main *main)
+{
+//put img indicating the mode in menu
+//cam_rotation (R - QAWSED)
+	camera_rotation(keycode, main);
+// cam_direction (T - QAWSED)
+	camera_direction(keycode, main);
+// cam_position (M - QAWSED)
+	if (keycode == 46 && main->mode.rot_cam_mode == 0
+			 && main->mode.dir_mode == 0
+			 && main->mode.cam_pos_mode == 0)
+		main->mode.cam_pos_mode = 1;
+	else if (keycode == 46 && main->mode.cam_pos_mode == 1)
+		main->mode.cam_pos_mode = 0;
+	if (main->mode.cam_pos_mode == 1 &&
+			((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)))
+	{
+		if (keycode == 12 || keycode == 0)
+			main->cam.start.x += keycode == 12 ? 1 / (double)WIDTH : -1 / (double)WIDTH;
+		else if (keycode == 13 || keycode == 1)
+			main->cam.start.y += keycode == 13 ? 1 / (double)HEIGHT : -1 / (double)HEIGHT;
+		else if (keycode == 14 || keycode == 2)
+			main->cam.start.z += keycode == 14 ? 1 : -1;
+		image(main);
+	}
+}

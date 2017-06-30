@@ -383,7 +383,7 @@ t_matrix			x_rot(double angle);
 t_matrix			y_rot(double angle);
 t_matrix			z_rot(double angle);
 t_vec3				m_apply(t_matrix matrix, t_vec3 vec);
-void				camera_rotation(t_main *main, int param);
+//void				camera_rotation(t_main *main, int param);
 void	pthreading(t_main *main);
 void 	outputfile(t_main *main);
 void 	image(t_main *main);
