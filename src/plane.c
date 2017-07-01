@@ -86,4 +86,11 @@ void	add_plane(char *str, t_main *main)
 	data = (t_plane *)main->obj[main->obj_i].data;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
+
+	data->p2 = vec3_create(9, -5, -10);
+	data->p3 = vec3_create(10, -1, -10);
+	main->obj[main->obj_i].intersect = &intersect_triangle;
+	data->rad = 5;
+	main->obj[main->obj_i].intersect = &intersect_elips;
+
 }
