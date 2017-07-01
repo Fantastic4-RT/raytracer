@@ -22,6 +22,11 @@ void	*default_plane(t_plane *plane)
 	plane->mat.reflect = 0;
 	plane->mat.refract = 0;
 	plane->mat.transp = 0;
+	plane->p2 = vec3_create(0, 0, 0);
+	plane->p3 = vec3_create(0, 0, 0);
+	plane->p4 = vec3_create(0, 0, 0);
+	plane->rad = 0;
+	plane->cut = 0;
 	return ((void *)plane);
 }
 
@@ -81,16 +86,21 @@ void	add_plane(char *str, t_main *main)
 	t_plane *data;
 
 	fill_plane_data(str, (t_plane *)main->obj[main->obj_i].data);
-	main->obj[main->obj_i].intersect = &intersect_plane;
+
 	main->obj[main->obj_i].normal = &plane_norm;
 	data = (t_plane *)main->obj[main->obj_i].data;
+
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
-
-	data->p2 = vec3_create(9, -5, -10);
-	data->p3 = vec3_create(10, -1, -10);
-	main->obj[main->obj_i].intersect = &intersect_triangle;
-	data->rad = 5;
-	main->obj[main->obj_i].intersect = &intersect_elips;
-
+	if (data->cut == 1)
+	{
+		if (!vec3_eq(data->p4, vec3_create(0, 0, 0)))
+			main->obj[main->obj_i].intersect = &intersect_mesh;
+		else if (data->rad != 0)
+			main->obj[main->obj_i].intersect = &intersect_elips;
+		else
+			main->obj[main->obj_i].intersect = &intersect_triangle;
+	}
+	else
+		main->obj[main->obj_i].intersect = &intersect_plane;
 }

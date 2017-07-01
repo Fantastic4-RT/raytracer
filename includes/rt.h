@@ -24,7 +24,7 @@
 # include <time.h>
 
 //--------------------------
-#define TEXT_MODE
+//#define TEXT_MODE
 
 
 
@@ -139,7 +139,9 @@ typedef struct	s_plane
 	t_vec3		normal;
 	t_vec3		p2;
 	t_vec3		p3;
+	t_vec3		p4;
 	double		rad;
+	int			cut;
 	t_material	mat; //materials should be better in the general structures but easier to save them here for reading
 }				t_plane;
 
@@ -435,4 +437,5 @@ void	new_image(t_main *main);
 
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
+int intersect_mesh(t_ray r, void *p, double *t);
 #endif

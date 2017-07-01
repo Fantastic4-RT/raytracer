@@ -24,6 +24,14 @@ void rotate_objects(int keycode, t_main *main)
 			t_plane *data = (t_plane *) main->obj[main->mode.obj_index].data;
 			data->normal = keycode == 12 ? m_apply(x_rot(2 * RAD), data->normal)
 						: m_apply(x_rot(-2 * RAD), data->normal);
+			data->pos = keycode == 12 ? m_apply(x_rot(2 * RAD), data->pos)
+									  : m_apply(x_rot(-2 * RAD), data->pos);
+			data->p2 = keycode == 12 ? m_apply(x_rot(2 * RAD), data->p2)
+									 : m_apply(x_rot(-2 * RAD), data->p2);
+			data->p3 = keycode == 12 ? m_apply(x_rot(2 * RAD), data->p3)
+									 : m_apply(x_rot(-2 * RAD), data->p3);
+			data->p4 = keycode == 12 ? m_apply(x_rot(2 * RAD), data->p4)
+									 : m_apply(x_rot(-2 * RAD), data->p4);
 		}
 //		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
 //		{
@@ -49,6 +57,14 @@ void rotate_objects(int keycode, t_main *main)
 			t_plane *data = (t_plane *) main->obj[main->mode.obj_index].data;
 			data->normal = keycode == 13 ? m_apply(y_rot(2 * RAD), data->normal) :
 						   m_apply(y_rot(-2 * RAD), data->normal);
+			data->pos = keycode == 13 ? m_apply(y_rot(2 * RAD), data->pos)
+									  : m_apply(y_rot(-2 * RAD), data->pos);
+			data->p2 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p2)
+									 : m_apply(y_rot(-2 * RAD), data->p2);
+			data->p3 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p3)
+									 : m_apply(y_rot(-2 * RAD), data->p3);
+			data->p4 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p4)
+									 : m_apply(y_rot(-2 * RAD), data->p4);
 		}
 //		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
 //		{
@@ -74,6 +90,14 @@ void rotate_objects(int keycode, t_main *main)
 			t_plane *data = (t_plane *) main->obj[main->mode.obj_index].data;
 			data->normal = keycode == 14 ? m_apply(z_rot(2 * RAD), data->normal) :
 						   m_apply(z_rot(-2 * RAD), data->normal);
+			data->pos = keycode == 14 ? m_apply(z_rot(2 * RAD), data->pos)
+									  : m_apply(z_rot(-2 * RAD), data->pos);
+			data->p2 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p2)
+									 : m_apply(z_rot(-2 * RAD), data->p2);
+			data->p3 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p3)
+									 : m_apply(z_rot(-2 * RAD), data->p3);
+			data->p4 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p4)
+									 : m_apply(z_rot(-2 * RAD), data->p4);
 		}
 //		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
 //		{
@@ -189,6 +213,19 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 12 ?
 						vec3_add(data->pos, vec3_create(1, 0, 0)) :
 						vec3_sub(data->pos, vec3_create(1, 0, 0));
+			if (!vec3_eq(data->p2, vec3_create(0, 0, 0)) && !vec3_eq(data->p3, vec3_create(0, 0, 0)))
+			{
+				data->p2 = keycode == 12 ?
+							vec3_add(data->p2, vec3_create(1, 0, 0)) :
+							vec3_sub(data->p2, vec3_create(1, 0, 0));
+				data->p3 = keycode == 12 ?
+							vec3_add(data->p3, vec3_create(1, 0, 0)) :
+							vec3_sub(data->p3, vec3_create(1, 0, 0));
+				data->p4 = keycode == 12 ?
+						   vec3_add(data->p4, vec3_create(1, 0, 0)) :
+						   vec3_sub(data->p4, vec3_create(1, 0, 0));
+			}
+
 		}
 		image(main);
 	}
@@ -227,6 +264,18 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 13 ?
 						vec3_add(data->pos, vec3_create(0, 1, 0)) :
 						vec3_sub(data->pos, vec3_create(0, 1, 0));
+			if (!vec3_eq(data->p2, vec3_create(0, 0, 0)) && !vec3_eq(data->p3, vec3_create(0, 0, 0)))
+			{
+				data->p2 = keycode == 13 ?
+						   vec3_add(data->p2, vec3_create(0, 1, 0)) :
+						   vec3_sub(data->p2, vec3_create(0, 1, 0));
+				data->p3 = keycode == 13 ?
+						   vec3_add(data->p3, vec3_create(0, 1, 0)) :
+						   vec3_sub(data->p3, vec3_create(0, 1, 0));
+				data->p4 = keycode == 13 ?
+						   vec3_add(data->p4, vec3_create(0, 1, 0)) :
+						   vec3_sub(data->p4, vec3_create(0, 1, 0));
+			}
 		}
 		image(main);
 	}
@@ -265,6 +314,18 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 14 ?
 						vec3_add(data->pos, vec3_create(0, 0, 1)) :
 						vec3_sub(data->pos, vec3_create(0, 0, 1));
+			if (!vec3_eq(data->p2, vec3_create(0, 0, 0)) && !vec3_eq(data->p3, vec3_create(0, 0, 0)))
+			{
+				data->p2 = keycode == 14 ?
+						   vec3_add(data->p2, vec3_create(0, 0, 1)) :
+						   vec3_sub(data->p2, vec3_create(0, 0, 1));
+				data->p3 = keycode == 14 ?
+						   vec3_add(data->p3, vec3_create(0, 0, 1)) :
+						   vec3_sub(data->p3, vec3_create(0, 0, 1));
+				data->p4 = keycode == 14 ?
+						   vec3_add(data->p4, vec3_create(0, 0, 1)) :
+						   vec3_sub(data->p4, vec3_create(0, 0, 1));
+			}
 		}
 		image(main);
 	}
