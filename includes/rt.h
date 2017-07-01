@@ -24,7 +24,7 @@
 # include <time.h>
 
 //--------------------------
-#define TEXT_MODE
+//#define TEXT_MODE
 
 
 
@@ -137,8 +137,15 @@ typedef struct	s_plane
 {
 	t_vec3		pos;
 	t_vec3		normal;
+	t_vec3		p2;
+	t_vec3		p3;
+	t_vec3		p4;
+	double		rad;
+	int			cut;
 	t_material	mat; //materials should be better in the general structures but easier to save them here for reading
 }				t_plane;
+
+
 
 typedef	struct 	s_sphere
 {
@@ -378,7 +385,7 @@ t_mattype get_material_type(t_material mat);
 
 t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
 
-
+t_vec3 vec3_cross(t_vec3 vec1, t_vec3 vec2);
 void				matrices(t_main *main);
 t_matrix			m_mult(t_matrix m1, t_matrix m2);
 t_matrix			x_rot(double angle);
@@ -427,4 +434,8 @@ void	ipp_fill(t_main *main, int x, int y, int color);
 void	pthreading(t_main *main);
 void	new_image(t_main *main);
 
+
+int intersect_elips(t_ray r, void *p, double *t);
+int intersect_triangle(t_ray r, void *p, double *t);
+int intersect_mesh(t_ray r, void *p, double *t);
 #endif

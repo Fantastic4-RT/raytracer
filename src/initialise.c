@@ -103,7 +103,9 @@ int expose(t_main *main)
 	if (main->mode.start == 1)
 	{
 		init_images(main);
+#ifdef TEXT_MODE
 		generate_textures(main);
+#endif
 		main->mode.start = 0;
 		if (main->mode.loaded == 1)
 			image(main);
@@ -118,11 +120,11 @@ void	mlx_initialise(t_main *main)
 	void *start_page;
 
 	main->mlx.mlx = mlx_init();
-	main->mlx.win = mlx_new_window(main->mlx.mlx, main->scene.wid, main->scene.hei, "Scene");
 	main->mlx.menu.menu_win = mlx_new_window(main->mlx.mlx, 400, 400, "Menu"); //menu
 	main->mlx.menu.main_menu = mlx_xpm_file_to_image(main->mlx.mlx, "menu.xpm", &w, &h);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
 							main->mlx.menu.main_menu, 0, 0); //menu
+	main->mlx.win = mlx_new_window(main->mlx.mlx, main->scene.wid, main->scene.hei, "Scene");
 	start_page = mlx_xpm_file_to_image(main->mlx.mlx, "Startpage.xpm", &w, &h);
 	if (main->mode.start == 1)
 		mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, start_page, 0, 0);
