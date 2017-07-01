@@ -53,6 +53,7 @@ dkms.conf
 rt
 .DS*
 ._.DS*
+._*
 *.sh
 cmake-build-debug
 .idea

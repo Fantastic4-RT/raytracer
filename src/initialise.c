@@ -97,19 +97,41 @@ void 	image(t_main *main)
 	mlx_destroy_image(main->mlx.mlx, main->mlx.img);
 }
 
+//progress bar loading...........
+int expose(t_main *main)
+{
+	if (main->mode.start == 1)
+	{
+		init_images(main);
+		generate_textures(main);
+		main->mode.start = 0;
+		if (main->mode.loaded == 1)
+			image(main);
+	} //menu
+	return (0);
+}
+
 void	mlx_initialise(t_main *main)
 {
+	int w;
+	int h;
+	void *start_page;
+
 	main->mlx.mlx = mlx_init();
 	main->mlx.win = mlx_new_window(main->mlx.mlx, main->scene.wid, main->scene.hei, "Scene");
 	main->mlx.menu.menu_win = mlx_new_window(main->mlx.mlx, 400, 400, "Menu"); //menu
-	init_images(main); //menu
+	main->mlx.menu.main_menu = mlx_xpm_file_to_image(main->mlx.mlx, "menu.xpm", &w, &h);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
 							main->mlx.menu.main_menu, 0, 0); //menu
-	image(main);
+	start_page = mlx_xpm_file_to_image(main->mlx.mlx, "Startpage.xpm", &w, &h);
+	if (main->mode.start == 1)
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, start_page, 0, 0);
+//	image(main);
+//	init_images(main); //menu
+	mlx_expose_hook(main->mlx.win, expose, main);
 	mlx_hook(main->mlx.win, 2, 3, key_hook, main);
 	mlx_hook(main->mlx.win, 17, 1L << 17, cross_exit, main);
 	mlx_hook(main->mlx.menu.menu_win, 2, 3, key_hook, main); //menu
 	mlx_hook(main->mlx.menu.menu_win, 17, 1L << 17, cross_exit, main); //menu
 	mlx_loop(main->mlx.mlx);
 }
-

@@ -1,4 +1,4 @@
-<scene width=1200 height=720 objects=1 lights=1 aa=0>
+<scene width=1200 height=720 objects=2 lights=1 aa=0>
     <camera>
         <position>0, 0, 30</position>
         <rotation>0, 0, 0</rotation>
@@ -19,5 +19,15 @@
         <refraction>0</refraction>
         <transparency>50</transparency>
     </object>
+    <object type="sphere">
+            <position>7, 0, 0</position>
+            <radius>5</radius>
+            <color>26f1e3</color>
+            <diffuse>50</diffuse>
+            <specular>100</specular>
+            <reflection>1</reflection>
+            <refraction>0</refraction>
+            <transparency>50</transparency>
+        </object>
 </scene>
 

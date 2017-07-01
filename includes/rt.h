@@ -239,6 +239,8 @@ typedef struct	s_pmode
 	int cam_pos_mode;
 
 	int off;
+	int start;
+	int loaded;
 
 }				t_pmode;
 

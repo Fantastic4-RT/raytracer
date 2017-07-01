@@ -77,14 +77,17 @@ int 	key_hook(int keycode, t_main *main)
 		exit(0);
 	else if (keycode == 113)
 		outputfile(main);
-	alias_mode(keycode, main);
-	change_mode(keycode, main);
-	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
-							main->mlx.menu.main_menu, 0, 0);
-	if (main->mode.obj_mode == 1 && main->mode.off == 0)
-		switch_obj_mode(keycode, main); // O
-	else if (main->mode.cam_mode == 1 && main->mode.off == 0)
-		switch_cam_mode(keycode, main); // C
-	print_status(main);
+	if (main->mode.loaded == 1)
+	{
+		alias_mode(keycode, main);
+		change_mode(keycode, main);
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.main_menu, 0, 0);
+		if (main->mode.obj_mode == 1 && main->mode.off == 0)
+			switch_obj_mode(keycode, main); // O
+		else if (main->mode.cam_mode == 1 && main->mode.off == 0)
+			switch_cam_mode(keycode, main); // C
+		print_status(main);
+	}
 	return (0);
 }

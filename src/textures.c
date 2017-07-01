@@ -107,9 +107,9 @@ void sin_stripes(t_main *main, int w)
 
 void wood(t_main *main)
 {
-	double rings = 24.0;
-	double twist = 0.1;
-	double turb_size = 32;
+	double rings = 64.0;
+	double twist = 0.5;
+	double turb_size = 64;
 	t_vec3 color;
 	int x;
 	int y;
@@ -146,39 +146,41 @@ void 	find_pixel_color(t_thread *th, t_main *main)
 	t_vec3 p;
 	double value;
 
-	p.x = th->obj[main->curr].hitpoint.x;
-	p.y = th->obj[main->curr].hitpoint.y;
-	p.z = th->obj[main->curr].hitpoint.z;
+	p.x = fabs(th->obj[main->curr].hitpoint.x);
+	p.y = fabs(th->obj[main->curr].hitpoint.y);
+	p.z = fabs(th->obj[main->curr].hitpoint.z);
 	if (main->mode.text_index - 1 >= 0 && main->mode.text_index - 1 <= 3)
 	{
 		int color = (int) main->textures[main->mode.text_index -
-										 1].text_arr[(int) p.z][(int) p.y][(int) p.x];
+										 1].text_arr[(int) (p.z * 10) % TEXT_SIZE][(int) (p.y * 10)  % TEXT_SIZE][(int) (p.x * 10)  % TEXT_SIZE];
 		th->obj[main->curr].mat.color =
 				vec3_create(((color >> 16) & 0xFF) / 255.0,
 							((color >> 8) & 0xFF) / 255.0, (color & 0xFF) / 255.0);
 	}
 	else if (main->mode.text_index - 1 == 4)
 	{
-		double color = main->textures[4].text_arr[(int) p.z][(int) p.y][(int) p.x];
+		double color = main->textures[main->mode.text_index -
+									  1].text_arr[(int) (p.z * 10) % TEXT_SIZE][(int) (p.y * 10)  % TEXT_SIZE][(int) (p.x * 10)  % TEXT_SIZE];
 		th->obj[main->curr].mat.color = vec3_create(color, color, color);
 	}
 	else if (main->mode.text_index - 1 == 5)
 	{
-		int color = (int) main->textures[5].text_arr[(int) p.z][(int) p.y][(int) p.x];
+		int color = (int) main->textures[main->mode.text_index -
+										 1].text_arr[(int) (p.z / 2) % TEXT_SIZE][(int) (p.y /2)  % TEXT_SIZE][(int) (p.x / 2)  % TEXT_SIZE];
 		th->obj[main->curr].mat.color = vec3_create(
 				((color >> 16) & 0xFF) / 255.0,
 				((color >> 8) & 0xFF) / 255.0, (color & 0xFF) / 255.0);
 	}
 	if (main->mode.text_index - 1 == 6)
 	{
-		value = smooth_noise(p, main);
+		value = smooth_noise(vec3_create(p.x * 2 , p.y * 2, p.z * 2 ), main);
 		th->obj[main->mode.obj_index].mat.color.x = value;
 		th->obj[main->mode.obj_index].mat.color.y = value;
 		th->obj[main->mode.obj_index].mat.color.z = value;
 	}
 	else if (main->mode.text_index - 1 == 7)
 	{
-		value = turbulence(p, main, 4) / 255;
+		value = turbulence(p, main, 32) / 255;
 		th->obj[main->mode.obj_index].mat.color.x = value;
 		th->obj[main->mode.obj_index].mat.color.y = value;
 		th->obj[main->mode.obj_index].mat.color.z = value;
@@ -193,5 +195,6 @@ void generate_textures(t_main *main)
 	perlin_noise(main, 2);
 	sin_stripes(main, 2);
 	wood(main);
+
 }
 #endif

@@ -21,14 +21,11 @@ void alias_mode(int keycode, t_main *main)
 
 void init_images(t_main *main)
 {
-	int w;
-	int h;
-
-#ifdef TEXT_MODE
-	generate_textures(main);
-#endif
+//#ifdef TEXT_MODE
+//	generate_textures(main);
+//#endif
 	main->obj[0].tmp_color = vec3_create(0,0,0);
-	main->mlx.menu.main_menu = mlx_xpm_file_to_image(main->mlx.mlx, "menu.xpm", &w, &h);
+
 	main->mode.off = 1;
 	main->mode.cam_mode = 0;
 	main->mode.dir_mode = 0;
@@ -42,4 +39,5 @@ void init_images(t_main *main)
 	main->mode.rot_obj_mode = 0;
 	main->mode.text_mode = 0;
 	main->mode.text_index = 0;
+	main->mode.loaded = 1;
 }

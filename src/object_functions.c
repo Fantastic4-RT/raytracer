@@ -22,8 +22,8 @@ void rotate_objects(int keycode, t_main *main)
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "plane") == 0)
 		{
 			t_plane *data = (t_plane *) main->obj[main->mode.obj_index].data;
-			data->normal = keycode == 12 ? m_apply(x_rot(2 * RAD), data->normal) :
-						 m_apply(x_rot(-2 * RAD), data->normal);
+			data->normal = keycode == 12 ? m_apply(x_rot(2 * RAD), data->normal)
+						: m_apply(x_rot(-2 * RAD), data->normal);
 		}
 //		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
 //		{
@@ -86,7 +86,7 @@ void rotate_objects(int keycode, t_main *main)
 #ifdef TEXT_MODE
 void change_texture(int keycode, t_main *main)
 {
-	if (keycode >= 83 && keycode <= 90 && main->mode.text_index == 0)
+	if (keycode >= 83 && keycode <= 91 && main->mode.text_index == 0)
 		main->obj[main->curr].tmp_color = main->obj[main->curr].mat.color;
 	if (keycode == 83)
 		main->mode.text_index = 1; // checkerboard
