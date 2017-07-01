@@ -180,6 +180,7 @@ int trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
 /*
  * Cast rays recursive algorithm
  */
+
 t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 {
 	t_vec3 hitcolor;
@@ -191,12 +192,13 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 	t = 2000000.0;
 	main->curr = -1;
 	if (trace(ray, &t, &main->curr, th))
-	{
-		main->diff_col = diffuse(vec3_create(AMBIENT * th->obj[main->curr].mat.color.x,
-			AMBIENT * th->obj[main->curr].mat.color.y, AMBIENT * th->obj[main->curr].mat.color.z),
-			&ray, main, th);
-		th->obj[main->curr].hitpoint = vec3_add(ray.pos, vec3_mult(ray.dir, t));
-		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(th->obj[main->curr].data, th->obj[main->curr].hitpoint));
+    {
+        t_cyl *c = (t_cyl *)th->obj[main->curr].data;
+        th->obj[main->curr].hitpoint = vec3_add(ray.pos, vec3_mult(ray.dir, t));
+        th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(th->obj[main->curr].data, th->obj[main->curr].hitpoint));
+        main->diff_col = diffuse(vec3_create(AMBIENT * th->obj[main->curr].mat.color.x,
+                                             AMBIENT * th->obj[main->curr].mat.color.y, AMBIENT * th->obj[main->curr].mat.color.z),
+                                 &ray, main, th);
 		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent
 			hitcolor = reflection_and_refraction(hitcolor, &ray, main, depth, th);
 		else if (th->obj[main->curr].mattype == REFLECT) //mirror-like

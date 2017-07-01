@@ -133,6 +133,29 @@ int		intersect_cylind(t_ray r, void *cyl, double *t)
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }
 
+int		intersect_cylind_cut(t_ray r, void *cyl, double *t)
+{
+	t_abs		solve;
+	t_vec3		tmp;
+	t_vec3		tmp2;
+	t_cyl		*cylind;
+    int         retval;
+
+	cylind = (t_cyl*)cyl;
+	r.dir = vec3_norm(r.dir);
+	cylind->axis= vec3_norm(vec3_sub(cylind->p2, cylind->p1));
+	tmp = vec3_sub(r.dir, vec3_mult(cylind->axis, vec3_dp(r.dir,
+														  cylind->axis)));
+	solve.a = vec3_dp(tmp, tmp);
+	tmp2 = vec3_sub(vec3_sub(r.pos, cylind->p1), vec3_mult(cylind->axis,
+           vec3_dp(vec3_sub(r.pos, cylind->p1), cylind->axis)));
+	solve.b = 2 * vec3_dp(tmp, tmp2);
+	solve.c = vec3_dp(tmp2, tmp2) - cylind->rad * cylind->rad;
+	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
+    retval = solve_quadric_cut(solve, t, cylind, r);
+	return (retval);
+}
+
 int		inter_ray_sphere(t_ray r, void *s, double *t)
 {
 	t_abs solve;

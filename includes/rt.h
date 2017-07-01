@@ -25,7 +25,7 @@
 # include <time.h>
 
 
-# define THREADS 4
+# define THREADS 1
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -140,6 +140,9 @@ typedef	struct		s_cyl
 	t_vec3		axis;
 	double		rad;
 	int			cut;
+    double      t_low_cap;
+    double      t_top_cap;
+    double      t_final;
 	t_material	mat;
 }					t_cyl;
 
@@ -296,6 +299,9 @@ int		intersect_cone(t_ray r, void *con, double *t);
 int		intersect_cylind(t_ray r, void *cyl, double *t);
 int		inter_ray_sphere(t_ray r, void *s, double *t);
 
+int		intersect_cylind_cut(t_ray r, void *cyl, double *t);
+int		solve_quadric_cut(t_abs solve, double *t, t_cyl *cyl, t_ray r);
+
 int		vec3_to_int(t_vec3 hitcolor);
 
 int		trace(t_ray ray, double *t, ssize_t *curr, t_thread *th);
@@ -314,5 +320,6 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
 
 void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);
+t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint);
 
 #endif
