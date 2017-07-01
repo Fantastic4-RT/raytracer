@@ -133,8 +133,8 @@ void change_color(int keycode, t_main *main)
 		else if (main->mode.channel == 'b')
 			count = vec3_create(0., 0., 0.1);
 		main->obj[main->mode.obj_index].mat.color = keycode == 69 ?
-													vec3_add(main->obj[main->mode.obj_index].mat.color, count) :
-													vec3_sub(main->obj[main->mode.obj_index].mat.color, count);
+		vec3_add(main->obj[main->mode.obj_index].mat.color, count) :
+		vec3_sub(main->obj[main->mode.obj_index].mat.color, count);
 		if (main->obj[main->mode.obj_index].mat.color.x > 255)
 			main->obj[main->mode.obj_index].mat.color.x = 0;
 		else if (main->obj[main->mode.obj_index].mat.color.x < 0)
