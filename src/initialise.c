@@ -12,6 +12,36 @@
 
 #include "rt.h"
 
+void	malloc_data(t_obj *obj1, t_obj *obj2, char *str)
+{
+	*obj1 = *obj2;
+	if (ft_strcmp(str, "sphere") == 0)
+	{
+		obj1->data = malloc(sizeof(t_sphere));
+		*((t_sphere *)obj1->data) = *((t_sphere *)obj2->data);
+	}
+	if (ft_strcmp(str, "plane") == 0)
+	{
+		obj1->data = malloc(sizeof(t_plane));
+		*((t_plane *)obj1->data) = *((t_plane *)obj2->data);
+	}
+	if (ft_strcmp(str, "cylinder") == 0)
+	{
+		obj1->data = malloc(sizeof(t_cyl));
+		*((t_cyl *)obj1->data) = *((t_cyl *)obj2->data);
+	}
+	if (ft_strcmp(str, "cone") == 0)
+	{
+		obj1->data = malloc(sizeof(t_cone));
+		*((t_cone *)obj1->data) = *((t_cone *)obj2->data);
+	}
+	if (ft_strcmp(str, "paraboloid") == 0)
+	{
+		obj1->data = malloc(sizeof(t_parab));
+		*((t_parab *)obj1->data) = *((t_parab *)obj2->data);
+	}
+}
+
 void	pthreading(t_main *main)
 {
 	pthread_t	threads[THREADS];
@@ -28,7 +58,9 @@ void	pthreading(t_main *main)
 		data[i].light = (t_light *)malloc(sizeof(t_light) * main->scene.lights);
 		j = -1;
 		while (++j < main->scene.objs)
-			data[i].obj[j] = main->obj[j];
+			malloc_data(&data[i].obj[j], &main->obj[j], main->obj[j].type);
+//			data[i].obj[j].data = malloc(sizeof(t_sphere));
+//			*((t_sphere *)data[i].obj[j].data) = *((t_sphere *)(main->obj[j].data));
 		j = -1;
 		while (++j < main->scene.lights)
 			data[i].light[j] = main->light[j];
