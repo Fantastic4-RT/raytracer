@@ -110,6 +110,7 @@ void	add_cylinder(char *str, t_main *main)
 	fill_cylinder_data(str, (t_cyl *)main->obj[main->obj_i].data);
 	if (((t_cyl *)main->obj[main->obj_i].data)->cut == 0)
 		main->obj[main->obj_i].intersect = &intersect_cylind;
+	main->obj[main->obj_i].texture = 0;
 //	else if (((t_cyl *)main->obj[main->obj_i].data)->cut == 1)
 //		main->obj[main->obj_i].intersect = &intersect_cylind_cut;
 	main->obj[main->obj_i].normal = &cylinder_norm;

@@ -208,7 +208,7 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(
 				th->obj[main->curr].data, th->obj[main->curr].hitpoint));
 #ifdef TEXT_MODE
-		if (main->mode.text_index != 0 && main->curr == main->mode.obj_index)
+		if (main->obj[main->curr].texture != 0 )
 			find_pixel_color(th, main);
 #endif
 		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent

@@ -83,6 +83,7 @@ void	add_sphere(char *str, t_main *main)
 	fill_sphere_data(str, (t_sphere *)main->obj[main->obj_i].data);
 	main->obj[main->obj_i].intersect = &inter_ray_sphere; //pointer to func
 	main->obj[main->obj_i].normal = &sphere_norm;
+	main->obj[main->obj_i].texture = 0;
 	data = (t_sphere *)main->obj[main->obj_i].data;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);

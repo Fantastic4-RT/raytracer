@@ -145,7 +145,7 @@ void 	find_pixel_color(t_thread *th, t_main *main)
 {
 	t_vec3 p;
 	double value;
-
+	main->mode.text_index = main->obj[main->curr].texture;
 	p.x = fabs(th->obj[main->curr].hitpoint.x);
 	p.y = fabs(th->obj[main->curr].hitpoint.y);
 	p.z = fabs(th->obj[main->curr].hitpoint.z);
@@ -186,7 +186,6 @@ void 	find_pixel_color(t_thread *th, t_main *main)
 		th->obj[main->mode.obj_index].mat.color.z = value;
 	}
 }
-
 
 void generate_textures(t_main *main)
 {
