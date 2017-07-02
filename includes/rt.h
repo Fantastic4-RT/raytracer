@@ -24,7 +24,7 @@
 # include <time.h>
 
 //--------------------------
-#define TEXT_MODE
+//#define TEXT_MODE
 
 
 
@@ -174,6 +174,9 @@ typedef struct		s_cone
 	double		angle;
 	int			cut;
 	t_material	mat;
+	double		t_low_cap;
+	double		t_top_cap;
+	double		t_final;
 }					t_cone;
 
 typedef struct		s_parab
@@ -382,7 +385,7 @@ int		intersect_plane(t_ray r, void *p, double *t);
 int		intersect_cone(t_ray r, void *con, double *t);
 int		intersect_cylind(t_ray r, void *cyl, double *t);
 int		inter_ray_sphere(t_ray r, void *s, double *t);
-
+int intersect_cone_cut(t_ray r, void *s, double *t);
 int		vec3_to_int(t_vec3 hitcolor);
 
 int		trace(t_ray ray, double *t, ssize_t *curr, t_thread *th);
@@ -444,7 +447,7 @@ void	ipp_fill(t_main *main, int x, int y, int color);
 void	pthreading(t_main *main);
 void	new_image(t_main *main);
 
-
+t_vec3 cone_norm_cut(void *data, t_vec3 hitpoint);
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
 int intersect_mesh(t_ray r, void *p, double *t);

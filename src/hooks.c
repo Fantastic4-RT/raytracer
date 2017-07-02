@@ -61,13 +61,11 @@ void print_status(t_main *main)
 				   "-Camera rotation mode %d\n"
 				   "Camera position mode %d\n"
 				   "Anti-aliasing %d\n",
-		   main->mode.obj_mode, main->mode.move_mode,
-	main->mode.obj_index, main->mode.rot_obj_mode,
-		   main->mode.text_mode, main->obj[main->curr].texture,
-		   main->mode.color_mode, main->mode.channel,
-		   main->mode.cam_mode, main->mode.dir_mode,
-		   main->mode.rot_cam_mode, main->mode.cam_pos_mode,
-		   main->scene.a_a);
+		   main->mode.obj_mode, main->mode.move_mode, main->mode.obj_index,
+		   main->mode.rot_obj_mode, main->mode.text_mode,
+		   main->obj[main->curr].texture, main->mode.color_mode,
+		   main->mode.channel, main->mode.cam_mode, main->mode.dir_mode,
+		   main->mode.rot_cam_mode, main->mode.cam_pos_mode, main->scene.a_a);
 	ft_putendl("*******************************************************");
 }
 

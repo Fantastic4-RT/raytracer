@@ -118,11 +118,14 @@ void	add_cone(char *str, t_main *main)
 	fill_cone_data(str, (t_cone *)main->obj[main->obj_i].data);
 	if (((t_cone *)main->obj[main->obj_i].data)->cut == 0)
 		main->obj[main->obj_i].intersect = &intersect_cone;
-//	else if (((t_cone *)main->obj[main->obj_i].data)->cut == 0)
-//		main->obj[main->obj_i].intersect = &intersect_cone_cut;
-	main->obj[main->obj_i].normal = &cone_norm;
+	else
+		main->obj[main->obj_i].intersect = &intersect_cone_cut;
 	main->obj[main->obj_i].texture = 0;
 	data = (t_cone *)main->obj[main->obj_i].data;
+	if (data->cut == 1)
+		main->obj[main->obj_i].normal = &cone_norm_cut;
+	else
+		main->obj[main->obj_i].normal = &cone_norm;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }
