@@ -1,6 +1,6 @@
 <scene width=1200 height=720 objects=1 lights=1 aa=0>
     <camera>
-        <position>0, 0, 30</position>
+        <position>0, 10, 50</position>
         <rotation>0, 0, 0</rotation>
         <fov>45</fov>
     </camera>
@@ -10,9 +10,10 @@
         <direction>0, 0, 0</direction>
     </light>
 <object type="cone">
-       <position1>0, -5, -10</position1>
-       <position2>0, 0, -10</position2>
+       <position1>0, -10, -15</position1>
+       <position2>0, 5, -15</position2>
        <cut>1</cut>
+       <axis>0, 1, 0</axis>
        <radius1>15</radius1>
        <radius2>3</radius2>
        <color>ffffff</color>

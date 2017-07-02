@@ -15,9 +15,17 @@ void rotate_objects(int keycode, t_main *main)
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
 		{
-			t_cone *data = (t_cone *)main->obj[main->mode.obj_index].data;
-			data->axis = keycode == 12 ? m_apply(x_rot(2 * RAD), data->axis) :
-						 m_apply(x_rot(-2 * RAD), data->axis);
+			t_cone *data = (t_cone *) main->obj[main->mode.obj_index].data;
+			if (data->cut == 0)
+				data->axis = keycode == 12 ? m_apply(x_rot(2 * RAD), data->axis)
+							   : m_apply(x_rot(-2 * RAD), data->axis);
+			else
+			{
+ 				data->p1 = keycode == 12 ? m_apply(x_rot(2 * RAD), data->p1) :
+					m_apply(x_rot(-2 * RAD), data->p1);
+				data->p2 = keycode == 12 ? m_apply(x_rot(2 * RAD), data->p2) :
+					m_apply(x_rot(-2 * RAD), data->p2);
+			}
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "plane") == 0)
 		{
@@ -55,8 +63,16 @@ void rotate_objects(int keycode, t_main *main)
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
 		{
 			t_cone *data = (t_cone *) main->obj[main->mode.obj_index].data;
-			data->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data->axis) :
-						 m_apply(y_rot(-2 * RAD), data->axis);
+			if (data->cut == 0)
+				data->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data->axis)
+									: m_apply(y_rot(-2 * RAD), data->axis);
+			else
+			{
+				data->p1 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p1) :
+						   m_apply(y_rot(-2 * RAD), data->p1);
+				data->p2 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p2) :
+						   m_apply(y_rot(-2 * RAD), data->p2);
+			}
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "plane") == 0)
 		{
@@ -94,8 +110,16 @@ void rotate_objects(int keycode, t_main *main)
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
 		{
 			t_cone *data = (t_cone *) main->obj[main->mode.obj_index].data;
-			data->axis = keycode == 14 ? m_apply(z_rot(2 * RAD), data->axis) :
+			if (data->cut == 0)
+				data->axis = keycode == 14 ? m_apply(z_rot(2 * RAD), data->axis) :
 						 m_apply(z_rot(-2 * RAD), data->axis);
+			else
+			{
+				data->p1 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p1) :
+						   m_apply(z_rot(-2 * RAD), data->p1);
+				data->p2 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p2) :
+						   m_apply(z_rot(-2 * RAD), data->p2);
+			}
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "plane") == 0)
 		{

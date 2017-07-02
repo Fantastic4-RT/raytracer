@@ -28,7 +28,7 @@
 
 
 
-# define THREADS 4
+# define THREADS 1
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -168,15 +168,14 @@ typedef struct		s_cone
 {
 	t_vec3		p1;
 	t_vec3		p2;
+	t_vec3		apex;
 	t_vec3		axis;
 	double		r1;
 	double		r2;
 	double		angle;
 	int			cut;
 	t_material	mat;
-	double		t_low_cap;
-	double		t_top_cap;
-	double		t_final;
+	int cone_hit; // 1 = cone, 2 = low, 3 = top
 }					t_cone;
 
 typedef struct		s_parab
