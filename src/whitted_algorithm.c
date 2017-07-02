@@ -189,6 +189,7 @@ int trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
 /*
  * Cast rays recursive algorithm
  */
+
 t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 {
 	t_vec3    hitcolor;

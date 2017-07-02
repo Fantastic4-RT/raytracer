@@ -1,3 +1,4 @@
+
 <scene width=1200 height=720 objects=1 lights=1 aa=0>
     <camera>
         <position>0, 10, 50</position>
@@ -5,6 +6,7 @@
         <fov>45</fov>
     </camera>
     <light>
+<<<<<<< HEAD
         <position>20, 20, 50</position>
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
@@ -22,5 +24,3 @@
        <reflection>0</reflection>
    </object>
 </scene>
-
-

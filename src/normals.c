@@ -41,13 +41,13 @@ t_vec3 cone_norm(void *data, t_vec3 hitpoint)
 	return (n);
 }
 
-t_vec3 cylinder_norm(void * data, t_vec3 hitpoint)
+t_vec3 cylinder_norm(void *data, t_vec3 hitpoint)
 {
 	t_cyl *c = (t_cyl *)data;
 	double t = vec3_dp(vec3_sub(hitpoint, c->p1), c->axis);
-	return (vec3_norm(vec3_sub(hitpoint, vec3_add(c->p1,vec3_mult(c->axis, t)))));
-
+	return (vec3_norm(vec3_sub(hitpoint, vec3_add(c->p1, vec3_mult(c->axis, t)))));
 }
+
 
 t_vec3	parab_norm(void *data, t_vec3 hitpoint)
 {
@@ -61,6 +61,18 @@ t_vec3	parab_norm(void *data, t_vec3 hitpoint)
 	m = vec3_dp(x, p->axis);
 	n = vec3_sub(x, vec3_mult(p->axis, m + p->k));
 	return (vec3_norm(n));
+
+t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint)
+{
+    t_cyl *c = (t_cyl *)data;
+
+    if (c->t_final != c->t_top_cap && c->t_final != c->t_low_cap)
+        return (cylinder_norm(data, hitpoint));
+    else if (c->t_low_cap == c->t_final)
+        return (vec3_norm(vec3_invert(c->axis)));
+    else if (c->t_top_cap == c->t_final)
+        return (vec3_norm(c->axis));
+
 }
 
 t_mattype get_material_type(t_material mat)
