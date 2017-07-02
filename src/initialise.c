@@ -115,22 +115,22 @@ int expose(t_main *main)
 
 void	mlx_initialise(t_main *main)
 {
-	int w;
-	int h;
 	void *start_page;
 
 	main->mlx.mlx = mlx_init();
 	main->mlx.menu.menu_win = mlx_new_window(main->mlx.mlx, 400, 400, "Menu"); //menu
-	main->mlx.menu.main_menu = mlx_xpm_file_to_image(main->mlx.mlx, "menu.xpm", &w, &h);
+	main->mlx.menu.main_menu = mlx_xpm_file_to_image(main->mlx.mlx, "menu.xpm",
+									 &main->mlx.menu.w, &main->mlx.menu.h);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
 							main->mlx.menu.main_menu, 0, 0); //menu
 	main->mlx.win = mlx_new_window(main->mlx.mlx, main->scene.wid, main->scene.hei, "Scene");
-	start_page = mlx_xpm_file_to_image(main->mlx.mlx, "Loading.xpm", &w, &h);
+	start_page = mlx_xpm_file_to_image(main->mlx.mlx, "Loading.xpm",
+									   &main->mlx.menu.w, &main->mlx.menu.h);
 	if (main->mode.start == 1 && main->scene.wid >= 400 && main->scene.hei >= 400)
 		mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, start_page,
 					main->scene.wid / 2 - 200, main->scene.hei / 2 - 200);
-//	image(main);
-//	init_images(main); //menu
+	else
+		mlx_string_put(main->mlx.mlx, main->mlx.win, 0, 0, 0x00FF00, "Loading");
 	mlx_expose_hook(main->mlx.win, expose, main);
 	mlx_hook(main->mlx.win, 2, 3, key_hook, main);
 	mlx_hook(main->mlx.win, 17, 1L << 17, cross_exit, main);

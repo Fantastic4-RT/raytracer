@@ -12,11 +12,6 @@
     <object type="plane">
             <position>0, -5, -20</position>
             <normal>0, 0, 1</normal>
-            <cut></cut>
-            <rad></rad>
-            <p2></p2>
-            <p3></p3>
-            <p4></p4>
             <color>26f1e3</color>
             <diffuse>50</diffuse>
             <specular>100</specular>

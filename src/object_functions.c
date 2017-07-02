@@ -158,13 +158,28 @@ void change_texture(int keycode, t_main *main)
 void change_color(int keycode, t_main *main)
 {
 	t_vec3 count;
+	int x;
+	int y;
 
+	x = 150;
+	y = 0;
 	if (keycode == 83) // change r channel
+	{
+		y = 180;
 		main->mode.channel = 'r';
+	}
 	else if (keycode == 84) // change g channel
+	{
+		y = 193;
 		main->mode.channel = 'g';
+	}
 	else if (keycode == 85) // change  channel
+	{
+		y = 206;
 		main->mode.channel = 'b';
+	}
+	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.side_arr, x, y);
 	if ((keycode == 69 || keycode == 78))
 	{
 		count = vec3_create(0., 0., 0.);

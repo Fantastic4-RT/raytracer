@@ -195,20 +195,10 @@ typedef struct s_menu
 {
 	void	*menu_win;
 	void	*main_menu;
-//	char	*data1;
-//	int		bpp1;
-//	int		size_line1;
-//	int		endian1;
-//	void	*text_menu;
-//	char	*data2;
-//	int		bpp2;
-//	int		size_line2;
-//	int		endian2;
-//	void	*color_menu;
-//	char	*data3;
-//	int		bpp3;
-//	int		size_line3;
-//	int		endian3;
+	int		w;
+	int 	h;
+	void	*side_arr;
+	void 	*vert_arr;
 }				t_menu;
 
 typedef	struct	s_mlx
