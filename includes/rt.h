@@ -26,7 +26,7 @@
 //--------------------------
 //#define TEXT_MODE
 
-# define THREADS 1
+# define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -461,7 +461,7 @@ void	pthreading(t_main *main);
 void	new_image(t_main *main);
 
 t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint);
-
+double    ft_check_min(double t1, double t2);
 t_vec3 cone_norm_cut(void *data, t_vec3 hitpoint);
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);

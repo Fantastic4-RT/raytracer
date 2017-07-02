@@ -4,18 +4,6 @@
 
 #include "rt.h"
 
-double    ft_check_min(double t1, double t2)
-{
-	double temp;
-
-	temp = 0;
-	if (t1 != 0 && t2 != 0)
-		temp = fmin(t1, t2);
-	else if (t1 != 0 || t2 != 0)
-		temp = fmax(t1, t2);
-	return (temp);
-}
-
 t_vec3 cone_norm_cut(void *data, t_vec3 hitpoint)
 {
 	t_cone *c = (t_cone *)data;

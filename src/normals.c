@@ -35,7 +35,7 @@ t_vec3 cone_norm(void *data, t_vec3 hitpoint)
 	t_cone *c = (t_cone*)data;
 	t_vec3	n;
 
-	tmp = vec3_sub(hitpoint, c->p1);//position
+	tmp = vec3_sub(hitpoint, c->p1);
 	double t = vec3_length(tmp) / (vec3_dp(c->axis, vec3_norm(tmp)));
 	n = vec3_norm(vec3_sub(hitpoint, vec3_add(c->p1, vec3_mult(c->axis, t))));
 	return (n);
@@ -51,17 +51,17 @@ t_vec3 cylinder_norm(void *data, t_vec3 hitpoint)
 
 t_vec3	parab_norm(void *data, t_vec3 hitpoint)
 {
-	t_parab	*p;
-	t_vec3 	x;
-	t_vec3	n;
-	double	m;
+	t_parab *p;
+	t_vec3 x;
+	t_vec3 n;
+	double m;
 
-	p = (t_parab *)data;
+	p = (t_parab *) data;
 	x = vec3_sub(hitpoint, p->pos);
 	m = vec3_dp(x, p->axis);
 	n = vec3_sub(x, vec3_mult(p->axis, m + p->k));
 	return (vec3_norm(n));
-
+}
 t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint)
 {
     t_cyl *c = (t_cyl *)data;
