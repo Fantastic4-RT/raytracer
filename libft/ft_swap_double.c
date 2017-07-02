@@ -14,9 +14,9 @@
 
 void	ft_swap_double(double *a, double *b)
 {
-		double temp;
+	double temp;
 
-			temp = *a;
-				*a = *b;
-					*b = temp;
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }

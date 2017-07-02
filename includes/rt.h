@@ -176,6 +176,14 @@ typedef struct		s_cone
 	t_material	mat;
 }					t_cone;
 
+typedef struct		s_parab
+{
+	t_vec3		pos;
+	t_vec3		axis;
+	double		k;
+	t_material	mat;
+}					t_parab;
+
 typedef struct	s_flag
 {
 	int		cam;
@@ -330,6 +338,17 @@ void	add_cone(char *str, t_main *main);
 void	*default_cone(t_cone *cone);
 void	fill_cone_data(char *str, t_cone *cone);
 void	cone_params(char *str, t_cone *cone, int param);
+
+
+/*
+**		PARABOLOID
+*/
+void	add_paraboloid(char *str, t_main *main);
+void	*default_parab(t_parab *parab);
+int		intersect_parab(t_ray r, void *par, double *t);
+t_vec3	parab_norm(void *data, t_vec3 hitpoint);
+
+
 
 void	mlx_initialise(t_main *main);
 void	*render(void *data);

@@ -92,15 +92,15 @@ void	add_plane(char *str, t_main *main)
 
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
-	if (data->cut == 1)
-	{
-		if (!vec3_eq(data->p4, vec3_create(0, 0, 0)))
-			main->obj[main->obj_i].intersect = &intersect_mesh;
-		else if (data->rad != 0)
-			main->obj[main->obj_i].intersect = &intersect_elips;
-		else
-			main->obj[main->obj_i].intersect = &intersect_triangle;
-	}
-	else
+//	if (data->cut == 1)
+//	{
+//		if (!vec3_eq(data->p4, vec3_create(0, 0, 0)))
+//			main->obj[main->obj_i].intersect = &intersect_mesh;
+//		else if (data->rad != 0)
+//			main->obj[main->obj_i].intersect = &intersect_elips;
+//		else
+//			main->obj[main->obj_i].intersect = &intersect_triangle;
+//	}
+//	else
 		main->obj[main->obj_i].intersect = &intersect_plane;
 }

@@ -147,3 +147,25 @@ int		inter_ray_sphere(t_ray r, void *s, double *t)
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }
+
+int		intersect_parab(t_ray r, void *par, double *t)
+{
+	t_parab	*p;
+	t_abs	solve;
+	t_vec3	d;
+	t_vec3	v;
+	t_vec3	x;
+
+	p = (t_parab *)par;
+	d = r.dir;
+	v = p->axis;
+	x = vec3_sub(r.pos, p->pos);
+	solve.a = vec3_dp(d, d) - vec3_dp(d, v) * vec3_dp(d, v);
+	solve.b = 2 * (vec3_dp(d,x) - vec3_dp(d, v) * (vec3_dp(x, v) + 2 * p->k));
+	solve.c = vec3_dp(x, x) - vec3_dp(x, v) * (vec3_dp(x, v) + 4 * p->k);
+//	solve.a = r.dir.x * r.dir.x / (p->a * p->a) + r.dir.z * r.dir.z / (p->c * p->c);
+//	solve.b = 2 * ((r.pos.x * r.dir.x - p->pos.x * r.dir.x) / (p->a * p->a) + (r.pos.z * r.dir.z - p->pos.z * r.dir.z) / (p->c * p->c)) - r.dir.y / p->b;
+//	solve.c = (r.pos.x * r.pos.x - p->pos.x * p->pos.x - 2 * r.pos.x * p->pos.x) / (p->a * p->a) + (r.pos.z * r.pos.z - p->pos.z * p->pos.z - 2 * r.pos.z * p->pos.z) / (p->c * p->c) - (r.pos.y - p->pos.y) / p->b;
+	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
+	return (solve_quadric(solve.discr, t, solve.b, solve.a));
+}

@@ -39,6 +39,19 @@ t_vec3 cylinder_norm(void * data, t_vec3 hitpoint)
 
 }
 
+t_vec3	parab_norm(void *data, t_vec3 hitpoint)
+{
+	t_parab	*p;
+	t_vec3 	x;
+	t_vec3	n;
+	double	m;
+
+	p = (t_parab *)data;
+	x = vec3_sub(hitpoint, p->pos);
+	m = vec3_dp(x, p->axis);
+	n = vec3_sub(x, vec3_mult(p->axis, m + p->k));
+	return (vec3_norm(n));
+}
 
 t_mattype get_material_type(t_material mat)
 {

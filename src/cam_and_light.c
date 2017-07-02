@@ -75,6 +75,8 @@ void	choose_object(char *str, t_main *main)
 		add_cylinder(str, main);
 	if (ft_strcmp(main->obj[main->obj_i].type, "cone") == 0)
 		add_cone(str, main);
+	if (ft_strcmp(main->obj[main->obj_i].type, "paraboloid") == 0)
+		add_paraboloid(str, main);
 }
 
 void	*mal_object(t_main *main)
@@ -87,6 +89,8 @@ void	*mal_object(t_main *main)
 		return (default_cylinder((t_cyl *)malloc(sizeof(t_cyl))));
 	if (ft_strcmp(main->obj[main->obj_i].type, "cone") == 0)
 		return (default_cone((t_cone *)malloc(sizeof(t_cone))));
+	if (ft_strcmp(main->obj[main->obj_i].type, "paraboloid") == 0)
+		return (default_parab((t_parab *)malloc(sizeof(t_parab))));
 	error(9);
 	return (0);
 }
