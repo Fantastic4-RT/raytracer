@@ -1,6 +1,3 @@
-//
-// Created by Andrew Radiuk on 6/7/17.
-//
 
 #include "rt.h"
 

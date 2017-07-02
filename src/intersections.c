@@ -60,7 +60,7 @@ int		intersect_plane(t_ray r, void *p, double *t)
 	double		denom;
 	double		t0;
 	double		dp;
-	t_vec3	tmp;
+	t_vec3		tmp;
 	t_plane *plane = (t_plane *)p;
 
 	r.dir = vec3_norm(r.dir);
@@ -137,7 +137,7 @@ int		inter_ray_sphere(t_ray r, void *s, double *t)
 {
 	t_abs solve;
 	t_vec3 dist;
-	t_sphere *sphere = (t_sphere *) s;
+	t_sphere *sphere = (t_sphere *)s;
 
 	r.dir = vec3_norm(r.dir);
 	dist = vec3_sub(r.pos, sphere->pos);
@@ -146,6 +146,48 @@ int		inter_ray_sphere(t_ray r, void *s, double *t)
 	solve.c = vec3_dp(dist, dist) - (sphere->rad * sphere->rad);
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
+}
+
+int		inter_ray_sphere_cut(t_ray r, void *s, double *t)
+{
+	t_abs solve;
+	t_vec3 dist;
+	t_sphere *sphere = (t_sphere *)s;
+	t_plane	plane;
+	double	t_o[2];
+	int		tmp1;
+	int		tmp2;
+
+	t_o[0] = 2000000.0;
+	t_o[1] = 2000000.0;
+	r.dir = vec3_norm(r.dir);
+	dist = vec3_sub(r.pos, sphere->pos);
+	solve.a = vec3_dp(r.dir, r.dir);
+	solve.b = 2 * vec3_dp(r.dir, dist);
+	solve.c = vec3_dp(dist, dist) - (sphere->rad * sphere->rad);
+	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
+	plane.pos = sphere->p1;
+	if (!vec3_eq(sphere->pos, sphere->p1))
+		plane.normal = vec3_norm(vec3_sub(sphere->p1, sphere->pos));
+	else
+		plane.normal = vec3_create(0, 1, 0);
+	tmp1 = solve_quadric(solve.discr, &t_o[0], solve.b, solve.a);
+	tmp2 = intersect_plane(r, &plane, &t_o[1]);
+	t_vec3 q1 = vec3_add(r.pos, vec3_mult(r.dir, t_o[0]));
+	t_vec3 q2 = vec3_add(r.pos, vec3_mult(r.dir, t_o[1]));
+	if (tmp1 && vec3_dp(plane.normal, vec3_sub(q1, plane.pos)) > 0)
+		tmp1 = 0;
+	if (tmp2 && vec3_dp(vec3_sub(q2, sphere->pos), vec3_sub(q2, sphere->pos)) > sphere->rad * sphere->rad)
+		tmp2 = 0;
+	if (tmp1 && tmp2)
+		*t = fmin(t_o[0], t_o[1]);
+	else if (tmp1)
+		*t = t_o[0];
+	else
+		*t = t_o[1];
+	if (tmp1 || tmp2)
+		sphere->hit_obj = *t == t_o[0] ? 0 : 1;
+	return (tmp1 || tmp2);
 }
 
 int		intersect_parab(t_ray r, void *par, double *t)
@@ -163,9 +205,6 @@ int		intersect_parab(t_ray r, void *par, double *t)
 	solve.a = vec3_dp(d, d) - vec3_dp(d, v) * vec3_dp(d, v);
 	solve.b = 2 * (vec3_dp(d,x) - vec3_dp(d, v) * (vec3_dp(x, v) + 2 * p->k));
 	solve.c = vec3_dp(x, x) - vec3_dp(x, v) * (vec3_dp(x, v) + 4 * p->k);
-//	solve.a = r.dir.x * r.dir.x / (p->a * p->a) + r.dir.z * r.dir.z / (p->c * p->c);
-//	solve.b = 2 * ((r.pos.x * r.dir.x - p->pos.x * r.dir.x) / (p->a * p->a) + (r.pos.z * r.dir.z - p->pos.z * r.dir.z) / (p->c * p->c)) - r.dir.y / p->b;
-//	solve.c = (r.pos.x * r.pos.x - p->pos.x * p->pos.x - 2 * r.pos.x * p->pos.x) / (p->a * p->a) + (r.pos.z * r.pos.z - p->pos.z * p->pos.z - 2 * r.pos.z * p->pos.z) / (p->c * p->c) - (r.pos.y - p->pos.y) / p->b;
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }

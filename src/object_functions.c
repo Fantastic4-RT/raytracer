@@ -33,10 +33,12 @@ void rotate_objects(int keycode, t_main *main)
 			data->p4 = keycode == 12 ? m_apply(x_rot(2 * RAD), data->p4)
 									 : m_apply(x_rot(-2 * RAD), data->p4);
 		}
-//		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
-//		{
-//			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
-//		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
+		{
+			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
+			data->p1 = keycode == 12 ? m_apply(x_rot(2 * RAD), data->p1) :
+						 m_apply(x_rot(-2 * RAD), data->p1);
+		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
 		{
 			t_parab *data = (t_parab *)main->obj[main->mode.obj_index].data;
@@ -72,10 +74,12 @@ void rotate_objects(int keycode, t_main *main)
 			data->p4 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p4)
 									 : m_apply(y_rot(-2 * RAD), data->p4);
 		}
-//		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
-//		{
-//			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
-//		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
+		{
+			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
+			data->p1 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p1) :
+					   m_apply(y_rot(-2 * RAD), data->p1);
+		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
 		{
 			t_parab *data = (t_parab *)main->obj[main->mode.obj_index].data;
@@ -111,10 +115,12 @@ void rotate_objects(int keycode, t_main *main)
 			data->p4 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p4)
 									 : m_apply(z_rot(-2 * RAD), data->p4);
 		}
-//		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
-//		{
-//			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
-//		}
+		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
+		{
+			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
+			data->p1 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p1) :
+					   m_apply(z_rot(-2 * RAD), data->p1);
+		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
 		{
 			t_parab *data = (t_parab *)main->obj[main->mode.obj_index].data;
@@ -204,6 +210,9 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 12 ?
 						vec3_add(data->pos, vec3_create(1, 0, 0)) :
 						vec3_sub(data->pos, vec3_create(1, 0, 0));
+			data->p1 = keycode == 12 ?
+						vec3_add(data->p1, vec3_create(1, 0, 0)) :
+						vec3_sub(data->p1, vec3_create(1, 0, 0));
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
 		{
@@ -262,6 +271,9 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 13 ?
 						vec3_add(data->pos, vec3_create(0, 1, 0)) :
 						vec3_sub(data->pos, vec3_create(0, 1, 0));
+			data->p1 = keycode == 13 ?
+						vec3_add(data->p1, vec3_create(0, 1, 0)) :
+						vec3_sub(data->p1, vec3_create(0, 1, 0));
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
 		{
@@ -319,6 +331,9 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 14 ?
 						vec3_add(data->pos, vec3_create(0, 0, 1)) :
 						vec3_sub(data->pos, vec3_create(0, 0, 1));
+			data->p1 = keycode == 14 ?
+						vec3_add(data->p1, vec3_create(0, 0, 1)) :
+						vec3_sub(data->p1, vec3_create(0, 0, 1));
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
 		{

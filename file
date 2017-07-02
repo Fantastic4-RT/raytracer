@@ -5,10 +5,24 @@
         <fov>45</fov>
     </camera>
     <light>
-        <position>0, 0, 50</position>
+        <position>20, 20, 50</position>
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
+    <object type="sphere">
+        <position>0, 0, 0</position>
+        <cut>1</cut>
+        <plane>0, 2, 0</plane>
+        <radius>5</radius>
+        <color>ff3ae3<color>
+        <diffuse>50</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+        <refraction>0</refraction>
+        <transparency>50</transparency>
+    </object>
+</scene>
+
     <object type="paraboloid">
         <position>0, -5, -1000</position>
         <axis>0, 1, 0</axis>
@@ -20,8 +34,6 @@
         <refraction>0</refraction>
         <transparency>50</transparency>
     </object>
-</scene>
-
 <object type="plane">
             <position>0, -5, -10</position>
             <normal>0, 0, 1</normal>

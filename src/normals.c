@@ -10,6 +10,16 @@ t_vec3 sphere_norm(void *data, t_vec3 hitpoint)
 	return (vec3_norm(vec3_sub(hitpoint, s->pos)));
 }
 
+t_vec3 sphere_norm_cut(void *data, t_vec3 hitpoint)
+{
+	t_sphere *s = (t_sphere *)data;
+
+	if (s->hit_obj == 0)
+		return (vec3_norm(vec3_sub(hitpoint, s->pos)));
+	else
+		return (vec3_norm(vec3_sub(s->p1, s->pos)));
+}
+
 t_vec3 plane_norm(void *data, t_vec3 hitpoint)
 {
 	t_vec3 a;

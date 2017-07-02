@@ -201,12 +201,12 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 	main->curr = -1;
 	if (trace(ray, &t, &main->curr, th))
 	{
-		main->diff_col = diffuse(vec3_mult(vec3_create(
-			th->obj[main->curr].mat.color.x, th->obj[main->curr].mat.color.y,
-			th->obj[main->curr].mat.color.z), AMBIENT), &ray, main, th);
 		th->obj[main->curr].hitpoint = vec3_add(ray.pos, vec3_mult(ray.dir, t));
 		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(
 				th->obj[main->curr].data, th->obj[main->curr].hitpoint));
+		main->diff_col = diffuse(vec3_mult(vec3_create(
+				th->obj[main->curr].mat.color.x, th->obj[main->curr].mat.color.y,
+				th->obj[main->curr].mat.color.z), AMBIENT), &ray, main, th);
 #ifdef TEXT_MODE
 		if (main->mode.text_index != 0 && main->curr == main->mode.obj_index)
 			find_pixel_color(th, main);
@@ -219,7 +219,7 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 		{
 			hitcolor = vec3_mult(vec3_create(th->obj[main->curr].mat.color.x,
 			th->obj[main->curr].mat.color.y, th->obj[main->curr].mat.color.z),
-								 AMBIENT);
+								 									AMBIENT);
 			hitcolor = diffuse(hitcolor, &ray, main, th);
 		}
 	}

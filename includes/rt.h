@@ -150,7 +150,10 @@ typedef struct	s_plane
 typedef	struct 	s_sphere
 {
 	t_vec3		pos;
+	t_vec3		p1;
 	double		rad;
+	int			hit_obj;
+	int			cut;
 	t_material	mat;
 }				t_sphere;
 
@@ -322,6 +325,9 @@ void	add_sphere(char *str, t_main *main);
 void	*default_sphere(t_sphere *sphere);
 void	fill_sphere_data(char *str, t_sphere *sphere);
 void	sphere_params(char *str, t_sphere *sphere, int param);
+int		inter_ray_sphere_cut(t_ray r, void *s, double *t);
+t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
+t_vec3	sphere_norm_cut(void *data, t_vec3 hitpoint);
 
 /*
 ** 		CYLINDER
