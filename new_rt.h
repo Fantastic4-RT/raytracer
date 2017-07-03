@@ -344,7 +344,6 @@ void	camera_rotation(int keycode, t_main *main);
  */
 void alias_mode(int keycode, t_main *main);
 void init_images(t_main *main);
-
 /*
  * cut_intersectionc.c
  */
@@ -373,4 +372,20 @@ int		key_hook(int keycode, t_main *main);
 void	ft_aa(t_thread *th, double dist, int x, int y);
 int		ft_col_av(t_thread *th, t_vec3 *col);
 t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p);
+/*
+ * main.c
+ */
+int		expose(t_main *main);
+void	check_obj_type(char *t);
+void	error(int param);
+void	default_values(t_main *main);
+int		main(int argc, char **argv);
+/*
+ * cam_and_light.c
+ */
+void	cam_params(char *str, t_main *main, int pos_rot_fov);
+void	light_params(char *str, t_main *main, int pos_dir_col);
+void	choose_object(char *str, t_main *main);
+void	*mal_object(t_main *main);
+void	cam_light_obj_line(char *str, t_main *main, int cam_light_obj);
 #endif

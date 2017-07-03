@@ -1,6 +1,5 @@
 #include <rt.h>
 
-#ifdef TEXT_MODE
 void perlin_noise(t_main *main, float zoom)
 {
 	int x;
@@ -196,4 +195,3 @@ void generate_textures(t_main *main)
 	wood(main);
 
 }
-#endif
