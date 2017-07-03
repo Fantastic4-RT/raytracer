@@ -26,6 +26,8 @@ void	free_arr_tmp(char **arr, char *tmp)
 
 t_vec3	vec3_fill_atoi(char **arr)
 {
+	if (!arr[0] || !arr[1] || !arr[2])
+		error(10);
 	return (vec3_create(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2])));
 }
 
