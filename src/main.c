@@ -12,6 +12,12 @@
 
 #include "rt.h"
 
+void	check_obj_type(char *t)
+{
+	(int)t == 6 ? error(8) : 0;
+	ft_strchr(t, '\"') == 0 ? error(9) : 0;
+}
+
 void	error(int param)
 {
 	param == 0 ? ft_putstr("Wrong number of arguments.\n") : 0;
@@ -47,7 +53,7 @@ void	default_values(t_main *main)
 
 int		main(int argc, char **argv)
 {
-	int 	fd;
+	int		fd;
 	t_main	main;
 
 	if (argc != 2)
@@ -59,9 +65,6 @@ int		main(int argc, char **argv)
 	main.mode.start = 1;
 	main.mode.loaded = 0;
 	read_file(fd, &main);
-#ifdef PRINT
-	print_scene(&main);
-#endif
 	mlx_initialise(&main);
 	return (0);
 }

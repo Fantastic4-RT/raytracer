@@ -128,7 +128,6 @@ t_matrix	tr(t_vec3 pos)
 	tr.m[3][2] = 0;
 	tr.m[3][3] = 1;
 	return (tr);
-
 }
 
 t_vec3		m_apply(t_matrix matrix, t_vec3 vec)

@@ -35,6 +35,8 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 	char	*tmp;
 	int		color;
 
+	cone->r1 = param == 3 ? ft_atoi(str) : cone->r1;
+	cone->r2 = param == 4 ? ft_atoi(str) : cone->r2;
 	cone->angle = param == 6 ? ft_atoi(str) : cone->angle;
 	if (param == 7)
 	{
@@ -59,8 +61,6 @@ void	cone_params(char *str, t_cone *cone, int param)
 	cone->cut = param == 0 ? ft_atoi(str) : cone->cut;
 	if (cone->cut != 1 && cone->cut != 0)
 		error(10);
-	cone->r1 = param == 3 ? ft_atoi(str) : cone->r1;
-	cone->r2 = param == 4 ? ft_atoi(str) : cone->r2;
 	if (param == 1 || param == 2)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen(param == 1 ?
@@ -107,21 +107,21 @@ void	fill_cone_data(char *str, t_cone *cone)
 		cone_params(str + ft_strlen("<reflection>"), cone, 10);
 	else if (ft_strstr(str, "<refraction>"))
 		cone_params(str + ft_strlen("<refraction>"), cone, 11);
-	else if (ft_strstr(str, "<transparency>"))
-		cone_params(str + ft_strlen("<transparency>"), cone, 12);
 }
 
 void	add_cone(char *str, t_main *main)
 {
 	t_cone *data;
 
-	fill_cone_data(str, (t_cone *)main->obj[main->obj_i].data);
+	data = (t_cone *)main->obj[main->obj_i].data;
+	fill_cone_data(str, data);
+	if (ft_strstr(str, "<transparency>"))
+		cone_params(str + ft_strlen("<transparency>"), data, 12);
 	if (((t_cone *)main->obj[main->obj_i].data)->cut == 0)
 		main->obj[main->obj_i].intersect = &intersect_cone;
 	else
 		main->obj[main->obj_i].intersect = &intersect_cone_cut;
 	main->obj[main->obj_i].texture = 0;
-	data = (t_cone *)main->obj[main->obj_i].data;
 	if (data->cut == 1)
 		main->obj[main->obj_i].normal = &cone_norm_cut;
 	else
