@@ -104,12 +104,12 @@ int		intersect_cylind(t_ray r, void *cyl, double *t)
 	cylind = (t_cyl*)cyl;
 	r.dir = vec3_norm(r.dir);
 	delta_p = vec3_sub(r.pos, cylind->p1);
-	cylind->axis= vec3_norm(cylind->axis);
+	cylind->axis = vec3_norm(cylind->axis);
 	tmp = vec3_sub(r.dir, vec3_mult(cylind->axis, vec3_dp(r.dir,
-														   cylind->axis)));
+														cylind->axis)));
 	solve.a = vec3_dp(tmp, tmp);
 	tmp2 = vec3_sub(delta_p, vec3_mult(cylind->axis, vec3_dp(delta_p,
-															 cylind->axis)));
+														cylind->axis)));
 	solve.b = 2 * vec3_dp(tmp, tmp2);
 	solve.c = vec3_dp(tmp2, tmp2) - cylind->rad * cylind->rad;
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
@@ -118,10 +118,11 @@ int		intersect_cylind(t_ray r, void *cyl, double *t)
 
 int		inter_ray_sphere(t_ray r, void *s, double *t)
 {
-	t_abs solve;
-	t_vec3 dist;
-	t_sphere *sphere = (t_sphere *)s;
+	t_abs		solve;
+	t_vec3		dist;
+	t_sphere	*sphere;
 
+	sphere = (t_sphere *)s;
 	r.dir = vec3_norm(r.dir);
 	dist = vec3_sub(r.pos, sphere->pos);
 	solve.a = vec3_dp(r.dir, r.dir);
