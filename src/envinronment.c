@@ -43,4 +43,5 @@ void init_images(t_main *main)
 	main->mode.text_mode = 0;
 	main->mode.text_index = 0;
 	main->mode.loaded = 1;
+	main->mode.count = vec3_create(0., 0., 0.);
 }

@@ -257,6 +257,8 @@ typedef struct	s_pmode
 	int start;
 	int loaded;
 
+	t_vec3	count;
+
 }				t_pmode;
 
 typedef struct s_text
@@ -486,6 +488,13 @@ void	y_object_rotation3(int keycode, t_main *main);
 void	z_object_rotation1(int keycode, t_main *main);
 void	z_object_rotation2(int keycode, t_main *main);
 void	z_object_rotation3(int keycode, t_main *main);
-
-
+void	x_object_translation1(int keycode, t_main *main);
+void	x_object_translation2(int keycode, t_main *main);
+void	x_object_translation3(int keycode, t_main *main);
+void	y_object_translation1(int keycode, t_main *main);
+void	y_object_translation2(int keycode, t_main *main);
+void	y_object_translation3(int keycode, t_main *main);
+void	z_object_translation1(int keycode, t_main *main);
+void	z_object_translation2(int keycode, t_main *main);
+void	z_object_translation3(int keycode, t_main *main);
 #endif
