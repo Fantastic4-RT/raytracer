@@ -32,14 +32,11 @@ void	scene_line(int fd, t_main *main)
 	char	*str;
 
 	get_next_line(fd, &str);
-	if (ft_strstr(str, "<scene") == 0)
-		error(4);
+	ft_strstr(str, "<scene") == 0 ? error(4) : 0;
 	tmp = ft_strstr(str, "width=");
-	main->scene.wid = tmp == 0 ? WIDTH :
-					ft_atoi(tmp + ft_strlen("width="));
+	main->scene.wid = tmp == 0 ? WIDTH : ft_atoi(tmp + ft_strlen("width="));
 	tmp = ft_strstr(str, "height=");
-	main->scene.hei = tmp == 0 ? HEIGHT :
-					ft_atoi(tmp + ft_strlen("height="));
+	main->scene.hei = tmp == 0 ? HEIGHT : ft_atoi(tmp + ft_strlen("height="));
 	tmp = ft_strstr(str, "objects=");
 	main->scene.objs = tmp == 0 ? OBJECTS :
 					ft_atoi(tmp + ft_strlen("objects="));
@@ -47,11 +44,9 @@ void	scene_line(int fd, t_main *main)
 	main->scene.lights = tmp == 0 ? LIGHTS :
 					ft_atoi(tmp + ft_strlen("lights="));
 	tmp = ft_strstr(str, "aa=");
-	main->scene.a_a = tmp == 0 ? 0 :
-						 ft_atoi(tmp + ft_strlen("aa="));
+	main->scene.a_a = tmp == 0 ? 0 : ft_atoi(tmp + ft_strlen("aa="));
 	tmp = ft_strstr(str, "ambient=");
-	main->scene.amb = tmp == 0 ? AMBIENT :
-					  ft_atof(tmp + ft_strlen("ambient="));
+	main->scene.amb = tmp == 0 ? AMBIENT : ft_atof(tmp + ft_strlen("ambient="));
 	main->scene.objs == 0 ? error(4) : 0;
 	main->scene.lights == 0 ? error(5) : 0;
 	free(str);
