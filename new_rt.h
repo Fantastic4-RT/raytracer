@@ -339,4 +339,13 @@ void	switch_cam_mode(int keycode, t_main *main);
 void	camera_position(int keycode, t_main *main);
 void	camera_direction(int keycode, t_main *main);
 void	camera_rotation(int keycode, t_main *main);
+/*
+ * envinronment.c
+ */
+void alias_mode(int keycode, t_main *main);
+void init_images(t_main *main);
+
+/*
+ * finit_cone.c
+ */
 #endif
