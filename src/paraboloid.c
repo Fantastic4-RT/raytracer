@@ -87,6 +87,7 @@ void	add_paraboloid(char *str, t_main *main)
 	main->obj[main->obj_i].intersect = &intersect_parab;
 	main->obj[main->obj_i].normal = &parab_norm;
 	data = (t_parab *)main->obj[main->obj_i].data;
+	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }
