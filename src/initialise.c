@@ -83,7 +83,11 @@ void outputfile(t_main *main)
 	int	index;
 	static unsigned char color[3];
 
-	fp  = fopen("out5.ppm", "wb");
+	main->pic += 1;
+	main->filename = ft_strdup("outXX.ppm");
+	main->filename[3] = (char)(main->pic / 10 + 48);
+	main->filename[4] = (char)(main->pic % 10 + 48);
+	fp  = fopen(main->filename, "wb");
 	fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
 	i = -1;
 	while (++i < main->scene.hei)
@@ -99,6 +103,7 @@ void outputfile(t_main *main)
 		}
 	}
 	fclose(fp);
+	ft_strdel(&main->filename);
 }
 
 void	matrices(t_main *main)

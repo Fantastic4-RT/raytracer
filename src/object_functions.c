@@ -208,7 +208,8 @@ void change_color(int keycode, t_main *main)
 		y = 206;
 		main->mode.channel = 'b';
 	}
-	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+	if (y != 0)
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
 								main->mlx.menu.side_arr, x, y);
 	if ((keycode == 69 || keycode == 78))
 	{

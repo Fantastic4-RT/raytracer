@@ -130,6 +130,7 @@ int		main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error(1);
+	main.pic = 0;
 	main.mode.start = 1;
 	main.mode.loaded = 0;
 	read_file(fd, &main);

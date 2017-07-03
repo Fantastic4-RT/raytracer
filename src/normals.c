@@ -70,9 +70,8 @@ t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint)
         return (cylinder_norm(data, hitpoint));
     else if (c->t_low_cap == c->t_final)
         return (vec3_norm(vec3_invert(c->axis)));
-    else if (c->t_top_cap == c->t_final)
+    else
         return (vec3_norm(c->axis));
-
 }
 
 t_mattype get_material_type(t_material mat)

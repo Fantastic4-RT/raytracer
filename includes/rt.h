@@ -279,6 +279,8 @@ typedef struct		s_main
 	ssize_t		curr;
 	t_vec3		diff_col;
 	t_matrices	mxs;
+	unsigned  int pic;
+	char 		*filename;
 	//point where the current obj is hit
 }					t_main;
 
