@@ -1,6 +1,6 @@
 # Prerequisites
 *.d
-
+.nfs*
 # Object files
 *.o
 *.ko
