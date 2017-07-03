@@ -14,9 +14,12 @@
 
 void	free_arr_tmp(char **arr, char *tmp)
 {
-	free(arr[0]);
-	free(arr[1]);
-	free(arr[2]);
+	if (arr[0])
+		free(arr[0]);
+	if (arr[1])
+		free(arr[1]);
+	if (arr[2])
+		free(arr[2]);
 	free(arr);
 	free(tmp);
 }
