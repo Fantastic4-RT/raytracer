@@ -12,6 +12,12 @@
 
 #include "rt.h"
 
+void	check_obj_type(char *t)
+{
+	(int)t == 6 ? error(8) : 0;
+	ft_strchr(t, '\"') == 0 ? error(9) : 0;
+}
+
 void	error(int param)
 {
 	param == 0 ? ft_putstr("Wrong number of arguments.\n") : 0;

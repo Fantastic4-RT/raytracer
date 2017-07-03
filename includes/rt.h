@@ -470,7 +470,7 @@ double	ft_check_min(double t1, double t2);
 t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
 
 t_matrix	tr(t_vec3 pos);
-
+void	check_obj_type(char *t);
 
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
