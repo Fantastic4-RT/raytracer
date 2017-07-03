@@ -151,6 +151,7 @@ typedef	struct 	s_sphere
 {
 	t_vec3		pos;
 	t_vec3		p1;
+	double		tt[2];
 	double		rad;
 	int			hit_obj;
 	int			cut;
@@ -458,7 +459,7 @@ void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);
 void	pthreading(t_main *main);
 void	new_image(t_main *main);
-
+t_matrix	tr(t_vec3 pos);
 
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);

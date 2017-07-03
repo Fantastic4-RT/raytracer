@@ -35,9 +35,11 @@ void rotate_objects(int keycode, t_main *main)
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
 		{
-			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
-			data->p1 = keycode == 12 ? m_apply(x_rot(2 * RAD), data->p1) :
-						 m_apply(x_rot(-2 * RAD), data->p1);
+			t_sphere *data = (t_sphere *)main->obj[main->mode.obj_index].data;
+			data->p1 = keycode == 12 ? m_apply(m_mult(m_mult(tr(data->pos),
+					x_rot(2 * RAD)), tr(vec3_invert(data->pos))), data->p1) :
+						m_apply(m_mult(m_mult(tr(data->pos) ,x_rot(-2 * RAD)),
+						   				tr(vec3_invert(data->pos))), data->p1);
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
 		{
@@ -77,8 +79,10 @@ void rotate_objects(int keycode, t_main *main)
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
 		{
 			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
-			data->p1 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p1) :
-					   m_apply(y_rot(-2 * RAD), data->p1);
+			data->p1 = keycode == 13 ? m_apply(m_mult(m_mult(tr(data->pos),
+					y_rot(2 * RAD)), tr(vec3_invert(data->pos))), data->p1) :
+					   m_apply(m_mult(m_mult(tr(data->pos) ,y_rot(-2 * RAD)),
+									  tr(vec3_invert(data->pos))), data->p1);
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
 		{
@@ -118,8 +122,10 @@ void rotate_objects(int keycode, t_main *main)
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
 		{
 			t_sphere *data = (t_sphere *) main->obj[main->mode.obj_index].data;
-			data->p1 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p1) :
-					   m_apply(z_rot(-2 * RAD), data->p1);
+			data->p1 = keycode == 14 ? m_apply(m_mult(m_mult(tr(data->pos),
+					z_rot(2 * RAD)), tr(vec3_invert(data->pos))), data->p1) :
+					   m_apply(m_mult(m_mult(tr(data->pos), z_rot(-2 * RAD)),
+									  tr(vec3_invert(data->pos))), data->p1);
 		}
 		else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
 		{

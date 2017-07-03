@@ -148,46 +148,33 @@ int		inter_ray_sphere(t_ray r, void *s, double *t)
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }
 
-int		inter_ray_sphere_cut(t_ray r, void *s, double *t)
+int		inter_ray_sphere_cut(t_ray r, void *sphere, double *t)
 {
-	t_abs solve;
-	t_vec3 dist;
-	t_sphere *sphere = (t_sphere *)s;
-	t_plane	plane;
-	double	t_o[2];
-	int		tmp1;
-	int		tmp2;
+	t_sphere	*s;
+	t_plane		plane;
+	t_vec3		hp[2];
+	int			tmp[2];
 
-	t_o[0] = 2000000.0;
-	t_o[1] = 2000000.0;
-	r.dir = vec3_norm(r.dir);
-	dist = vec3_sub(r.pos, sphere->pos);
-	solve.a = vec3_dp(r.dir, r.dir);
-	solve.b = 2 * vec3_dp(r.dir, dist);
-	solve.c = vec3_dp(dist, dist) - (sphere->rad * sphere->rad);
-	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
-	plane.pos = sphere->p1;
-	if (!vec3_eq(sphere->pos, sphere->p1))
-		plane.normal = vec3_norm(vec3_sub(sphere->p1, sphere->pos));
+	s = (t_sphere *)sphere;
+	s->tt[0] = 2000000.0;
+	s->tt[1] = 2000000.0;
+	plane.pos = s->p1;
+	plane.normal = !vec3_eq(s->pos, s->p1) ? vec3_norm(vec3_sub(s->p1, s->pos))
+										   : vec3_create(0, 1, 0);
+	tmp[0] = inter_ray_sphere(r, sphere, &s->tt[0]);
+	tmp[1] = intersect_plane(r, &plane, &s->tt[1]);
+	hp[0] = vec3_sub(vec3_add(r.pos, vec3_mult(r.dir, s->tt[0])), plane.pos);
+	hp[1] = vec3_sub(vec3_add(r.pos, vec3_mult(r.dir, s->tt[1])), s->pos);
+	tmp[0] = vec3_dp(plane.normal, hp[0]) > 0 ? 0 : tmp[0];
+	tmp[1] = vec3_dp(hp[1], hp[1]) > s->rad * s->rad ? 0 : tmp[1];
+	if (!tmp[0] && !tmp[1])
+		return (0);
+	if (tmp[0] && tmp[1])
+		*t = fmin(s->tt[0], s->tt[1]);
 	else
-		plane.normal = vec3_create(0, 1, 0);
-	tmp1 = solve_quadric(solve.discr, &t_o[0], solve.b, solve.a);
-	tmp2 = intersect_plane(r, &plane, &t_o[1]);
-	t_vec3 q1 = vec3_add(r.pos, vec3_mult(r.dir, t_o[0]));
-	t_vec3 q2 = vec3_add(r.pos, vec3_mult(r.dir, t_o[1]));
-	if (tmp1 && vec3_dp(plane.normal, vec3_sub(q1, plane.pos)) > 0)
-		tmp1 = 0;
-	if (tmp2 && vec3_dp(vec3_sub(q2, sphere->pos), vec3_sub(q2, sphere->pos)) > sphere->rad * sphere->rad)
-		tmp2 = 0;
-	if (tmp1 && tmp2)
-		*t = fmin(t_o[0], t_o[1]);
-	else if (tmp1)
-		*t = t_o[0];
-	else
-		*t = t_o[1];
-	if (tmp1 || tmp2)
-		sphere->hit_obj = *t == t_o[0] ? 0 : 1;
-	return (tmp1 || tmp2);
+		*t = tmp[0] ? s->tt[0] : s->tt[1];
+	s->hit_obj = *t == s->tt[0] ? 0 : 1;
+	return (tmp[0] || tmp[1]);
 }
 
 int		intersect_parab(t_ray r, void *par, double *t)
