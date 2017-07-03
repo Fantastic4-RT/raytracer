@@ -85,7 +85,10 @@ void	read_file(int fd, t_main *main)
 	while (get_next_line(fd, &str))
 	{
 		if (ft_strstr(str, "/scene") != 0)
+		{
+			free(str);
 			break ;
+		}
 		if (main->flag.cam == 0 && main->flag.lgh == 0 && main->flag.obj == 0)
 			set_flag(str, main, 1);
 		else if (main->flag.cam == 1 || main->flag.lgh == 1 ||

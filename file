@@ -11,7 +11,7 @@
     </light>
         <object type="sphere">
             <position>0, 0, 0</position>
-            <cut>1</cut>
+            <cut>0</cut>
             <plane>0, 0, 3</plane>
             <radius>5</radius>
             <color>ff00e3<color>
@@ -22,34 +22,3 @@
             <transparency>50</transparency>
         </object>
 </scene>
-
-
-<object type="plane">
-            <position>0, -5, -10</position>
-            <normal>0, 0, 1</normal>
-            <cut></cut>
-            <rad></rad>
-            <p2></p2>
-            <p3></p3>
-            <p4></p4>
-            <color>26f1e3</color>
-            <diffuse>50</diffuse>
-            <specular>100</specular>
-            <reflection>0</reflection>
-            <refraction>0</refraction>
-            <transparency>50</transparency>
-        </object>
-
-<object type="cylinder">
-                <position1>0, 5, -15</position1>
-
-                <axis>0, 1, 0</axis>
-                <cut>0</cut>
-                <radius>5</radius>
-                <color>ffffff</color>
-                <diffuse>50</diffuse>
-                <specular>100</specular>
-                <reflection>0</reflection>
-            </object>
-
-
