@@ -279,11 +279,23 @@ typedef	struct 		s_thread
 }					t_thread;
 
 /*
- * obj_rotations.c
+ * obj_rotations_x.c
  */
+void	x_object_rotation1(int keycode, t_main *main);
+void	x_object_rotation2(int keycode, t_main *main);
+void	x_object_rotation3(int keycode, t_main *main);
 
+/*
+ * obj_rotations_y.c
+ */
+void	y_object_rotation1(int keycode, t_main *main);
+void	y_object_rotation2(int keycode, t_main *main);
+void	y_object_rotation3(int keycode, t_main *main);
 
-void x_object_rotation(int keycode, t_main *main);
-
-
+/*
+ * obj_rotations_z.c
+ */
+void	z_object_rotation1(int keycode, t_main *main);
+void	z_object_rotation2(int keycode, t_main *main);
+void	z_object_rotation3(int keycode, t_main *main);
 #endif

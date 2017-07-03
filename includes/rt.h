@@ -479,4 +479,13 @@ int intersect_mesh(t_ray r, void *p, double *t);
 
 void x_object_rotation1(int keycode, t_main *main);
 void	x_object_rotation2(int keycode, t_main *main);
+void	x_object_rotation3(int keycode, t_main *main);
+void	y_object_rotation1(int keycode, t_main *main);
+void	y_object_rotation2(int keycode, t_main *main);
+void	y_object_rotation3(int keycode, t_main *main);
+void	z_object_rotation1(int keycode, t_main *main);
+void	z_object_rotation2(int keycode, t_main *main);
+void	z_object_rotation3(int keycode, t_main *main);
+
+
 #endif
