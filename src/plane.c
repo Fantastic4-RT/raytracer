@@ -57,7 +57,6 @@ void	plane_params(char *str, t_plane *plane, int param)
 	char	**arr;
 
 	plane->cut = param == 0 ? ft_atoi(str) : plane->cut;
-	plane_params_2(str, plane, param);
 	if (param == 1 || param == 2)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen(param == 1 ?
@@ -76,6 +75,8 @@ void	plane_params(char *str, t_plane *plane, int param)
 		plane->p4 = param == 12 ? vec3_fill_atoi(arr) : plane->p4;
 		free_arr_tmp(arr, tmp);
 	}
+	else
+		plane_params_2(str, plane, param);
 }
 
 void	fill_plane_data(char *str, t_plane *plane)
