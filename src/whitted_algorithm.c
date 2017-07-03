@@ -28,17 +28,10 @@ double clamp(const double low, const double high, const double value)
 	return fmax(low, fmin(high, value));
 }
 
-/*
- * Compute reflection direction
- */
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n)
 {
 	return (vec3_sub(i, vec3_mult(n, 2 * (vec3_dp(i, n)))));
 }
-
-/*
- * Compute refraction direction
- */
 
 t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract)
 {
@@ -86,9 +79,7 @@ void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amou
 		*amount = (rs * rs + rp * rp) / 2;
 	}
 }
-/*
- * compute color for different materials
- */
+
 t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int depth, t_thread *th)
 {
 	t_ray reflectray;
@@ -178,11 +169,6 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th)
 	return (hitcolor);
 }
 
-/*
- * trace light
- * check intersection
- * Returns true if the ray intersects an object, false otherwise.
- */
 int trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
 {
 	int i;
@@ -195,9 +181,6 @@ int trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
 	}
 	return (*curr == -1 ? 0 : 1);
 }
-/*
- * Cast rays recursive algorithm
- */
 
 t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 {
@@ -217,10 +200,10 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 		main->diff_col = diffuse(vec3_mult(vec3_create(
 				th->obj[main->curr].mat.color.x, th->obj[main->curr].mat.color.y,
 				th->obj[main->curr].mat.color.z), th->main.scene.amb), &ray, main, th);
-#ifdef TEXT_MODE
+
 		if (main->obj[main->curr].texture != 0 )
 			find_pixel_color(th, main);
-#endif
+
 		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent
 			hitcolor = reflection_and_refraction(hitcolor, &ray, main, depth, th);
 		else if (th->obj[main->curr].mattype == REFLECT) //mirror-like

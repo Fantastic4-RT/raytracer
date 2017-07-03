@@ -346,6 +346,31 @@ void alias_mode(int keycode, t_main *main);
 void init_images(t_main *main);
 
 /*
- * finit_cone.c
+ * cut_intersectionc.c
  */
+int		inter_ray_sphere_cut(t_ray r, void *sphere, double *t);
+t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
+int		intersect_cylind_cut(t_ray r, void *cyl, double *t);
+int		intersect_parab(t_ray r, void *par, double *t);
+/*
+ * intersections.c
+ */
+int		inter_ray_sphere(t_ray r, void *s, double *t);
+int		intersect_cylind(t_ray r, void *cyl, double *t);
+int		intersect_cone(t_ray r, void *con, double *t);
+int		intersect_plane(t_ray r, void *p, double *t);
+int		solve_quadric(double discr, double *t, double b, double a);
+/*
+ * hooks.c
+ */
+int		cross_exit(void *a);
+void	change_mode(int keycode, t_main *main);
+void	print_status(t_main *main);
+int		key_hook(int keycode, t_main *main);
+/*
+ * antialiasing.c
+ */
+void	ft_aa(t_thread *th, double dist, int x, int y);
+int		ft_col_av(t_thread *th, t_vec3 *col);
+t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p);
 #endif
