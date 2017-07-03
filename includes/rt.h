@@ -140,7 +140,7 @@ typedef struct	s_plane
 	t_vec3		p4;
 	double		rad;
 	int			cut;
-	t_material	mat; //materials should be better in the general structures but easier to save them here for reading
+	t_material	mat;
 }				t_plane;
 
 
@@ -149,6 +149,7 @@ typedef	struct 	s_sphere
 {
 	t_vec3		pos;
 	t_vec3		p1;
+	double		tt[2];
 	double		rad;
 	int			hit_obj;
 	int			cut;
@@ -462,9 +463,14 @@ void	ipp_fill(t_main *main, int x, int y, int color);
 void	pthreading(t_main *main);
 void	new_image(t_main *main);
 
+
 t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint);
 double    ft_check_min(double t1, double t2);
 t_vec3 cone_norm_cut(void *data, t_vec3 hitpoint);
+
+t_matrix	tr(t_vec3 pos);
+
+
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
 int intersect_mesh(t_ray r, void *p, double *t);

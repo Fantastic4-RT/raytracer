@@ -36,6 +36,7 @@ void	plane_params(char *str, t_plane *plane, int param)
 	char	**arr;
 	int		color;
 
+	plane->cut = param == 0 ? ft_atoi(str) : plane->cut;
 	if (param == 3)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
@@ -53,15 +54,27 @@ void	plane_params(char *str, t_plane *plane, int param)
 		plane->normal = param == 2 ? vec3_fill_atoi(arr) : plane->normal;
 		free_arr_tmp(arr, tmp);
 	}
+	else if (param == 10 || param == 11 || param == 12)
+	{
+		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</position2>"));
+		arr = ft_strsplit(tmp, ' ');
+		plane->p2 = param == 10 ? vec3_fill_atoi(arr) : plane->p2;
+		plane->p3 = param == 11 ? vec3_fill_atoi(arr) : plane->p3;
+		plane->p4 = param == 12 ? vec3_fill_atoi(arr) : plane->p4;
+		free_arr_tmp(arr, tmp);
+	}
 	plane->mat.diff = param == 4 ? ft_atoi(str) / 100. : plane->mat.diff;
 	plane->mat.spec = param == 5 ? ft_atoi(str) : plane->mat.spec;
 	plane->mat.reflect = param == 6 ? ft_atoi(str) : plane->mat.reflect;
 	plane->mat.refract = param == 7 ? ft_atof(str) : plane->mat.refract;
 	plane->mat.transp = param == 8 ? ft_atof(str) / 100. : plane->mat.transp;
+	plane->rad = param == 9 ? ft_atoi(str) : plane->rad;
 }
 
 void	fill_plane_data(char *str, t_plane *plane)
 {
+	if (ft_strstr(str, "<cut>"))
+		plane_params(str + ft_strlen("<cut>"), plane, 0);
 	if (ft_strstr(str, "<position>"))
 		plane_params(str + ft_strlen("<position>"), plane, 1);
 	else if (ft_strstr(str, "<normal>"))
@@ -78,9 +91,17 @@ void	fill_plane_data(char *str, t_plane *plane)
 		plane_params(str + ft_strlen("<refraction>"), plane, 7);
 	else if (ft_strstr(str, "<transparency>"))
 		plane_params(str + ft_strlen("<transparency>"), plane, 8);
+	else if (ft_strstr(str, "<radius>"))
+		plane_params(str + ft_strlen("<radius>"), plane, 9);
+	else if (ft_strstr(str, "<position2>"))
+		plane_params(str + ft_strlen("<position2>"), plane, 10);
+	else if (ft_strstr(str, "<position3>"))
+		plane_params(str + ft_strlen("<position3>"), plane, 11);
+	else if (ft_strstr(str, "<position4>"))
+		plane_params(str + ft_strlen("<position4>"), plane, 12);
+
 }
 
-//fill obj struct we need
 void	add_plane(char *str, t_main *main)
 {
 	t_plane *data;

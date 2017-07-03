@@ -18,7 +18,7 @@ void	malloc_data(t_obj *obj1, t_obj *obj2, char *str)
 	if (ft_strcmp(str, "sphere") == 0)
 	{
 		obj1->data = malloc(sizeof(t_sphere));
-		*((t_sphere *)obj1->data) = *((t_sphere *)obj2->data);
+		*((t_sphere *)obj1->data) = *((t_sphere *)(obj2->data));
 	}
 	if (ft_strcmp(str, "plane") == 0)
 	{

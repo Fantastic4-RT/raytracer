@@ -54,8 +54,6 @@ void	cyl_params(char *str, t_cyl *cyl, int param)
 	char	**arr;
 
 	cyl->cut = param == 0 ? ft_atoi(str) : cyl->cut;
-	if (cyl->cut != 1 && cyl->cut != 0)
-		error(10);
 	cyl->rad = param == 4 ? ft_atoi(str) : cyl->rad;
 	if (param == 1 || param == 2)
 	{

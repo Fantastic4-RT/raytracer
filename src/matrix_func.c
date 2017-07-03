@@ -107,6 +107,30 @@ t_matrix	z_rot(double angle)
 	return (z_rot);
 }
 
+t_matrix	tr(t_vec3 pos)
+{
+	t_matrix	tr;
+
+	tr.m[0][0] = 1;
+	tr.m[0][1] = 0;
+	tr.m[0][2] = 0;
+	tr.m[0][3] = pos.x;
+	tr.m[1][0] = 0;
+	tr.m[1][1] = 1;
+	tr.m[1][2] = 0;
+	tr.m[1][3] = pos.y;
+	tr.m[2][0] = 0;
+	tr.m[2][1] = 0;
+	tr.m[2][2] = 1;
+	tr.m[2][3] = pos.z;
+	tr.m[3][0] = 0;
+	tr.m[3][1] = 0;
+	tr.m[3][2] = 0;
+	tr.m[3][3] = 1;
+	return (tr);
+
+}
+
 t_vec3		m_apply(t_matrix matrix, t_vec3 vec)
 {
 	t_vec3	result;

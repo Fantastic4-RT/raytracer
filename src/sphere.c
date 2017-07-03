@@ -15,9 +15,11 @@
 void	*default_sphere(t_sphere *sphere)
 {
 	sphere->pos = vec3_create(0, 0, 0);
+	sphere->tt[0] = 2000000.;
+	sphere->tt[1] = 2000000.;
 	sphere->rad = 1;
 	sphere->cut = 0;
-	sphere->hit_obj = 0;
+	sphere->hit_obj = -1;
 	sphere->mat.color = vec3_create(0, 0, 0);
 	sphere->mat.diff = 0.5;
 	sphere->mat.spec = 100;
@@ -99,6 +101,9 @@ void	add_sphere(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &sphere_norm;
 	else
 		main->obj[main->obj_i].normal = &sphere_norm_cut;
+	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
+	if (vec3_eq(data->pos, data->p1))
+		data->p1 = vec3_add(data->p1, vec3_create(0, 0.0001, 0));	// kostulb for half-sphere
 }
