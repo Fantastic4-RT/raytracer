@@ -143,7 +143,7 @@ t_vec3		m_apply(t_matrix matrix, t_vec3 vec)
 	return (result);
 }
 
-void	matrices(t_main *main)
+void		matrices(t_main *main)
 {
 	main->mxs.rot_x_cam = x_rot(main->mxs.cam_angle.x);
 	main->mxs.rot_y_cam = y_rot(main->mxs.cam_angle.y);
@@ -152,7 +152,7 @@ void	matrices(t_main *main)
 	main->mxs.rot_y_dir = y_rot(main->mxs.dir_angle.y);
 	main->mxs.rot_z_dir = z_rot(main->mxs.dir_angle.z);
 	main->mxs.rot_cam = m_mult(m_mult(main->mxs.rot_x_cam, main->mxs.rot_y_cam),
-							   main->mxs.rot_z_cam);
+						main->mxs.rot_z_cam);
 	main->mxs.rot_dir = m_mult(m_mult(main->mxs.rot_x_dir, main->mxs.rot_y_dir),
-							   main->mxs.rot_z_dir);
+						main->mxs.rot_z_dir);
 }

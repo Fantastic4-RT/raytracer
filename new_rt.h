@@ -344,11 +344,12 @@ void	camera_rotation(int keycode, t_main *main);
  */
 void alias_mode(int keycode, t_main *main);
 void init_images(t_main *main);
+t_mattype get_material_type(t_material mat);
+
 /*
- * cut_intersectionc.c
+ * cut_intersections.c
  */
 int		inter_ray_sphere_cut(t_ray r, void *sphere, double *t);
-t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
 int		intersect_cylind_cut(t_ray r, void *cyl, double *t);
 int		intersect_parab(t_ray r, void *par, double *t);
 /*
@@ -359,6 +360,20 @@ int		intersect_cylind(t_ray r, void *cyl, double *t);
 int		intersect_cone(t_ray r, void *con, double *t);
 int		intersect_plane(t_ray r, void *p, double *t);
 int		solve_quadric(double discr, double *t, double b, double a);
+/*
+ * nomals.c
+ */
+t_vec3 sphere_norm(void *data, t_vec3 hitpoint);
+t_vec3 plane_norm(void *data, t_vec3 hitpoint);
+t_vec3 cone_norm(void *data, t_vec3 hitpoint);
+t_vec3 cylinder_norm(void *data, t_vec3 hitpoint);
+t_vec3	parab_norm(void *data, t_vec3 hitpoint);
+/*
+ * cut_normals.c
+ */
+t_vec3 sphere_norm_cut(void *data, t_vec3 hitpoint);
+t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
+t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint);
 /*
  * hooks.c
  */

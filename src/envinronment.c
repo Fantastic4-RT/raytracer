@@ -54,3 +54,14 @@ void	init_images(t_main *main)
 	main->mode.loaded = 1;
 	main->mode.count = vec3_create(0., 0., 0.);
 }
+
+t_mattype get_material_type(t_material mat)
+{
+	if (mat.refract != 0 && mat.reflect != 0)
+		return (REFLECT_REFRACT);
+	else if (mat.refract == 0 && mat.reflect != 0)
+		return (REFLECT);
+	else
+		return (LAMBERT);
+}
+
