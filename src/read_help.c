@@ -49,6 +49,9 @@ void	scene_line(int fd, t_main *main)
 	tmp = ft_strstr(str, "aa=");
 	main->scene.a_a = tmp == 0 ? 0 :
 						 ft_atoi(tmp + ft_strlen("aa="));
+	tmp = ft_strstr(str, "ambient=");
+	main->scene.amb = tmp == 0 ? AMBIENT :
+					  ft_atof(tmp + ft_strlen("ambient="));
 	main->scene.objs == 0 ? error(4) : 0;
 	main->scene.lights == 0 ? error(5) : 0;
 	free(str);

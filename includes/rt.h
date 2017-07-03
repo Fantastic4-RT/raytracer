@@ -92,6 +92,7 @@ typedef struct	s_scene
 	int		objs;
 	int 	lights;
     int     a_a;
+	double	amb;
 }				t_scene;
 
 typedef	struct 	s_inter
