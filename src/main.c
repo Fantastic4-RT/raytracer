@@ -12,6 +12,19 @@
 
 #include "rt.h"
 
+int		expose(t_main *main)
+{
+	if (main->mode.start == 1)
+	{
+		init_images(main);
+		generate_textures(main);
+		main->mode.start = 0;
+		if (main->mode.loaded == 1)
+			image(main);
+	}
+	return (0);
+}
+
 void	check_obj_type(char *t)
 {
 	(int)t == 6 ? error(8) : 0;
@@ -30,6 +43,7 @@ void	error(int param)
 	param == 7 ? ft_putstr("More lights than declared.\n") : 0;
 	param == 8 ? ft_putstr("Wrong object tag.\n") : 0;
 	param == 9 ? ft_putstr("Wrong object type.\n") : 0;
+	param == 10 ? ft_putstr("Wrong coords/axis.\n") : 0;
 	exit(0);
 }
 
