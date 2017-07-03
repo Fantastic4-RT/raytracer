@@ -26,6 +26,15 @@ void	*default_parab(t_parab *parab)
 	return ((void *)parab);
 }
 
+void	parab_params_2(char *str, t_parab *parab, int param)
+{
+	parab->mat.diff = param == 5 ? ft_atoi(str) / 100. : parab->mat.diff;
+	parab->mat.spec = param == 6 ? ft_atoi(str) : parab->mat.spec;
+	parab->mat.reflect = param == 7 ? ft_atoi(str) : parab->mat.reflect;
+	parab->mat.refract = param == 8 ? ft_atof(str) : parab->mat.refract;
+	parab->mat.transp = param == 9 ? ft_atof(str) : parab->mat.transp;
+}
+
 void	parab_params(char *str, t_parab *parab, int param)
 {
 	char	*tmp;
@@ -47,14 +56,11 @@ void	parab_params(char *str, t_parab *parab, int param)
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
 		color = ft_atoi_base(tmp, "0123456789abcdef");
 		parab->mat.color = vec3_create((color >> 16 & 0xFF) / 255.,
-									  (color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
+							(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
 	}
-	parab->mat.diff = param == 5 ? ft_atoi(str) / 100. : parab->mat.diff;
-	parab->mat.spec = param == 6 ? ft_atoi(str) : parab->mat.spec;
-	parab->mat.reflect = param == 7 ? ft_atoi(str) : parab->mat.reflect;
-	parab->mat.refract = param == 8 ? ft_atof(str) : parab->mat.refract;
-	parab->mat.transp = param == 9 ? ft_atof(str) : parab->mat.transp;
+	else
+		parab_params_2(str, parab, param);
 }
 
 void	fill_parab_data(char *str, t_parab *parab)

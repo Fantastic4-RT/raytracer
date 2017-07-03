@@ -29,6 +29,16 @@ void	*default_sphere(t_sphere *sphere)
 	return ((void *)sphere);
 }
 
+void	sphere_params_2(char *str, t_sphere *sphere, int param)
+{
+	sphere->rad = param == 2 ? ft_atoi(str) : sphere->rad;
+	sphere->mat.diff = param == 5 ? ft_atoi(str) / 100. : sphere->mat.diff;
+	sphere->mat.spec = param == 6 ? ft_atoi(str) : sphere->mat.spec;
+	sphere->mat.reflect = param == 7 ? ft_atoi(str) : sphere->mat.reflect;
+	sphere->mat.refract = param == 8 ? ft_atof(str) : sphere->mat.refract;
+	sphere->mat.transp = param == 9 ? ft_atof(str) / 100. : sphere->mat.transp;
+}
+
 void	sphere_params(char *str, t_sphere *sphere, int param)
 {
 	char	*tmp;
@@ -53,12 +63,8 @@ void	sphere_params(char *str, t_sphere *sphere, int param)
 							(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
 	}
-	sphere->rad = param == 2 ? ft_atoi(str) : sphere->rad;
-	sphere->mat.diff = param == 5 ? ft_atoi(str) / 100. : sphere->mat.diff;
-	sphere->mat.spec = param == 6 ? ft_atoi(str) : sphere->mat.spec;
-	sphere->mat.reflect = param == 7 ? ft_atoi(str) : sphere->mat.reflect;
-	sphere->mat.refract = param == 8 ? ft_atof(str) : sphere->mat.refract;
-	sphere->mat.transp = param == 9 ? ft_atof(str) / 100. : sphere->mat.transp;
+	else
+		sphere_params_2(str, sphere, param);
 }
 
 void	fill_sphere_data(char *str, t_sphere *sphere)
@@ -85,8 +91,6 @@ void	fill_sphere_data(char *str, t_sphere *sphere)
 		sphere_params(str + ft_strlen("<transparency>"), sphere, 9);
 }
 
-//fill obj struct we need
-
 void	add_sphere(char *str, t_main *main)
 {
 	t_sphere *data;
@@ -94,9 +98,9 @@ void	add_sphere(char *str, t_main *main)
 	data = (t_sphere *)main->obj[main->obj_i].data;
 	fill_sphere_data(str, data);
 	if (data->cut == 0)
-		main->obj[main->obj_i].intersect = &inter_ray_sphere; //pointer to func
+		main->obj[main->obj_i].intersect = &inter_ray_sphere;
 	else
-		main->obj[main->obj_i].intersect = &inter_ray_sphere_cut; //pointer to func
+		main->obj[main->obj_i].intersect = &inter_ray_sphere_cut;
 	if (data->cut == 0)
 		main->obj[main->obj_i].normal = &sphere_norm;
 	else
@@ -105,5 +109,5 @@ void	add_sphere(char *str, t_main *main)
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 	if (vec3_eq(data->pos, data->p1))
-		data->p1 = vec3_add(data->p1, vec3_create(0, 0.0001, 0));	// kostulb for half-sphere
+		data->p1 = vec3_add(data->p1, vec3_create(0, 0.0001, 0));
 }

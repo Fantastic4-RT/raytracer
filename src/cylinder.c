@@ -38,7 +38,7 @@ void	cyl_params_2(char *str, t_cyl *cyl, int param)
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
 		color = ft_atoi_base(tmp, "0123456789abcdef");
 		cyl->mat.color = vec3_create((color >> 16 & 0xFF) / 255.,
-									 (color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
+						(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
 	}
 	cyl->mat.diff = param == 6 ? ft_atoi(str) / 100. : cyl->mat.diff;
@@ -103,7 +103,7 @@ void	fill_cylinder_data(char *str, t_cyl *cyl)
 
 void	add_cylinder(char *str, t_main *main)
 {
-	t_cyl *data;
+	t_cyl	*data;
 
 	data = (t_cyl *)main->obj[main->obj_i].data;
 	fill_cylinder_data(str, data);
@@ -111,13 +111,11 @@ void	add_cylinder(char *str, t_main *main)
 		main->obj[main->obj_i].intersect = &intersect_cylind;
 	else
 		main->obj[main->obj_i].intersect = &intersect_cylind_cut;
-    if (data->cut == 0)
-        main->obj[main->obj_i].normal = &cylinder_norm;
-    else
-        main->obj[main->obj_i].normal = &cylinder_norm_cut;
+	if (data->cut == 0)
+		main->obj[main->obj_i].normal = &cylinder_norm;
+	else
+		main->obj[main->obj_i].normal = &cylinder_norm_cut;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }
-
-

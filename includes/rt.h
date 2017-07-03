@@ -23,8 +23,6 @@
 # include <fcntl.h>
 # include <time.h>
 
-//--------------------------
-//#define TEXT_MODE
 
 # define THREADS 4
 # define WIDTH 1200
@@ -382,7 +380,6 @@ int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
 ** 		REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 void	vec3_print(t_vec3 vec, char *str);
-void	print_scene(t_main *main);
 /*
  * whitted algorithm
  */
@@ -471,7 +468,7 @@ double	ft_check_min(double t1, double t2);
 t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
 
 t_matrix	tr(t_vec3 pos);
-
+void	check_obj_type(char *t);
 
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
