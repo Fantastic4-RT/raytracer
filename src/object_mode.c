@@ -29,9 +29,8 @@ void 	texture_mode(int keycode, t_main *main)
 		main->mode.text_mode = 1;
 	else if (keycode == 105 && main->mode.text_mode == 1)
 		main->mode.text_mode = 0;
-//	printf("texture mode = %d\n", main->mode.text_mode);
 	if (main->mode.text_mode == 1)
-		change_texture(keycode, main); // IMPLEMENT
+		change_texture(keycode, main);
 }
 #endif
 
@@ -70,6 +69,7 @@ void 	rotation_mode(int keycode, t_main *main)
 void switch_obj_mode(int keycode, t_main *main)
 {
 	//put img indicating the mode in menu
+
 	//selecting object (arrows)
 	if (main->mode.color_mode == 0
 		&& main->mode.move_mode == 0
@@ -81,9 +81,9 @@ void switch_obj_mode(int keycode, t_main *main)
 		else if (keycode == 124 && main->mode.obj_index < main->obj_i - 1)
 			main->mode.obj_index++;
 	}
-	mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 100,  300,
+	mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 264,  100,
 				   0xff0000, main->obj[main->mode.obj_index].type);
-	mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 200,  300,
+	mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 350,  100,
 				   0xff0000, ft_itoa(main->mode.obj_index));
 	color_mode(keycode, main);
 	move_mode(keycode, main);

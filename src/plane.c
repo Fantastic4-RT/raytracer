@@ -86,10 +86,13 @@ void	add_plane(char *str, t_main *main)
 	t_plane *data;
 
 	fill_plane_data(str, (t_plane *)main->obj[main->obj_i].data);
-
 	main->obj[main->obj_i].normal = &plane_norm;
+	main->obj[main->obj_i].texture = 0;
 	data = (t_plane *)main->obj[main->obj_i].data;
-
+//	data->cut = 1;
+//	data->p2 = vec3_create(10, -5, -10);
+//	data->p3 = vec3_create(9, -2, -10);
+//	data->p4 = vec3_create(0, -1, -10);
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 //	if (data->cut == 1)

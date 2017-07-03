@@ -140,27 +140,27 @@ void rotate_objects(int keycode, t_main *main)
 #ifdef TEXT_MODE
 void change_texture(int keycode, t_main *main)
 {
-	if (keycode >= 83 && keycode <= 91 && main->mode.text_index == 0)
-		main->obj[main->curr].tmp_color = main->obj[main->curr].mat.color;
+	if (keycode >= 83 && keycode <= 91 && main->obj[main->mode.obj_index].texture == 0)
+		main->obj[main->mode.obj_index].tmp_color = main->obj[main->mode.obj_index].mat.color;
 	if (keycode == 83)
-		main->mode.text_index = 1; // checkerboard
+		main->obj[main->mode.obj_index].texture = 1; // checkerboard
 	else if (keycode == 84)
-		main->mode.text_index = 2; //vert stripes
+		main->obj[main->mode.obj_index].texture = 2; //vert stripes
 	else if (keycode == 85)
-		main->mode.text_index = 3; // hor stripes
+		main->obj[main->mode.obj_index].texture = 3; // hor stripes
 	else if (keycode == 86)
-		main->mode.text_index = 4; // round stripes
+		main->obj[main->mode.obj_index].texture = 4; // round stripes
 	else if (keycode == 87)
-		main->mode.text_index = 5; // noise
+		main->obj[main->mode.obj_index].texture = 5; // noise
 	else if (keycode == 88)
-		main->mode.text_index = 6; // wood
+		main->obj[main->mode.obj_index].texture = 6; // wood
 	else if (keycode == 89)
-		main->mode.text_index = 7; // smooth noise
+		main->obj[main->mode.obj_index].texture = 7; // smooth noise
 	else if (keycode == 91)
-		main->mode.text_index = 8; // turbulence
+		main->obj[main->mode.obj_index].texture = 8; // turbulence
 	else if (keycode == 92)
 	{
-		main->mode.text_index = 0;
+		main->obj[main->mode.obj_index].texture = 0;
 		main->obj[main->mode.obj_index].mat.color = main->obj[main->mode.obj_index].tmp_color;
 	}
 	image(main);
@@ -246,7 +246,7 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 12 ?
 						vec3_add(data->pos, vec3_create(1, 0, 0)) :
 						vec3_sub(data->pos, vec3_create(1, 0, 0));
-			if (!vec3_eq(data->p2, vec3_create(0, 0, 0)) && !vec3_eq(data->p3, vec3_create(0, 0, 0)))
+			if (data->cut == 1)
 			{
 				data->p2 = keycode == 12 ?
 							vec3_add(data->p2, vec3_create(1, 0, 0)) :
@@ -307,7 +307,7 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 13 ?
 						vec3_add(data->pos, vec3_create(0, 1, 0)) :
 						vec3_sub(data->pos, vec3_create(0, 1, 0));
-			if (!vec3_eq(data->p2, vec3_create(0, 0, 0)) && !vec3_eq(data->p3, vec3_create(0, 0, 0)))
+			if (data->cut == 1)
 			{
 				data->p2 = keycode == 13 ?
 						   vec3_add(data->p2, vec3_create(0, 1, 0)) :
@@ -367,7 +367,7 @@ void move_objects(int keycode, t_main *main)
 			data->pos = keycode == 14 ?
 						vec3_add(data->pos, vec3_create(0, 0, 1)) :
 						vec3_sub(data->pos, vec3_create(0, 0, 1));
-			if (!vec3_eq(data->p2, vec3_create(0, 0, 0)) && !vec3_eq(data->p3, vec3_create(0, 0, 0)))
+			if (data->cut == 1)
 			{
 				data->p2 = keycode == 14 ?
 						   vec3_add(data->p2, vec3_create(0, 0, 1)) :

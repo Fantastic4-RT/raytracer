@@ -101,6 +101,7 @@ void	add_sphere(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &sphere_norm;
 	else
 		main->obj[main->obj_i].normal = &sphere_norm_cut;
+	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 	if (vec3_eq(data->pos, data->p1))

@@ -51,24 +51,22 @@ int intersect_mesh(t_ray r, void *p, double *t)
 {
 	t_plane *pl;
 	t_plane tr1;
-	t_plane tr2;
+	double tmp1;
+	int ret1;
+	int ret2;
 
 	pl = (t_plane *)p;
-	double tmp1 = *t;
-	double tmp2 = *t;
+	tmp1 = *t;
 	tr1.normal = pl->normal;
-	tr2.normal = pl->normal;
 	tr1.pos = pl->p2;
-	tr2.pos = pl->p4;
 	tr1.p2 = pl->p3;
-	tr2.p2 = pl->pos;
 	tr1.p3 = pl->pos;
-	tr2.p3 = pl->p3;
-
-	int ret1 = intersect_triangle(r, &tr2, &tmp1);
-	int ret2 = intersect_triangle(r, &tr1, &tmp2);
-	if (ret1 != 0 || ret2 != 0)
-		printf("%d %d\n", ret1, ret2);
+	ret1 = intersect_triangle(r, &tr1, &tmp1);
+	tmp1 = *t;
+	tr1.pos = pl->p4;
+	tr1.p2 = pl->pos;
+	tr1.p3 = pl->p3;
+	ret2 = intersect_triangle(r, &tr1, &tmp1);
 	if (ret1 || ret2)
 		return (1);
 	return (0);

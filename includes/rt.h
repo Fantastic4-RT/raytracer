@@ -24,7 +24,7 @@
 # include <time.h>
 
 //--------------------------
-//#define TEXT_MODE
+#define TEXT_MODE
 
 
 
@@ -239,6 +239,7 @@ typedef	struct 		s_obj
 	t_vec3	hitpoint;
 	t_vec3	tmp_color;
 	t_vec3	(*normal)(void *data, t_vec3 hitpoint);
+	int 	texture;
 }					t_obj;
 
 typedef struct	s_pmode

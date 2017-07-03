@@ -208,7 +208,7 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 				th->obj[main->curr].mat.color.x, th->obj[main->curr].mat.color.y,
 				th->obj[main->curr].mat.color.z), AMBIENT), &ray, main, th);
 #ifdef TEXT_MODE
-		if (main->mode.text_index != 0 && main->curr == main->mode.obj_index)
+		if (main->obj[main->curr].texture != 0 )
 			find_pixel_color(th, main);
 #endif
 		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent

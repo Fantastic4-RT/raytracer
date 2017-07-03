@@ -63,7 +63,7 @@ void print_status(t_main *main)
 				   "Anti-aliasing %d\n",
 		   main->mode.obj_mode, main->mode.move_mode,
 	main->mode.obj_index, main->mode.rot_obj_mode,
-		   main->mode.text_mode, main->mode.text_index,
+		   main->mode.text_mode, main->obj[main->curr].texture,
 		   main->mode.color_mode, main->mode.channel,
 		   main->mode.cam_mode, main->mode.dir_mode,
 		   main->mode.rot_cam_mode, main->mode.cam_pos_mode,
