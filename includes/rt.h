@@ -465,9 +465,9 @@ void	pthreading(t_main *main);
 void	new_image(t_main *main);
 
 
-t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint);
-double    ft_check_min(double t1, double t2);
-t_vec3 cone_norm_cut(void *data, t_vec3 hitpoint);
+t_vec3	cylinder_norm_cut(void *data, t_vec3 hitpoint);
+double	ft_check_min(double t1, double t2);
+t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
 
 t_matrix	tr(t_vec3 pos);
 
