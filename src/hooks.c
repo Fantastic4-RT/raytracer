@@ -53,27 +53,32 @@ void	change_mode(int keycode, t_main *main)
 	}
 }
 
+
+void fihnia(char *str, int nb)
+{
+	ft_putstr(str);
+	ft_putnbr(nb);
+	ft_putchar('\n');
+}
+
 void	print_status(t_main *main)
 {
 	ft_putendl("----------------------------------------------------");
-	printf("Object mode %d\n"
-				"-Move mode %d\n"
-				"-Object index %d\n"
-				"-Object rotation mode %d\n"
-				"-Texture mode %d\n"
-				"-Texture index %d\n"
-				"-Color mode %d\n"
-				"-Channel %c\n"
-			"Camera mode %d\n"
-				"-Direction mode %d\n"
-				"-Camera rotation mode %d\n"
-				"-Camera position mode %d\n"
-				"Anti-aliasing %d\n",
-	main->mode.obj_mode, main->mode.move_mode, main->mode.obj_index,
-	main->mode.rot_obj_mode, main->mode.text_mode,
-	main->obj[main->curr].texture, main->mode.color_mode,
-	main->mode.channel, main->mode.cam_mode, main->mode.dir_mode,
-	main->mode.rot_cam_mode, main->mode.cam_pos_mode, main->scene.a_a);
+	fihnia("Object mode ", main->mode.obj_mode);
+	fihnia("-Move mode ", main->mode.move_mode);
+	fihnia("-Object index ", main->mode.obj_index);
+	fihnia("-Object rotation mode ", main->mode.rot_obj_mode);
+	fihnia("-Texture mode ", main->mode.text_mode);
+	fihnia("-Texture index ", main->obj[main->mode.obj_index].texture);
+	fihnia("-Color mode ", main->mode.color_mode);
+	ft_putstr("-Channel ");
+	ft_putchar(main->mode.channel);
+	ft_putchar('\n');
+	fihnia("Camera mode ", main->mode.cam_mode);
+	fihnia("-Direction mode ", main->mode.dir_mode);
+	fihnia("-Camera rotation mode ", main->mode.rot_cam_mode);
+	fihnia("-Camera position mode ", main->mode.cam_pos_mode);
+	fihnia("Anti-aliasing ", main->scene.a_a);
 	ft_putendl("*******************************************************");
 }
 

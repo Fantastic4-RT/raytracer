@@ -342,9 +342,9 @@ void	camera_rotation(int keycode, t_main *main);
 /*
  * envinronment.c
  */
-void alias_mode(int keycode, t_main *main);
-void init_images(t_main *main);
-t_mattype get_material_type(t_material mat);
+void		alias_mode(int keycode, t_main *main);
+void		init_images(t_main *main);
+t_mattype	get_material_type(t_material mat);
 
 /*
  * cut_intersections.c
@@ -363,17 +363,17 @@ int		solve_quadric(double discr, double *t, double b, double a);
 /*
  * nomals.c
  */
-t_vec3 sphere_norm(void *data, t_vec3 hitpoint);
-t_vec3 plane_norm(void *data, t_vec3 hitpoint);
-t_vec3 cone_norm(void *data, t_vec3 hitpoint);
-t_vec3 cylinder_norm(void *data, t_vec3 hitpoint);
+t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
+t_vec3	plane_norm(void *data, t_vec3 hitpoint);
+t_vec3	cone_norm(void *data, t_vec3 hitpoint);
+t_vec3	cylinder_norm(void *data, t_vec3 hitpoint);
 t_vec3	parab_norm(void *data, t_vec3 hitpoint);
 /*
  * cut_normals.c
  */
-t_vec3 sphere_norm_cut(void *data, t_vec3 hitpoint);
+t_vec3	sphere_norm_cut(void *data, t_vec3 hitpoint);
 t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
-t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint);
+t_vec3	cylinder_norm_cut(void *data, t_vec3 hitpoint);
 /*
  * hooks.c
  */
@@ -381,6 +381,7 @@ int		cross_exit(void *a);
 void	change_mode(int keycode, t_main *main);
 void	print_status(t_main *main);
 int		key_hook(int keycode, t_main *main);
+void	fihnia(char *str, int nb);
 /*
  * antialiasing.c
  */
@@ -390,25 +391,25 @@ t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p);
 /*
  * algo_help.c
  */
-int vec3_to_int(t_vec3 hitcolor);
+int		vec3_to_int(t_vec3 hitcolor);
 double	clamp(const double low, const double high, const double value);
-t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
-t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
+t_vec3	reflect_ray(const t_vec3 i, const t_vec3 n);
+t_vec3	refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
 void	fresnel(const t_vec3 i, const t_vec3 n, const double ir, double *am);
 /*
  * main.c
  */
-int		expose(t_main *main);
-void	check_obj_type(char *t);
-void	error(int param);
-void	default_values(t_main *main);
-int		main(int argc, char **argv);
+int			expose(t_main *main);
+void		check_obj_type(char *t);
+void		error(int param);
+void		default_values(t_main *main);
+int			main(int argc, char **argv);
 /*
  * cam_and_light.c
  */
-void	cam_params(char *str, t_main *main, int pos_rot_fov);
-void	light_params(char *str, t_main *main, int pos_dir_col);
-void	choose_object(char *str, t_main *main);
-void	*mal_object(t_main *main);
-void	cam_light_obj_line(char *str, t_main *main, int cam_light_obj);
+void		cam_params(char *str, t_main *main, int pos_rot_fov);
+void		light_params(char *str, t_main *main, int pos_dir_col);
+void		choose_object(char *str, t_main *main);
+void		*mal_object(t_main *main);
+void		cam_light_obj_line(char *str, t_main *main, int cam_light_obj);
 #endif
