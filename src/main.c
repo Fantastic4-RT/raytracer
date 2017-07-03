@@ -17,7 +17,7 @@ int		expose(t_main *main)
 	if (main->mode.start == 1)
 	{
 		init_images(main);
-		generate_textures(main);
+//		generate_textures(main);
 		main->mode.start = 0;
 		if (main->mode.loaded == 1)
 			image(main);

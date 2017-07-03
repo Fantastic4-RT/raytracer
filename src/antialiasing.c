@@ -57,6 +57,7 @@ void	ft_aa(t_thread *th, double dist, int x, int y)
 		}
 		n_y += 1. / (th->main.scene.a_a == 1 ? 2. : 5.);
 	}
-	ipp_fill(&th->main, x, y, ft_col_av(th, col));
+	*((int *)(th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
+			y * th->main.mlx.size_line)) = ft_col_av(th, col);
 	free(col);
 }
