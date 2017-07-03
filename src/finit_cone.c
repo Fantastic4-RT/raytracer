@@ -12,27 +12,6 @@
 
 #include "rt.h"
 
-t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint)
-{
-	t_cone *c = (t_cone *)data;
-	t_vec3	n;
-	double t;
-
-	if (c->cone_hit == 1)
-	{
-		t = vec3_length(vec3_sub(hitpoint, c->apex)) /
-				(vec3_dp(c->axis, vec3_norm(vec3_sub(hitpoint, c->apex))));
-		n = vec3_norm(vec3_sub(hitpoint,
-				vec3_add(c->apex, vec3_mult(c->axis, t))));
-		return (n);
-	}
-	else if (c->cone_hit == 3)
-		return (vec3_norm(vec3_invert(c->axis)));
-	else
-		return (vec3_norm(c->axis));
-
-}
-
 int		intersect_cone_cut(t_ray r, void *s, double *t)
 {
 	t_cone *c;

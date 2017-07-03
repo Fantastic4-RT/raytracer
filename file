@@ -9,13 +9,11 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
-    <object type="sphere">
-       <position>0, 0, 0</position>
-       <position2>2, 2, 2</position2>
-       <position3>3, 3, 3</position3>
-       <position4>4, 4, 4</position4>
+    <object type="cone">
+       <position>0, 0, -10</position>
+        <axis>0, 1, 0</axis>
        <cut>0</cut>
-       <radius>5</radius>
+       <angle>30</angle>
        <color>ffa231</color>
        <diffuse>50</diffuse>
        <specular>100</specular>
