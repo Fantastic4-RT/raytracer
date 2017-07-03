@@ -1,6 +1,6 @@
 <scene width=1200 height=720 objects=1 lights=1 aa=0 ambient=0.2>
     <camera>
-        <position>0, 0, 30</position>
+        <position>0, 10, 50</position>
         <rotation>0, 0, 0</rotation>
         <fov>45</fov>
     </camera>
@@ -9,16 +9,23 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
-        <object type="sphere">
-            <position>0, 0, 0</position>
-            <cut>0</cut>
-            <plane>0, 0, 3</plane>
-            <radius>5</radius>
-            <color>ff00e3<color>
-            <diffuse>50</diffuse>
-            <specular>100</specular>
-            <reflection>0</reflection>
-            <refraction>0</refraction>
-            <transparency>50</transparency>
-        </object>
+<object type="sphere">
+       <position>0, -10, -15</position>
+       <plane>0, -7, -15</plane>
+       <cut>1</cut>
+       <radius>5</radius>
+       <color>ffffff</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+       <reflection>0</reflection>
+   </object>
+   <object type="sphere">
+          <position>10, -10, -15</position>
+          <cut>1</cut>
+          <radius>5</radius>
+          <color>ff000</color>
+          <diffuse>50</diffuse>
+          <specular>100</specular>
+          <reflection>0</reflection>
+      </object>
 </scene>

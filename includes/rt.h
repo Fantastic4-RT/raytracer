@@ -24,9 +24,7 @@
 # include <time.h>
 
 //--------------------------
-#define TEXT_MODE
-
-
+//#define TEXT_MODE
 
 # define THREADS 4
 # define WIDTH 1200
@@ -166,6 +164,9 @@ typedef	struct		s_cyl
 	t_vec3		axis;
 	double		rad;
 	int			cut;
+    double      t_low_cap;
+    double      t_top_cap;
+    double      t_final;
 	t_material	mat;
 }					t_cyl;
 
@@ -173,12 +174,14 @@ typedef struct		s_cone
 {
 	t_vec3		p1;
 	t_vec3		p2;
+	t_vec3		apex;
 	t_vec3		axis;
 	double		r1;
 	double		r2;
 	double		angle;
 	int			cut;
 	t_material	mat;
+	int cone_hit; // 1 = cone, 2 = low, 3 = top
 }					t_cone;
 
 typedef struct		s_parab
@@ -200,20 +203,10 @@ typedef struct s_menu
 {
 	void	*menu_win;
 	void	*main_menu;
-//	char	*data1;
-//	int		bpp1;
-//	int		size_line1;
-//	int		endian1;
-//	void	*text_menu;
-//	char	*data2;
-//	int		bpp2;
-//	int		size_line2;
-//	int		endian2;
-//	void	*color_menu;
-//	char	*data3;
-//	int		bpp3;
-//	int		size_line3;
-//	int		endian3;
+	int		w;
+	int 	h;
+	void	*side_arr;
+	void 	*vert_arr;
 }				t_menu;
 
 typedef	struct	s_mlx
@@ -288,6 +281,8 @@ typedef struct		s_main
 	ssize_t		curr;
 	t_vec3		diff_col;
 	t_matrices	mxs;
+	unsigned  int pic;
+	char 		*filename;
 	//point where the current obj is hit
 }					t_main;
 
@@ -401,6 +396,12 @@ int		intersect_cone(t_ray r, void *con, double *t);
 int		intersect_cylind(t_ray r, void *cyl, double *t);
 int		inter_ray_sphere(t_ray r, void *s, double *t);
 
+int intersect_cone_cut(t_ray r, void *s, double *t);
+
+
+int		intersect_cylind_cut(t_ray r, void *cyl, double *t);
+int		solve_quadric_cut(t_abs solve, double *t, t_cyl *cyl, t_ray r);
+
 int		vec3_to_int(t_vec3 hitcolor);
 
 int		trace(t_ray ray, double *t, ssize_t *curr, t_thread *th);
@@ -459,9 +460,17 @@ void rotate_objects(int keycode, t_main *main);
 
 void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);
+
 void	pthreading(t_main *main);
 void	new_image(t_main *main);
+
+
+t_vec3 cylinder_norm_cut(void *data, t_vec3 hitpoint);
+double    ft_check_min(double t1, double t2);
+t_vec3 cone_norm_cut(void *data, t_vec3 hitpoint);
+
 t_matrix	tr(t_vec3 pos);
+
 
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);

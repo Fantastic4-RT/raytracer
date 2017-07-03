@@ -65,10 +65,13 @@ t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract)
 
 void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amount)
 {
-	double cosi = clamp(-1, 1, vec3_dp(i, n));
-	double etai = 1;
-	double etat = irefract;
+	double cosi;
+	double etai;
+	double etat;
 
+	cosi = clamp(-1, 1, vec3_dp(i, n));
+	etai = 1;
+	etat = irefract;
 	if (cosi > 0)
 		ft_swap_double(&etai, &etat);
  	double sint = etai / etat * sqrt(fmax(0.0, 1 - cosi * cosi));
@@ -90,21 +93,27 @@ t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int 
 {
 	t_ray reflectray;
 	t_ray refractray;
+	t_vec3 reflectcol;
+	t_vec3 refractcol;
 	double amount;
 
 	reflectray.dir = vec3_norm(reflect_ray(ray->dir, th->obj[main->curr].n));
 	reflectray.pos = (vec3_dp(reflectray.dir, th->obj[main->curr].n) < 0) ?
-					 vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001)) :
-					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
+		vec3_add(th->obj[main->curr].hitpoint,
+		vec3_mult(th->obj[main->curr].n, 0.0001)) :
+		vec3_sub(th->obj[main->curr].hitpoint,
+		vec3_mult(th->obj[main->curr].n, 0.0001));
 	refractray.dir = vec3_norm(refract_ray(ray->dir, th->obj[main->curr].n,
 										   th->obj[main->curr].mat.refract));
 	refractray.pos = (vec3_dp(refractray.dir, th->obj[main->curr].n) < 0) ?
-					 vec3_add(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001)) :
-					 vec3_sub(th->obj[main->curr].hitpoint, vec3_mult(th->obj[main->curr].n, 0.0001));
+		vec3_add(th->obj[main->curr].hitpoint,
+		vec3_mult(th->obj[main->curr].n, 0.0001)) :
+		vec3_sub(th->obj[main->curr].hitpoint,
+		vec3_mult(th->obj[main->curr].n, 0.0001));
 //	fresnel(ray->dir, th->obj[main->curr].n, th->obj[main->curr].mat.refract, &amount);
 	amount = 1 - th->obj[main->curr].mat.transp;
-	t_vec3 reflectcol = cast_ray(th, main, reflectray, ++depth);
-	t_vec3 refractcol = cast_ray(th, main, refractray, ++depth);
+	reflectcol = cast_ray(th, main, reflectray, ++depth);
+	refractcol = cast_ray(th, main, refractray, ++depth);
 	hitcolor = vec3_add(vec3_mult(reflectcol, amount), vec3_mult(refractcol, 1 - amount));
 	return (hitcolor);
 }
@@ -189,6 +198,7 @@ int trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
 /*
  * Cast rays recursive algorithm
  */
+
 t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 {
 	t_vec3    hitcolor;

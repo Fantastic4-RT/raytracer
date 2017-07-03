@@ -8,14 +8,22 @@ void	color_mode(int keycode, t_main *main)
 		&& main->mode.move_mode == 0
 		&& main->mode.rot_obj_mode == 0
 		&& main->mode.text_mode == 0) // C on
+	{
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.vert_arr, 200, 135);
 		main->mode.color_mode = 1;
+	}
 	else if (keycode == 107 && main->mode.color_mode == 1) // C off
 	{
 		main->mode.color_mode = 0;
 		main->mode.channel = 0;
 	}
 	if (main->mode.color_mode == 1)
+	{
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.vert_arr, 200, 135);
 		change_color(keycode, main);
+	}
 }
 #ifdef TEXT_MODE
 void 	texture_mode(int keycode, t_main *main)
@@ -26,11 +34,19 @@ void 	texture_mode(int keycode, t_main *main)
 		&& main->mode.color_mode == 0
 		&& main->mode.move_mode == 0
 		&& main->mode.rot_obj_mode == 0)
-		main->mode.text_mode = 1;
+		{
+			mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+									main->mlx.menu.vert_arr, 325, 135);
+			main->mode.text_mode = 1;
+		}
 	else if (keycode == 105 && main->mode.text_mode == 1)
 		main->mode.text_mode = 0;
 	if (main->mode.text_mode == 1)
+	{
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.vert_arr, 325, 135);
 		change_texture(keycode, main);
+	}
 }
 #endif
 
@@ -42,12 +58,20 @@ void 	move_mode(int keycode, t_main *main)
 		&& main->mode.rot_obj_mode == 0
 		&& main->mode.text_mode == 0
 		&& main->mode.color_mode == 0) // M on
+	{
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.vert_arr, 70, 135);
 		main->mode.move_mode = 1;
+	}
 	else if (keycode == 46 && main->mode.move_mode == 1) // M off
 		main->mode.move_mode = 0;
 	if (((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)) &&
 		main->mode.color_mode == 0 && main->mode.move_mode == 1)
+	{
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.vert_arr, 70, 135);
 		move_objects(keycode, main);
+	}
 }
 
 void 	rotation_mode(int keycode, t_main *main)
@@ -58,18 +82,27 @@ void 	rotation_mode(int keycode, t_main *main)
 		&& main->mode.move_mode == 0
 		&& main->mode.text_mode == 0
 		&& main->mode.color_mode == 0)
+	{
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.vert_arr, 70, 225);
 		main->mode.rot_obj_mode = 1;
+	}
 	else if (keycode == 15 && main->mode.rot_obj_mode == 1)
 		main->mode.rot_obj_mode = 0;
 	if (main->mode.rot_obj_mode == 1
 		&& ((keycode >= 12 && keycode <=14) || (keycode>=0 && keycode <=2)))
+	{
+		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+								main->mlx.menu.vert_arr, 70, 225);
 		rotate_objects(keycode, main);
+	}
 }
 
 void switch_obj_mode(int keycode, t_main *main)
 {
 	//put img indicating the mode in menu
-
+	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
+							main->mlx.menu.side_arr, 20, 100);
 	//selecting object (arrows)
 	if (main->mode.color_mode == 0
 		&& main->mode.move_mode == 0

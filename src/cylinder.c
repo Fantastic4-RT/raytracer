@@ -105,15 +105,18 @@ void	add_cylinder(char *str, t_main *main)
 {
 	t_cyl *data;
 
-	fill_cylinder_data(str, (t_cyl *)main->obj[main->obj_i].data);
-	if (((t_cyl *)main->obj[main->obj_i].data)->cut == 0)
-		main->obj[main->obj_i].intersect = &intersect_cylind;
-	main->obj[main->obj_i].texture = 0;
-//	else if (((t_cyl *)main->obj[main->obj_i].data)->cut == 1)
-//		main->obj[main->obj_i].intersect = &intersect_cylind_cut;
-	main->obj[main->obj_i].normal = &cylinder_norm;
 	data = (t_cyl *)main->obj[main->obj_i].data;
+	fill_cylinder_data(str, data);
+	if (data->cut == 0)
+		main->obj[main->obj_i].intersect = &intersect_cylind;
+	else
+		main->obj[main->obj_i].intersect = &intersect_cylind_cut;
+    if (data->cut == 0)
+        main->obj[main->obj_i].normal = &cylinder_norm;
+    else
+        main->obj[main->obj_i].normal = &cylinder_norm_cut;
 	main->obj[main->obj_i].mat = data->mat;
+	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }
 
