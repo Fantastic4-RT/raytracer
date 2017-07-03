@@ -23,8 +23,6 @@
 # include <fcntl.h>
 # include <time.h>
 
-//--------------------------
-//#define TEXT_MODE
 
 # define THREADS 4
 # define WIDTH 1200
@@ -381,7 +379,6 @@ int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
 ** 		REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 void	vec3_print(t_vec3 vec, char *str);
-void	print_scene(t_main *main);
 /*
  * whitted algorithm
  */

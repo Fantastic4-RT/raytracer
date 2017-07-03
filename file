@@ -9,8 +9,8 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
-    <object type="plane">
-       <position>1, 1, 1</position>
+    <object type="sphere">
+       <position>0, 0, 0</position>
        <position2>2, 2, 2</position2>
        <position3>3, 3, 3</position3>
        <position4>4, 4, 4</position4>
