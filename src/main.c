@@ -24,7 +24,6 @@ void	error(int param)
 	param == 7 ? ft_putstr("More lights than declared.\n") : 0;
 	param == 8 ? ft_putstr("Wrong object tag.\n") : 0;
 	param == 9 ? ft_putstr("Wrong object type.\n") : 0;
-	param == 10 ? ft_putstr("Wrong cut type.\n") : 0;
 	exit(0);
 }
 

@@ -142,7 +142,7 @@ typedef struct	s_plane
 	t_vec3		p4;
 	double		rad;
 	int			cut;
-	t_material	mat; //materials should be better in the general structures but easier to save them here for reading
+	t_material	mat;
 }				t_plane;
 
 
