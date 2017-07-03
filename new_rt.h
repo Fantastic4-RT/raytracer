@@ -279,6 +279,14 @@ typedef	struct 		s_thread
 }					t_thread;
 
 /*
+ * object_functions.c
+ */
+void	rotate_objects(int keycode, t_main *main);
+void	change_texture(int keycode, t_main *main);
+int		channels_change(int keycode, t_main *main);
+void	change_color(int keycode, t_main *main);
+void	move_objects(int keycode, t_main *main);
+/*
  * obj_rotations_x.c
  */
 void	x_object_rotation1(int keycode, t_main *main);

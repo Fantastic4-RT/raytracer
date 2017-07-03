@@ -97,11 +97,11 @@ void	change_color(int keycode, t_main *main)
 	if (channels_change(keycode, main) && (keycode == 69 || keycode == 78))
 	{
 		if (main->mode.channel == 'r')
-			main->mode.count = vec3_create(0.1, 0., 0.);
+			main->mode.count = vec3_create(0.01, 0., 0.);
 		else if (main->mode.channel == 'g')
-			main->mode.count = vec3_create(0., 0.1, 0.);
+			main->mode.count = vec3_create(0., 0.01, 0.);
 		else if (main->mode.channel == 'b')
-			main->mode.count = vec3_create(0., 0., 0.1);
+			main->mode.count = vec3_create(0., 0., 0.01);
 		main->obj[main->mode.obj_index].mat.color = keycode == 69 ?
 		vec3_add(main->obj[main->mode.obj_index].mat.color, main->mode.count) :
 		vec3_sub(main->obj[main->mode.obj_index].mat.color, main->mode.count);

@@ -24,7 +24,7 @@
 # include <time.h>
 
 //--------------------------
-//#define TEXT_MODE
+#define TEXT_MODE
 
 # define THREADS 4
 # define WIDTH 1200
