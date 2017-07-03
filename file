@@ -1,4 +1,4 @@
-<scene width=1200 height=720 objects=2 lights=1>
+<scene width=1200 height=720 objects=1 lights=1>
     <camera>
         <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>
@@ -10,8 +10,8 @@
         <direction>0, 0, 0</direction>
     </light>
      <object type="torus">
-                    <position>-10, 7, 10</position>
-                    <axis>1, 1, 1</axis>
+                    <position>0, 0, 0</position>
+                    <axis>0, 0, 1</axis>
                     <radius_minor>2</radius_minor>
                     <radius_major>4</radius_major>
                     <color>f85f1f</color>
@@ -20,15 +20,6 @@
                     <reflection>0</reflection>
                     <refraction>0</refraction>
                 </object>
-                <object type="sphere">
-                            <position1>0, 15, -10</position1>
-                            <radius>5</radius>
-                            <color>f85f1f</color>
-                            <diffuse>50</diffuse>
-                            <specular>500</specular>
-                            <reflection>0</reflection>
-                            <refraction>0</refraction>
-                        </object>
 </scene>
 
 

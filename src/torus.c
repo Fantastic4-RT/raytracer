@@ -15,7 +15,7 @@
 void	*default_torus(t_torus *torus)
 {
 	torus->pos = vec3_create(0, 0, 0);
-	torus->axis = vec3_create(0, 0, 0);
+	torus->axis = vec3_create(0, 0, 1);
 	torus->r_min = 1;
 	torus->r_mjr = 4;
 	torus->mat.color = vec3_create(0, 0, 0);

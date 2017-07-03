@@ -97,7 +97,7 @@ int solve_p3(double *x,double a,double b,double c) {	// solve cubic equation x^3
 void  c_sqrt(double x, double y, double *a, double *b) // returns:  a+i*s = sqrt(x+i*y)
 {
 	double r  = sqrt(x * x + y * y);
-	if(y == 0)
+	if (y == 0)
 	{
 		r = sqrt(r);
 		if(x >= 0)
@@ -265,7 +265,7 @@ double n4_step(double x, double a,double b,double c,double d)	// one Newton step
 // return 4: 4 real roots x[0], x[1], x[2], x[3], possible multiple roots
 // return 2: 2 real roots x[0], x[1] and complex x[2]±i*x[3],
 // return 0: two pair of complex roots: x[0]±i*x[1],  x[2]±i*x[3],
-int   solve_p4(double *x, double a,double b,double c,double d)
+int   solve_p4(double *x, double a, double b, double c, double d)
 {	// solve equation x^4 + a*x^3 + b*x^2 + c*x + d by Dekart-Euler method
 	// move to a=0:
 	double d1 = d + 0.25 * a * (0.25 * b * a - 3./64 * a * a * a - c);
