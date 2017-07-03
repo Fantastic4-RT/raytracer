@@ -41,5 +41,6 @@ void	*render(void *data)
 	}
 	free(((t_thread *)data)->light);
 	free(((t_thread *)data)->obj);
+	free(((t_thread *)data)->obj->data);
 	pthread_exit(data);
 }
