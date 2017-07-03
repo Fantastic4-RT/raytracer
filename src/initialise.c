@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-void	malloc_data(t_obj *obj1, t_obj *obj2, char *str)
+void	ml_d(t_obj *obj1, t_obj *obj2, char *str)
 {
 	*obj1 = *obj2;
 	if (ft_strcmp(str, "sphere") == 0 &&
@@ -33,39 +33,35 @@ void	pthreading(t_main *main)
 {
 	pthread_t	threads[THREADS];
 	t_thread	data[THREADS];
-	int			i;
-	int			j;
-	int			line_per_th;
+	int			i[3];
 
-	i = -1;
-	line_per_th = main->scene.hei / THREADS + 1;
-	while (++i < THREADS)
+	i[0] = -1;
+	i[2] = main->scene.hei / THREADS + 1;
+	while (++i[0] < THREADS)
 	{
-		data[i].obj = (t_obj *)malloc(sizeof(t_obj) * main->scene.objs);
-		data[i].light = (t_light *)malloc(sizeof(t_light) * main->scene.lights);
-		j = -1;
-		while (++j < main->scene.objs)
-			malloc_data(&data[i].obj[j], &main->obj[j], main->obj[j].type);
-		j = -1;
-		while (++j < main->scene.lights)
-			data[i].light[j] = main->light[j];
-		data[i].main = *main;
-		data[i].start = i * line_per_th;
-		data[i].end = (i + 1) * line_per_th > main->scene.hei ? main->scene.hei
-														: (i + 1) * line_per_th;
-		pthread_create(&threads[i], NULL, render, &data[i]);
+		data[i[0]].obj = (t_obj *)malloc(sizeof(t_obj) * main->scene.objs);
+		data[i[0]].light = (t_light *)malloc(sizeof(t_light) *
+															main->scene.lights);
+		i[1] = -1;
+		while (++i[1] < main->scene.objs)
+			ml_d(&data[i[0]].obj[i[1]], &main->obj[i[1]], main->obj[i[1]].type);
+		i[1] = -1;
+		while (++i[1] < main->scene.lights)
+			data[i[0]].light[i[1]] = main->light[i[1]];
+		data[i[0]].main = *main;
+		data[i[0]].start = i[0] * i[2];
+		data[i[0]].end = (int)fmin((i[0] + 1) * i[2], main->scene.hei);
+		pthread_create(&threads[i[0]], NULL, render, &data[i[0]]);
 	}
-	i = -1;
-	while (++i < THREADS)
-		pthread_join(threads[i], NULL);
+	i[0] = -1;
+	while (++i[0] < THREADS)
+		pthread_join(threads[i[0]], NULL);
 }
 
 void	outputfile(t_main *main)
 {
 	FILE					*fp;
-	int						i;
-	int						j;
-	int						index;
+	int						i[3];
 	static unsigned char	color[3];
 
 	main->pic += 1;
@@ -74,35 +70,21 @@ void	outputfile(t_main *main)
 	main->filename[4] = (char)(main->pic % 10 + 48);
 	fp = fopen(main->filename, "wb");
 	fprintf(fp, "P6\n%d %d\n255\n", main->scene.wid, main->scene.hei);
-	i = -1;
-	while (++i < main->scene.hei)
+	i[0] = -1;
+	while (++i[0] < main->scene.hei)
 	{
-		j = -1;
-		while (++j < main->scene.wid)
+		i[1] = -1;
+		while (++i[1] < main->scene.wid)
 		{
-			index = j * main->mlx.bpp / 8 + i * main->mlx.size_line;
-			color[2] = main->mlx.ipp[index];
-			color[1] = main->mlx.ipp[index + 1];
-			color[0] = main->mlx.ipp[index + 2];
+			i[2] = i[1] * main->mlx.bpp / 8 + i[0] * main->mlx.size_line;
+			color[2] = main->mlx.ipp[i[2]];
+			color[1] = main->mlx.ipp[i[2] + 1];
+			color[0] = main->mlx.ipp[i[2] + 2];
 			fwrite(color, 1, 3, fp);
 		}
 	}
 	fclose(fp);
 	ft_strdel(&main->filename);
-}
-
-void	matrices(t_main *main)
-{
-	main->mxs.rot_x_cam = x_rot(main->mxs.cam_angle.x);
-	main->mxs.rot_y_cam = y_rot(main->mxs.cam_angle.y);
-	main->mxs.rot_z_cam = z_rot(main->mxs.cam_angle.z);
-	main->mxs.rot_x_dir = x_rot(main->mxs.dir_angle.x);
-	main->mxs.rot_y_dir = y_rot(main->mxs.dir_angle.y);
-	main->mxs.rot_z_dir = z_rot(main->mxs.dir_angle.z);
-	main->mxs.rot_cam = m_mult(m_mult(main->mxs.rot_x_cam, main->mxs.rot_y_cam),
-							main->mxs.rot_z_cam);
-	main->mxs.rot_dir = m_mult(m_mult(main->mxs.rot_x_dir, main->mxs.rot_y_dir),
-							main->mxs.rot_z_dir);
 }
 
 void	image(t_main *main)
@@ -118,19 +100,6 @@ void	image(t_main *main)
 	mlx_clear_window(main->mlx.mlx, main->mlx.win);
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.win, main->mlx.img, 0, 0);
 	mlx_destroy_image(main->mlx.mlx, main->mlx.img);
-}
-
-int		expose(t_main *main)
-{
-	if (main->mode.start == 1)
-	{
-		init_images(main);
-//		generate_textures(main);
-		main->mode.start = 0;
-		if (main->mode.loaded == 1)
-			image(main);
-	}
-	return (0);
 }
 
 void	mlx_initialise(t_main *main)

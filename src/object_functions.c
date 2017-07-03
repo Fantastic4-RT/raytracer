@@ -5,11 +5,11 @@
 
 void rotate_objects(int keycode, t_main *main)
 {
-	if (keycode == 12 || keycode == 0)
-	{
-		x_object_rotation1(keycode, main);
-		x_object_rotation2(keycode, main);
-	}
+//	if (keycode == 12 || keycode == 0)
+//	{
+//		x_object_rotation1(keycode, main);
+//		x_object_rotation2(keycode, main);
+//	}
 	if (keycode == 13 || keycode == 1)
 	{
 		if (ft_strcmp(main->obj[main->mode.obj_index].type, "cylinder") == 0)

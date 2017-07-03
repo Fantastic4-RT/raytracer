@@ -473,7 +473,7 @@ void	check_obj_type(char *t);
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
 int intersect_mesh(t_ray r, void *p, double *t);
-
+int		expose(t_main *main);
 void x_object_rotation1(int keycode, t_main *main);
 void	x_object_rotation2(int keycode, t_main *main);
 #endif
