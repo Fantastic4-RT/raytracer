@@ -22,8 +22,6 @@
 # include <pthread.h>
 # include <fcntl.h>
 # include <time.h>
-
-
 # define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
@@ -255,6 +253,8 @@ typedef struct	s_pmode
 	int start;
 	int loaded;
 
+	t_vec3	count;
+
 }				t_pmode;
 
 typedef struct s_text
@@ -476,4 +476,20 @@ int intersect_mesh(t_ray r, void *p, double *t);
 int		expose(t_main *main);
 void x_object_rotation1(int keycode, t_main *main);
 void	x_object_rotation2(int keycode, t_main *main);
+void	x_object_rotation3(int keycode, t_main *main);
+void	y_object_rotation1(int keycode, t_main *main);
+void	y_object_rotation2(int keycode, t_main *main);
+void	y_object_rotation3(int keycode, t_main *main);
+void	z_object_rotation1(int keycode, t_main *main);
+void	z_object_rotation2(int keycode, t_main *main);
+void	z_object_rotation3(int keycode, t_main *main);
+void	x_object_translation1(int keycode, t_main *main);
+void	x_object_translation2(int keycode, t_main *main);
+void	x_object_translation3(int keycode, t_main *main);
+void	y_object_translation1(int keycode, t_main *main);
+void	y_object_translation2(int keycode, t_main *main);
+void	y_object_translation3(int keycode, t_main *main);
+void	z_object_translation1(int keycode, t_main *main);
+void	z_object_translation2(int keycode, t_main *main);
+void	z_object_translation3(int keycode, t_main *main);
 #endif

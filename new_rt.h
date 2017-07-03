@@ -279,11 +279,73 @@ typedef	struct 		s_thread
 }					t_thread;
 
 /*
- * obj_rotations.c
+ *  object_mode.c
  */
+void	color_mode(int keycode, t_main *main);
+void	texture_mode(int keycode, t_main *main);
+void	move_mode(int keycode, t_main *main);
+void	rotation_mode(int keycode, t_main *main);
+void	switch_obj_mode(int keycode, t_main *main);
+/*
+ * object_functions.c
+ */
+void	rotate_objects(int keycode, t_main *main);
+void	change_texture(int keycode, t_main *main);
+int		channels_change(int keycode, t_main *main);
+void	change_color(int keycode, t_main *main);
+void	move_objects(int keycode, t_main *main);
+/*
+ * obj_rotations_x.c
+ */
+void	x_object_rotation1(int keycode, t_main *main);
+void	x_object_rotation2(int keycode, t_main *main);
+void	x_object_rotation3(int keycode, t_main *main);
 
+/*
+ * obj_rotations_y.c
+ */
+void	y_object_rotation1(int keycode, t_main *main);
+void	y_object_rotation2(int keycode, t_main *main);
+void	y_object_rotation3(int keycode, t_main *main);
 
-void x_object_rotation(int keycode, t_main *main);
+/*
+ * obj_rotations_z.c
+ */
+void	z_object_rotation1(int keycode, t_main *main);
+void	z_object_rotation2(int keycode, t_main *main);
+void	z_object_rotation3(int keycode, t_main *main);
+/*
+ * obj_translations_x.c
+ */
+void	x_object_translation1(int keycode, t_main *main);
+void	x_object_translation2(int keycode, t_main *main);
+void	x_object_translation3(int keycode, t_main *main);
+/*
+ * obj_translations_y.c
+ */
+void	y_object_translation1(int keycode, t_main *main);
+void	y_object_translation2(int keycode, t_main *main);
+void	y_object_translation3(int keycode, t_main *main);
+/*
+ * obj_translations_z.c
+ */
+void	z_object_translation1(int keycode, t_main *main);
+void	z_object_translation2(int keycode, t_main *main);
+void	z_object_translation3(int keycode, t_main *main);
+/*
+ *  camera_mode.c
+ */
+void	switch_cam_mode(int keycode, t_main *main);
+void	camera_position(int keycode, t_main *main);
+void	camera_direction(int keycode, t_main *main);
+void	camera_rotation(int keycode, t_main *main);
+/*
+ * envinronment.c
+ */
+void alias_mode(int keycode, t_main *main);
+void init_images(t_main *main);
 
-
+/*
+ * finit_cone.c
+ */
 #endif

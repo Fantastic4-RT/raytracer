@@ -84,7 +84,7 @@ int 	key_hook(int keycode, t_main *main)
 		if (main->mode.obj_mode == 1 && main->mode.off == 0)
 			switch_obj_mode(keycode, main); // O
 		else if (main->mode.cam_mode == 1 && main->mode.off == 0)
-			switch_cam_mode(keycode, main); // C
+			switch_cam_mode(keycode, main);
 		print_status(main);
 	}
 	return (0);
