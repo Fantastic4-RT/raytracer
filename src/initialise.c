@@ -59,8 +59,6 @@ void	pthreading(t_main *main)
 		j = -1;
 		while (++j < main->scene.objs)
 			malloc_data(&data[i].obj[j], &main->obj[j], main->obj[j].type);
-//			data[i].obj[j].data = malloc(sizeof(t_sphere));
-//			*((t_sphere *)data[i].obj[j].data) = *((t_sphere *)(main->obj[j].data));
 		j = -1;
 		while (++j < main->scene.lights)
 			data[i].light[j] = main->light[j];
