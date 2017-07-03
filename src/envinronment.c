@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-void	alias_mode(int keycode, t_main *main)
+void		alias_mode(int keycode, t_main *main)
 {
 	if (keycode == 37 && main->scene.a_a == 0)
 	{
@@ -31,7 +31,7 @@ void	alias_mode(int keycode, t_main *main)
 	}
 }
 
-void	init_images(t_main *main)
+void		init_images(t_main *main)
 {
 	main->mlx.menu.side_arr = mlx_xpm_file_to_image(main->mlx.mlx,
 		"side_arrow.xpm", &main->mlx.menu.w, &main->mlx.menu.h);
@@ -55,7 +55,7 @@ void	init_images(t_main *main)
 	main->mode.count = vec3_create(0., 0., 0.);
 }
 
-t_mattype get_material_type(t_material mat)
+t_mattype	get_material_type(t_material mat)
 {
 	if (mat.refract != 0 && mat.reflect != 0)
 		return (REFLECT_REFRACT);
@@ -64,4 +64,3 @@ t_mattype get_material_type(t_material mat)
 	else
 		return (LAMBERT);
 }
-

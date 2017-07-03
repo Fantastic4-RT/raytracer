@@ -1,10 +1,11 @@
 #include <rt.h>
 
-void perlin_noise(t_main *main, float zoom)
+void	perlin_noise(t_main *main, float zoom)
 {
 	int x;
 	int y;
 	int z;
+
 	main->textures[4].zoom = (int)zoom;
 	z = -1;
 	while (++z < TEXT_SIZE)
@@ -22,7 +23,7 @@ void perlin_noise(t_main *main, float zoom)
 	}
 }
 
-double smooth_noise(t_vec3 p, t_main *main)
+double	smooth_noise(t_vec3 p, t_main *main)
 {
 
 	double fractx = main->textures[4].zoom == 1 ? 1 : (p.x - (int)p.x);
@@ -47,7 +48,7 @@ double smooth_noise(t_vec3 p, t_main *main)
 	return value;
 }
 
-double turbulence(t_vec3 p, t_main * main,  double size)
+double	turbulence(t_vec3 p, t_main * main,  double size)
 {
 	double value = 0.0;
 	double initial_size = size;
@@ -144,6 +145,7 @@ void 	find_pixel_color(t_thread *th, t_main *main)
 {
 	t_vec3 p;
 	double value;
+
 	main->mode.text_index = main->obj[main->curr].texture;
 	p.x = fabs(th->obj[main->curr].hitpoint.x);
 	p.y = fabs(th->obj[main->curr].hitpoint.y);
@@ -193,5 +195,4 @@ void generate_textures(t_main *main)
 	perlin_noise(main, 2);
 	sin_stripes(main, 2);
 	wood(main);
-
 }

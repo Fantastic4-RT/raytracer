@@ -492,4 +492,10 @@ void	y_object_translation3(int keycode, t_main *main);
 void	z_object_translation1(int keycode, t_main *main);
 void	z_object_translation2(int keycode, t_main *main);
 void	z_object_translation3(int keycode, t_main *main);
+
+int vec3_to_int(t_vec3 hitcolor);
+double	clamp(const double low, const double high, const double value);
+t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
+t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
+void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amount);
 #endif

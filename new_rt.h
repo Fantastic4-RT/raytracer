@@ -388,6 +388,14 @@ void	ft_aa(t_thread *th, double dist, int x, int y);
 int		ft_col_av(t_thread *th, t_vec3 *col);
 t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p);
 /*
+ * algo_help.c
+ */
+int vec3_to_int(t_vec3 hitcolor);
+double	clamp(const double low, const double high, const double value);
+t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
+t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
+void	fresnel(const t_vec3 i, const t_vec3 n, const double ir, double *am);
+/*
  * main.c
  */
 int		expose(t_main *main);
