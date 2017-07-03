@@ -12,17 +12,18 @@
 
 #include "rt.h"
 
-t_vec3 cone_norm_cut(void *data, t_vec3 hitpoint)
+t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint)
 {
 	t_cone *c = (t_cone *)data;
-	t_vec3 tmp;
 	t_vec3	n;
+	double t;
 
 	if (c->cone_hit == 1)
 	{
-		tmp = vec3_sub(hitpoint, c->apex);//position
-		double t = vec3_length(tmp) / (vec3_dp(c->axis, vec3_norm(tmp)));
-		n = vec3_norm(vec3_sub(hitpoint, vec3_add(c->apex, vec3_mult(c->axis, t))));
+		t = vec3_length(vec3_sub(hitpoint, c->apex)) /
+				(vec3_dp(c->axis, vec3_norm(vec3_sub(hitpoint, c->apex))));
+		n = vec3_norm(vec3_sub(hitpoint,
+				vec3_add(c->apex, vec3_mult(c->axis, t))));
 		return (n);
 	}
 	else if (c->cone_hit == 3)
@@ -32,21 +33,24 @@ t_vec3 cone_norm_cut(void *data, t_vec3 hitpoint)
 
 }
 
-int intersect_cone_cut(t_ray r, void *s, double *t)
+int		intersect_cone_cut(t_ray r, void *s, double *t)
 {
 	t_cone *c;
 	t_cone cone;
 	t_vec3 hitpoint;
+	double tmp[3];
+	int ret;
 
 	c = (t_cone *)s;
-	cone.p1 = vec3_add(c->p1, vec3_mult(vec3_mult(vec3_sub(c->p2, c->p1), c->r1), 1 /(c->r1 - c->r2)));
+	cone.p1 = vec3_add(c->p1, vec3_mult(vec3_mult(vec3_sub(c->p2, c->p1),
+			c->r1), 1 /(c->r1 - c->r2)));
 	cone.axis = vec3_sub(c->p2, c->p1);
 	cone.angle = atan((c->r1 - c->r2) / vec3_length(cone.axis)) * 180 / M_PI;
-	c->axis = cone.axis;
+	c->axis = vec3_norm(cone.axis);
 	c->apex = cone.p1;
 	c->angle = cone.angle;
-	int ret = 0;
-	double tmp[3];
+	ret = 0;
+
 	tmp[0] = *t;
 	if (intersect_cone(r, &cone, &tmp[0]))
 	{
@@ -63,6 +67,7 @@ int intersect_cone_cut(t_ray r, void *s, double *t)
 	p.pos = c->p2;
 	p.normal = cone.axis;
 	tmp[1] = *t;
+
 	if (intersect_plane(r, &p, &tmp[1]))
 	{
 		hitpoint = vec3_add(r.pos, vec3_mult(r.dir, tmp[1]));
