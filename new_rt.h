@@ -279,6 +279,14 @@ typedef	struct 		s_thread
 }					t_thread;
 
 /*
+ *  object_mode.c
+ */
+void	color_mode(int keycode, t_main *main);
+void	texture_mode(int keycode, t_main *main);
+void	move_mode(int keycode, t_main *main);
+void	rotation_mode(int keycode, t_main *main);
+void	switch_obj_mode(int keycode, t_main *main);
+/*
  * object_functions.c
  */
 void	rotate_objects(int keycode, t_main *main);
@@ -324,4 +332,11 @@ void	y_object_translation3(int keycode, t_main *main);
 void	z_object_translation1(int keycode, t_main *main);
 void	z_object_translation2(int keycode, t_main *main);
 void	z_object_translation3(int keycode, t_main *main);
+/*
+ *  camera_mode.c
+ */
+void	switch_cam_mode(int keycode, t_main *main);
+void	camera_position(int keycode, t_main *main);
+void	camera_direction(int keycode, t_main *main);
+void	camera_rotation(int keycode, t_main *main);
 #endif
