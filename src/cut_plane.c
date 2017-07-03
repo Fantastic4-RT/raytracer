@@ -67,7 +67,5 @@ int intersect_mesh(t_ray r, void *p, double *t)
 	tr1.p2 = pl->pos;
 	tr1.p3 = pl->p3;
 	ret2 = intersect_triangle(r, &tr1, &tmp1);
-	if (ret1 || ret2)
-		return (1);
-	return (0);
+	return (ret1 || ret2);
 }

@@ -107,6 +107,7 @@ void	add_plane(char *str, t_main *main)
 	t_plane *data;
 
 	fill_plane_data(str, (t_plane *)main->obj[main->obj_i].data);
+
 	main->obj[main->obj_i].normal = &plane_norm;
 	main->obj[main->obj_i].texture = 0;
 	data = (t_plane *)main->obj[main->obj_i].data;

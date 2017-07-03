@@ -39,6 +39,7 @@
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
 # define ROT_ANGLE 15 * RAD
+# define OBJ_ROT 2
 # define TEXT_SIZE 256// size of the texture
 
 typedef struct	s_abs
@@ -475,4 +476,7 @@ t_matrix	tr(t_vec3 pos);
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
 int intersect_mesh(t_ray r, void *p, double *t);
+
+void x_object_rotation1(int keycode, t_main *main);
+void	x_object_rotation2(int keycode, t_main *main);
 #endif

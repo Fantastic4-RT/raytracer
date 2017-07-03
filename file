@@ -9,14 +9,17 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
-<object type="sphere">
-       <position>0, -10, -15</position>
-       <plane>0, -7, -15</plane>
-       <cut>1</cut>
-       <radius>5</radius>
-       <color>ffffff</color>
-       <diffuse>50</diffuse>
-       <specular>100</specular>
-       <reflection>0</reflection>
-   </object>
+<object type="plane">
+         <position>-5, -5, 0</position>
+         <position2>-5, 5, 0</position2>
+         <position3>5, 5, 0</position3>
+         <position4>5, -5, 0</position4>
+         <cut>4</cut>
+         <normal>0, 0, 1</normal>
+         <color>ff0000</color>
+         <diffuse>100</diffuse>
+         <specular>50</specular>
+         <reflection>1</reflection>
+         <normal>0, 1, 1</normal>
+     </object>
 </scene>
