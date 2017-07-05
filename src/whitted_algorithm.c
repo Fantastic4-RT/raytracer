@@ -14,11 +14,11 @@
 
 t_vec3 reflection_and_refraction(t_vec3 hitcolor, t_ray *ray, t_main *main, int depth, t_thread *th)
 {
-	t_ray reflectray;
-	t_ray refractray;
-	t_vec3 reflectcol;
-	t_vec3 refractcol;
-	double amount;
+	t_ray	reflectray;
+	t_ray	refractray;
+	t_vec3	reflectcol;
+	t_vec3	refractcol;
+	double	amount;
 
 	reflectray.dir = vec3_norm(reflect_ray(ray->dir, th->obj[main->curr].n));
 	reflectray.pos = (vec3_dp(reflectray.dir, th->obj[main->curr].n) < 0) ?
@@ -106,9 +106,11 @@ int trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
 	int i;
 
 	i = -1;
+	*curr = -1;
+	*t = 2000000.0;
 	while (++i < th->main.scene.objs)
 	{
-		if (th->obj[i].intersect(ray, th->obj[i].data, t)) //intersection functions
+		if (th->obj[i].intersect(ray, th->obj[i].data, t))
 			*curr = i;
 	}
 	return (*curr == -1 ? 0 : 1);
@@ -116,37 +118,29 @@ int trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
 
 t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 {
-	t_vec3    hitcolor;
-	double t;
+	t_vec3	hitcol;
+	t_obj	*obj;
+	double	t;
 
 	if (depth > MAXDEPTH)
-		return (vec3_create(0., 0., 0.)); // returns background color
-	hitcolor = vec3_create(0., 0., 0.);
-	t = 2000000.0;
-	main->curr = -1;
+		return (vec3_create(0., 0., 0.));
+	hitcol = vec3_create(0., 0., 0.);
 	if (trace(ray, &t, &main->curr, th))
 	{
-		th->obj[main->curr].hitpoint = vec3_add(ray.pos, vec3_mult(ray.dir, t));
-		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(
-				th->obj[main->curr].data, th->obj[main->curr].hitpoint));
-		main->diff_col = diffuse(vec3_mult(vec3_create(
-				th->obj[main->curr].mat.color.x, th->obj[main->curr].mat.color.y,
-				th->obj[main->curr].mat.color.z), th->main.scene.amb), &ray, main, th);
-
-		if (main->obj[main->curr].texture != 0 )
+		obj = &th->obj[main->curr];
+		obj->hitpoint = vec3_add(ray.pos, vec3_mult(ray.dir, t));
+		obj->n = vec3_norm(obj->normal(obj->data, obj->hitpoint));
+		main->diff_col = diffuse(vec3_mult(obj->mat.color, th->main.scene.amb),
+																&ray, main, th);
+		if (obj->texture != 0 )
 			find_pixel_color(th, main);
-
-		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent
-			hitcolor = reflection_and_refraction(hitcolor, &ray, main, depth, th);
-		else if (th->obj[main->curr].mattype == REFLECT) //mirror-like
-			hitcolor = reflection(hitcolor, ray, main, depth, th);
+		if (obj->mattype == REFLECT_REFRACT)
+			hitcol = reflection_and_refraction(hitcol, &ray, main, depth, th);
+		else if (obj->mattype == REFLECT)
+			hitcol = reflection(hitcol, ray, main, depth, th);
 		else
-		{
-			hitcolor = vec3_mult(vec3_create(th->obj[main->curr].mat.color.x,
-			th->obj[main->curr].mat.color.y, th->obj[main->curr].mat.color.z),
-															th->main.scene.amb);
-			hitcolor = diffuse(hitcolor, &ray, main, th);
-		}
+			hitcol = diffuse(vec3_mult(obj->mat.color, th->main.scene.amb),
+																&ray, main, th);
 	}
-	return(hitcolor);
+	return(hitcol);
 }
