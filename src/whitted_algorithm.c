@@ -130,12 +130,10 @@ t_vec3 cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 		th->obj[main->curr].n = vec3_norm(th->obj[main->curr].normal(
 				th->obj[main->curr].data, th->obj[main->curr].hitpoint));
 		main->diff_col = diffuse(vec3_mult(vec3_create(
-				th->obj[main->curr].mat.color.x, th->obj[main->curr].mat.color.y,
-				th->obj[main->curr].mat.color.z), th->main.scene.amb), &ray, main, th);
-
-		if (main->obj[main->curr].texture != 0 )
+		th->obj[main->curr].mat.color.x, th->obj[main->curr].mat.color.y,
+		th->obj[main->curr].mat.color.z), th->main.scene.amb), &ray, main, th);
+		if (main->obj[main->curr].texture != 0)
 			find_pixel_color(th, main);
-
 		if (th->obj[main->curr].mattype == REFLECT_REFRACT) //transparent
 			hitcolor = reflection_and_refraction(hitcolor, &ray, main, depth, th);
 		else if (th->obj[main->curr].mattype == REFLECT) //mirror-like

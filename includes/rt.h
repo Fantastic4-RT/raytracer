@@ -259,7 +259,7 @@ typedef struct	s_pmode
 
 typedef struct s_text
 {
-	double text_arr[TEXT_SIZE][TEXT_SIZE][TEXT_SIZE];
+	double text_arr[TEXT_SIZE][TEXT_SIZE];
 	int zoom;
 }				t_text;
 
