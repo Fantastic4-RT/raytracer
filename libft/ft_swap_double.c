@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_swap_double.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/05 16:21:12 by atrepyto          #+#    #+#             */
-/*   Updated: 2016/12/05 16:27:48 by atrepyto         ###   ########.fr       */
+/*   Created: 2017/06/27 14:42:44 by atrepyto          #+#    #+#             */
+/*   Updated: 2017/06/27 14:42:58 by atrepyto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_swap(int *a, int *b)
+void	ft_swap_double(double *a, double *b)
 {
-	int temp;
+	double temp;
 
 	temp = *a;
 	*a = *b;

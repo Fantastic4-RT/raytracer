@@ -14,16 +14,9 @@
 
 void	ft_putendl(char *str)
 {
-	int i;
-
 	if (str)
 	{
-		i = 0;
-		while (str[i])
-		{
-			write(1, &str[i], 1);
-			i++;
-		}
+		ft_putstr(str);
 		write(1, "\n", 1);
 	}
 }

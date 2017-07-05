@@ -50,6 +50,16 @@ double	vec3_length(t_vec3 vec)
 	return (result);
 }
 
+t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2)
+{
+	t_vec3 res;
+
+	res = vec3_create(vec1.y * vec2.z - vec1.z * vec2.y,
+					vec1.z * vec2.x - vec1.x * vec2.z,
+					vec1.x * vec2.y - vec1.y * vec2.x);
+	return (res);
+}
+
 void	vec3_print(t_vec3 vec, char *str)
 {
 	printf("%s: (%f, %f, %f)\n", str, vec.x, vec.y, vec.z);

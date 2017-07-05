@@ -24,6 +24,7 @@ void	cam_params(char *str, t_main *main, int pos_rot_fov)
 		main->cam.ray.pos = vec3_fill_atoi(arr);
 		main->cam.ray.pos.x /= main->scene.wid;
 		main->cam.ray.pos.y /= main->scene.hei;
+		main->cam.start = main->cam.ray.pos;
 		free_arr_tmp(arr, tmp);
 	}
 	else if (pos_rot_fov == 2)
@@ -74,6 +75,8 @@ void	choose_object(char *str, t_main *main)
 		add_cylinder(str, main);
 	if (ft_strcmp(main->obj[main->obj_i].type, "cone") == 0)
 		add_cone(str, main);
+	if (ft_strcmp(main->obj[main->obj_i].type, "paraboloid") == 0)
+		add_paraboloid(str, main);
 }
 
 void	*mal_object(t_main *main)
@@ -86,6 +89,8 @@ void	*mal_object(t_main *main)
 		return (default_cylinder((t_cyl *)malloc(sizeof(t_cyl))));
 	if (ft_strcmp(main->obj[main->obj_i].type, "cone") == 0)
 		return (default_cone((t_cone *)malloc(sizeof(t_cone))));
+	if (ft_strcmp(main->obj[main->obj_i].type, "paraboloid") == 0)
+		return (default_parab((t_parab *)malloc(sizeof(t_parab))));
 	error(9);
 	return (0);
 }
@@ -111,8 +116,7 @@ void	cam_light_obj_line(char *str, t_main *main, int cam_light_obj)
 	if (cam_light_obj == 3 && ft_strstr(str, "<object"))
 	{
 		t = ft_strstr(str, "type=") + 6;
-		(int)t == 6 ? error(8) : 0;
-		ft_strchr(t, '\"') == 0 ? error(9) : 0;
+		check_obj_type(t);
 		main->obj[main->obj_i].type = ft_strsub(t, 0, ft_strchr(t, '\"') - t);
 		main->obj[main->obj_i].data = mal_object(main);
 	}

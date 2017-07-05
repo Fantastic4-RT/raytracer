@@ -1,6 +1,6 @@
 # Prerequisites
 *.d
-
+.nfs*
 # Object files
 *.o
 *.ko
@@ -53,6 +53,7 @@ dkms.conf
 rt
 .DS*
 ._.DS*
+._*
 *.sh
 cmake-build-debug
 .idea
