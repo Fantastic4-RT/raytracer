@@ -5,14 +5,14 @@ void	perlin_noise(t_main *main, float zoom)
 	int x;
 	int y;
 
-	main->textures[4].zoom = (int)zoom;
+	main->textures[0].zoom = (int)zoom;
 		y = 0;
-		while (y < TEXT_SIZE)
+		while (y < TEXT_S)
 		{
 			x = 0;
-			while (x < TEXT_SIZE)
+			while (x < TEXT_S)
 			{
-				main->textures[4].text_arr[y][x] = (rand() % 32768) / 32768.0;
+				main->textures[0].text_arr[y][x] = (rand() % 32768) / 32768.0;
 				x++;
 			}
 			y++;
@@ -26,18 +26,18 @@ double	smooth_noise(t_vec3 p, t_main *main)
 	t_vec3 p2;
 	double value;
 
-	f.x = main->textures[4].zoom == 1 ? 1 : (p.x - (int)p.x);
-	f.y = main->textures[4].zoom == 1 ? 1 : (p.y - (int)p.y);
-	p1.x = ((int)p.x + TEXT_SIZE) % TEXT_SIZE;
-	p1.y = ((int)p.y + TEXT_SIZE) % TEXT_SIZE;
-	p2.x = (int)(p1.x + TEXT_SIZE - 1) % TEXT_SIZE;
-	p2.y = (int)(p1.y + TEXT_SIZE - 1) % TEXT_SIZE;
+	f.x = main->textures[0].zoom == 1 ? 1 : (p.x - (int)p.x);
+	f.y = main->textures[0].zoom == 1 ? 1 : (p.y - (int)p.y);
+	p1.x = ((int)p.x + TEXT_S) % TEXT_S;
+	p1.y = ((int)p.y + TEXT_S) % TEXT_S;
+	p2.x = (int)(p1.x + TEXT_S - 1) % TEXT_S;
+	p2.y = (int)(p1.y + TEXT_S - 1) % TEXT_S;
 	value = 0.0;
-	value += f.x * f.y * main->textures[4].text_arr[(int)p1.y][(int)p1.x];
-	value += (1 - f.x) * f.y * main->textures[4].text_arr[(int)p1.y][(int)p2.x];
-	value += f.x * (1 - f.y) * main->textures[4].text_arr[(int)p2.y][(int)p1.x];
+	value += f.x * f.y * main->textures[0].text_arr[(int)p1.y][(int)p1.x];
+	value += (1 - f.x) * f.y * main->textures[0].text_arr[(int)p1.y][(int)p2.x];
+	value += f.x * (1 - f.y) * main->textures[0].text_arr[(int)p2.y][(int)p1.x];
 	value += (1 - f.x) * (1 - f.y) *
-			main->textures[4].text_arr[(int)p2.y][(int)p2.x];
+			main->textures[0].text_arr[(int)p2.y][(int)p2.x];
 	return (value);
 }
 
@@ -57,118 +57,111 @@ double	turbulence(t_vec3 p, t_main * main,  double size)
 	return(128.0 * value / initial_size);
 }
 
-//void sin_stripes(t_main *main, int w)
-//{
-//	int x;
-//	int y;
-//	int z;
-//	int c1 = 0xFF0000;
-//	int c2 = 0x00FF00;
-//
-//	main->textures[0].zoom = 2;
-//	main->textures[1].zoom = 2;
-//	main->textures[2].zoom = 2;
-//	main->textures[3].zoom = 2;
-//	z = -1;
-//	while (++z < TEXT_SIZE)
-//	{
-//		y = -1;
-//		while (++y < TEXT_SIZE)
-//		{
-//			x = -1;
-//			while (++x < TEXT_SIZE)
-//			{
-//				if (((sin(M_PI * y / w) > 0 && sin(M_PI * z / w) > 0))
-//					|| ((sin(M_PI * y / w) <= 0 && sin(M_PI * z / w) <= 0)))
-//					main->textures[0].text_arr[z][y][x] = c1;
-//				else
-//					main->textures[0].text_arr[z][y][x] = c2;
-//				main->textures[1].text_arr[z][y][x] = sin(M_PI * x / w) > 0 ?
-//													  c1 : c2;
-//				main->textures[2].text_arr[z][y][x] = sin(M_PI * y / w) > 0 ?
-//													  c1 : c2;
-//				main->textures[3].text_arr[z][y][x] = sin(M_PI * z / w) > 0 ?
-//													  c1 : c2;
-//			}
-//		}
-//	}
-//}
-//
-void wood(t_main *main)
+double sin_stripes(t_vec3 p, t_main *main, int w)
+{
+	int c1;
+	int c2;
+
+	c1 = 0xFF0000;
+	c2 = 0x00FF00;
+
+	if (main->mode.text_index == 1)
+	{
+		if (((sin(M_PI * p.y / w) > 0 && sin(M_PI * p.x / w) > 0))
+			|| ((sin(M_PI * p.y / w) <= 0 && sin(M_PI * p.x / w) <= 0)))
+			return c1;
+		else
+			return c2;
+	}
+	else if (main->mode.text_index == 2)
+		return (sin(M_PI * p.x / w) > 0 ? c1 : c2);
+	else
+		return (sin(M_PI * p.y / w) > 0 ? c1 : c2);
+}
+
+double wood(t_vec3 p, t_main *main)
 {
 	t_vec3 color;
-	t_vec3 i;
 	t_vec3 val;
 	double distval;
 	double sinval;
 
-	i.y = -1;
-	while (++i.y < TEXT_SIZE)
-	{
-		i.x = -1;
-		while (++i.x < TEXT_SIZE)
-		{
-			val.x = (i.x - TEXT_SIZE / 2) / (double)TEXT_SIZE;
-			val.y = (i.y - TEXT_SIZE / 2) / (double)TEXT_SIZE;
-			distval = sqrt(val.x * val.x + val.y * val.y) + 0.1 *
-				turbulence(vec3_create(i.x, i.y, 0), main, 32.0) / 256.0;
-			sinval = 128.0 * fabs(sin(2 * 12.0 * distval * M_PI));
-			color = vec3_create((80 + sinval), (30 + sinval), 30);
-			main->textures[5].text_arr[(int)i.y][(int)i.x] = vec3_to_int(color);
-		}
-	}
+	val.x = (p.x - TEXT_S / 2) / (double)TEXT_S;
+	val.y = (p.y - TEXT_S / 2) / (double)TEXT_S;
+	distval = sqrt(val.x * val.x + val.y * val.y) + 0.1 * turbulence(vec3_create(p.x, p.y, 0), main, 32.0) / 256.0;
+	sinval = 128.0 * fabs(sin(2 * 12.0 * distval * M_PI));
+	color = vec3_create((80 + sinval), (30 + sinval), 30);
+	return (((int)color.x << 16) | ((int)color.y << 8) | (int)color.z);
 }
 
+double marble(t_vec3 p, t_main *main)
+{
+	t_vec3 color;
+	t_vec3 val;
+	double distval;
+	double sinval;
+
+	val.x = (p.x - TEXT_S / 2) / (double)TEXT_S;
+	val.y = (p.y - TEXT_S / 2) / (double)TEXT_S;
+	distval = sqrt(val.x * val.x + val.y * val.y) + 0.5 *
+		turbulence(vec3_create(p.x, p.y, 0), main, 32.0) / 256.0;
+	sinval = 128.0 * fabs(sin(2 * 12.0 * distval * M_PI));
+	color = vec3_create((10 + sinval), (30 + sinval), 30);
+	return (((int)color.x << 16) | ((int)color.y << 8) | (int)color.z);
+}
+
+t_vec3	int_to_vec3(int color)
+{
+	return (vec3_create(((color >> 16) & 0xFF) / 255.0,
+						((color >> 8) & 0xFF) / 255.0, (color & 0xFF) / 255.0));
+}
 
 void 	find_pixel_color(t_thread *th, t_main *main)
 {
 	t_vec3 p;
 	double v;
+	double color;
 
 	main->mode.text_index = main->obj[main->curr].texture;
-	p.x = asin(th->obj[main->curr].n.x) / M_PI + 0.5;
-	p.y = asin(th->obj[main->curr].n.y) / M_PI + 0.5;
+	//spherical -- good
+	p.x = (int)(((asin(th->obj[main->curr].n.x) + main->uv * RAD) / M_PI + 0.5) * TEXT_S) % TEXT_S;
+	p.y = (int)(((asin(th->obj[main->curr].n.y)  + main->uv* RAD) / M_PI + 0.5) * TEXT_S) % TEXT_S;
 	p.z = 0;
-	if (main->mode.text_index - 1 >= 0 && main->mode.text_index - 1 <= 3)
+	if (main->mode.text_index - 1 >= 0 && main->mode.text_index - 1 <= 2)
 	{
-		int color = (int) main->textures[main->mode.text_index -
-		1].text_arr[(int) (p.y * 10)  % TEXT_SIZE][(int) (p.x * 10)  % TEXT_SIZE];
-		th->obj[main->curr].mat.color =
-		vec3_create(((color >> 16) & 0xFF) / 255.0,
-		((color >> 8) & 0xFF) / 255.0, (color & 0xFF) / 255.0);
+		color = sin_stripes(p, main, 2);
+		th->obj[main->curr].mat.color = int_to_vec3((int)color);
+	}
+	if (main->mode.text_index - 1 == 3)
+	{
+		color = main->textures[0].text_arr[(int)p.y][(int)p.x];
+		th->obj[main->curr].mat.color = vec3_create(color, color, color);
 	}
 	if (main->mode.text_index - 1 == 4)
 	{
-		double color = main->textures[0].
-				text_arr[(int) (p.y * TEXT_SIZE) % TEXT_SIZE][(int) (p.x * TEXT_SIZE) % TEXT_SIZE];
-		th->obj[main->curr].mat.color = vec3_create(color, color, color);
+		color = wood(p, main);
+		th->obj[main->curr].mat.color = int_to_vec3((int)color);
 	}
 	else if (main->mode.text_index - 1 == 5)
 	{
-		int color = (int) main->textures[1].text_arr[(int) (p.y * TEXT_SIZE) % TEXT_SIZE][(int) (p.x * TEXT_SIZE) % TEXT_SIZE];
-		th->obj[main->curr].mat.color = vec3_create(
-				((color >> 16) & 0xFF) / 255.0,
-				((color >> 8) & 0xFF) / 255.0, (color & 0xFF) / 255.0);
+		color = marble(p, main);
+		th->obj[main->curr].mat.color = int_to_vec3((int)color);
 	}
 	if (main->mode.text_index - 1 == 6)
 	{
-		v = smooth_noise(vec3_create((int) (p.x * TEXT_SIZE) % TEXT_SIZE /
-		8.0, (int) (p.y * TEXT_SIZE) % TEXT_SIZE / 8.0, p.z ), main);
+		v = smooth_noise(vec3_create((p.x / 8.0), (p.y / 8.0), p.z ), main);
 		th->obj[main->mode.obj_index].mat.color = vec3_create(v, v, v);
 	}
 	else if (main->mode.text_index - 1 == 7)
 	{
-		v = turbulence(vec3_create((int) (p.x * TEXT_SIZE) % TEXT_SIZE,
-		(int) (p.y * TEXT_SIZE) % TEXT_SIZE, p.z ), main, 32) / 255;
+		v = turbulence(vec3_create((int) (p.x), (int) (p.y), p.z ), main, 32) / 255;
 		th->obj[main->mode.obj_index].mat.color = vec3_create(v, v, v);
 	}
 }
 
 void generate_textures(t_main *main)
 {
-	main->textures = (t_text *)malloc(sizeof(t_text) * 10);
-	ft_bzero(main->textures, 10);
+	main->textures = (t_text *)malloc(sizeof(t_text) * 1);
+	ft_bzero(main->textures, 1);
 	perlin_noise(main, 2);
-	wood(main);
-//	sin_stripes(main, 2);
 }

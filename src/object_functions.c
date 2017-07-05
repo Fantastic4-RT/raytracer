@@ -43,18 +43,18 @@ void	change_texture(int keycode, t_main *main)
 		&& main->obj[main->mode.obj_index].texture == 0)
 		main->obj[main->mode.obj_index].tmp_color =
 				main->obj[main->mode.obj_index].mat.color;
-//	if (keycode == 83)
-//		main->obj[main->mode.obj_index].texture = 1;
-//	else if (keycode == 84)
-//		main->obj[main->mode.obj_index].texture = 2;
-//	else if (keycode == 85)
-//		main->obj[main->mode.obj_index].texture = 3;
-//	if (keycode == 86)
-//		main->obj[main->mode.obj_index].texture = 4;
+	if (keycode == 83)
+		main->obj[main->mode.obj_index].texture = 1;
+	else if (keycode == 84)
+		main->obj[main->mode.obj_index].texture = 2;
+	else if (keycode == 85)
+		main->obj[main->mode.obj_index].texture = 3; //
+	else if (keycode == 86)
+		main->obj[main->mode.obj_index].texture = 4; // noise
 	if (keycode == 87)
-		main->obj[main->mode.obj_index].texture = 5; //index 0
+		main->obj[main->mode.obj_index].texture = 5; //marble
 	else if (keycode == 88)
-		main->obj[main->mode.obj_index].texture = 6; //index 1
+		main->obj[main->mode.obj_index].texture = 6; //wood
 	else if (keycode == 89)
 		main->obj[main->mode.obj_index].texture = 7;
 	else if (keycode == 91)

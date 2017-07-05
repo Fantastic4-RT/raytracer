@@ -36,7 +36,7 @@
 # define RAD M_PI / 180.
 # define ROT_ANGLE 15 * RAD
 # define OBJ_ROT 2
-# define TEXT_SIZE 256// size of the texture
+# define TEXT_S 256// size of the texture
 
 typedef struct	s_abs
 {
@@ -259,7 +259,7 @@ typedef struct	s_pmode
 
 typedef struct s_text
 {
-	double text_arr[TEXT_SIZE][TEXT_SIZE];
+	double text_arr[TEXT_S][TEXT_S];
 	int zoom;
 }				t_text;
 
@@ -282,6 +282,7 @@ typedef struct		s_main
 	t_matrices	mxs;
 	unsigned  int pic;
 	char 		*filename;
+	double uv;
 	//point where the current obj is hit
 }					t_main;
 
@@ -450,7 +451,6 @@ void change_color(int keycode, t_main *main);
 /*
  * textures.c
  */
-void sin_stripes(t_main *main, int w);
 /*
 ** antialiasing
 */
