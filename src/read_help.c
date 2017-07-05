@@ -32,6 +32,8 @@ void	scene_line(int fd, t_main *main)
 	char	*str;
 
 	get_next_line(fd, &str);
+	if (ft_strstr(str, "<scene") == 0)
+		error(4);
 	tmp = ft_strstr(str, "width=");
 	main->scene.wid = tmp == 0 ? WIDTH :
 					ft_atoi(tmp + ft_strlen("width="));
@@ -44,6 +46,12 @@ void	scene_line(int fd, t_main *main)
 	tmp = ft_strstr(str, "lights=");
 	main->scene.lights = tmp == 0 ? LIGHTS :
 					ft_atoi(tmp + ft_strlen("lights="));
+	tmp = ft_strstr(str, "aa=");
+	main->scene.a_a = tmp == 0 ? 0 :
+						 ft_atoi(tmp + ft_strlen("aa="));
+	tmp = ft_strstr(str, "ambient=");
+	main->scene.amb = tmp == 0 ? AMBIENT :
+					  ft_atof(tmp + ft_strlen("ambient="));
 	main->scene.objs == 0 ? error(4) : 0;
 	main->scene.lights == 0 ? error(5) : 0;
 	free(str);
@@ -79,8 +87,11 @@ void	read_file(int fd, t_main *main)
 	default_values(main);
 	while (get_next_line(fd, &str))
 	{
-		if (ft_strstr(str, "</scene") != 0)
+		if (ft_strstr(str, "/scene") != 0)
+		{
+			free(str);
 			break ;
+		}
 		if (main->flag.cam == 0 && main->flag.lgh == 0 && main->flag.obj == 0)
 			set_flag(str, main, 1);
 		else if (main->flag.cam == 1 || main->flag.lgh == 1 ||
@@ -96,5 +107,4 @@ void	read_file(int fd, t_main *main)
 	}
 	main->obj_i == main->scene.objs ? 0 : error(2);
 	main->light_i == main->scene.lights ? 0 : error(3);
-	// PROBLEM WITH WRONG NUMBER OF LIGHT SOURCES
 }

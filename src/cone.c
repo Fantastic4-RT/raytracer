@@ -26,6 +26,7 @@ void	*default_cone(t_cone *cone)
 	cone->mat.spec = 100;
 	cone->mat.reflect = 0;
 	cone->mat.refract = 0;
+	cone->mat.transp = 0;
 	return ((void *)cone);
 }
 
@@ -46,7 +47,8 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 	cone->mat.diff = param == 8 ? ft_atoi(str) / 100. : cone->mat.diff;
 	cone->mat.spec = param == 9 ? ft_atoi(str) : cone->mat.spec;
 	cone->mat.reflect = param == 10 ? ft_atoi(str) : cone->mat.reflect;
-	cone->mat.refract = param == 11 ? ft_atoi(str) : cone->mat.refract;
+	cone->mat.refract = param == 11 ? ft_atof(str) : cone->mat.refract;
+	cone->mat.transp = param == 12 ? ft_atof(str) : cone->mat.transp;
 }
 
 void	cone_params(char *str, t_cone *cone, int param)
@@ -55,6 +57,8 @@ void	cone_params(char *str, t_cone *cone, int param)
 	char	**arr;
 
 	cone->cut = param == 0 ? ft_atoi(str) : cone->cut;
+	if (cone->cut != 1 && cone->cut != 0)
+		error(10);
 	cone->r1 = param == 3 ? ft_atoi(str) : cone->r1;
 	cone->r2 = param == 4 ? ft_atoi(str) : cone->r2;
 	if (param == 1 || param == 2)
@@ -103,6 +107,8 @@ void	fill_cone_data(char *str, t_cone *cone)
 		cone_params(str + ft_strlen("<reflection>"), cone, 10);
 	else if (ft_strstr(str, "<refraction>"))
 		cone_params(str + ft_strlen("<refraction>"), cone, 11);
+	else if (ft_strstr(str, "<transparency>"))
+		cone_params(str + ft_strlen("<transparency>"), cone, 12);
 }
 
 void	add_cone(char *str, t_main *main)
@@ -110,9 +116,17 @@ void	add_cone(char *str, t_main *main)
 	t_cone *data;
 
 	fill_cone_data(str, (t_cone *)main->obj[main->obj_i].data);
-	main->obj[main->obj_i].intersect = &intersect_cone;
-	main->obj[main->obj_i].normal = &cone_norm;
+	if (((t_cone *)main->obj[main->obj_i].data)->cut == 0)
+		main->obj[main->obj_i].intersect = &intersect_cone;
+	else
+		main->obj[main->obj_i].intersect = &intersect_cone_cut;
+	main->obj[main->obj_i].texture = 0;
 	data = (t_cone *)main->obj[main->obj_i].data;
+	if (data->cut == 1)
+		main->obj[main->obj_i].normal = &cone_norm_cut;
+	else
+		main->obj[main->obj_i].normal = &cone_norm;
 	main->obj[main->obj_i].mat = data->mat;
+	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }

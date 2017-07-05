@@ -85,7 +85,8 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 char				*ft_strrev(char *str);
-void				ft_swap(double *a, double *b);
+void				ft_swap_double(double *a, double *b);
+void				ft_swap(int *a, int *b);
 char				*ft_uppercase(char *str);
 char				*ft_lowercase(char *str);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
@@ -95,4 +96,5 @@ char				*ft_strndup(const char *s1, size_t n);
 int					get_next_line(const int fd, char **line);
 int					ft_atoi_base(char *str, char *base);
 double				ft_atof(const char *str);
+
 #endif

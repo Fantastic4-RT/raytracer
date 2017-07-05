@@ -12,20 +12,11 @@
 
 #include "libft.h"
 
-void	ft_swap(double *a, double *b)
+void	ft_swap(int *a, int *b)
 {
-	double temp;
+	int temp;
 
 	temp = *a;
 	*a = *b;
 	*b = temp;
 }
-
-//void	ft_swap(int *a, int *b)
-//{
-//	int temp;
-//
-//	temp = *a;
-//	*a = *b;
-//	*b = temp;
-//}

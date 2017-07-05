@@ -1,27 +1,35 @@
-<scene width=1200 height=720 objects=1 lights=1>
+<scene width=1200 height=720 objects=2 lights=1 aa=0 ambient=0.5>
     <camera>
-        <position>0, 0, 50</position>
+        <position>0, 10, 50</position>
         <rotation>0, 0, 0</rotation>
         <fov>45</fov>
     </camera>
     <light>
-        <position>20, 20, 150</position>
+        <position>0, 0, 50</position>
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
      <object type="torus">
-                    <position>0, 0, 0</position>
+                    <position>10, 0, 0</position>
                     <axis>0, 0, 1</axis>
-                    <radius_minor>2</radius_minor>
-                    <radius_major>4</radius_major>
+                    <radius_minor>3</radius_minor>
+                    <radius_major>5</radius_major>
                     <color>f85f1f</color>
                     <diffuse>50</diffuse>
                     <specular>500</specular>
                     <reflection>0</reflection>
                     <refraction>0</refraction>
                 </object>
+      <object type="sphere">
+                <position>10, 0, 0</position>
+                <radius>2</radius>
+                <color>f85f1f</color>
+                <diffuse>50</diffuse>
+                <specular>500</specular>
+                <reflection>0</reflection>
+                <refraction>0</refraction>
+      </object>
 </scene>
-
 
  <object type="cylinder">
         <position1>0, 15, -10</position1>
@@ -76,3 +84,17 @@
                 <reflection>0</reflection>
                 <refraction>0</refraction>
             </object>
+<object type="plane">
+         <position>-5, -5, 0</position>
+         <position2>-5, 5, 0</position2>
+         <position3>5, 5, 0</position3>
+         <position4>5, -5, 0</position4>
+         <cut>4</cut>
+         <normal>0, 0, 1</normal>
+         <color>ff0000</color>
+         <diffuse>100</diffuse>
+         <specular>50</specular>
+         <reflection>1</reflection>
+         <normal>0, 1, 1</normal>
+     </object>
+</scene>

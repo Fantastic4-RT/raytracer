@@ -6,7 +6,7 @@
 #    By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/29 10:36:01 by atrepyto          #+#    #+#              #
-#    Updated: 2017/06/08 17:44:29 by aradiuk          ###   ########.fr        #
+#    Updated: 2017/06/27 14:58:21 by atrepyto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC = ./ft_atoi.c ./ft_bzero.c ./ft_isalnum.c ./ft_isalpha.c ./ft_isascii.c \
 	  ./ft_strtrim.c ./ft_tolower.c ./ft_toupper.c ./ft_strsplit.c \
 	  ./ft_lstdel.c ./ft_lstadd.c ./ft_lstdelone.c ./ft_lstiter.c ./ft_lstmap.c \
 	  ./ft_lstnew.c ./ft_strrev.c ./ft_swap.c ./ft_uppercase.c ./ft_lowercase.c \
-	  ./ft_strlcpy.c ./ft_replacechr.c ./get_next_line.c ./ft_isspace.c
+	  ./ft_atof.c ./ft_strlcpy.c ./ft_replacechr.c ./get_next_line.c ./ft_isspace.c \
+	  ./ft_swap_double.c
 
 OBJ = $(SRC:.c=.o)	
 

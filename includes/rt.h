@@ -14,7 +14,6 @@
 # define RT_H
 
 # include "libft.h"
-//# include "parser.h"
 # include <mlx.h>
 # include <math.h>
 # include <stdlib.h>
@@ -24,6 +23,8 @@
 # include <fcntl.h>
 # include <time.h>
 
+//--------------------------
+//#define TEXT_MODE
 
 # define THREADS 4
 # define WIDTH 1200
@@ -37,6 +38,9 @@
 # define LIGHTS 1
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
+# define ROT_ANGLE 15 * RAD
+# define OBJ_ROT 2
+# define TEXT_SIZE 256// size of the texture
 
 typedef struct	s_abs
 {
@@ -78,9 +82,16 @@ typedef	struct 	s_matrix
 
 typedef struct	s_matrices
 {
-	t_matrix	rot_x;
-	t_matrix	rot_y;
-	t_matrix	rot_z;
+	t_matrix	rot_x_cam;
+	t_matrix	rot_y_cam;
+	t_matrix	rot_z_cam;
+	t_matrix	rot_cam;
+	t_matrix	rot_x_dir;
+	t_matrix	rot_y_dir;
+	t_matrix	rot_z_dir;
+	t_matrix	rot_dir;
+	t_vec3		cam_angle;
+	t_vec3		dir_angle;
 }				t_matrices;
 
 typedef struct	s_scene
@@ -89,13 +100,9 @@ typedef struct	s_scene
 	int		hei;
 	int		objs;
 	int 	lights;
+    int     a_a;
+	double	amb;
 }				t_scene;
-
-typedef	struct 	s_sample
-{
-	int x;
-	int	y;
-}				t_sample;
 
 typedef	struct 	s_inter
 {
@@ -110,6 +117,7 @@ typedef	struct	s_cam
 	double	fov;
 	t_ray	ray;
 	t_vec3	rot;
+	t_vec3	start;
 }				t_cam;
 
 typedef	struct	s_light
@@ -130,7 +138,8 @@ typedef	struct 	s_material
 	double	diff;
 	double	spec;
 	double	reflect;
-	double 	refract; //index of refraction
+	double 	refract;
+	double	transp;
 	t_vec3	color;
 }				t_material;
 
@@ -138,13 +147,24 @@ typedef struct	s_plane
 {
 	t_vec3		pos;
 	t_vec3		normal;
-	t_material	mat; //materials should be better in the general structures but easier to save them here for reading
+	t_vec3		p2;
+	t_vec3		p3;
+	t_vec3		p4;
+	double		rad;
+	int			cut;
+	t_material	mat;
 }				t_plane;
+
+
 
 typedef	struct 	s_sphere
 {
 	t_vec3		pos;
+	t_vec3		p1;
+	double		tt[2];
 	double		rad;
+	int			hit_obj;
+	int			cut;
 	t_material	mat;
 }				t_sphere;
 
@@ -155,6 +175,9 @@ typedef	struct		s_cyl
 	t_vec3		axis;
 	double		rad;
 	int			cut;
+    double      t_low_cap;
+    double      t_top_cap;
+    double      t_final;
 	t_material	mat;
 }					t_cyl;
 
@@ -162,12 +185,14 @@ typedef struct		s_cone
 {
 	t_vec3		p1;
 	t_vec3		p2;
+	t_vec3		apex;
 	t_vec3		axis;
 	double		r1;
 	double		r2;
 	double		angle;
 	int			cut;
 	t_material	mat;
+	int cone_hit; // 1 = cone, 2 = low, 3 = top
 }					t_cone;
 
 typedef struct 	s_torus
@@ -179,12 +204,30 @@ typedef struct 	s_torus
 	t_material	mat;
 }				t_torus;
 
+typedef struct		s_parab
+{
+	t_vec3		pos;
+	t_vec3		axis;
+	double		k;
+	t_material	mat;
+}					t_parab;
+
 typedef struct	s_flag
 {
 	int		cam;
 	int		obj;
 	int		lgh;
 }				t_flag;
+
+typedef struct s_menu
+{
+	void	*menu_win;
+	void	*main_menu;
+	int		w;
+	int 	h;
+	void	*side_arr;
+	void 	*vert_arr;
+}				t_menu;
 
 typedef	struct	s_mlx
 {
@@ -195,6 +238,7 @@ typedef	struct	s_mlx
 	int				bpp;
 	int				size_line;
 	int				endian;
+	t_menu			menu;
 }				t_mlx;
 
 
@@ -203,12 +247,42 @@ typedef	struct 		s_obj
 	char	*type;
 	void	*data;
 	t_material	mat;
-	t_mattype mattype; //added here so that we do not need cast object
-	int		(*intersect)(t_ray *r, void *data, double *t);
+	t_mattype mattype;
+	int		(*intersect)(t_ray r, void *data, double *t);
 	t_vec3	n;
 	t_vec3	hitpoint;
-	t_vec3	(*normal)(void *data, t_vec3 hitpoint); //function to count normal
+	t_vec3	tmp_color;
+	t_vec3	(*normal)(void *data, t_vec3 hitpoint);
+	int 	texture;
 }					t_obj;
+
+typedef struct	s_pmode
+{
+	int obj_mode;
+	int move_mode;
+	int obj_index;
+	int rot_obj_mode; //(to implement)
+	int text_mode; // to implement
+	int text_index;
+	int color_mode;
+	char channel;
+
+	int cam_mode;
+	int dir_mode;
+	int rot_cam_mode;
+	int cam_pos_mode;
+
+	int off;
+	int start;
+	int loaded;
+
+}				t_pmode;
+
+typedef struct s_text
+{
+	double text_arr[TEXT_SIZE][TEXT_SIZE][TEXT_SIZE];
+	int zoom;
+}				t_text;
 
 typedef struct		s_main
 {
@@ -218,11 +292,17 @@ typedef struct		s_main
 	t_light		*light;
 	t_flag		flag;
 	t_scene		scene;
+	t_pmode		mode;
+	t_text 		*textures;
 //	t_sample	sample;
 //	int 		num_lights;
 	int			light_i;
 	int			obj_i;
 	ssize_t		curr;
+	t_vec3		diff_col;
+	t_matrices	mxs;
+	unsigned  int pic;
+	char 		*filename;
 	//point where the current obj is hit
 }					t_main;
 
@@ -263,6 +343,9 @@ void	add_sphere(char *str, t_main *main);
 void	*default_sphere(t_sphere *sphere);
 void	fill_sphere_data(char *str, t_sphere *sphere);
 void	sphere_params(char *str, t_sphere *sphere, int param);
+int		inter_ray_sphere_cut(t_ray r, void *s, double *t);
+t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
+t_vec3	sphere_norm_cut(void *data, t_vec3 hitpoint);
 
 /*
 ** 		CYLINDER
@@ -279,6 +362,17 @@ void	add_cone(char *str, t_main *main);
 void	*default_cone(t_cone *cone);
 void	fill_cone_data(char *str, t_cone *cone);
 void	cone_params(char *str, t_cone *cone, int param);
+
+
+/*
+**		PARABOLOID
+*/
+void	add_paraboloid(char *str, t_main *main);
+void	*default_parab(t_parab *parab);
+int		intersect_parab(t_ray r, void *par, double *t);
+t_vec3	parab_norm(void *data, t_vec3 hitpoint);
+
+
 
 void	mlx_initialise(t_main *main);
 void	*render(void *data);
@@ -311,6 +405,7 @@ t_vec3	vec3_fill_atoi(char **arr);
 double	vec3_dp(t_vec3 vec1, t_vec3 vec2);
 double	vec3_length(t_vec3 vec);
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
+int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
 
 
 /*
@@ -327,15 +422,24 @@ t_vec3	cast_ray(t_thread *th, t_main *main, t_ray ray, int depth);
  * intersections.c
  */
 int		solve_quadric(double discr, double *t, double b, double a);
-int		intersect_plane(t_ray *r, void *p, double *t);
-int		intersect_cone(t_ray *r, void *con, double *t);
-int		intersect_cylind(t_ray *r, void *cyl, double *t);
-int		inter_ray_sphere(t_ray *r, void *s, double *t);
-int 	intersect_torus(t_ray *r, void *tor, double *t);
+
+int 	intersect_torus(t_ray r, void *tor, double *t);
+
+int		intersect_plane(t_ray r, void *p, double *t);
+int		intersect_cone(t_ray r, void *con, double *t);
+int		intersect_cylind(t_ray r, void *cyl, double *t);
+int		inter_ray_sphere(t_ray r, void *s, double *t);
+
+int intersect_cone_cut(t_ray r, void *s, double *t);
+
+
+int		intersect_cylind_cut(t_ray r, void *cyl, double *t);
+int		solve_quadric_cut(t_abs solve, double *t, t_cyl *cyl, t_ray r);
+
 
 int		vec3_to_int(t_vec3 hitcolor);
 
-int		trace(t_main *main, t_ray ray, double *t, ssize_t *curr, t_thread *th);
+int		trace(t_ray ray, double *t, ssize_t *curr, t_thread *th);
 t_vec3	cylinder_norm(void * data, t_vec3 hitpoint);
 t_vec3	cone_norm(void *data, t_vec3 hitpoint);
 t_vec3	plane_norm(void *data, t_vec3 hitpoint);
@@ -343,5 +447,72 @@ t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
 t_vec3 torus_norm(void * data, t_vec3 hitpoint);
 
 t_mattype get_material_type(t_material mat);
+
+t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
+
+t_vec3 vec3_cross(t_vec3 vec1, t_vec3 vec2);
+void				matrices(t_main *main);
+t_matrix			m_mult(t_matrix m1, t_matrix m2);
+t_matrix			x_rot(double angle);
+t_matrix			y_rot(double angle);
+t_matrix			z_rot(double angle);
+t_vec3				m_apply(t_matrix matrix, t_vec3 vec);
+//void				camera_rotation(t_main *main, int param);
+void	pthreading(t_main *main);
+void 	outputfile(t_main *main);
+void 	image(t_main *main);
+t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
+/*
+ * envinronment.c
+ */
+void alias_mode(int keycode, t_main *main);
+void init_images(t_main *main);
+void switch_cam_mode(int keycode, t_main *main);
+void generate_textures(t_main *main);
+void 	find_pixel_color(t_thread *th, t_main *main);
+/*
+ * object_mode.c
+ */
+void 	switch_obj_mode(int keycode, t_main *main);
+
+void	color_mode(int keycode, t_main *main);
+void 	texture_mode(int keycode, t_main *main);
+void 	move_mode(int keycode, t_main *main);
+void 	rotation_mode(int keycode, t_main *main);
+/*
+ * object_functions.c
+ */
+void change_texture(int keycode, t_main *main);
+void move_objects(int keycode, t_main *main);
+void change_color(int keycode, t_main *main);
+/*
+ * textures.c
+ */
+void sin_stripes(t_main *main, int w);
+/*
+** antialiasing
+*/
+void rotate_objects(int keycode, t_main *main);
+
+void    ft_aa(t_thread *th, double dist, int x, int y);
+void	ipp_fill(t_main *main, int x, int y, int color);
+
+void	pthreading(t_main *main);
+void	new_image(t_main *main);
+
+
+t_vec3	cylinder_norm_cut(void *data, t_vec3 hitpoint);
+double	ft_check_min(double t1, double t2);
+t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
+
+t_matrix	tr(t_vec3 pos);
+
+
+int intersect_elips(t_ray r, void *p, double *t);
+int intersect_triangle(t_ray r, void *p, double *t);
+int intersect_mesh(t_ray r, void *p, double *t);
+
+void x_object_rotation1(int keycode, t_main *main);
+void	x_object_rotation2(int keycode, t_main *main);
 
 #endif
