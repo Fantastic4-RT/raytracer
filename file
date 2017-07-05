@@ -10,10 +10,13 @@
         <direction>0, 0, 0</direction>
     </light>
     <object type="cone">
-       <position>0, 0, -10</position>
-        <axis>0, 1, 0</axis>
-       <cut>0</cut>
-       <angle>30</angle>
+       <position1>0, -5, -10</position1>
+       <position2>0, 5, -10</position2>
+       <radius1>5</radius1>
+       <radius2>0</radius2>
+       <cut>1</cut>
+       <angle>10</angle>
+       <axis>0, 1, 0</axis>
        <color>ffa231</color>
        <diffuse>50</diffuse>
        <specular>100</specular>
