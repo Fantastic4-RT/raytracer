@@ -14,11 +14,11 @@
 
 int		intersect_cone_cut(t_ray r, void *s, double *t)
 {
-	t_cone *c;
-	t_cone cone;
-	t_vec3 hitpoint;
-	double tmp[3];
-	int ret;
+	t_cone	*c;
+	t_cone	cone;
+	t_vec3	hitpoint;
+	double	tmp[3];
+	int		ret;
 
 	c = (t_cone *)s;
 	cone.p1 = vec3_add(c->p1, vec3_mult(vec3_mult(vec3_sub(c->p2, c->p1),
@@ -72,5 +72,5 @@ int		intersect_cone_cut(t_ray r, void *s, double *t)
 		}
 	}
 	*t = ft_check_min(*t, ft_check_min(tmp[0], ft_check_min(tmp[1], tmp[2])));
-	return ret;
+	return (ret);
 }

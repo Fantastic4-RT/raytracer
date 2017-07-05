@@ -37,6 +37,7 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 
 	cone->r1 = param == 3 ? ft_atoi(str) : cone->r1;
 	cone->r2 = param == 4 ? ft_atoi(str) : cone->r2;
+	cone->r1 == cone->r2 ? error(11) : 0;
 	cone->angle = param == 6 ? ft_atoi(str) : cone->angle;
 	if (param == 7)
 	{
