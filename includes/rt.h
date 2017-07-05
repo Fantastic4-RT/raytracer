@@ -263,6 +263,18 @@ typedef struct s_text
 	int zoom;
 }				t_text;
 
+typedef struct s_img
+{
+	void *img;
+	char *data;
+	int h;
+	int w;
+	int endian;
+	int sl;
+	int bpp;
+	int zoom;
+}				t_img;
+
 typedef struct		s_main
 {
 	t_obj		*obj;
@@ -273,6 +285,7 @@ typedef struct		s_main
 	t_scene		scene;
 	t_pmode		mode;
 	t_text 		*textures;
+	t_img		*img;
 //	t_sample	sample;
 //	int 		num_lights;
 	int			light_i;
@@ -498,4 +511,20 @@ double	clamp(const double low, const double high, const double value);
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
 t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
 void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amount);
+
+/*
+ * textures.c
+ */
+t_vec3	int_to_vec3(int color);
+void generate_textures(t_main *main);
+double marble(t_vec3 p, t_main *main);
+double wood(t_vec3 p, t_main *main);
+double sin_stripes(t_vec3 p, t_main *main, int w);
+double	turbulence(t_vec3 p, t_main * main,  double size);
+double	smooth_noise(t_vec3 p, t_main *main);
+void	perlin_noise(t_main *main, float zoom);
+/*
+ * mapping.c
+ */
+void 	find_pixel_color(t_thread *th, t_main *main);
 #endif
