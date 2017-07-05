@@ -1,5 +1,30 @@
 #include "rt.h"
 
+t_vec3	vec3_comp_dp(t_vec3 v1, t_vec3 v2)
+{
+	t_vec3	res;
+
+	res.x = v1.x * v2.x;
+	res.y = v1.y * v2.y;
+	res.z = v1.z * v2.z;
+	return (res);
+}
+
+int		trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
+{
+	int i;
+
+	i = -1;
+	*curr = -1;
+	*t = 2000000.0;
+	while (++i < th->main.scene.objs)
+	{
+		if (th->obj[i].intersect(ray, th->obj[i].data, t))
+			*curr = i;
+	}
+	return (*curr == -1 ? 0 : 1);
+}
+
 t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p)
 {
 	t_vec3		col;
