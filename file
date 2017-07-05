@@ -1,6 +1,6 @@
 <scene width=1200 height=720 objects=2 lights=1 aa=0 ambient=0.5>
     <camera>
-        <position>0, 10, 50</position>
+        <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>
         <fov>45</fov>
     </camera>

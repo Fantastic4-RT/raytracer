@@ -14,15 +14,20 @@
 
 void	free_arr_tmp(char **arr, char *tmp)
 {
-	free(arr[0]);
-	free(arr[1]);
-	free(arr[2]);
+	if (arr[0])
+		free(arr[0]);
+	if (arr[1])
+		free(arr[1]);
+	if (arr[2])
+		free(arr[2]);
 	free(arr);
 	free(tmp);
 }
 
 t_vec3	vec3_fill_atoi(char **arr)
 {
+	if (!arr[0] || !arr[1] || !arr[2])
+		error(10);
 	return (vec3_create(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2])));
 }
 
@@ -32,14 +37,11 @@ void	scene_line(int fd, t_main *main)
 	char	*str;
 
 	get_next_line(fd, &str);
-	if (ft_strstr(str, "<scene") == 0)
-		error(4);
+	ft_strstr(str, "<scene") == 0 ? error(4) : 0;
 	tmp = ft_strstr(str, "width=");
-	main->scene.wid = tmp == 0 ? WIDTH :
-					ft_atoi(tmp + ft_strlen("width="));
+	main->scene.wid = tmp == 0 ? WIDTH : ft_atoi(tmp + ft_strlen("width="));
 	tmp = ft_strstr(str, "height=");
-	main->scene.hei = tmp == 0 ? HEIGHT :
-					ft_atoi(tmp + ft_strlen("height="));
+	main->scene.hei = tmp == 0 ? HEIGHT : ft_atoi(tmp + ft_strlen("height="));
 	tmp = ft_strstr(str, "objects=");
 	main->scene.objs = tmp == 0 ? OBJECTS :
 					ft_atoi(tmp + ft_strlen("objects="));
@@ -47,11 +49,9 @@ void	scene_line(int fd, t_main *main)
 	main->scene.lights = tmp == 0 ? LIGHTS :
 					ft_atoi(tmp + ft_strlen("lights="));
 	tmp = ft_strstr(str, "aa=");
-	main->scene.a_a = tmp == 0 ? 0 :
-						 ft_atoi(tmp + ft_strlen("aa="));
+	main->scene.a_a = tmp == 0 ? 0 : ft_atoi(tmp + ft_strlen("aa="));
 	tmp = ft_strstr(str, "ambient=");
-	main->scene.amb = tmp == 0 ? AMBIENT :
-					  ft_atof(tmp + ft_strlen("ambient="));
+	main->scene.amb = tmp == 0 ? AMBIENT : ft_atof(tmp + ft_strlen("ambient="));
 	main->scene.objs == 0 ? error(4) : 0;
 	main->scene.lights == 0 ? error(5) : 0;
 	free(str);
@@ -88,10 +88,7 @@ void	read_file(int fd, t_main *main)
 	while (get_next_line(fd, &str))
 	{
 		if (ft_strstr(str, "/scene") != 0)
-		{
-			free(str);
 			break ;
-		}
 		if (main->flag.cam == 0 && main->flag.lgh == 0 && main->flag.obj == 0)
 			set_flag(str, main, 1);
 		else if (main->flag.cam == 1 || main->flag.lgh == 1 ||
@@ -105,6 +102,8 @@ void	read_file(int fd, t_main *main)
 			cam_light_obj_line(str, main, 3);
 		free(str);
 	}
+	if (ft_strstr(str, "/scene") != 0)
+		free(str);
 	main->obj_i == main->scene.objs ? 0 : error(2);
 	main->light_i == main->scene.lights ? 0 : error(3);
 }

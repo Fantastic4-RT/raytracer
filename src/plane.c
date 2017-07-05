@@ -30,25 +30,37 @@ void	*default_plane(t_plane *plane)
 	return ((void *)plane);
 }
 
-void	plane_params(char *str, t_plane *plane, int param)
+void	plane_params_2(char *str, t_plane *plane, int param)
 {
 	char	*tmp;
-	char	**arr;
 	int		color;
 
-	plane->cut = param == 0 ? ft_atoi(str) : plane->cut;
 	if (param == 3)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
 		color = ft_atoi_base(tmp, "0123456789abcdef");
 		plane->mat.color = vec3_create((color >> 16 & 0xFF) / 255.,
-				(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
+							(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
 	}
-	else if (param == 1 || param == 2)
+	plane->mat.diff = param == 4 ? ft_atoi(str) / 100. : plane->mat.diff;
+	plane->mat.spec = param == 5 ? ft_atoi(str) : plane->mat.spec;
+	plane->mat.reflect = param == 6 ? ft_atoi(str) : plane->mat.reflect;
+	plane->mat.refract = param == 7 ? ft_atof(str) : plane->mat.refract;
+	plane->mat.transp = param == 8 ? ft_atof(str) / 100. : plane->mat.transp;
+	plane->rad = param == 9 ? ft_atoi(str) : plane->rad;
+}
+
+void	plane_params(char *str, t_plane *plane, int param)
+{
+	char	*tmp;
+	char	**arr;
+
+	plane->cut = param == 0 ? ft_atoi(str) : plane->cut;
+	if (param == 1 || param == 2)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen(param == 1 ?
-														   "</position>" : "</normal>"));
+												"</position>" : "</normal>"));
 		arr = ft_strsplit(tmp, ' ');
 		plane->pos = param == 1 ? vec3_fill_atoi(arr) : plane->pos;
 		plane->normal = param == 2 ? vec3_fill_atoi(arr) : plane->normal;
@@ -63,19 +75,15 @@ void	plane_params(char *str, t_plane *plane, int param)
 		plane->p4 = param == 12 ? vec3_fill_atoi(arr) : plane->p4;
 		free_arr_tmp(arr, tmp);
 	}
-	plane->mat.diff = param == 4 ? ft_atoi(str) / 100. : plane->mat.diff;
-	plane->mat.spec = param == 5 ? ft_atoi(str) : plane->mat.spec;
-	plane->mat.reflect = param == 6 ? ft_atoi(str) : plane->mat.reflect;
-	plane->mat.refract = param == 7 ? ft_atof(str) : plane->mat.refract;
-	plane->mat.transp = param == 8 ? ft_atof(str) / 100. : plane->mat.transp;
-	plane->rad = param == 9 ? ft_atoi(str) : plane->rad;
+	else
+		plane_params_2(str, plane, param);
 }
 
 void	fill_plane_data(char *str, t_plane *plane)
 {
 	if (ft_strstr(str, "<cut>"))
 		plane_params(str + ft_strlen("<cut>"), plane, 0);
-	if (ft_strstr(str, "<position>"))
+	else if (ft_strstr(str, "<position>"))
 		plane_params(str + ft_strlen("<position>"), plane, 1);
 	else if (ft_strstr(str, "<normal>"))
 		plane_params(str + ft_strlen("<normal>"), plane, 2);
@@ -97,20 +105,18 @@ void	fill_plane_data(char *str, t_plane *plane)
 		plane_params(str + ft_strlen("<position2>"), plane, 10);
 	else if (ft_strstr(str, "<position3>"))
 		plane_params(str + ft_strlen("<position3>"), plane, 11);
-	else if (ft_strstr(str, "<position4>"))
-		plane_params(str + ft_strlen("<position4>"), plane, 12);
-
 }
 
 void	add_plane(char *str, t_main *main)
 {
 	t_plane *data;
 
+	data = (t_plane *)main->obj[main->obj_i].data;
 	fill_plane_data(str, (t_plane *)main->obj[main->obj_i].data);
-
+	if (ft_strstr(str, "<position4>"))
+		plane_params(str + ft_strlen("<position4>"), data, 12);
 	main->obj[main->obj_i].normal = &plane_norm;
 	main->obj[main->obj_i].texture = 0;
-	data = (t_plane *)main->obj[main->obj_i].data;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);

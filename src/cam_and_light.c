@@ -120,8 +120,7 @@ void	cam_light_obj_line(char *str, t_main *main, int cam_light_obj)
 	if (cam_light_obj == 3 && ft_strstr(str, "<object"))
 	{
 		t = ft_strstr(str, "type=") + 6;
-		(int)t == 6 ? error(8) : 0;
-		ft_strchr(t, '\"') == 0 ? error(9) : 0;
+		check_obj_type(t);
 		main->obj[main->obj_i].type = ft_strsub(t, 0, ft_strchr(t, '\"') - t);
 		main->obj[main->obj_i].data = mal_object(main);
 	}

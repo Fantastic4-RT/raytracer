@@ -22,10 +22,6 @@
 # include <pthread.h>
 # include <fcntl.h>
 # include <time.h>
-
-//--------------------------
-//#define TEXT_MODE
-
 # define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
@@ -33,7 +29,7 @@
 # define FOV 45. * M_PI / 180.
 # define AMBIENT 0.2
 # define DIFFUSE 0.5
-# define SPECULAR 0.2
+# define SPEC 0.2
 # define OBJECTS 1
 # define LIGHTS 1
 # define MAXDEPTH 5
@@ -276,6 +272,8 @@ typedef struct	s_pmode
 	int start;
 	int loaded;
 
+	t_vec3	count;
+
 }				t_pmode;
 
 typedef struct s_text
@@ -406,13 +404,13 @@ double	vec3_dp(t_vec3 vec1, t_vec3 vec2);
 double	vec3_length(t_vec3 vec);
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
 int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
+t_vec3	vec3_comp_dp(t_vec3 v1, t_vec3 v2);
 
 
 /*
 ** 		REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 void	vec3_print(t_vec3 vec, char *str);
-void	print_scene(t_main *main);
 /*
  * whitted algorithm
  */
@@ -506,13 +504,36 @@ double	ft_check_min(double t1, double t2);
 t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
 
 t_matrix	tr(t_vec3 pos);
-
+void	check_obj_type(char *t);
 
 int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
 int intersect_mesh(t_ray r, void *p, double *t);
-
+int		expose(t_main *main);
 void x_object_rotation1(int keycode, t_main *main);
 void	x_object_rotation2(int keycode, t_main *main);
+
+void	x_object_rotation3(int keycode, t_main *main);
+void	y_object_rotation1(int keycode, t_main *main);
+void	y_object_rotation2(int keycode, t_main *main);
+void	y_object_rotation3(int keycode, t_main *main);
+void	z_object_rotation1(int keycode, t_main *main);
+void	z_object_rotation2(int keycode, t_main *main);
+void	z_object_rotation3(int keycode, t_main *main);
+void	x_object_translation1(int keycode, t_main *main);
+void	x_object_translation2(int keycode, t_main *main);
+void	x_object_translation3(int keycode, t_main *main);
+void	y_object_translation1(int keycode, t_main *main);
+void	y_object_translation2(int keycode, t_main *main);
+void	y_object_translation3(int keycode, t_main *main);
+void	z_object_translation1(int keycode, t_main *main);
+void	z_object_translation2(int keycode, t_main *main);
+void	z_object_translation3(int keycode, t_main *main);
+
+int vec3_to_int(t_vec3 hitcolor);
+double	clamp(const double low, const double high, const double value);
+t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
+t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
+void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amount);
 
 #endif
