@@ -109,9 +109,10 @@ void	add_cone(char *str, t_main *main)
 {
 	t_cone *data;
 
+	data = (t_cone *)main->obj[main->obj_i].data;
 	fill_cone_data(str, (t_cone *)main->obj[main->obj_i].data);
-	main->obj[main->obj_i].intersect = &intersect_cone;
-	main->obj[main->obj_i].normal = &cone_norm;
+    main->obj[main->obj_i].intersect = &intersect_cone;
+    main->obj[main->obj_i].normal = &cone_norm;
 	data = (t_cone *)main->obj[main->obj_i].data;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);

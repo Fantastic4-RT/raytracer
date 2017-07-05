@@ -27,18 +27,20 @@
         <reflection>0</reflection>
         <refraction>0</refraction>
     </object>
-     <object type="cylinder">
-         <position1>0, 2, -10</position1>
-         <position2>0, 15, -10</position2>
-         <axis>0, 1, 0</axis>
-         <cut>1</cut>
-         <radius>5</radius>
-         <color>f85f1f</color>
-         <diffuse>50</diffuse>
-         <specular>500</specular>
-         <reflection>0</reflection>
-         <refraction>0</refraction>
-     </object>
+    <object type="cone">
+        <position1>0, 2, -10</position1>
+        <position2>0, 15, -10</position2>
+        <axis>0, 1, 0</axis>
+        <cut>1</cut>
+        <radius1>5</radius1>
+        <radius2>3</radius2>
+        <angle>20</angle>
+        <color>f85f1f</color>
+        <diffuse>50</diffuse>
+        <specular>500</specular>
+        <reflection>0</reflection>
+        <refraction>0</refraction>
+    </object>
 </scene>
 
 <object type="sphere">
@@ -99,3 +101,15 @@
                      <reflection>0</reflection>
                      <refraction>0</refraction>
                  </object>
+                      <object type="cylinder">
+                          <position1>0, 2, -10</position1>
+                          <position2>0, 15, -10</position2>
+                          <axis>0, 1, 0</axis>
+                          <cut>1</cut>
+                          <radius>5</radius>
+                          <color>f85f1f</color>
+                          <diffuse>50</diffuse>
+                          <specular>500</specular>
+                          <reflection>0</reflection>
+                          <refraction>0</refraction>
+                      </object>
