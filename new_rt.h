@@ -289,6 +289,7 @@ void	switch_obj_mode(int keycode, t_main *main);
 /*
  * object_functions.c
  */
+void	image_texture(int keycode, t_main *main);
 void	rotate_objects(int keycode, t_main *main);
 void	change_texture(int keycode, t_main *main);
 int		channels_change(int keycode, t_main *main);

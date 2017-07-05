@@ -55,7 +55,10 @@ void	texture_mode(int keycode, t_main *main)
 	{
 		mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
 								main->mlx.menu.vert_arr, 325, 135);
-		change_texture(keycode, main);
+		if (keycode >= 83 && keycode <= 92)
+			change_texture(keycode, main);
+		else if (keycode >= 18&& keycode <= 23)
+			image_texture(keycode, main);
 	}
 }
 

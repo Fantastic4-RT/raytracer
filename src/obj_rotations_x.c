@@ -80,6 +80,6 @@ void	x_object_rotation3(int keycode, t_main *main)
 			x_rot(OBJ_ROT * RAD)), tr(vec3_invert(data2->pos))), data2->p1) :
 			m_apply(m_mult(m_mult(tr(data2->pos), x_rot(-OBJ_ROT * RAD)),
 			tr(vec3_invert(data2->pos))), data2->p1);
-		main->uv += 2;
+		main->uv += keycode == 12 ? 2 : -2;
 	}
 }
