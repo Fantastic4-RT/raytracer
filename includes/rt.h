@@ -35,7 +35,7 @@
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
 # define ROT_ANGLE 15 * RAD
-# define OBJ_ROT 2
+# define OBJ_ROT 10
 # define TEXT_SIZE 256// size of the texture
 
 typedef struct	s_abs
@@ -178,7 +178,7 @@ typedef struct		s_cone
 	double		angle;
 	int			cut;
 	t_material	mat;
-	int cone_hit; // 1 = cone, 2 = low, 3 = top
+	int			cone_hit;
 }					t_cone;
 
 typedef struct		s_parab

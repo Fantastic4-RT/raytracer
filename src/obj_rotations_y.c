@@ -31,10 +31,14 @@ void	y_object_rotation1(int keycode, t_main *main)
 					: m_apply(y_rot(-2 * RAD), data1->axis);
 		else
 		{
-			data1->p1 = keycode == 13 ? m_apply(y_rot(2 * RAD), data1->p1) :
-					m_apply(y_rot(-2 * RAD), data1->p1);
-			data1->p2 = keycode == 13 ? m_apply(y_rot(2 * RAD), data1->p2) :
-					m_apply(y_rot(-2 * RAD), data1->p2);
+			data1->p1 = keycode == 13 ? m_apply(m_mult(m_mult(tr(data1->apex),
+				y_rot(OBJ_ROT * RAD)), tr(vec3_invert(data1->apex))), data1->p1)
+				: m_apply(m_mult(m_mult(tr(data1->apex), y_rot(-OBJ_ROT * RAD)),
+				tr(vec3_invert(data1->apex))), data1->p1);
+			data1->p2 = keycode == 13 ? m_apply(m_mult(m_mult(tr(data1->apex),
+				y_rot(OBJ_ROT * RAD)), tr(vec3_invert(data1->apex))), data1->p2)
+				: m_apply(m_mult(m_mult(tr(data1->apex), y_rot(-OBJ_ROT * RAD)),
+				tr(vec3_invert(data1->apex))), data1->p2);
 		}
 	}
 }
