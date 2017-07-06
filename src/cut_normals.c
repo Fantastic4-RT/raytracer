@@ -39,9 +39,9 @@ t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint)
 		return (n);
 	}
 	else if (c->cone_hit == 3)
-		return (vec3_norm(vec3_invert(c->axis)));
-	else
 		return (vec3_norm(c->axis));
+	else
+		return (vec3_norm(vec3_invert(c->axis)));
 }
 
 t_vec3	cylinder_norm_cut(void *data, t_vec3 hitpoint)

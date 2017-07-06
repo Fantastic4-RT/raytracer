@@ -25,10 +25,14 @@ void	x_object_rotation1(int keycode, t_main *main)
 			data2->axis) : m_apply(x_rot(-OBJ_ROT * RAD), data2->axis);
 		else
 		{
-			data2->p1 = keycode == 12 ? m_apply(x_rot(OBJ_ROT * RAD), data2->p1)
-				: m_apply(x_rot(-OBJ_ROT * RAD), data2->p1);
-			data2->p2 = keycode == 12 ? m_apply(x_rot(OBJ_ROT * RAD), data2->p2)
-				: m_apply(x_rot(-OBJ_ROT * RAD), data2->p2);
+			data2->p1 = keycode == 12 ? m_apply(m_mult(m_mult(tr(data2->apex),
+				x_rot(OBJ_ROT * RAD)), tr(vec3_invert(data2->apex))), data2->p1)
+				: m_apply(m_mult(m_mult(tr(data2->apex), x_rot(-OBJ_ROT * RAD)),
+				tr(vec3_invert(data2->apex))), data2->p1);
+			data2->p2 = keycode == 12 ? m_apply(m_mult(m_mult(tr(data2->apex),
+				x_rot(OBJ_ROT * RAD)), tr(vec3_invert(data2->apex))), data2->p2)
+				: m_apply(m_mult(m_mult(tr(data2->apex), x_rot(-OBJ_ROT * RAD)),
+				tr(vec3_invert(data2->apex))), data2->p2);
 		}
 	}
 	else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
