@@ -17,15 +17,12 @@ void	y_object_rotation1(int keycode, t_main *main)
 	t_cyl	*data;
 	t_cone	*data1;
 
+	data = (t_cyl *)main->obj[main->mode.obj_index].data;
+	data1 = (t_cone *)main->obj[main->mode.obj_index].data;
 	if (ft_strcmp(main->obj[main->mode.obj_index].type, "cylinder") == 0)
-	{
-		data = (t_cyl *)main->obj[main->mode.obj_index].data;
 		data->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data->axis) :
 					m_apply(y_rot(-2 * RAD), data->axis);
-	}
 	else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
-	{
-		data1 = (t_cone *)main->obj[main->mode.obj_index].data;
 		if (data1->cut == 0)
 			data1->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data1->axis)
 					: m_apply(y_rot(-2 * RAD), data1->axis);
@@ -40,16 +37,15 @@ void	y_object_rotation1(int keycode, t_main *main)
 				: m_apply(m_mult(m_mult(tr(data1->apex), y_rot(-OBJ_ROT * RAD)),
 				tr(vec3_invert(data1->apex))), data1->p2);
 		}
-	}
 }
 
 void	y_object_rotation2(int keycode, t_main *main)
 {
 	t_plane *data;
 
+	data = (t_plane *)main->obj[main->mode.obj_index].data;
 	if (ft_strcmp(main->obj[main->mode.obj_index].type, "plane") == 0)
 	{
-		data = (t_plane *)main->obj[main->mode.obj_index].data;
 		data->normal = keycode == 13 ? m_apply(y_rot(2 * RAD), data->normal) :
 				m_apply(y_rot(-2 * RAD), data->normal);
 		data->pos = keycode == 13 ? m_apply(y_rot(2 * RAD), data->pos)
@@ -68,9 +64,10 @@ void	y_object_rotation3(int keycode, t_main *main)
 	t_sphere	*data;
 	t_parab		*data1;
 
+	data = (t_sphere *)main->obj[main->mode.obj_index].data;
+	data1 = (t_parab *)main->obj[main->mode.obj_index].data;
 	if (ft_strcmp(main->obj[main->mode.obj_index].type, "sphere") == 0)
 	{
-		data = (t_sphere *)main->obj[main->mode.obj_index].data;
 		data->p1 = keycode == 13 ? m_apply(m_mult(m_mult(tr(data->pos),
 		y_rot(2 * RAD)), tr(vec3_invert(data->pos))), data->p1) :
 		m_apply(m_mult(m_mult(tr(data->pos), y_rot(-2 * RAD)),
@@ -78,9 +75,6 @@ void	y_object_rotation3(int keycode, t_main *main)
 		//main->uv += keycode == 13 ?  2 : -2;
 	}
 	else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
-	{
-		data1 = (t_parab *)main->obj[main->mode.obj_index].data;
 		data1->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data1->axis) :
 					m_apply(y_rot(-2 * RAD), data1->axis);
-	}
 }
