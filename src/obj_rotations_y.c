@@ -23,6 +23,7 @@ void	y_object_rotation1(int keycode, t_main *main)
 		data->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data->axis) :
 					m_apply(y_rot(-2 * RAD), data->axis);
 	else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
+	{
 		if (data1->cut == 0)
 			data1->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data1->axis)
 					: m_apply(y_rot(-2 * RAD), data1->axis);
@@ -37,6 +38,7 @@ void	y_object_rotation1(int keycode, t_main *main)
 				: m_apply(m_mult(m_mult(tr(data1->apex), y_rot(-OBJ_ROT * RAD)),
 				tr(vec3_invert(data1->apex))), data1->p2);
 		}
+	}
 }
 
 void	y_object_rotation2(int keycode, t_main *main)
