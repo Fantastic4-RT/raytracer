@@ -31,10 +31,14 @@ void	z_object_rotation1(int keycode, t_main *main)
 					m_apply(z_rot(-2 * RAD), data->axis);
 		else
 		{
-			data->p1 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p1) :
-					m_apply(z_rot(-2 * RAD), data->p1);
-			data->p2 = keycode == 14 ? m_apply(z_rot(2 * RAD), data->p2) :
-					m_apply(z_rot(-2 * RAD), data->p2);
+			data->p1 = keycode == 14 ? m_apply(m_mult(m_mult(tr(data->apex),
+				z_rot(OBJ_ROT * RAD)), tr(vec3_invert(data->apex))), data->p1)
+				: m_apply(m_mult(m_mult(tr(data->apex), z_rot(-OBJ_ROT * RAD)),
+				tr(vec3_invert(data->apex))), data->p1);
+			data->p2 = keycode == 14 ? m_apply(m_mult(m_mult(tr(data->apex),
+				z_rot(OBJ_ROT * RAD)), tr(vec3_invert(data->apex))), data->p2)
+				: m_apply(m_mult(m_mult(tr(data->apex), z_rot(-OBJ_ROT * RAD)),
+				tr(vec3_invert(data->apex))), data->p2);
 		}
 	}
 }

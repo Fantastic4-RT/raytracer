@@ -178,7 +178,7 @@ typedef struct		s_cone
 	double		angle;
 	int			cut;
 	t_material	mat;
-	int cone_hit; // 1 = cone, 2 = low, 3 = top
+	int			cone_hit;
 }					t_cone;
 
 typedef struct		s_parab
