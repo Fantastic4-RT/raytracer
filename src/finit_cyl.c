@@ -4,7 +4,7 @@
 
 # include "rt.h"
 
-double	  ft_check_min(double t1, double t2)
+double	ft_check_min(double t1, double t2)
 {
 	double temp;
 
@@ -16,7 +16,7 @@ double	  ft_check_min(double t1, double t2)
 	return (temp);
 }
 
-double	  ft_find_caps(t_cyl *cyl, t_ray r ,double t, t_vec3 p)
+double	ft_find_caps(t_cyl *cyl, t_ray r, double t, t_vec3 p)
 {
 	t_vec3 q;
 
@@ -26,7 +26,7 @@ double	  ft_find_caps(t_cyl *cyl, t_ray r ,double t, t_vec3 p)
 	return (0);
 }
 
-double		intersect_plane1(t_cyl *cyl, t_ray r, t_vec3 pos, double t)
+double	intersect_plane1(t_cyl *cyl, t_ray r, t_vec3 pos, double t)
 {
 	double		denom;
 	double		t0;
@@ -49,7 +49,7 @@ double		intersect_plane1(t_cyl *cyl, t_ray r, t_vec3 pos, double t)
 	return (0);
 }
 
-double	  ft_check_between(t_cyl *cyl, t_vec3 pos, t_vec3 dir, double t)
+double	ft_check_between(t_cyl *cyl, t_vec3 pos, t_vec3 dir, double t)
 {
 	t_vec3 q;
 
@@ -60,7 +60,7 @@ double	  ft_check_between(t_cyl *cyl, t_vec3 pos, t_vec3 dir, double t)
 	return (0);
 }
 
-void	ft_caps(t_cyl *cyl, t_ray r, double *t, double	*t_final)
+void	ft_caps(t_cyl *cyl, t_ray r, double *t, double *t_final)
 {
 	double	t_min_caps;
 
@@ -71,7 +71,7 @@ void	ft_caps(t_cyl *cyl, t_ray r, double *t, double	*t_final)
 	cyl->t_final = *t_final;
 }
 
-int			solve_quadric_cut(t_abs solve, double *t_final, t_cyl *cyl, t_ray r)
+int		solve_quadric_cut(t_abs solve, double *t_final, t_cyl *cyl, t_ray r)
 {
 	int		retval;
 	double	res;

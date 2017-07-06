@@ -26,7 +26,7 @@ int		solve_quadric(double discr, double *t, double b, double a)
 		t1 = (-b - sqrt(discr)) / (2 * a);
 		if (t0 > 0 && t1 > 0)
 			t0 = fmin(t0, t1);
-		else if (t0 <0 || t1 < 0)
+		else if (t0 < 0 || t1 < 0)
 			t0 = fmax(t0, t1);
 		if ((t0 > 0.000000001) && (t0 < *t))
 		{
