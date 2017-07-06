@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrepyto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/06 13:39:30 by atrepyto          #+#    #+#             */
+/*   Updated: 2017/07/06 13:39:31 by atrepyto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <rt.h>
 
 void	perlin_noise(t_main *main, float zoom)
@@ -57,7 +69,7 @@ double	turbulence(t_vec3 p, t_main * main,  double size)
 	return(128.0 * value / initial_size);
 }
 
-double sin_stripes(t_vec3 p, t_main *main, int w)
+double sin_stripes(t_vec3 p, t_thread *th, int w)
 {
 	int c1;
 	int c2;
@@ -65,15 +77,15 @@ double sin_stripes(t_vec3 p, t_main *main, int w)
 	c1 = 0xFF0000;
 	c2 = 0x00FF00;
 
-	if (main->mode.text_index == 1)
+	if (th->obj[th->main.curr].texture == 1)
 	{
-		if (((sin(M_PI * p.y / w) > 0 && sin(M_PI * p.x / w) > 0))
-			|| ((sin(M_PI * p.y / w) <= 0 && sin(M_PI * p.x / w) <= 0)))
+		if (((sin(M_PI * p.x / w) > 0 && sin(M_PI * p.y / w) > 0))
+			|| ((sin(M_PI * p.x / w) <= 0 && sin(M_PI * p.y / w) <= 0)))
 			return c1;
 		else
 			return c2;
 	}
-	else if (main->mode.text_index == 2)
+	else if (th->obj[th->main.curr].texture == 2)
 		return (sin(M_PI * p.x / w) > 0 ? c1 : c2);
 	else
 		return (sin(M_PI * p.y / w) > 0 ? c1 : c2);

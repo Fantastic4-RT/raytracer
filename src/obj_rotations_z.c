@@ -71,7 +71,7 @@ void	z_object_rotation3(int keycode, t_main *main)
 		z_rot(2 * RAD)), tr(vec3_invert(data->pos))), data->p1) :
 		m_apply(m_mult(m_mult(tr(data->pos), z_rot(-2 * RAD)),
 		tr(vec3_invert(data->pos))), data->p1);
-		main->uv += keycode == 14 ?  2 : -2;
+		//main->uv += keycode == 14 ?  2 : -2;
 	}
 	else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
 	{

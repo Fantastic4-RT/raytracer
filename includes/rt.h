@@ -519,7 +519,7 @@ t_vec3	int_to_vec3(int color);
 void generate_textures(t_main *main);
 double marble(t_vec3 p, t_main *main);
 double wood(t_vec3 p, t_main *main);
-double sin_stripes(t_vec3 p, t_main *main, int w);
+double sin_stripes(t_vec3 p, t_thread *th, int w);
 double	turbulence(t_vec3 p, t_main * main,  double size);
 double	smooth_noise(t_vec3 p, t_main *main);
 void	perlin_noise(t_main *main, float zoom);
