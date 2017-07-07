@@ -37,6 +37,7 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 
 	cone->r1 = param == 3 ? ft_atoi(str) : cone->r1;
 	cone->r2 = param == 4 ? ft_atoi(str) : cone->r2;
+	cone->r1 == cone->r2 ? error(11) : 0;
 	cone->angle = param == 6 ? ft_atoi(str) : cone->angle;
 	if (param == 7)
 	{
@@ -115,6 +116,8 @@ void	add_cone(char *str, t_main *main)
 
 	data = (t_cone *)main->obj[main->obj_i].data;
 	fill_cone_data(str, data);
+	data->apex = vec3_add(data->p1, vec3_mult(vec3_sub(data->p2, data->p1),
+										(data->r1 / (data->r1 - data->r2))));
 	if (ft_strstr(str, "<transparency>"))
 		cone_params(str + ft_strlen("<transparency>"), data, 12);
 	if (((t_cone *)main->obj[main->obj_i].data)->cut == 0)

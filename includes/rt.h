@@ -29,14 +29,14 @@
 # define FOV 45. * M_PI / 180.
 # define AMBIENT 0.2
 # define DIFFUSE 0.5
-# define SPECULAR 0.2
+# define SPEC 0.2
 # define OBJECTS 1
 # define LIGHTS 1
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
 # define ROT_ANGLE 15 * RAD
 # define OBJ_ROT 2
-# define TEXT_SIZE 256// size of the texture
+# define TEXT_S 256// size of the texture
 
 typedef struct	s_abs
 {
@@ -181,7 +181,7 @@ typedef struct		s_cone
 	double		angle;
 	int			cut;
 	t_material	mat;
-	int cone_hit; // 1 = cone, 2 = low, 3 = top
+	int			cone_hit;
 }					t_cone;
 
 typedef struct		s_parab
@@ -262,9 +262,20 @@ typedef struct	s_pmode
 
 typedef struct s_text
 {
-	double text_arr[TEXT_SIZE][TEXT_SIZE][TEXT_SIZE];
+	double text_arr[TEXT_S][TEXT_S];
 	int zoom;
 }				t_text;
+
+typedef struct s_img
+{
+	void *img;
+	char *data;
+	int h;
+	int w;
+	int endian;
+	int sl;
+	int bpp;
+}				t_img;
 
 typedef struct		s_main
 {
@@ -276,6 +287,7 @@ typedef struct		s_main
 	t_scene		scene;
 	t_pmode		mode;
 	t_text 		*textures;
+	t_img		*img;
 //	t_sample	sample;
 //	int 		num_lights;
 	int			light_i;
@@ -285,6 +297,7 @@ typedef struct		s_main
 	t_matrices	mxs;
 	unsigned  int pic;
 	char 		*filename;
+	double uv;
 	//point where the current obj is hit
 	int 		m_b;
 }					t_main;
@@ -378,6 +391,7 @@ double	vec3_dp(t_vec3 vec1, t_vec3 vec2);
 double	vec3_length(t_vec3 vec);
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
 int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
+t_vec3	vec3_comp_dp(t_vec3 v1, t_vec3 v2);
 
 
 /*
@@ -454,7 +468,6 @@ void change_color(int keycode, t_main *main);
 /*
  * textures.c
  */
-void sin_stripes(t_main *main, int w);
 /*
 ** antialiasing
 */
@@ -513,4 +526,20 @@ double	clamp(const double low, const double high, const double value);
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
 t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
 void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amount);
+void	image_texture(int keycode, t_main *main);
+/*
+ * textures.c
+ */
+t_vec3	int_to_vec3(int color);
+void generate_textures(t_main *main);
+double marble(t_vec3 p, t_main *main);
+double wood(t_vec3 p, t_main *main);
+double sin_stripes(t_vec3 p, t_thread *th, int w);
+double	turbulence(t_vec3 p, t_main * main,  double size);
+double	smooth_noise(t_vec3 p, t_main *main);
+void	perlin_noise(t_main *main, float zoom);
+/*
+ * mapping.c
+ */
+void 	find_pixel_color(t_thread *th, t_main *main);
 #endif

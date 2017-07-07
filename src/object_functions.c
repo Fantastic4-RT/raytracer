@@ -37,6 +37,25 @@ void	rotate_objects(int keycode, t_main *main)
 	}
 }
 
+void	image_texture(int keycode, t_main *main)
+{
+	if (keycode >= 18 && keycode <= 23
+		&& main->obj[main->mode.obj_index].texture == 0)
+		main->obj[main->mode.obj_index].tmp_color =
+				main->obj[main->mode.obj_index].mat.color;
+	if (keycode == 18)
+		main->obj[main->mode.obj_index].texture = 9;
+	else if (keycode == 19)
+		main->obj[main->mode.obj_index].texture = 10;
+	else if (keycode == 20)
+		main->obj[main->mode.obj_index].texture = 11;
+	else if (keycode == 21)
+		main->obj[main->mode.obj_index].texture = 12;
+	else if (keycode == 23)
+		main->obj[main->mode.obj_index].texture = 13;
+	image(main);
+}
+
 void	change_texture(int keycode, t_main *main)
 {
 	if (keycode >= 83 && keycode <= 91
@@ -48,13 +67,13 @@ void	change_texture(int keycode, t_main *main)
 	else if (keycode == 84)
 		main->obj[main->mode.obj_index].texture = 2;
 	else if (keycode == 85)
-		main->obj[main->mode.obj_index].texture = 3;
+		main->obj[main->mode.obj_index].texture = 3; //
 	else if (keycode == 86)
-		main->obj[main->mode.obj_index].texture = 4;
+		main->obj[main->mode.obj_index].texture = 4; // noise
 	else if (keycode == 87)
-		main->obj[main->mode.obj_index].texture = 5;
+		main->obj[main->mode.obj_index].texture = 5; //marble
 	else if (keycode == 88)
-		main->obj[main->mode.obj_index].texture = 6;
+		main->obj[main->mode.obj_index].texture = 6; //wood
 	else if (keycode == 89)
 		main->obj[main->mode.obj_index].texture = 7;
 	else if (keycode == 91)

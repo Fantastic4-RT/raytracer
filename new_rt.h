@@ -289,6 +289,7 @@ void	switch_obj_mode(int keycode, t_main *main);
 /*
  * object_functions.c
  */
+void	image_texture(int keycode, t_main *main);
 void	rotate_objects(int keycode, t_main *main);
 void	change_texture(int keycode, t_main *main);
 int		channels_change(int keycode, t_main *main);
@@ -412,4 +413,20 @@ void		light_params(char *str, t_main *main, int pos_dir_col);
 void		choose_object(char *str, t_main *main);
 void		*mal_object(t_main *main);
 void		cam_light_obj_line(char *str, t_main *main, int cam_light_obj);
+
+/*
+ * textures.c
+ */
+t_vec3	int_to_vec3(int color);
+void generate_textures(t_main *main);
+double marble(t_vec3 p, t_main *main);
+double wood(t_vec3 p, t_main *main);
+double sin_stripes(t_vec3 p, t_main *main, int w);
+double	turbulence(t_vec3 p, t_main * main,  double size);
+double	smooth_noise(t_vec3 p, t_main *main);
+void	perlin_noise(t_main *main, float zoom);
+/*
+ * mapping.c
+ */
+void 	find_pixel_color(t_thread *th, t_main *main);
 #endif

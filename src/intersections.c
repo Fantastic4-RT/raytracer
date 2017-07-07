@@ -24,9 +24,11 @@ int		solve_quadric(double discr, double *t, double b, double a)
 	{
 		t0 = (-b + sqrt(discr)) / (2 * a);
 		t1 = (-b - sqrt(discr)) / (2 * a);
-		if (t0 > t1)
-			t0 = t1;
-		if ((t0 > 0.001) && (t0 < *t))
+		if (t0 > 0 && t1 > 0)
+			t0 = fmin(t0, t1);
+		else if (t0 < 0 || t1 < 0)
+			t0 = fmax(t0, t1);
+		if ((t0 > 0.000000001) && (t0 < *t))
 		{
 			*t = t0;
 			retval = 1;
@@ -77,10 +79,10 @@ int		intersect_cone(t_ray r, void *con, double *t)
 	r.dir = vec3_norm(r.dir);
 	cone->axis = vec3_norm(cone->axis);
 	delta_p = vec3_sub(r.pos, cone->p1);
-	tmp = vec3_sub(r.dir, vec3_mult(cone->axis, vec3_dp(r.dir, cone->axis)));
+	tmp = vec3_sub(r.dir, vec3_mult(cone->axis, vec3_dp(cone->axis, r.dir)));
 	solve.a = pow(cos(cone->angle * RAD), 2) * vec3_dp(tmp, tmp)
-		- pow(sin(cone->angle * RAD), 2) * vec3_dp(r.dir, cone->axis)
-		* vec3_dp(r.dir, cone->axis);
+		- pow(sin(cone->angle * RAD), 2) * vec3_dp(cone->axis, r.dir)
+		* vec3_dp(cone->axis, r.dir);
 	tmp2 = vec3_sub(delta_p,
 	vec3_mult(cone->axis, vec3_dp(delta_p, cone->axis)));
 	solve.b = 2 * pow(cos(cone->angle * RAD), 2) * vec3_dp(tmp, tmp2)
