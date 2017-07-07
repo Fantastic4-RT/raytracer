@@ -151,6 +151,9 @@ typedef	struct 	s_sphere
 	double		rad;
 	int			hit_obj;
 	int			cut;
+    int         motion_x;
+    int         motion_y;
+    int         motion_z;
 	t_material	mat;
 }				t_sphere;
 
@@ -283,6 +286,7 @@ typedef struct		s_main
 	unsigned  int pic;
 	char 		*filename;
 	//point where the current obj is hit
+	int 		m_b;
 }					t_main;
 
 
@@ -456,11 +460,22 @@ void sin_stripes(t_main *main, int w);
 */
 void rotate_objects(int keycode, t_main *main);
 
-void    ft_aa(t_thread *th, double dist, int x, int y);
+t_vec3    ft_aa(t_thread *th, double dist, int x, int y);
+t_vec3		ft_col_av(t_thread *th, t_vec3 *col);
 void	ipp_fill(t_main *main, int x, int y, int color);
 
 void	pthreading(t_main *main);
 void	new_image(t_main *main);
+
+/*
+** motion_blur
+*/
+
+int    ft_motion(t_thread *th, double dist, int x, int y);
+void	one_ray(t_thread *th, double dist, int x, int y);
+void    ft_check_type(t_thread *th, int index);
+int		ft_col_av1(t_vec3 *col);
+void	ft_mb(t_thread *th, double dist, int x, int y);
 
 
 t_vec3	cylinder_norm_cut(void *data, t_vec3 hitpoint);

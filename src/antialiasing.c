@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   antialiasing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alohashc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/07 11:46:52 by alohashc          #+#    #+#             */
+/*   Updated: 2017/07/07 11:47:04 by alohashc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p)
@@ -9,9 +21,8 @@ t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p)
 	return (col);
 }
 
-int		ft_col_av(t_thread *th, t_vec3 *col)
+t_vec3		ft_col_av(t_thread *th, t_vec3 *col)
 {
-	int		res;
 	int		i;
 	t_vec3	average;
 
@@ -29,17 +40,17 @@ int		ft_col_av(t_thread *th, t_vec3 *col)
 	average.x = sqrt(average.x / (th->main.scene.a_a == 1 ? 4 : 16));
 	average.y = sqrt(average.y / (th->main.scene.a_a == 1 ? 4 : 16));
 	average.z = sqrt(average.z / (th->main.scene.a_a == 1 ? 4 : 16));
-	res = vec3_to_int(average);
-	return (res);
+	return (average);
 }
 
-void	ft_aa(t_thread *th, double dist, int x, int y)
+t_vec3	ft_aa(t_thread *th, double dist, int x, int y)
 {
 	t_vec3	sub_ray;
 	int		i;
 	double	n_x;
 	double	n_y;
 	t_vec3	*col;
+    t_vec3  color;
 
 	i = 0;
 	n_y = th->main.scene.a_a == 1 ? 0.25 : 0.2;
@@ -57,7 +68,7 @@ void	ft_aa(t_thread *th, double dist, int x, int y)
 		}
 		n_y += 1. / (th->main.scene.a_a == 1 ? 2. : 5.);
 	}
-	*((int *)(th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
-			y * th->main.mlx.size_line)) = ft_col_av(th, col);
-	free(col);
+    color = ft_col_av(th, col);
+    free(col);
+    return (color);
 }

@@ -86,6 +86,7 @@ t_vec3 diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th)
 		lightray.dir = vec3_norm(lightray.dir);
 		double dp = fmax(0., vec3_dp(lightray.dir, th->obj[main->curr].n));
 		int in_shadow = trace(lightray, &t, &curr, th);
+		in_shadow = 0;
 		lightamt.x += (1 - in_shadow * (th->obj[curr].mattype == 1 ? th->obj[curr].mat.transp : 1)) * th->light[i].color.x * dp;
 		lightamt.y += (1 - in_shadow * (th->obj[curr].mattype == 1 ? th->obj[curr].mat.transp : 1)) * th->light[i].color.y * dp;
 		lightamt.z += (1 - in_shadow * (th->obj[curr].mattype == 1 ? th->obj[curr].mat.transp : 1)) * th->light[i].color.z * dp;

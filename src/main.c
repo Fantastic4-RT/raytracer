@@ -61,6 +61,7 @@ void	default_values(t_main *main)
 	main->mxs.dir_angle = vec3_create(0, 0, 0);
 	matrices(main);
 	main->cam.fov = 45;
+	main->m_b = 1;
 	main->cam.start = main->cam.ray.pos;
 	main->cam.ray.pos = m_apply(main->mxs.rot_cam, main->cam.ray.pos);
 }

@@ -9,6 +9,30 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
+        <object type="sphere">
+           <position>10, 0, 0</posisiton>
+           <cut>0</cut>
+           <radius>5</radius>
+           <color>ffa231</color>
+           <diffuse>50</diffuse>
+           <specular>100</specular>
+           <reflection>0</reflection>
+           <motion_x>0</motion_x>
+           <motion_y>0</motion_y>
+           <motion_z>1</motion_z>
+    </object>
+<object type="plane">
+         <position>-5, -5, 0</position>
+         <cut>0</cut>
+         <normal>0, 0, 1</normal>
+         <color>ff0000</color>
+         <diffuse>100</diffuse>
+         <specular>50</specular>
+         <reflection>0</reflection>
+         <normal>0, 1, 1</normal>
+     </object>
+</scene>
+
     <object type="cone">
        <position>0, 0, -10</position>
         <axis>0, 1, 0</axis>
@@ -19,13 +43,13 @@
        <specular>100</specular>
        <reflection>0</reflection>
     </object>
-        <object type="sphere">
-           <position>10, 0, 0</posisiton>
-           <cut>0</cut>
-           <radius>5</radius>
-           <color>ffa231</color>
-           <diffuse>50</diffuse>
-           <specular>100</specular>
-           <reflection>0</reflection>
-    </object>
-</scene>
+            <object type="cone">
+               <position>0, 0, -10</position>
+                <axis>0, 1, 0</axis>
+               <cut>0</cut>
+               <angle>30</angle>
+               <color>ffa231</color>
+               <diffuse>50</diffuse>
+               <specular>100</specular>
+               <reflection>0</reflection>
+            </object>

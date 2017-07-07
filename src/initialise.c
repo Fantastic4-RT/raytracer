@@ -39,7 +39,7 @@ void	pthreading(t_main *main)
 	i[2] = main->scene.hei / THREADS + 1;
 	while (++i[0] < THREADS)
 	{
-		data[i[0]].obj = (t_obj *)malloc(sizeof(t_obj) * main->scene.objs);
+        data[i[0]].obj = (t_obj *)malloc(sizeof(t_obj) * main->scene.objs);
 		data[i[0]].light = (t_light *)malloc(sizeof(t_light) *
 															main->scene.lights);
 		i[1] = -1;
@@ -51,7 +51,7 @@ void	pthreading(t_main *main)
 		data[i[0]].main = *main;
 		data[i[0]].start = i[0] * i[2];
 		data[i[0]].end = (int)fmin((i[0] + 1) * i[2], main->scene.hei);
-		pthread_create(&threads[i[0]], NULL, render, &data[i[0]]);
+        pthread_create(&threads[i[0]], NULL, render, &data[i[0]]);
 	}
 	i[0] = -1;
 	while (++i[0] < THREADS)
