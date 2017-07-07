@@ -9,7 +9,19 @@
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
     </light>
-    <object type="cone">
+    <object type="sphere">
+           <position>0, -10, -10</position>
+           <radius>5</radius>
+           <cut>0</cut>
+           <color>10a231</color>
+           <diffuse>50</diffuse>
+           <specular>100</specular>
+           <reflection>0</reflection>
+        </object>
+</scene>
+
+
+<object type="cone">
        <position1>0, -10, -10</position1>
        <position2>0, 10, -10</position2>
        <radius1>5</radius1>
@@ -22,4 +34,11 @@
        <specular>100</specular>
        <reflection>0</reflection>
     </object>
-</scene>
+    <object type="plane">
+             <position>0, 0, -20</position>
+             <color>ff1111</color>
+             <diffuse>100</diffuse>
+             <specular>50</specular>
+             <reflection>1</reflection>
+             <normal>0, 0, 1</normal>
+         </object>

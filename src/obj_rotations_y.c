@@ -22,6 +22,13 @@ void	y_object_rotation1(int keycode, t_main *main)
 		data = (t_cyl *)main->obj[main->mode.obj_index].data;
 		data->axis = keycode == 13 ? m_apply(y_rot(2 * RAD), data->axis) :
 					m_apply(y_rot(-2 * RAD), data->axis);
+		main->obj[main->mode.obj_index].dir_x =  keycode == 13 ?
+												 vec3_norm(m_apply(y_rot(OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_x)) :
+												 vec3_norm(m_apply(y_rot(-OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_x));
+		main->obj[main->mode.obj_index].dir_y =  keycode == 13 ?
+												 vec3_norm(m_apply(y_rot(OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_y)) :
+												 vec3_norm(m_apply(y_rot(-OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_y));
+
 	}
 	else if (ft_strcmp(main->obj[main->mode.obj_index].type, "cone") == 0)
 	{
@@ -40,6 +47,13 @@ void	y_object_rotation1(int keycode, t_main *main)
 				: m_apply(m_mult(m_mult(tr(data1->apex), y_rot(-OBJ_ROT * RAD)),
 				tr(vec3_invert(data1->apex))), data1->p2);
 		}
+		main->obj[main->mode.obj_index].dir_x =  keycode == 13 ?
+												 vec3_norm(m_apply(y_rot(OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_x)) :
+												 vec3_norm(m_apply(y_rot(-OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_x));
+		main->obj[main->mode.obj_index].dir_y =  keycode == 13 ?
+												 vec3_norm(m_apply(y_rot(OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_y)) :
+												 vec3_norm(m_apply(y_rot(-OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_y));
+
 	}
 }
 
@@ -60,6 +74,13 @@ void	y_object_rotation2(int keycode, t_main *main)
 								: m_apply(y_rot(-2 * RAD), data->p3);
 		data->p4 = keycode == 13 ? m_apply(y_rot(2 * RAD), data->p4)
 								: m_apply(y_rot(-2 * RAD), data->p4);
+		main->obj[main->mode.obj_index].dir_x =  keycode == 13 ?
+												 vec3_norm(m_apply(y_rot(OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_x)) :
+												 vec3_norm(m_apply(y_rot(-OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_x));
+		main->obj[main->mode.obj_index].dir_y =  keycode == 13 ?
+												 vec3_norm(m_apply(y_rot(OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_y)) :
+												 vec3_norm(m_apply(y_rot(-OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_y));
+
 	}
 }
 
@@ -75,7 +96,12 @@ void	y_object_rotation3(int keycode, t_main *main)
 		y_rot(2 * RAD)), tr(vec3_invert(data->pos))), data->p1) :
 		m_apply(m_mult(m_mult(tr(data->pos), y_rot(-2 * RAD)),
 		tr(vec3_invert(data->pos))), data->p1);
-		//main->uv += keycode == 13 ?  2 : -2;
+		main->obj[main->mode.obj_index].dir_x =  keycode == 13 ?
+		vec3_norm(m_apply(y_rot(OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_x)) :
+		vec3_norm(m_apply(y_rot(-OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_x));
+		main->obj[main->mode.obj_index].dir_y =  keycode == 13 ?
+		vec3_norm(m_apply(y_rot(OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_y)) :
+		vec3_norm(m_apply(y_rot(-OBJ_ROT * RAD), main->obj[main->mode.obj_index].dir_y));
 	}
 	else if (ft_strcmp(main->obj[main->mode.obj_index].type, "paraboloid") == 0)
 	{

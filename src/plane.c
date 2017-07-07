@@ -120,6 +120,8 @@ void	add_plane(char *str, t_main *main)
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
+	main->obj[main->obj_i].dir_x = vec3_create(1, 0, 0);
+	main->obj[main->obj_i].dir_y = vec3_create(0, 1, 0);
 	if (data->cut == 4)
 		main->obj[main->obj_i].intersect = &intersect_mesh;
 	else if (data->cut == 3)

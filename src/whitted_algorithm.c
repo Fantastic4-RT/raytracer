@@ -131,7 +131,9 @@ t_vec3	cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 		main->diff_col = diffuse(vec3_mult(obj->mat.color, th->main.scene.amb),
 																&ray, main, th);
 		if (obj->texture != 0)
+		{
 			find_pixel_color(th, main);
+		}
 		if (obj->mattype == REFLECT_REFRACT)
 			hitcol = reflect_and_refract(hitcol, &ray, depth, th);
 		else if (obj->mattype == REFLECT)

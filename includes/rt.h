@@ -231,6 +231,9 @@ typedef	struct 		s_obj
 	t_vec3	tmp_color;
 	t_vec3	(*normal)(void *data, t_vec3 hitpoint);
 	int 	texture;
+	t_vec3	uv;
+	t_vec3		dir_x;
+	t_vec3		dir_y;
 }					t_obj;
 
 typedef struct	s_pmode
@@ -285,8 +288,6 @@ typedef struct		s_main
 	t_pmode		mode;
 	t_text 		*textures;
 	t_img		*img;
-//	t_sample	sample;
-//	int 		num_lights;
 	int			light_i;
 	int			obj_i;
 	ssize_t		curr;
@@ -294,8 +295,6 @@ typedef struct		s_main
 	t_matrices	mxs;
 	unsigned  int pic;
 	char 		*filename;
-	double uv;
-	//point where the current obj is hit
 }					t_main;
 
 
@@ -527,4 +526,11 @@ void	perlin_noise(t_main *main, float zoom);
  * mapping.c
  */
 void 	find_pixel_color(t_thread *th, t_main *main);
+/*
+ * uv.c
+ */
+void	sphere_uv(t_thread *th, t_main *main);
+void	plane_uv(t_thread *th, t_main *main);
+void	cone_uv(t_thread *th, t_main *main);
+void	cylinder_uv(t_thread *th, t_main *main);
 #endif
