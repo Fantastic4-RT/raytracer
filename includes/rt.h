@@ -87,6 +87,7 @@ typedef struct	s_scene
 	int		objs;
 	int 	lights;
     int     a_a;
+    int     m_b;
 	double	amb;
 }				t_scene;
 
@@ -299,7 +300,6 @@ typedef struct		s_main
 	char 		*filename;
 	double uv;
 	//point where the current obj is hit
-	int 		m_b;
 }					t_main;
 
 
@@ -473,8 +473,7 @@ void change_color(int keycode, t_main *main);
 */
 void rotate_objects(int keycode, t_main *main);
 
-t_vec3    ft_aa(t_thread *th, double dist, int x, int y);
-t_vec3		ft_col_av(t_thread *th, t_vec3 *col);
+void    ft_aa(t_thread *th, double dist, int x, int y);
 void	ipp_fill(t_main *main, int x, int y, int color);
 
 void	pthreading(t_main *main);
@@ -484,11 +483,9 @@ void	new_image(t_main *main);
 ** motion_blur
 */
 
-int    ft_motion(t_thread *th, double dist, int x, int y);
 void	one_ray(t_thread *th, double dist, int x, int y);
-void    ft_check_type(t_thread *th, int index);
-int		ft_col_av1(t_vec3 *col);
-void	ft_mb(t_thread *th, double dist, int x, int y);
+t_vec3	ft_col_av1(t_vec3 *col);
+t_vec3	ft_mb(t_thread *th);
 
 
 t_vec3	cylinder_norm_cut(void *data, t_vec3 hitpoint);

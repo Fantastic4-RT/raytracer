@@ -32,9 +32,6 @@ void	*default_sphere(t_sphere *sphere)
 void	sphere_params_2(char *str, t_sphere *sphere, int param)
 {
 	sphere->rad = param == 2 ? ft_atoi(str) : sphere->rad;
-	sphere->motion_x = param == 10 ? ft_atoi(str) : sphere->motion_x;
-	sphere->motion_y = param == 11 ? ft_atoi(str) : sphere->motion_y;
-	sphere->motion_z = param == 12 ? ft_atoi(str) : sphere->motion_z;
 	sphere->mat.diff = param == 5 ? ft_atoi(str) / 100. : sphere->mat.diff;
 	sphere->mat.spec = param == 6 ? ft_atoi(str) : sphere->mat.spec;
 	sphere->mat.reflect = param == 7 ? ft_atoi(str) : sphere->mat.reflect;
@@ -92,12 +89,6 @@ void	fill_sphere_data(char *str, t_sphere *sphere)
 		sphere_params(str + ft_strlen("<refraction>"), sphere, 8);
 	else if (ft_strstr(str, "<transparency>"))
 		sphere_params(str + ft_strlen("<transparency>"), sphere, 9);
-	else if (ft_strstr(str, "<motion_x>"))
-		sphere_params(str + ft_strlen("<motion_x>"), sphere, 10);
-	else if (ft_strstr(str, "<motion_y>"))
-		sphere_params(str + ft_strlen("<motion_y>"), sphere, 11);
-	else if (ft_strstr(str, "<motion_z>"))
-		sphere_params(str + ft_strlen("<motion_z>"), sphere, 12);
 }
 
 void	add_sphere(char *str, t_main *main)

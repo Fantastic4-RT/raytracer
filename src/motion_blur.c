@@ -12,9 +12,8 @@
 
 #include "rt.h"
 
-int		ft_col_av1(t_vec3 *col)
+t_vec3		ft_col_av1(t_vec3 *col)
 {
-    int		res;
     int		i;
     t_vec3	average;
 
@@ -32,58 +31,57 @@ int		ft_col_av1(t_vec3 *col)
     average.x = sqrt(average.x / 20);
     average.y = sqrt(average.y / 20);
     average.z = sqrt(average.z / 20);
-    res = vec3_to_int(average);
-    return (res);
+    return (average);
 }
 
-//void    ft_sphere_data(t_thread *th, int index)
-//{
-//    t_sphere *sph;
-//
-//    sph = (t_sphere *)th->main.obj[index].data;
-//    sph->pos.x += 20;
-//}
-
-//void    ft_check_type(t_thread *th, int index)
-//{
-//    if (ft_strcmp(th->main.obj[index].type, "sphere") == 0)
-//        ft_sphere_data(th, index);
-//}
-
-void    ft_check_axis_minus(t_thread *th)
+void    ft_check_type_minus(t_thread *th)
 {
-    if (((t_sphere *)th->obj[0].data)->motion_x == 1)
-        ((t_sphere *) th->obj[0].data)->pos.x -= 2;
-    if (((t_sphere *)th->obj[0].data)->motion_y == 1)
-        ((t_sphere *) th->obj[0].data)->pos.y -= 2;
-    if (((t_sphere *)th->obj[0].data)->motion_z == 1)
-        ((t_sphere *) th->obj[0].data)->pos.z -= 2;
+    int i;
+
+    i = 0;
+    while (i < th->main.scene.objs)
+    {
+        if (ft_strcmp(th->obj[i].type, "sphere") == 0)
+            ((t_sphere *)th->obj[i].data)->pos.x -= 2;
+        if (ft_strcmp(th->obj[i].type, "cylinder") == 0)
+            ((t_sphere *)th->obj[i].data)->pos.x -= 2;
+        if (ft_strcmp(th->obj[i].type, "cone") == 0)
+            ((t_sphere *)th->obj[i].data)->pos.x -= 2;
+        i++;
+    }
 }
 
-void    ft_check_axis(t_thread *th)
+void    ft_check_type(t_thread *th)
 {
-    if (((t_sphere *)th->obj[0].data)->motion_x == 1)
-        ((t_sphere *)th->obj[0].data)->pos.x += 0.1;
-    if (((t_sphere *)th->obj[0].data)->motion_y == 1)
-        ((t_sphere *) th->obj[0].data)->pos.y += 0.1;
-    if (((t_sphere *)th->obj[0].data)->motion_z == 1)
-        ((t_sphere *) th->obj[0].data)->pos.z += 0.1;
+    int i;
+
+    i = 0;
+    while (i < th->main.scene.objs)
+    {
+        if (ft_strcmp(th->obj[i].type, "sphere") == 0)
+            ((t_sphere *)th->obj[i].data)->pos.x += 0.1;
+        if (ft_strcmp(th->obj[i].type, "cylinder") == 0)
+            ((t_sphere *)th->obj[i].data)->pos.x += 0.1;
+        if (ft_strcmp(th->obj[i].type, "cone") == 0)
+            ((t_sphere *)th->obj[i].data)->pos.x += 0.1;
+        i++;
+    }
 }
 
-void	ft_mb(t_thread *th, double dist, int x, int y)
+t_vec3	ft_mb(t_thread *th)
 {
     t_vec3 col[20];
+    t_vec3 color;
     int     i;
 
     i = 0;
-    th->main.scene.a_a = 1;
     while (i < 20)
     {
-        col[i] = ft_aa(th, dist, x, y);
-        ft_check_axis(th);
+        col[i] = cast_ray(th, &th->main, th->main.cam.ray, 0);
+        ft_check_type(th);
         i++;
     }
-    ft_check_axis_minus(th);
-    *((int *) (th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
-               y * th->main.mlx.size_line)) = ft_col_av1(col);
+    ft_check_type_minus(th);
+    color = ft_col_av1(col);
+    return (color);
 }
