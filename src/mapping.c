@@ -40,20 +40,24 @@ void	find_disturb_cd2(t_thread *th, t_main *main, t_vec3 p)
 	double	v;
 	double	color;
 
-	p.x = (int)(p.x) % (TEXT_S);
-	p.y = (int)(p.y) % (TEXT_S);
-	if (p.x < 0)
-		p.x = TEXT_S + p.x;
-	if (p.y < 0)
-		p.y = TEXT_S + p.y;
+//	p.x = (int)(p.x) % (TEXT_S);
+//	p.y = (int)(p.y) % (TEXT_S);
+//	if (p.x < 0)
+//		p.x = TEXT_S + p.x;
+//	if (p.y < 0)
+//		p.y = TEXT_S + p.y;
 	text = th->obj[main->curr].texture;
 	if (text - 1 == 3)
 	{
+		p.x = (int)((p.x) * TEXT_S) % TEXT_S;
+		p.y = (int)((p.y) * TEXT_S) % TEXT_S;
 		color = th->main.textures[0].text_arr[(int)p.y][(int)p.x];
 		th->obj[main->curr].mat.color = vec3_create(color, color, color);
 	}
 	else if (text - 1 == 6 || text - 1 == 7)
 	{
+		p.x *= 32;
+		p.y *= 32;
 		v = text - 1 == 6 ?
 		smooth_noise(vec3_create((p.x / 8.0), (p.y / 8.0), p.z), &th->main) :
 		turbulence(vec3_create((int)(p.x), (int)(p.y), p.z), &th->main, 32)
@@ -68,8 +72,8 @@ void	find_disturb_cd(t_thread *th, t_main *main, t_vec3 p)
 	int		text;
 
 
-	p.x = (p.x * (TEXT_S));
-	p.y = (p.y * (TEXT_S));
+//	p.x = (p.x * (TEXT_S));
+//	p.y = (p.y * (TEXT_S));
 	text = th->obj[main->curr].texture;
 	if (text - 1 >= 0 && text - 1 <= 2)
 	{
@@ -78,13 +82,15 @@ void	find_disturb_cd(t_thread *th, t_main *main, t_vec3 p)
 	}
 	else if (text - 1 == 4 || text - 1 == 5)
 	{
-		p.x = (int)(p.x) % (TEXT_S);
-		p.y = (int)(p.y) % (TEXT_S);
-		if (p.x < 0)
-			p.x = TEXT_S + p.x;
-		if (p.y < 0)
-			p.y = TEXT_S + p.y;
-		color = text - 1 == 4 ? wood(p, &th->main) : marble(p, &th->main);
+//		p.x = (int)(p.x ) % (TEXT_S);
+//		p.y = (int)(p.y ) % (TEXT_S);
+//		if (p.x < 0)
+//			p.x = TEXT_S + p.x;
+//		if (p.y < 0)
+//			p.y = TEXT_S + p.y;
+//		p.x = p.x * 10;
+//		p.y = p.y * 10;
+		color = text - 1 == 4 ? wood(p, &th->main) /*th->main.textures[1].text_arr[(int)p.y][(int)p.x]*/ : marble(p, &th->main);
 		th->obj[main->curr].mat.color = int_to_vec3((int)color);
 	}
 	else
@@ -96,7 +102,8 @@ void	get_uv_coordinates(t_thread *th, t_main *main)
 	int index;
 
 	index = th->obj[main->curr].texture - 9;
-	if (!ft_strcmp(th->obj[main->curr].type, "sphere") || !ft_strcmp(th->obj[main->curr].type, "torus"))
+	if (!ft_strcmp(th->obj[main->curr].type, "sphere") ||
+			!ft_strcmp(th->obj[main->curr].type, "torus"))
 		sphere_uv(th, main);
 	else if (ft_strcmp(th->obj[main->curr].type, "plane") == 0)
 		plane_uv(th, main);
@@ -119,9 +126,19 @@ void	get_uv_coordinates(t_thread *th, t_main *main)
 
 void	find_pixel_color(t_thread *th, t_main *main)
 {
-	get_uv_coordinates(th, main);
 	if (th->main.obj[main->curr].texture >= 9)
+	{
+		get_uv_coordinates(th, main);
 		find_img_cd(th, main);
+	}
 	else
+	{
+		get_uv_coordinates(th, main);
+//		vec3_print(th->obj[main->curr].hitpoint, "hp");
+//		vec3_print(th->obj[main->curr].uv, "one");
+		th->obj[main->curr].uv.x += (th->obj[main->curr].hitpoint.x + main->scene.wid / 2);
+		th->obj[main->curr].uv.y += (th->obj[main->curr].hitpoint.y + main->scene.hei / 2);
+//		vec3_print(th->obj[main->curr].uv, "two");
 		find_disturb_cd(th, main, th->obj[main->curr].uv);
+	}
 }

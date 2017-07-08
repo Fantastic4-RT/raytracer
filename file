@@ -20,14 +20,14 @@
         </object>
 
 <object type="plane">
-                     <position>0, 0, -50</position>
+                     <position>0, 5, -50</position>
                      <color>ff1111</color>
                      <diffuse>100</diffuse>
                      <specular>50</specular>
                      <reflection>0</reflection>
                      <normal>0, 0, 1</normal>
                  </object>
-<object type="cylinder">
+<object type="cone">
        <position1>0, 0, -10</position1>
        <radius1>15</radius1>
        <cut>0</cut>

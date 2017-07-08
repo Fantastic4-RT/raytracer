@@ -33,9 +33,10 @@ void	perlin_noise(t_main *main, float zoom)
 
 void	generate_textures(t_main *main)
 {
-	main->textures = (t_text *)malloc(sizeof(t_text) * 1);
+	main->textures = (t_text *)malloc(sizeof(t_text) * 6);
 	ft_bzero(main->textures, 1);
 	perlin_noise(main, 2);
+//	wood(main);
 	main->img = (t_img *)malloc(sizeof(t_img) * 5);
 	ft_bzero(main->img, 5);
 	main->img[0].img = mlx_xpm_file_to_image(main->mlx.mlx,
