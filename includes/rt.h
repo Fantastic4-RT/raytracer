@@ -36,7 +36,7 @@
 # define RAD M_PI / 180.
 # define ROT_ANGLE 15** RAD
 # define OBJ_ROT 2
-# define TEXT_S 256// size of the texture
+# define TEXT_S 256
 
 typedef struct	s_abs
 {

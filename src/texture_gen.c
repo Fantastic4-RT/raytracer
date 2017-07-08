@@ -39,7 +39,7 @@ void	perlin_noise(t_main *main, float zoom)
 
 void	generate_textures(t_main *main)
 {
-	main->textures = (t_text *)malloc(sizeof(t_text) * 6);
+	main->textures = (t_text *)malloc(sizeof(t_text) * 1);
 	ft_bzero(main->textures, 1);
 	perlin_noise(main, 2);
 	main->img = (t_img *)malloc(sizeof(t_img) * 5);
