@@ -105,7 +105,6 @@ void	add_sphere(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &sphere_norm;
 	else
 		main->obj[main->obj_i].normal = &sphere_norm_cut;
-	vec3_print(data->pos, "pos");
 	main->obj[main->obj_i].dir_x = vec3_create(1, 0, 0);
 	main->obj[main->obj_i].dir_y = vec3_create(0, 1, 0);
 	main->obj[main->obj_i].texture = 0;

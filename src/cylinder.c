@@ -116,8 +116,9 @@ void	add_cylinder(char *str, t_main *main)
 	else
 		main->obj[main->obj_i].normal = &cylinder_norm_cut;
 	main->obj[main->obj_i].mat = data->mat;
-	main->obj[main->obj_i].dir_x = vec3_create(1, 0, 0);
-	main->obj[main->obj_i].dir_y = vec3_create(0, 1, 0);
+	main->obj[main->obj_i].dir_y = vec3_norm(data->axis);
+	main->obj[main->obj_i].dir_x = vec3_norm(vec3_cross(data->axis,
+				vec3_add(data->axis, vec3_create(0.01, 0.01, 0.01))));
 	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }
