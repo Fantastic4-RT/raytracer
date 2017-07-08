@@ -317,9 +317,94 @@ void	cone_params_2(char *str, t_cone *cone, int param);
 void	cone_params(char *str, t_cone *cone, int param);
 void	fill_cone_data(char *str, t_cone *cone);
 void	add_cone(char *str, t_main *main);
-
-
-
+/*
+ * cut_intersections.c
+ */
+int		inter_ray_sphere_cut(t_ray r, void *sphere, double *t);
+int		intersect_cylind_cut(t_ray r, void *cyl, double *t);
+int		intersect_parab(t_ray r, void *par, double *t);
+/*
+ * cut_normals.c
+ */
+t_vec3	sphere_norm_cut(void *data, t_vec3 hitpoint);
+t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
+t_vec3	cylinder_norm_cut(void *data, t_vec3 hitpoint);
+/*
+** cut_plane.c
+*/
+int		intersect_triangle(t_ray r, void *p, double *t);
+int		intersect_elips(t_ray r, void *p, double *t);
+int		intersect_mesh(t_ray r, void *p, double *t);
+/*
+** cylinder.c
+*/
+void	*default_cylinder(t_cyl *cyl);
+void	cyl_params_2(char *str, t_cyl *cyl, int param);
+void	cyl_params(char *str, t_cyl *cyl, int param);
+void	fill_cylinder_data(char *str, t_cyl *cyl);
+void	add_cylinder(char *str, t_main *main);
+/*
+ * envinronment.c
+ */
+void		alias_mode(int keycode, t_main *main);
+void		init_images(t_main *main);
+t_mattype	get_material_type(t_material mat);
+void		print_status(t_main *main);
+/*
+** finit_cone.c
+*/
+void	check_inters(t_ray r, t_cone *cone, double tt[], int tmp[]);
+void	check_tt(double *t, double tt[], int tmp[]);
+int		intersect_cone_cut(t_ray r, void *s, double *t);
+/*
+** finit_cyl.c
+*/
+double	ft_check_min(double t1, double t2);
+double	ft_find_caps(t_cyl *cyl, t_ray r, double t, t_vec3 p);
+double	intersect_plane1(t_cyl *cyl, t_ray r, t_vec3 pos, double t);
+double	ft_check_between(t_cyl *cyl, t_vec3 pos, t_vec3 dir, double t);
+void	ft_caps(t_cyl *cyl, t_ray r, double *t, double *t_final);
+int		solve_quadric_cut(t_abs solve, double *t_final, t_cyl *cyl, t_ray r);
+/*
+ * hooks.c
+ */
+int		cross_exit(void *a);
+void	cam_hook(t_main *main);
+void	change_mode(int keycode, t_main *main);
+int		key_hook(int keycode, t_main *main);
+void	output(char *str, int nb);
+/*
+**  initialise.c
+*/
+void	ml_d(t_obj *obj1, t_obj *obj2, char *str);
+void	pthreading(t_main *main);
+void	outputfile(t_main *main);
+void	image(t_main *main);
+void	mlx_initialise(t_main *main);
+/*
+ * intersections.c
+ */
+int		inter_ray_sphere(t_ray r, void *s, double *t);
+int		intersect_cylind(t_ray r, void *cyl, double *t);
+int		intersect_cone(t_ray r, void *con, double *t);
+int		intersect_plane(t_ray r, void *p, double *t);
+int		solve_quadric(double discr, double *t, double b, double a);
+/*
+** main.c
+*/
+int			expose(t_main *main);
+void		check_obj_type(char *t);
+void		error(int param);
+void		default_values(t_main *main);
+int			main(int argc, char **argv);
+/*
+ * mapping.c
+ */
+void 	find_pixel_color(t_thread *th, t_main *main);
+void	find_img_cd(t_thread *th, t_main *main);
+void	find_disturb_cd2(t_thread *th, t_main *main, t_vec3 p);
+void	find_disturb_cd(t_thread *th, t_main *main, t_vec3 p);
+void	get_uv_coordinates(t_thread *th, t_main *main);
 
 
 
@@ -383,27 +468,10 @@ void	z_object_translation1(int keycode, t_main *main);
 void	z_object_translation2(int keycode, t_main *main);
 void	z_object_translation3(int keycode, t_main *main);
 
-/*
- * envinronment.c
- */
-void		alias_mode(int keycode, t_main *main);
-void		init_images(t_main *main);
-t_mattype	get_material_type(t_material mat);
 
-/*
- * cut_intersections.c
- */
-int		inter_ray_sphere_cut(t_ray r, void *sphere, double *t);
-int		intersect_cylind_cut(t_ray r, void *cyl, double *t);
-int		intersect_parab(t_ray r, void *par, double *t);
-/*
- * intersections.c
- */
-int		inter_ray_sphere(t_ray r, void *s, double *t);
-int		intersect_cylind(t_ray r, void *cyl, double *t);
-int		intersect_cone(t_ray r, void *con, double *t);
-int		intersect_plane(t_ray r, void *p, double *t);
-int		solve_quadric(double discr, double *t, double b, double a);
+
+
+
 /*
  * nomals.c
  */
@@ -412,30 +480,10 @@ t_vec3	plane_norm(void *data, t_vec3 hitpoint);
 t_vec3	cone_norm(void *data, t_vec3 hitpoint);
 t_vec3	cylinder_norm(void *data, t_vec3 hitpoint);
 t_vec3	parab_norm(void *data, t_vec3 hitpoint);
-/*
- * cut_normals.c
- */
-t_vec3	sphere_norm_cut(void *data, t_vec3 hitpoint);
-t_vec3	cone_norm_cut(void *data, t_vec3 hitpoint);
-t_vec3	cylinder_norm_cut(void *data, t_vec3 hitpoint);
-/*
- * hooks.c
- */
-int		cross_exit(void *a);
-void	change_mode(int keycode, t_main *main);
-void	print_status(t_main *main);
-int		key_hook(int keycode, t_main *main);
-void	fihnia(char *str, int nb);
 
 
-/*
- * main.c
- */
-int			expose(t_main *main);
-void		check_obj_type(char *t);
-void		error(int param);
-void		default_values(t_main *main);
-int			main(int argc, char **argv);
+
+
 
 
 /*
@@ -449,8 +497,5 @@ double sin_stripes(t_vec3 p, t_main *main, int w);
 double	turbulence(t_vec3 p, t_main * main,  double size);
 double	smooth_noise(t_vec3 p, t_main *main);
 void	perlin_noise(t_main *main, float zoom);
-/*
- * mapping.c
- */
-void 	find_pixel_color(t_thread *th, t_main *main);
+
 #endif
