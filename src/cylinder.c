@@ -99,7 +99,6 @@ void	fill_cylinder_data(char *str, t_cyl *cyl)
 		cyl_params(str + ft_strlen("<refraction>"), cyl, 9);
 	else if (ft_strstr(str, "<transparency>"))
 		cyl_params(str + ft_strlen("<transparency>"), cyl, 10);
-
 }
 
 void	add_cylinder(char *str, t_main *main)

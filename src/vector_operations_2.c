@@ -60,7 +60,7 @@ t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2)
 	return (res);
 }
 
-t_vec3	vec3_zero()
+t_vec3	vec3_zero(void)
 {
 	return (vec3_create(0, 0, 0));
 }
