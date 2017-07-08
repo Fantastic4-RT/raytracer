@@ -4,9 +4,9 @@
         <rotation>0, 0, 0</rotation>
     </camera>
     <light>
-        <position>0, 50, 0</position>
+        <position>0, 0, 50</position>
         <color>ffffff</color>
-        <direction>0, 50, 0</direction>
+        <direction>0, 0, 0</direction>
         <radius>0</radius>
     </light>
     <object type="sphere">

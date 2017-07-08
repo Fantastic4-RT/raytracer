@@ -535,4 +535,6 @@ void	sphere_uv(t_thread *th, t_main *main);
 void	plane_uv(t_thread *th, t_main *main);
 void	cone_uv(t_thread *th, t_main *main);
 void	cylinder_uv(t_thread *th, t_main *main);
+void	output(char *str, int nb);
+void	print_status(t_main *main);
 #endif

@@ -12,6 +12,12 @@
 
 #include "rt.h"
 
+t_vec3	int_to_vec3(int color)
+{
+	return (vec3_create(((color >> 16) & 0xFF) / 255.0,
+						((color >> 8) & 0xFF) / 255.0, (color & 0xFF) / 255.0));
+}
+
 void	perlin_noise(t_main *main, float zoom)
 {
 	int x;
@@ -36,7 +42,6 @@ void	generate_textures(t_main *main)
 	main->textures = (t_text *)malloc(sizeof(t_text) * 6);
 	ft_bzero(main->textures, 1);
 	perlin_noise(main, 2);
-//	wood(main);
 	main->img = (t_img *)malloc(sizeof(t_img) * 5);
 	ft_bzero(main->img, 5);
 	main->img[0].img = mlx_xpm_file_to_image(main->mlx.mlx,
@@ -59,4 +64,29 @@ void	generate_textures(t_main *main)
 		"textures/Stone.xpm", &main->img[4].w, &main->img[4].h);
 	main->img[4].data = mlx_get_data_addr(main->img[4].img, &main->img[4].bpp,
 		&main->img[4].sl, &main->img[4].endian);
+}
+
+void	change_texture(int keycode, t_main *main)
+{
+	if (keycode >= 83 && keycode <= 91
+		&& main->obj[main->mode.obj_index].texture == 0)
+		main->obj[main->mode.obj_index].tmp_color =
+				main->obj[main->mode.obj_index].mat.color;
+	if (keycode == 83)
+		main->obj[main->mode.obj_index].texture = 1;
+	else if (keycode == 84)
+		main->obj[main->mode.obj_index].texture = 2;
+	else if (keycode == 85)
+		main->obj[main->mode.obj_index].texture = 3;
+	else if (keycode == 86)
+		main->obj[main->mode.obj_index].texture = 4;
+	else if (keycode == 87)
+		main->obj[main->mode.obj_index].texture = 5;
+	else if (keycode == 88)
+		main->obj[main->mode.obj_index].texture = 6;
+	else if (keycode == 89)
+		main->obj[main->mode.obj_index].texture = 7;
+	else if (keycode == 91)
+		main->obj[main->mode.obj_index].texture = 8;
+	image(main);
 }

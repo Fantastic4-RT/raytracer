@@ -279,6 +279,55 @@ typedef	struct 		s_thread
 }					t_thread;
 
 /*
+ * algo_help.c
+ */
+int		vec3_to_int(t_vec3 hitcolor);
+double	clamp(const double low, const double high, const double value);
+t_vec3	reflect_ray(const t_vec3 i, const t_vec3 n);
+t_vec3	refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
+void	fresnel(const t_vec3 i, const t_vec3 n, const double ir, double *am);
+/*
+ * antialiasing.c
+ */
+t_vec3	vec3_comp_dp(t_vec3 v1, t_vec3 v2);
+int		trace(t_ray ray, double *t, ssize_t *curr, t_thread *th);
+void	ft_aa(t_thread *th, double dist, int x, int y);
+int		ft_col_av(t_thread *th, t_vec3 *col);
+t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p);
+/*
+ * cam_and_light.c
+ */
+void		cam_params(char *str, t_main *main, int pos_rot_fov);
+void		light_params(char *str, t_main *main, int pos_dir_col);
+void		choose_object(char *str, t_main *main);
+void		*mal_object(t_main *main);
+void		cam_light_obj_line(char *str, t_main *main, int cam_light_obj);
+/*
+ *  camera_mode.c
+ */
+void	switch_cam_mode(int keycode, t_main *main);
+void	camera_position(int keycode, t_main *main);
+void	camera_direction(int keycode, t_main *main);
+void	camera_rotation(int keycode, t_main *main);
+/*
+** cone.c
+*/
+void	*default_cone(t_cone *cone);
+void	cone_params_2(char *str, t_cone *cone, int param);
+void	cone_params(char *str, t_cone *cone, int param);
+void	fill_cone_data(char *str, t_cone *cone);
+void	add_cone(char *str, t_main *main);
+
+
+
+
+
+
+
+
+
+
+/*
  *  object_mode.c
  */
 void	color_mode(int keycode, t_main *main);
@@ -333,13 +382,7 @@ void	y_object_translation3(int keycode, t_main *main);
 void	z_object_translation1(int keycode, t_main *main);
 void	z_object_translation2(int keycode, t_main *main);
 void	z_object_translation3(int keycode, t_main *main);
-/*
- *  camera_mode.c
- */
-void	switch_cam_mode(int keycode, t_main *main);
-void	camera_position(int keycode, t_main *main);
-void	camera_direction(int keycode, t_main *main);
-void	camera_rotation(int keycode, t_main *main);
+
 /*
  * envinronment.c
  */
@@ -383,20 +426,8 @@ void	change_mode(int keycode, t_main *main);
 void	print_status(t_main *main);
 int		key_hook(int keycode, t_main *main);
 void	fihnia(char *str, int nb);
-/*
- * antialiasing.c
- */
-void	ft_aa(t_thread *th, double dist, int x, int y);
-int		ft_col_av(t_thread *th, t_vec3 *col);
-t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p);
-/*
- * algo_help.c
- */
-int		vec3_to_int(t_vec3 hitcolor);
-double	clamp(const double low, const double high, const double value);
-t_vec3	reflect_ray(const t_vec3 i, const t_vec3 n);
-t_vec3	refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
-void	fresnel(const t_vec3 i, const t_vec3 n, const double ir, double *am);
+
+
 /*
  * main.c
  */
@@ -405,14 +436,7 @@ void		check_obj_type(char *t);
 void		error(int param);
 void		default_values(t_main *main);
 int			main(int argc, char **argv);
-/*
- * cam_and_light.c
- */
-void		cam_params(char *str, t_main *main, int pos_rot_fov);
-void		light_params(char *str, t_main *main, int pos_dir_col);
-void		choose_object(char *str, t_main *main);
-void		*mal_object(t_main *main);
-void		cam_light_obj_line(char *str, t_main *main, int cam_light_obj);
+
 
 /*
  * textures.c

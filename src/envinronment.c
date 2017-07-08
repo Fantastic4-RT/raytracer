@@ -64,3 +64,24 @@ t_mattype	get_material_type(t_material mat)
 	else
 		return (LAMBERT);
 }
+
+void		print_status(t_main *main)
+{
+	ft_putendl("----------------------------------------------------");
+	output("Object mode ", main->mode.obj_mode);
+	output("-Move mode ", main->mode.move_mode);
+	output("-Object index ", main->mode.obj_index);
+	output("-Object rotation mode ", main->mode.rot_obj_mode);
+	output("-Texture mode ", main->mode.text_mode);
+	output("-Texture index ", main->obj[main->mode.obj_index].texture);
+	output("-Color mode ", main->mode.color_mode);
+	ft_putstr("-Channel ");
+	ft_putchar(main->mode.channel);
+	ft_putchar('\n');
+	output("Camera mode ", main->mode.cam_mode);
+	output("-Direction mode ", main->mode.dir_mode);
+	output("-Camera rotation mode ", main->mode.rot_cam_mode);
+	output("-Camera position mode ", main->mode.cam_pos_mode);
+	output("Anti-aliasing ", main->scene.a_a);
+	ft_putendl("*******************************************************");
+}
