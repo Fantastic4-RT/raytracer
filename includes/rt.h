@@ -110,7 +110,7 @@ typedef	struct	s_light
 {
 	t_ray	ray;
 	t_vec3	color;
-	int 	blocked;
+	double	rad;
 }				t_light;
 
 typedef enum 	e_mattype {
@@ -387,7 +387,7 @@ double	vec3_length(t_vec3 vec);
 t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
 int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vec3_comp_dp(t_vec3 v1, t_vec3 v2);
-
+t_vec3	vec3_zero();
 
 /*
 ** 		REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

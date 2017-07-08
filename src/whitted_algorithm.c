@@ -68,29 +68,29 @@ t_vec3	reflection(t_vec3 hitcol, t_ray ray, int depth, t_thread *th)
 
 void	phong_col(t_ray *lray, t_vec3 df_sp[], t_thread *th, t_ray *ray)
 {
-	t_vec3	reflectray_dir;
-	ssize_t curr;
+	ssize_t cur[2];
 	int		i;
-	double	t;
-	int		in_shadow;
+	double	t[2];
 
 	i = -1;
 	while (++i < th->main.scene.lights)
 	{
-		curr = -1;
+		cur[0] = -1;
+		if (!vec3_eq(th->light[i].ray.dir, vec3_zero()) && !th->light[i].rad)
+			th->light[i].ray.pos = vec3_add(th->obj[th->main.curr].hitpoint,
+											th->light[i].ray.dir);
 		lray->dir = vec3_sub(th->light[i].ray.pos,
 							th->obj[th->main.curr].hitpoint);
-		t = sqrt(vec3_dp(lray->dir, lray->dir));
+		t[0] = sqrt(vec3_dp(lray->dir, lray->dir));
+		t[1] = vec3_length(vec3_sub(th->light[i].ray.dir, lray->dir));
 		lray->dir = vec3_norm(lray->dir);
-		in_shadow = trace(*lray, &t, &curr, th);
-		df_sp[0] = vec3_add(df_sp[0], vec3_mult(th->light[i].color,
-				(1 - in_shadow * (th->obj[curr].mattype == 1 ?
-				th->obj[curr].mat.transp : 1)) * fmax(0., vec3_dp(lray->dir,
-				th->obj[th->main.curr].n))));
-		reflectray_dir = reflect_ray(vec3_invert(lray->dir),
-								th->obj[th->main.curr].n);
-		df_sp[1] = vec3_add(df_sp[1], vec3_mult(th->light[i].color, (1 -
-				in_shadow) * pow(fmax(0., -vec3_dp(reflectray_dir, ray->dir)),
+		cur[1] = trace(*lray, &t[0], &cur[0], th) || t[1] > th->light[i].rad;
+		df_sp[0] = vec3_add(df_sp[0], vec3_mult(th->light[i].color, (1 - cur[1]
+				* (th->obj[cur[0]].mattype == 1 ? th->obj[cur[0]].mat.transp :
+				1)) * fmax(0., vec3_dp(lray->dir, th->obj[th->main.curr].n))));
+		df_sp[1] = vec3_add(df_sp[1], vec3_mult(th->light[i].color, (1 - cur[1])
+				* pow(fmax(0., -vec3_dp(reflect_ray(vec3_invert(lray->dir),
+				th->obj[th->main.curr].n), ray->dir)),
 				th->obj[th->main.curr].mat.spec)));
 	}
 }
@@ -140,7 +140,7 @@ t_vec3	cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 			hitcol = reflection(hitcol, ray, depth, th);
 		else
 			hitcol = diffuse(vec3_mult(obj->mat.color, th->main.scene.amb),
-																&ray, main, th);
+							&ray, main, th);
 	}
 	return (hitcol);
 }
