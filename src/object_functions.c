@@ -53,31 +53,6 @@ void	image_texture(int keycode, t_main *main)
 		main->obj[main->mode.obj_index].texture = 12;
 	else if (keycode == 23)
 		main->obj[main->mode.obj_index].texture = 13;
-	image(main);
-}
-
-void	change_texture(int keycode, t_main *main)
-{
-	if (keycode >= 83 && keycode <= 91
-		&& main->obj[main->mode.obj_index].texture == 0)
-		main->obj[main->mode.obj_index].tmp_color =
-				main->obj[main->mode.obj_index].mat.color;
-	if (keycode == 83)
-		main->obj[main->mode.obj_index].texture = 1;
-	else if (keycode == 84)
-		main->obj[main->mode.obj_index].texture = 2;
-	else if (keycode == 85)
-		main->obj[main->mode.obj_index].texture = 3; //
-	else if (keycode == 86)
-		main->obj[main->mode.obj_index].texture = 4; // noise
-	else if (keycode == 87)
-		main->obj[main->mode.obj_index].texture = 5; //marble
-	else if (keycode == 88)
-		main->obj[main->mode.obj_index].texture = 6; //wood
-	else if (keycode == 89)
-		main->obj[main->mode.obj_index].texture = 7;
-	else if (keycode == 91)
-		main->obj[main->mode.obj_index].texture = 8;
 	else if (keycode == 92)
 	{
 		main->obj[main->mode.obj_index].texture = 0;

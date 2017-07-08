@@ -87,33 +87,6 @@ double	wood(t_vec3 p, t_main *main)
 	return (((int)color.x << 16) | ((int)color.y << 8) | (int)color.z);
 }
 
-
-//void	wood(t_main *main)
-//{
-//	t_vec3 color;
-//	t_vec3 val;
-//	double distval;
-//	double sinval;
-//
-//	int i = 0;
-//	while (i < TEXT_S)
-//	{
-//		int j = 0;
-//		while (j < TEXT_S)
-//		{
-//			val.x = (j - TEXT_S / 2) / (double) TEXT_S;
-//			val.y = (i - TEXT_S / 2) / (double) TEXT_S;
-//			distval = sqrt(val.x * val.x + val.y * val.y) + 0.1 *
-//			turbulence(vec3_create(j, i, 0),main,32.0) /256.0;
-//			sinval = 128.0 * fabs(sin(2 * 12.0 * distval * M_PI));
-//			color = vec3_create((80 + sinval), (30 + sinval), 30);
-//			main->textures[1].text_arr[i][j] = ((int) color.x << 16) | ((int) color.y << 8) | (int) color.z;
-//			j++;
-//		}
-//		i++;
-//	}
-//}
-
 double	marble(t_vec3 p, t_main *main)
 {
 	t_vec3 color;

@@ -12,12 +12,6 @@
 
 #include "rt.h"
 
-t_vec3	int_to_vec3(int color)
-{
-	return (vec3_create(((color >> 16) & 0xFF) / 255.0,
-						((color >> 8) & 0xFF) / 255.0, (color & 0xFF) / 255.0));
-}
-
 void	find_img_cd(t_thread *th, t_main *main)
 {
 	int		i;
@@ -26,8 +20,10 @@ void	find_img_cd(t_thread *th, t_main *main)
 	t_vec3	p;
 
 	index = th->obj[main->curr].texture - 9;
-	p.x = (int)(th->obj[main->curr].uv.x * th->main.img[index].w) % th->main.img[index].w;
-	p.y = (int)(th->obj[main->curr].uv.y * th->main.img[index].h) % th->main.img[index].h;
+	p.x = (int)(th->obj[main->curr].uv.x * th->main.img[index].w)
+		% th->main.img[index].w;
+	p.y = (int)(th->obj[main->curr].uv.y * th->main.img[index].h)
+		% th->main.img[index].h;
 	i = (int)(p.x * th->main.img[index].bpp / 8 + p.y * th->main.img[index].sl);
 	color = (th->main.img[index].data[i + 2] << 16) +
 		(th->main.img[index].data[i + 1] << 8) + th->main.img[index].data[i];
@@ -40,12 +36,6 @@ void	find_disturb_cd2(t_thread *th, t_main *main, t_vec3 p)
 	double	v;
 	double	color;
 
-//	p.x = (int)(p.x) % (TEXT_S);
-//	p.y = (int)(p.y) % (TEXT_S);
-//	if (p.x < 0)
-//		p.x = TEXT_S + p.x;
-//	if (p.y < 0)
-//		p.y = TEXT_S + p.y;
 	text = th->obj[main->curr].texture;
 	if (text - 1 == 3)
 	{
@@ -71,9 +61,6 @@ void	find_disturb_cd(t_thread *th, t_main *main, t_vec3 p)
 	double	color;
 	int		text;
 
-
-//	p.x = (p.x * (TEXT_S));
-//	p.y = (p.y * (TEXT_S));
 	text = th->obj[main->curr].texture;
 	if (text - 1 >= 0 && text - 1 <= 2)
 	{
@@ -82,15 +69,7 @@ void	find_disturb_cd(t_thread *th, t_main *main, t_vec3 p)
 	}
 	else if (text - 1 == 4 || text - 1 == 5)
 	{
-//		p.x = (int)(p.x ) % (TEXT_S);
-//		p.y = (int)(p.y ) % (TEXT_S);
-//		if (p.x < 0)
-//			p.x = TEXT_S + p.x;
-//		if (p.y < 0)
-//			p.y = TEXT_S + p.y;
-//		p.x = p.x * 10;
-//		p.y = p.y * 10;
-		color = text - 1 == 4 ? wood(p, &th->main) /*th->main.textures[1].text_arr[(int)p.y][(int)p.x]*/ : marble(p, &th->main);
+		color = text - 1 == 4 ? wood(p, &th->main) : marble(p, &th->main);
 		th->obj[main->curr].mat.color = int_to_vec3((int)color);
 	}
 	else
@@ -116,29 +95,25 @@ void	get_uv_coordinates(t_thread *th, t_main *main)
 		th->obj[main->curr].uv.x = (int)(((th->obj[main->curr].hitpoint.x +
 				main->scene.wid / 2) - (int)(th->obj[main->curr].hitpoint.x +
 				main->scene.wid / 2)) * th->main.img[index].w)
-								   % th->main.img[index].w;
+				% th->main.img[index].w;
 		th->obj[main->curr].uv.y = (int)(((th->obj[main->curr].hitpoint.y +
 				main->scene.hei / 2) - (int)(th->obj[main->curr].hitpoint.y +
 				main->scene.hei / 2)) * th->main.img[index].h)
-								   % th->main.img[index].h;
+				% th->main.img[index].h;
 	}
 }
 
 void	find_pixel_color(t_thread *th, t_main *main)
 {
+	get_uv_coordinates(th, main);
 	if (th->main.obj[main->curr].texture >= 9)
-	{
-		get_uv_coordinates(th, main);
 		find_img_cd(th, main);
-	}
 	else
 	{
-		get_uv_coordinates(th, main);
-//		vec3_print(th->obj[main->curr].hitpoint, "hp");
-//		vec3_print(th->obj[main->curr].uv, "one");
-		th->obj[main->curr].uv.x += (th->obj[main->curr].hitpoint.x + main->scene.wid / 2);
-		th->obj[main->curr].uv.y += (th->obj[main->curr].hitpoint.y + main->scene.hei / 2);
-//		vec3_print(th->obj[main->curr].uv, "two");
+		th->obj[main->curr].uv.x += (th->obj[main->curr].hitpoint.x
+							+ main->scene.wid / 2);
+		th->obj[main->curr].uv.y += (th->obj[main->curr].hitpoint.y
+							+ main->scene.hei / 2);
 		find_disturb_cd(th, main, th->obj[main->curr].uv);
 	}
 }
