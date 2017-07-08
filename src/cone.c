@@ -131,6 +131,7 @@ void	add_cone(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &cone_norm_cut;
 	else
 		main->obj[main->obj_i].normal = &cone_norm;
+	main->obj[main->obj_i].tmp_color = data->mat.color;
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].dir_y = vec3_norm(data->axis);
 	main->obj[main->obj_i].dir_x = vec3_norm(vec3_cross(data->axis,

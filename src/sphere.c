@@ -112,6 +112,7 @@ void	add_sphere(char *str, t_main *main)
 		main->obj[main->obj_i].texture = ft_atoi(str + ft_strlen("<texture>"));
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
+	main->obj[main->obj_i].tmp_color = data->mat.color;
 	if (vec3_eq(data->pos, data->p1))
 		data->p1 = vec3_add(data->p1, vec3_create(0, 0.0001, 0));
 }

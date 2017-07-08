@@ -121,6 +121,7 @@ void	add_plane(char *str, t_main *main)
 	main->obj[main->obj_i].dir_x = vec3_create(1, 0, 0);
 	main->obj[main->obj_i].dir_y = vec3_create(0, 1, 0);
 	main->obj[main->obj_i].texture = 0;
+	main->obj[main->obj_i].tmp_color = data->mat.color;
 	if (ft_strstr(str, "<texture>"))
 		main->obj[main->obj_i].texture = ft_atoi(str + ft_strlen("<texture>"));
 	if (data->cut == 4)
