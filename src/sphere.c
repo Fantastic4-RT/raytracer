@@ -106,6 +106,8 @@ void	add_sphere(char *str, t_main *main)
 	else
 		main->obj[main->obj_i].normal = &sphere_norm_cut;
 	main->obj[main->obj_i].texture = 0;
+	if (ft_strstr(str, "<texture>"))
+		main->obj[main->obj_i].texture = ft_atoi(str + ft_strlen("<texture>"));
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 	if (vec3_eq(data->pos, data->p1))

@@ -125,11 +125,12 @@ void	add_cone(char *str, t_main *main)
 	else
 		main->obj[main->obj_i].intersect = &intersect_cone_cut;
 	main->obj[main->obj_i].texture = 0;
+	if (ft_strstr(str, "<texture>"))
+		main->obj[main->obj_i].texture = ft_atoi(str + ft_strlen("<texture>"));
 	if (data->cut == 1)
 		main->obj[main->obj_i].normal = &cone_norm_cut;
 	else
 		main->obj[main->obj_i].normal = &cone_norm;
 	main->obj[main->obj_i].mat = data->mat;
-	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }

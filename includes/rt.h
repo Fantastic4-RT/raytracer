@@ -294,7 +294,7 @@ typedef struct		s_main
 	t_matrices	mxs;
 	unsigned  int pic;
 	char 		*filename;
-	double uv;
+	double		uv;
 	//point where the current obj is hit
 }					t_main;
 
