@@ -16,7 +16,6 @@ int		trace(t_ray ray, double *t, ssize_t *curr, t_thread *th)
 
 	i = -1;
 	*curr = -1;
-	*t = 2000000.0;
 	ray.dir = vec3_norm(ray.dir);
 	while (++i < th->main.scene.objs)
 	{

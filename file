@@ -4,28 +4,28 @@
         <rotation>0, 0, 0</rotation>
     </camera>
     <light>
-        <position>0, 50, 0</position>
+        <position>0, 0, 150</position>
         <color>ffffff</color>
-        <direction>0, 50, 0</direction>
+        <direction>0, 0, 0</direction>
         <radius>0</radius>
     </light>
     <object type="sphere">
-        <position>17, 0, 0</position>
+        <position>0, 0, 0</position>
         <radius>5</radius>
         <color>fa3b3f</color>
         <diffuse>100</diffuse>
         <specular>50</specular>
         <reflection>0</reflection>
         <refraction>0</refraction>
-        <texture>10</texture>
+        <texture>0</texture>
     </object>
     <object type="plane">
-        <position>0, -10, 0</position>
+        <position>0, -100, 0</position>
         <normal>0, 1, 0</normal>
         <color>0000f3</color>
         <diffuse>100</diffuse>
         <specular>50</specular>
         <reflection>0</reflection>
-        <texture>1</texture>
+        <texture>0</texture>
     </object>
 </scene>
