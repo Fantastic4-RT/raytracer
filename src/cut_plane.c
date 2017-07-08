@@ -34,7 +34,8 @@ int		intersect_triangle(t_ray r, void *p, double *t)
 			return (1);
 		return (0);
 	}
-	return (0);
+	else
+		return (0);
 }
 
 int		intersect_elips(t_ray r, void *p, double *t)
@@ -69,10 +70,14 @@ int		intersect_mesh(t_ray r, void *p, double *t)
 	tr1.p2 = pl->p3;
 	tr1.p3 = pl->pos;
 	ret1 = intersect_triangle(r, &tr1, &tmp1);
+	if (ret1 && tmp1 < *t)
+		*t = tmp1;
 	tmp1 = *t;
 	tr1.pos = pl->p4;
 	tr1.p2 = pl->pos;
 	tr1.p3 = pl->p3;
 	ret2 = intersect_triangle(r, &tr1, &tmp1);
+	if (ret2 && tmp1 < *t)
+		*t = tmp1;
 	return (ret1 || ret2);
 }

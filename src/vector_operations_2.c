@@ -60,6 +60,11 @@ t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2)
 	return (res);
 }
 
+t_vec3	vec3_zero()
+{
+	return (vec3_create(0, 0, 0));
+}
+
 void	vec3_print(t_vec3 vec, char *str)
 {
 	printf("%s: (%f, %f, %f)\n", str, vec.x, vec.y, vec.z);
