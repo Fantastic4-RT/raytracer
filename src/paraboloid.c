@@ -94,6 +94,8 @@ void	add_paraboloid(char *str, t_main *main)
 	main->obj[main->obj_i].normal = &parab_norm;
 	data = (t_parab *)main->obj[main->obj_i].data;
 	main->obj[main->obj_i].texture = 0;
+	if (ft_strstr(str, "<texture>"))
+		main->obj[main->obj_i].texture = ft_atoi(str + ft_strlen("<texture>"));
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }

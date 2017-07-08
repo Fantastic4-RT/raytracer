@@ -116,12 +116,11 @@ void	add_plane(char *str, t_main *main)
 	if (ft_strstr(str, "<position4>"))
 		plane_params(str + ft_strlen("<position4>"), data, 12);
 	main->obj[main->obj_i].normal = &plane_norm;
-	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mat = data->mat;
-	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
-	main->obj[main->obj_i].dir_x = vec3_create(1, 0, 0);
-	main->obj[main->obj_i].dir_y = vec3_create(0, 1, 0);
+	main->obj[main->obj_i].texture = 0;
+	if (ft_strstr(str, "<texture>"))
+		main->obj[main->obj_i].texture = ft_atoi(str + ft_strlen("<texture>"));
 	if (data->cut == 4)
 		main->obj[main->obj_i].intersect = &intersect_mesh;
 	else if (data->cut == 3)

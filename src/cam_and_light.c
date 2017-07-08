@@ -61,8 +61,8 @@ void	light_params(char *str, t_main *main, int pos_dir_col)
 			main->light[main->light_i].ray.dir = vec3_fill_atoi(arr);
 		free_arr_tmp(arr, tmp);
 	}
-	pos_dir_col == 4 ? main->light[main->light_i].rad = ft_atoi(str) :
-												main->light[main->light_i].rad;
+	else
+		main->light[main->light_i].rad = ft_atoi(str);
 }
 
 void	choose_object(char *str, t_main *main)

@@ -99,6 +99,7 @@ void	fill_cylinder_data(char *str, t_cyl *cyl)
 		cyl_params(str + ft_strlen("<refraction>"), cyl, 9);
 	else if (ft_strstr(str, "<transparency>"))
 		cyl_params(str + ft_strlen("<transparency>"), cyl, 10);
+
 }
 
 void	add_cylinder(char *str, t_main *main)
@@ -115,10 +116,8 @@ void	add_cylinder(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &cylinder_norm;
 	else
 		main->obj[main->obj_i].normal = &cylinder_norm_cut;
+	if (ft_strstr(str, "<texture>"))
+		main->obj[main->obj_i].texture = ft_atoi(str + ft_strlen("<texture>"));
 	main->obj[main->obj_i].mat = data->mat;
-	main->obj[main->obj_i].dir_y = vec3_norm(data->axis);
-	main->obj[main->obj_i].dir_x = vec3_norm(vec3_cross(data->axis,
-				vec3_add(data->axis, vec3_create(0.01, 0.01, 0.01))));
-	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 }
