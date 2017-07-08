@@ -405,30 +405,24 @@ void	find_img_cd(t_thread *th, t_main *main);
 void	find_disturb_cd2(t_thread *th, t_main *main, t_vec3 p);
 void	find_disturb_cd(t_thread *th, t_main *main, t_vec3 p);
 void	get_uv_coordinates(t_thread *th, t_main *main);
-
-
-
-
-
-
-
 /*
- *  object_mode.c
- */
-void	color_mode(int keycode, t_main *main);
-void	texture_mode(int keycode, t_main *main);
-void	move_mode(int keycode, t_main *main);
-void	rotation_mode(int keycode, t_main *main);
-void	switch_obj_mode(int keycode, t_main *main);
+** matrix_func.c
+*/
+t_matrix	m_mult(t_matrix m1, t_matrix m2);
+t_matrix	x_rot(double angle);
+t_matrix	y_rot(double angle);
+t_matrix	z_rot(double angle);
+t_matrix	tr(t_vec3 pos);
+t_vec3		m_apply(t_matrix matrix, t_vec3 vec);
+void		matrices(t_main *main);
 /*
- * object_functions.c
+ * normals.c
  */
-void	image_texture(int keycode, t_main *main);
-void	rotate_objects(int keycode, t_main *main);
-void	change_texture(int keycode, t_main *main);
-int		channels_change(int keycode, t_main *main);
-void	change_color(int keycode, t_main *main);
-void	move_objects(int keycode, t_main *main);
+t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
+t_vec3	plane_norm(void *data, t_vec3 hitpoint);
+t_vec3	cone_norm(void *data, t_vec3 hitpoint);
+t_vec3	cylinder_norm(void *data, t_vec3 hitpoint);
+t_vec3	parab_norm(void *data, t_vec3 hitpoint);
 /*
  * obj_rotations_x.c
  */
@@ -467,35 +461,106 @@ void	y_object_translation3(int keycode, t_main *main);
 void	z_object_translation1(int keycode, t_main *main);
 void	z_object_translation2(int keycode, t_main *main);
 void	z_object_translation3(int keycode, t_main *main);
-
-
-
-
-
 /*
- * nomals.c
+ * object_functions.c
  */
-t_vec3	sphere_norm(void *data, t_vec3 hitpoint);
-t_vec3	plane_norm(void *data, t_vec3 hitpoint);
-t_vec3	cone_norm(void *data, t_vec3 hitpoint);
-t_vec3	cylinder_norm(void *data, t_vec3 hitpoint);
-t_vec3	parab_norm(void *data, t_vec3 hitpoint);
-
-
-
-
-
-
+void	image_texture(int keycode, t_main *main);
+void	rotate_objects(int keycode, t_main *main);
+int		channels_change(int keycode, t_main *main);
+void	change_color(int keycode, t_main *main);
+void	move_objects(int keycode, t_main *main);
+/*
+ *  object_mode.c
+ */
+void	color_mode(int keycode, t_main *main);
+void	texture_mode(int keycode, t_main *main);
+void	move_mode(int keycode, t_main *main);
+void	rotation_mode(int keycode, t_main *main);
+void	switch_obj_mode(int keycode, t_main *main);
+/*
+**  paraboloid.c
+*/
+void	*default_parab(t_parab *parab);
+void	parab_params_2(char *str, t_parab *parab, int param);
+void	parab_params(char *str, t_parab *parab, int param);
+void	fill_parab_data(char *str, t_parab *parab);
+void	add_paraboloid(char *str, t_main *main);
+/*
+**  plane.c
+*/
+void	add_plane(char *str, t_main *main);
+void	fill_plane_data(char *str, t_plane *plane);
+void	plane_params(char *str, t_plane *plane, int param);
+void	plane_params_2(char *str, t_plane *plane, int param;
+void	*default_plane(t_plane *plane);
+/*
+**  read_help.c
+*/
+void	free_arr_tmp(char **arr, char *tmp);
+t_vec3	vec3_fill_atoi(char **arr);
+void	scene_line(int fd, t_main *main);
+void	set_flag(char *str, t_main *main, int set_rem);
+void	read_file(int fd, t_main *main);
+/*
+ *  render.c
+ */
+void	free_thread(t_thread *data);
+void	one_ray(t_thread *th, double dist, int x, int y);
+void	*render(void *data);
+/*
+** sphere.c
+*/
+void	add_sphere(char *str, t_main *main);
+void	fill_sphere_data(char *str, t_sphere *sphere);
+void	sphere_params(char *str, t_sphere *sphere, int param);
+void	sphere_params_2(char *str, t_sphere *sphere, int param);
+void	*default_sphere(t_sphere *sphere);
+/*
+** texture_gen.c
+*/
+t_vec3	int_to_vec3(int color);
+void	perlin_noise(t_main *main, float zoom);
+void	generate_textures(t_main *main);
+void	change_texture(int keycode, t_main *main);
 /*
  * textures.c
  */
-t_vec3	int_to_vec3(int color);
-void generate_textures(t_main *main);
 double marble(t_vec3 p, t_main *main);
 double wood(t_vec3 p, t_main *main);
 double sin_stripes(t_vec3 p, t_main *main, int w);
 double	turbulence(t_vec3 p, t_main * main,  double size);
 double	smooth_noise(t_vec3 p, t_main *main);
-void	perlin_noise(t_main *main, float zoom);
-
+/*
+** uv.c
+*/
+void	sphere_uv(t_thread *th, t_main *main);
+void	plane_uv(t_thread *th, t_main *main);
+void	cone_uv(t_thread *th, t_main *main);
+void	cylinder_uv(t_thread *th, t_main *main);
+/*
+** vector_operations.c
+*/
+t_vec3	vec3_create(double x, double y, double z);
+t_vec3	vec3_norm(t_vec3 vector);
+t_vec3	vec3_invert(t_vec3 vector);
+double	vec3_dp(t_vec3 vec1, t_vec3 vec2);
+int		vec3_eq(t_vec3 vec1, t_vec3 vec2);
+/*
+** vector_operations_2.c
+*/
+t_vec3	vec3_add(t_vec3 vec1, t_vec3 vec2);
+t_vec3	vec3_sub(t_vec3 vec1, t_vec3 vec2);
+t_vec3	vec3_mult(t_vec3 vec, double multiplier);
+double	vec3_length(t_vec3 vec);
+t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2);
+t_vec3	vec3_zero();
+void	vec3_print(t_vec3 vec, char *str); //////remove
+/*
+**  whitted_algorithm.c
+*/
+t_vec3	reflect_and_refract(t_vec3 hitcol, t_ray *ray, int depth, t_thread *th);
+t_vec3	reflection(t_vec3 hitcol, t_ray ray, int depth, t_thread *th);
+void	phong_col(t_ray *lray, t_vec3 df_sp[], t_thread *th, t_ray *ray);
+t_vec3	diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th);
+t_vec3	cast_ray(t_thread *th, t_main *main, t_ray ray, int depth);
 #endif
