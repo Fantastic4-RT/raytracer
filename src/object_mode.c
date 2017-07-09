@@ -110,6 +110,8 @@ void	rotation_mode(int keycode, t_main *main)
 
 void	switch_obj_mode(int keycode, t_main *main)
 {
+	char *str;
+
 	mlx_put_image_to_window(main->mlx.mlx, main->mlx.menu.menu_win,
 							main->mlx.menu.side_arr, 20, 100);
 	if (main->mode.color_mode == 0
@@ -124,8 +126,10 @@ void	switch_obj_mode(int keycode, t_main *main)
 	}
 	mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 264, 100,
 				0xff0000, main->obj[main->mode.obj_index].type);
+	str = ft_itoa(main->mode.obj_index);
 	mlx_string_put(main->mlx.mlx, main->mlx.menu.menu_win, 350, 100,
-				0xff0000, ft_itoa(main->mode.obj_index));
+				0xff0000, str);
+	ft_strdel(&str);
 	color_mode(keycode, main);
 	move_mode(keycode, main);
 	texture_mode(keycode, main);
