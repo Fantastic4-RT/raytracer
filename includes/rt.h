@@ -26,7 +26,7 @@
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
-# define FOV 45.** M_PI / 180.
+# define FOV 45.* M_PI / 180.
 # define AMBIENT 0.2
 # define DIFFUSE 0.5
 # define SPEC 0.2
@@ -34,7 +34,7 @@
 # define LIGHTS 1
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
-# define ROT_ANGLE 15** RAD
+# define ROT_ANGLE 15* RAD
 # define OBJ_ROT 2
 # define TEXT_S 256
 
@@ -513,7 +513,7 @@ void		add_paraboloid(char *str, t_main *main);
 void		add_plane(char *str, t_main *main);
 void		fill_plane_data(char *str, t_plane *plane);
 void		plane_params(char *str, t_plane *plane, int param);
-void		plane_params_2(char *str, t_plane *plane, int param;
+void		plane_params_2(char *str, t_plane *plane, int param);
 void		*default_plane(t_plane *plane);
 /*
 **  read_help.c 
@@ -549,7 +549,7 @@ void		change_texture(int keycode, t_main *main);
 */
 double		marble(t_vec3 p, t_main *main);
 double		wood(t_vec3 p, t_main *main);
-double		sin_stripes(t_vec3 p, t_main *main, int w);
+double	sin_stripes(t_vec3 p, t_thread *th, int w);
 double		turbulence(t_vec3 p, t_main *main,  double size);
 double		smooth_noise(t_vec3 p, t_main *main);
 /*
