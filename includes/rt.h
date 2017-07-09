@@ -279,8 +279,8 @@ typedef struct		s_main
 	t_flag			flag;
 	t_scene			scene;
 	t_pmode			mode;
-	t_text 			*textures;
-	t_img			*img;
+	t_text 			textures[1];
+	t_img			img[5];
 	int				light_i;
 	int				obj_i;
 	ssize_t			curr;
@@ -549,7 +549,7 @@ void		change_texture(int keycode, t_main *main);
 */
 double		marble(t_vec3 p, t_main *main);
 double		wood(t_vec3 p, t_main *main);
-double	sin_stripes(t_vec3 p, t_thread *th, int w);
+double		sin_stripes(t_vec3 p, t_thread *th, int w);
 double		turbulence(t_vec3 p, t_main *main,  double size);
 double		smooth_noise(t_vec3 p, t_main *main);
 /*
