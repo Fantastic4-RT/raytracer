@@ -429,17 +429,19 @@ t_vec3	parab_norm(void *data, t_vec3 hitpoint);
 void	x_object_rotation1(int keycode, t_main *main);
 void	x_object_rotation2(int keycode, t_main *main);
 void	x_object_rotation3(int keycode, t_main *main);
-
+void	x_dirextions_rot(int keycode, t_main *main);
 /*
  * obj_rotations_y.c
  */
 void	y_object_rotation1(int keycode, t_main *main);
 void	y_object_rotation2(int keycode, t_main *main);
 void	y_object_rotation3(int keycode, t_main *main);
-
+void	y_object_rotation4(int keycode, t_main *main);
+void	y_dirextions_rot(int keycode, t_main *main);
 /*
  * obj_rotations_z.c
  */
+void	z_dirextions_rot(int keycode, t_main *main);
 void	z_object_rotation1(int keycode, t_main *main);
 void	z_object_rotation2(int keycode, t_main *main);
 void	z_object_rotation3(int keycode, t_main *main);
@@ -537,6 +539,7 @@ void	sphere_uv(t_thread *th, t_main *main);
 void	plane_uv(t_thread *th, t_main *main);
 void	cone_uv(t_thread *th, t_main *main);
 void	cylinder_uv(t_thread *th, t_main *main);
+t_vec3	vec3_zero();
 /*
 ** vector_operations.c
 */
@@ -553,7 +556,6 @@ t_vec3	vec3_sub(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vec3_mult(t_vec3 vec, double multiplier);
 double	vec3_length(t_vec3 vec);
 t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2);
-t_vec3	vec3_zero();
 void	vec3_print(t_vec3 vec, char *str); //////remove
 /*
 **  whitted_algorithm.c

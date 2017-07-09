@@ -26,6 +26,7 @@ void	rotate_objects(int keycode, t_main *main)
 		y_object_rotation1(keycode, main);
 		y_object_rotation2(keycode, main);
 		y_object_rotation3(keycode, main);
+		y_object_rotation4(keycode, main);
 		image(main);
 	}
 	else if (keycode == 14 || keycode == 2)
@@ -33,6 +34,7 @@ void	rotate_objects(int keycode, t_main *main)
 		z_object_rotation1(keycode, main);
 		z_object_rotation2(keycode, main);
 		z_object_rotation3(keycode, main);
+		z_object_rotation4(keycode, main);
 		image(main);
 	}
 }

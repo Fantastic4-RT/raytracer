@@ -88,3 +88,8 @@ void	cylinder_uv(t_thread *th, t_main *main)
 	if (th->obj[main->curr].uv.y < 0 && th->obj[main->curr].texture >= 9)
 		th->obj[main->curr].uv.y = TEXT_S + th->obj[main->curr].uv.y;
 }
+
+t_vec3	vec3_zero(void)
+{
+	return (vec3_create(0, 0, 0));
+}

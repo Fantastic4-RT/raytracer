@@ -435,8 +435,7 @@ t_matrix	x_rot(double angle);
 t_matrix	y_rot(double angle);
 t_matrix	z_rot(double angle);
 t_matrix	tr(t_vec3 pos);
-t_vec3		m_apply(t_matrix matrix, t_vec3 vec);
-void		matrices(t_main *main);
+
 /*
 ** normals.c
 */
@@ -451,20 +450,23 @@ t_vec3		parab_norm(void *data, t_vec3 hitpoint);
 void		x_object_rotation1(int keycode, t_main *main);
 void		x_object_rotation2(int keycode, t_main *main);
 void		x_object_rotation3(int keycode, t_main *main);
-
+void		x_dirextions_rot(int keycode, t_main *main);
 /*
 ** obj_rotations_y.c
 */
 void		y_object_rotation1(int keycode, t_main *main);
 void		y_object_rotation2(int keycode, t_main *main);
 void		y_object_rotation3(int keycode, t_main *main);
-
+void		y_object_rotation4(int keycode, t_main *main);
+void		y_dirextions_rot(int keycode, t_main *main);
 /*
 ** obj_rotations_z.c
 */
 void		z_object_rotation1(int keycode, t_main *main);
 void		z_object_rotation2(int keycode, t_main *main);
 void		z_object_rotation3(int keycode, t_main *main);
+void		z_object_rotation4(int keycode, t_main *main);
+void		z_dirextions_rot(int keycode, t_main *main);
 /*
 ** obj_translations_x.c
 */
@@ -529,6 +531,8 @@ void		read_file(int fd, t_main *main);
 void		free_thread(t_thread *data);
 void		one_ray(t_thread *th, double dist, int x, int y);
 void		*render(void *data);
+t_vec3		m_apply(t_matrix matrix, t_vec3 vec);
+void		matrices(t_main *main);
 /*
 ** sphere.c 
 */
