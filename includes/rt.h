@@ -22,7 +22,7 @@
 # include <pthread.h>
 # include <fcntl.h>
 # include <time.h>
-# define THREADS 4
+# define THREADS 1
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -57,8 +57,6 @@ typedef	struct 	s_ray
 {
 	t_vec3	dir;
 	t_vec3	pos;
-	double	t_min;
-	double	t_max;
 }				t_ray;
 
 typedef	struct 	s_matrix
@@ -89,14 +87,6 @@ typedef struct	s_scene
     int     a_a;
 	double	amb;
 }				t_scene;
-
-typedef	struct 	s_inter
-{
-	t_vec3	pos;
-	t_vec3	n;
-	t_vec3	l;
-	t_vec3	h;
-}				t_inter;
 
 typedef	struct	s_cam
 {
@@ -211,7 +201,11 @@ typedef	struct	s_mlx
 	void			*mlx;
 	void			*win;
 	void			*img;
+	void			*img1;
+	void			*img2;
 	char			*ipp;
+	char			*ipp1;
+	char			*ipp2;
 	int				bpp;
 	int				size_line;
 	int				endian;
@@ -295,6 +289,8 @@ typedef struct		s_main
 	unsigned  int pic;
 	char 		*filename;
 	double		uv;
+	int			toon;
+	int 		rg;
 	//point where the current obj is hit
 }					t_main;
 

@@ -116,6 +116,7 @@ void	add_cylinder(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &cylinder_norm;
 	else
 		main->obj[main->obj_i].normal = &cylinder_norm_cut;
+	main->obj[main->obj_i].texture = 0;
 	if (ft_strstr(str, "<texture>"))
 		main->obj[main->obj_i].texture = ft_atoi(str + ft_strlen("<texture>"));
 	main->obj[main->obj_i].mat = data->mat;

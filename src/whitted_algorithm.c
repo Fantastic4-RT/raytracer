@@ -98,17 +98,27 @@ void	phong_col(t_ray *lray, t_vec3 df_sp[], t_thread *th, t_ray *ray)
 t_vec3	diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th)
 {
 	t_ray	lray;
-	t_vec3	df_sp[2];
+	t_vec3	df_sp[4];
 
-	df_sp[0] = vec3_create(0, 0, 0);
-	df_sp[1] = vec3_create(0, 0, 0);
+	df_sp[0] = vec3_zero();
+	df_sp[1] = vec3_zero();
 	lray.pos = (vec3_dp(ray->dir, th->obj[main->curr].n) < 0) ?
 			vec3_add(th->obj[main->curr].hitpoint,
 			vec3_mult(th->obj[main->curr].n, 0.00001)) :
 			vec3_sub(th->obj[main->curr].hitpoint,
 			vec3_mult(th->obj[main->curr].n, 0.00001));
 	phong_col(&lray, df_sp, th, ray);
-	hitcolor = vec3_add(hitcolor, vec3_add(vec3_mult(vec3_comp_dp(df_sp[0],
+	df_sp[2] = vec3_add(hitcolor, vec3_mult(vec3_comp_dp(df_sp[0],
+				th->obj[main->curr].mat.color), th->obj[main->curr].mat.diff));
+	df_sp[3].x = fmax(vec3_dp(th->obj[main->curr].n, lray.dir), 0.0);
+	if (df_sp[3].x > 0.5 && df_sp[2].x < 0.95 && main->toon == 1)
+		hitcolor = vec3_mult(df_sp[2], 0.7);
+	else if (df_sp[3].x > 0.2 && df_sp[3].x < 0.95 && main->toon == 1)
+		hitcolor = vec3_mult(df_sp[2], 0.2);
+	else if (main->toon == 1 && df_sp[3].x < 0.95)
+		hitcolor = vec3_mult(df_sp[2], 0.05);
+	if (main->toon == 0)
+		hitcolor = vec3_add(hitcolor, vec3_add(vec3_mult(vec3_comp_dp(df_sp[0],
 				th->obj[main->curr].mat.color), th->obj[main->curr].mat.diff),
 													vec3_mult(df_sp[1], SPEC)));
 	return (hitcolor);

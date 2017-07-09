@@ -35,8 +35,8 @@ void	one_ray(t_thread *th, double dist, int x, int y)
 	th->main.cam.ray.dir = m_apply(th->main.mxs.rot_cam, th->main.cam.ray.dir);
 	th->main.cam.ray.dir = m_apply(th->main.mxs.rot_dir, th->main.cam.ray.dir);
 	col = cast_ray(th, &th->main, th->main.cam.ray, 0);
-	*((int *)(th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
-			y * th->main.mlx.size_line)) = vec3_to_int(col);
+		*((int *)(th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
+				  y * th->main.mlx.size_line)) = vec3_to_int(col);
 }
 
 void	*render(void *data)
