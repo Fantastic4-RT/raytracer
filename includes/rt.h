@@ -35,7 +35,8 @@
 # define MAXDEPTH 5
 # define RAD M_PI / 180.
 # define ROT_ANGLE 15 * RAD
-# define OBJ_ROT 2
+# define OBJ_ROT 10
+# define MAX_DEGREE 4
 # define TEXT_SIZE 256// size of the texture
 
 typedef struct	s_abs
@@ -46,14 +47,49 @@ typedef struct	s_abs
 	double discr;
 }				t_abs;
 
+typedef struct 	s_cube
+{
+	double	q;
+	double	p;
+	double	t;
+	double	u;
+	double	s_real;
+	double	s_abs;
+	double	s_phase;
+	double	u_abs;
+	double	u_phase;
+	double	u_real;
+}				t_cube;
+
+typedef struct 	s_quad
+{
+	double	helper_cubic[4];
+	double	helper_results[3];
+	double	quadratic_factor[3];
+	double	p;
+	double	e;
+	double	d;
+	double	c;
+	int		num_results;
+	int		num_quad_results;
+	double	quadratic[3];
+	double	quadratic_results[2];
+	double	s;
+}				t_quad;
+
 typedef struct	s_polynome4
 {
-	double a;
-	double b;
-	double c;
-	double d;
-	double e;
-	double x[4];
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+	double	e;
+	double	x[4];
+	t_cube	d_cube;
+	t_quad	d_quad;
+	double	poly[5];
+	double	normalized_poly[MAX_DEGREE + 1];
+	double	rev_poly[MAX_DEGREE + 1];
 }				t_polynome4;
 
 typedef	struct 	s_vec3
@@ -191,6 +227,28 @@ typedef struct		s_cone
 	int cone_hit; // 1 = cone, 2 = low, 3 = top
 }					t_cone;
 
+typedef struct	s_inter_tor
+{
+	double		tmp_u;
+	double		tmp_v;
+	double		tmp_a;
+	double		tmp_b;
+	double		tmp_c;
+	double		tmp_d;
+}				t_inter_tor;
+
+typedef struct 	s_norm_tor
+{
+	t_vec3		a;
+	double		y;
+	t_vec3		b;
+	t_vec3		d;
+	double		c;
+	double		m;
+	t_vec3		k;
+	t_vec3		x;
+}				t_norm_tor;
+
 typedef struct 	s_torus
 {
 	t_vec3		pos;
@@ -198,6 +256,8 @@ typedef struct 	s_torus
 	double		r_min;
 	double		r_mjr;
 	t_material	mat;
+	t_inter_tor	intersect;
+	t_norm_tor	norm;
 }				t_torus;
 
 typedef struct		s_parab
@@ -510,25 +570,31 @@ int intersect_elips(t_ray r, void *p, double *t);
 int intersect_triangle(t_ray r, void *p, double *t);
 int intersect_mesh(t_ray r, void *p, double *t);
 int		expose(t_main *main);
-void x_object_rotation1(int keycode, t_main *main);
-void	x_object_rotation2(int keycode, t_main *main);
 
+void	x_object_rotation1(int keycode, t_main *main);
+void	x_object_rotation2(int keycode, t_main *main);
 void	x_object_rotation3(int keycode, t_main *main);
+void	x_object_rotation4(int keycode, t_main *main);
 void	y_object_rotation1(int keycode, t_main *main);
 void	y_object_rotation2(int keycode, t_main *main);
 void	y_object_rotation3(int keycode, t_main *main);
+void	y_object_rotation4(int keycode, t_main *main);
 void	z_object_rotation1(int keycode, t_main *main);
 void	z_object_rotation2(int keycode, t_main *main);
 void	z_object_rotation3(int keycode, t_main *main);
+void	z_object_rotation4(int keycode, t_main *main);
 void	x_object_translation1(int keycode, t_main *main);
 void	x_object_translation2(int keycode, t_main *main);
 void	x_object_translation3(int keycode, t_main *main);
+void	x_object_translation4(int keycode, t_main *main);
 void	y_object_translation1(int keycode, t_main *main);
 void	y_object_translation2(int keycode, t_main *main);
 void	y_object_translation3(int keycode, t_main *main);
+void	y_object_translation4(int keycode, t_main *main);
 void	z_object_translation1(int keycode, t_main *main);
 void	z_object_translation2(int keycode, t_main *main);
 void	z_object_translation3(int keycode, t_main *main);
+void	z_object_translation4(int keycode, t_main *main);
 
 int vec3_to_int(t_vec3 hitcolor);
 double	clamp(const double low, const double high, const double value);
@@ -536,4 +602,25 @@ t_vec3 reflect_ray(const t_vec3 i, const t_vec3 n);
 t_vec3 refract_ray(const t_vec3 i, const t_vec3 n, const double irefract);
 void	fresnel(const t_vec3 i, const t_vec3 n, const double irefract, double *amount);
 
+/*
+ * solve_polynome_4
+ */
+int solve_real_poly_1(int degree, const double *poly, double *results, t_polynome4 *solve);
+void solve_real_poly_2(int degree, const double *poly, t_polynome4 *solve, double a);
+double stableness_score(double a, double b);
+int solve_normalized_poly(int degree, const double *poly, double *results, t_polynome4 *solve);
+void calc_shifted_coefs(double shift, int degree, const double *src, double *dst);
+void calc_binomials(int num_binoms, int stride, double *dst);
+void calc_powers(double x, int max_power, double *dst);
+int solve_depressed_poly(int degree, const double *poly, double *results, t_polynome4 *solve);
+int solve_depressed_quartic_1(const double *poly, double *results, t_polynome4 *solve);
+void	solve_depressed_quartic_2(t_polynome4 *solve, double *results);
+void	solve_depressed_quartic_3(t_polynome4 *solve, double *results);
+int solve_depressed_cubic_1(const double *poly, double *results, t_polynome4 *solve);
+void	solve_depressed_cubic_2(t_polynome4 *solve);
+double cubic_root(double x);
+int solve_depressed_quadratic(const double *poly, double *results);
+/*
+ * solve_polynome_4
+ */
 #endif

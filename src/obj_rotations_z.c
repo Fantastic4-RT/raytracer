@@ -79,3 +79,15 @@ void	z_object_rotation3(int keycode, t_main *main)
 				m_apply(z_rot(-2 * RAD), data1->axis);
 	}
 }
+
+void	z_object_rotation4(int keycode, t_main *main)
+{
+	t_torus	*data1;
+
+	if (ft_strcmp(main->obj[main->mode.obj_index].type, "torus") == 0)
+	{
+		data1 = (t_torus *)main->obj[main->mode.obj_index].data;
+		data1->axis = keycode == 14 ? m_apply(z_rot(OBJ_ROT * RAD), data1->axis) :
+					  m_apply(z_rot(-OBJ_ROT * RAD), data1->axis);
+	}
+}

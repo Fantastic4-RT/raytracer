@@ -83,6 +83,7 @@ void	phong_col(t_ray *lray, t_vec3 df_sp[], t_thread *th, t_ray *ray)
 		t = sqrt(vec3_dp(lray->dir, lray->dir));
 		lray->dir = vec3_norm(lray->dir);
 		in_shadow = trace(*lray, &t, &curr, th);
+//		in_shadow = 0;
 		df_sp[0] = vec3_add(df_sp[0], vec3_mult(th->light[i].color,
 				(1 - in_shadow * (th->obj[curr].mattype == 1 ?
 				th->obj[curr].mat.transp : 1)) * fmax(0., vec3_dp(lray->dir,

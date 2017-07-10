@@ -87,3 +87,16 @@ void	x_object_translation3(int keycode, t_main *main)
 		}
 	}
 }
+
+void	x_object_translation4(int keycode, t_main *main)
+{
+	t_torus	*data;
+
+	if (ft_strcmp(main->obj[main->mode.obj_index].type, "torus") == 0)
+	{
+		data = (t_torus *)main->obj[main->mode.obj_index].data;
+		data->pos = keycode == 12 ?
+					 vec3_add(data->pos, vec3_create(1, 0, 0)) :
+					 vec3_sub(data->pos, vec3_create(1, 0, 0));
+	}
+}
