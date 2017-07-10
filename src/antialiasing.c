@@ -6,7 +6,7 @@
 /*   By: alohashc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 11:46:52 by alohashc          #+#    #+#             */
-/*   Updated: 2017/07/07 11:47:04 by alohashc         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:37:12 by alohashc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_vec3	ft_tracer_aa(t_thread *th, t_vec3 p)
 
 int		ft_col_av(t_thread *th, t_vec3 *col)
 {
-    int     res;
+	int		res;
 	int		i;
 	t_vec3	average;
 
@@ -66,9 +66,9 @@ int		ft_col_av(t_thread *th, t_vec3 *col)
 	average.x = sqrt(average.x / (th->main.scene.a_a == 1 ? 4 : 16));
 	average.y = sqrt(average.y / (th->main.scene.a_a == 1 ? 4 : 16));
 	average.z = sqrt(average.z / (th->main.scene.a_a == 1 ? 4 : 16));
-    if (th->main.scene.m_b == 1)
-        average = ft_mb(th);
-    res = vec3_to_int(average);
+	if (th->main.scene.m_b == 1)
+		average = ft_mb(th);
+	res = vec3_to_int(average);
 	return (res);
 }
 
@@ -96,7 +96,7 @@ void	ft_aa(t_thread *th, double dist, int x, int y)
 		}
 		n_y += 1. / (th->main.scene.a_a == 1 ? 2. : 5.);
 	}
-    *((int *)(th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
-    y * th->main.mlx.size_line)) = ft_col_av(th, col);
-    free(col);
+	*((int *)(th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
+				y * th->main.mlx.size_line)) = ft_col_av(th, col);
+	free(col);
 }
