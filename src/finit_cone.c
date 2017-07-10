@@ -12,6 +12,18 @@
 
 #include "rt.h"
 
+double	ft_check_min(double t1, double t2)
+{
+	double temp;
+
+	temp = 0;
+	if (t1 != 0 && t2 != 0)
+		temp = fmin(t1, t2);
+	else if (t1 != 0 || t2 != 0)
+		temp = fmax(t1, t2);
+	return (temp);
+}
+
 void	check_inters(t_ray r, t_cone *cone, double tt[], int tmp[])
 {
 	t_cone	cn;

@@ -6,23 +6,11 @@
 /*   By: alohashc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 11:47:49 by alohashc          #+#    #+#             */
-/*   Updated: 2017/07/07 11:47:54 by alohashc         ###   ########.fr       */
+/*   Updated: 2017/07/10 15:29:12 by alohashc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "rt.h"
-
-double	ft_check_min(double t1, double t2)
-{
-	double temp;
-
-	temp = 0;
-	if (t1 != 0 && t2 != 0)
-		temp = fmin(t1, t2);
-	else if (t1 != 0 || t2 != 0)
-		temp = fmax(t1, t2);
-	return (temp);
-}
+#include "rt.h"
 
 double	ft_find_caps(t_cyl *cyl, t_ray r, double t, t_vec3 p)
 {
@@ -85,25 +73,25 @@ int		solve_quadric_cut(t_abs solve, double *t_final, t_cyl *cyl, t_ray r)
 	double	res;
 	double	t[4];
 
-    if (solve.discr < 0)
-        retval = 0;
-    else
-    {
-        t[0] = (-solve.b + sqrt(solve.discr)) / (2 * solve.a);
-        t[1] = (-solve.b - sqrt(solve.discr)) / (2 * solve.a);
-        if (t[0] > t[1])
-        {
-            t[0] = t[1];
-        }
-        res = ft_check_between(cyl, r.pos, r.dir, t[0]);
-        ft_caps(cyl, r, t, &res);
-        if ((res > 0.001) && (res < *t_final))
-        {
-            *t_final = res;
-            retval = 1;
-        }
-        else
-            retval = 0;
-    }
-    return (retval);
+	if (solve.discr < 0)
+		retval = 0;
+	else
+	{
+		t[0] = (-solve.b + sqrt(solve.discr)) / (2 * solve.a);
+		t[1] = (-solve.b - sqrt(solve.discr)) / (2 * solve.a);
+		if (t[0] > t[1])
+		{
+			t[0] = t[1];
+		}
+		res = ft_check_between(cyl, r.pos, r.dir, t[0]);
+		ft_caps(cyl, r, t, &res);
+		if ((res > 0.001) && (res < *t_final))
+		{
+			*t_final = res;
+			retval = 1;
+		}
+		else
+			retval = 0;
+	}
+	return (retval);
 }

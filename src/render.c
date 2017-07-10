@@ -6,7 +6,7 @@
 /*   By: aradiuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 18:28:08 by aradiuk           #+#    #+#             */
-/*   Updated: 2017/07/03 18:28:10 by aradiuk          ###   ########.fr       */
+/*   Updated: 2017/07/10 19:33:07 by alohashc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,28 @@ void	free_thread(t_thread *data)
 	free(data->obj);
 }
 
+t_vec3	ft_sepia_grey(t_thread *th, t_vec3 col)
+{
+	double grey;
+
+	col = vec3_mult(col, 255);
+	grey = col.x * 0.3 + col.y * 0.59 + col.z * 0.11;
+	if (th->main.scene.sepia == 1)
+	{
+		col.x = grey > 206 ? 255 : grey + 49;
+		col.y = grey < 14 ? 0 : grey - 14;
+		col.z = grey < 56 ? 0 : grey - 56;
+	}
+	if (th->main.scene.grey == 1 && th->main.scene.sepia != 1)
+	{
+		col.x = grey;
+		col.y = grey;
+		col.z = grey;
+	}
+	col = vec3_mult(col, 1. / 255);
+	return (col);
+}
+
 void	one_ray(t_thread *th, double dist, int x, int y)
 {
 	t_vec3		p;
@@ -34,12 +56,14 @@ void	one_ray(t_thread *th, double dist, int x, int y)
 	th->main.cam.ray.dir = vec3_norm(vec3_sub(p, th->main.cam.start));
 	th->main.cam.ray.dir = m_apply(th->main.mxs.rot_cam, th->main.cam.ray.dir);
 	th->main.cam.ray.dir = m_apply(th->main.mxs.rot_dir, th->main.cam.ray.dir);
-    if (th->main.scene.m_b == 1)
-        col = ft_mb(th);
-    else
-        col = cast_ray(th, &th->main, th->main.cam.ray, 0);
-    *((int *)(th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
-              y * th->main.mlx.size_line)) = vec3_to_int(col);
+	if (th->main.scene.m_b == 1)
+		col = ft_mb(th);
+	else
+		col = cast_ray(th, &th->main, th->main.cam.ray, 0);
+	if (th->main.scene.sepia == 1 || th->main.scene.grey == 1)
+		col = ft_sepia_grey(th, col);
+	*((int *)(th->main.mlx.ipp + x * th->main.mlx.bpp / 8 +
+				y * th->main.mlx.size_line)) = vec3_to_int(col);
 }
 
 void	*render(void *data)
@@ -49,19 +73,19 @@ void	*render(void *data)
 	int			y;
 	double		dist;
 
-    th = (t_thread *)data;
+	th = (t_thread *)data;
 	dist = 1. / (2 * tan(FOV / 2.));
 	y = th->start - 1;
 	while (++y < th->end)
 	{
 		x = -1;
 		while (++x < th->main.scene.wid)
-        {
-            if (th->main.scene.a_a == 1 || th->main.scene.a_a == 2)
-                ft_aa(th, dist, x, y);
-            else
-                one_ray(th, dist, x, y);
-        }
+		{
+			if (th->main.scene.a_a == 1 || th->main.scene.a_a == 2)
+				ft_aa(th, dist, x, y);
+			else
+				one_ray(th, dist, x, y);
+		}
 	}
 	free_thread((t_thread *)data);
 	pthread_exit(data);

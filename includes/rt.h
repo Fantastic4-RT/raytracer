@@ -88,6 +88,8 @@ typedef struct	s_scene
 	int 	lights;
     int     a_a;
     int     m_b;
+    int     sepia;
+    int     grey;
 	double	amb;
 }				t_scene;
 
@@ -417,6 +419,7 @@ int intersect_cone_cut(t_ray r, void *s, double *t);
 
 int		intersect_cylind_cut(t_ray r, void *cyl, double *t);
 int		solve_quadric_cut(t_abs solve, double *t, t_cyl *cyl, t_ray r);
+double	ft_check_min(double t1, double t2);
 
 int		vec3_to_int(t_vec3 hitcolor);
 
