@@ -12,7 +12,7 @@
         <axis>15, 16, 17</axis>
         <cut>1</cut>
         <radius>-1500</radius>
-        <color>ffffff</color>
+        <color>FF0000</color>
         <diffuse>1000</diffuse>
         <specular>500</specular>
         <reflection>10</reflection>
