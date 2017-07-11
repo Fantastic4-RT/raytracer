@@ -88,6 +88,7 @@ typedef struct	s_scene
     int     m_b;
     int     sepia;
     int     grey;
+    int     eff;
 	double	amb;
 }				t_scene;
 

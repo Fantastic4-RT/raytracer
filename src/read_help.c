@@ -50,12 +50,8 @@ void	scene_line(int fd, t_main *main)
 					ft_atoi(tmp + ft_strlen("lights="));
 	tmp = ft_strstr(str, "aa=");
 	main->scene.a_a = tmp == 0 ? 0 : ft_atoi(tmp + ft_strlen("aa="));
-	tmp = ft_strstr(str, "mb=");
-	main->scene.m_b = tmp == 0 ? 0 : ft_atoi(tmp + ft_strlen("mb="));
-    tmp = ft_strstr(str, "sepia=");
-    main->scene.sepia = tmp == 0 ? 0 : ft_atoi(tmp + ft_strlen("sepia="));
-    tmp = ft_strstr(str, "grey=");
-    main->scene.grey = tmp == 0 ? 0 : ft_atoi(tmp + ft_strlen("grey="));
+	tmp = ft_strstr(str, "eff=");
+	main->scene.eff = tmp == 0 ? 0 : ft_atoi(tmp + ft_strlen("eff="));
 	tmp = ft_strstr(str, "ambient=");
 	main->scene.amb = tmp == 0 ? AMBIENT : ft_atof(tmp + ft_strlen("ambient="));
 	main->scene.objs == 0 ? error(4) : 0;
