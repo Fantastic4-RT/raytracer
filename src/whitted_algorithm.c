@@ -21,14 +21,14 @@ t_vec3	reflect_and_refract(t_vec3 hitcol, t_ray *ray, int depth, t_thread *th)
 	double	amount;
 
 	reflectray.dir = vec3_norm(reflect_ray(ray->dir, th->obj[th->main.curr].n));
-	reflectray.pos = (vec3_dp(reflectray.dir, th->obj[th->main.curr].n) < 0) ?
+	reflectray.pos = (vec3_dp(reflectray.dir, th->obj[th->main.curr].n) > 0) ?
 		vec3_add(th->obj[th->main.curr].hitpoint,
 		vec3_mult(th->obj[th->main.curr].n, 0.0001)) :
 		vec3_sub(th->obj[th->main.curr].hitpoint,
 		vec3_mult(th->obj[th->main.curr].n, 0.0001));
 	refractray.dir = vec3_norm(refract_ray(ray->dir, th->obj[th->main.curr].n,
 										th->obj[th->main.curr].mat.refract));
-	refractray.pos = (vec3_dp(refractray.dir, th->obj[th->main.curr].n) < 0) ?
+	refractray.pos = (vec3_dp(refractray.dir, th->obj[th->main.curr].n) > 0) ?
 		vec3_add(th->obj[th->main.curr].hitpoint,
 		vec3_mult(th->obj[th->main.curr].n, 0.0001)) :
 		vec3_sub(th->obj[th->main.curr].hitpoint,
