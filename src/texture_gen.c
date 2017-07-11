@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-void	toon_effect(t_vec3	df_sp[], t_vec3	*hitcolor, t_main *main)
+void	toon_effect(t_vec3 df_sp[], t_vec3 *hitcolor, t_main *main)
 {
 	if (df_sp[3].x > 0.95 && main->toon == 1)
 		*hitcolor = df_sp[2];

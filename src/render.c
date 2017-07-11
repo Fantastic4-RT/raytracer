@@ -23,28 +23,6 @@ void	free_thread(t_thread *data)
 	free(data->obj);
 }
 
-t_vec3	ft_sepia_grey(t_thread *th, t_vec3 col)
-{
-	double grey;
-
-	col = vec3_mult(col, 255);
-	grey = col.x * 0.3 + col.y * 0.59 + col.z * 0.11;
-	if (th->main.scene.sepia == 1)
-	{
-		col.x = grey > 206 ? 255 : grey + 49;
-		col.y = grey < 14 ? 0 : grey - 14;
-		col.z = grey < 56 ? 0 : grey - 56;
-	}
-	if (th->main.scene.grey == 1 && th->main.scene.sepia != 1)
-	{
-		col.x = grey;
-		col.y = grey;
-		col.z = grey;
-	}
-	col = vec3_mult(col, 1. / 255);
-	return (col);
-}
-
 void	one_ray(t_thread *th, double dist, int x, int y)
 {
 	t_vec3		p;

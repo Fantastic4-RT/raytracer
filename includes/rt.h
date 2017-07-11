@@ -375,6 +375,7 @@ void				print_status(t_main *main);
 void				check_inters(t_ray r, t_cone *cone, double tt[], int tmp[]);
 void				check_tt(double *t, double tt[], int tmp[]);
 int					intersect_cone_cut(t_ray r, void *s, double *t);
+t_vec3				ft_sepia_grey(t_thread *th, t_vec3 col);
 /*
 ** finit_cyl.c
 */
