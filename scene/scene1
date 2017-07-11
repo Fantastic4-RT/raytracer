@@ -1,22 +1,22 @@
-<scene width=1200 height=720 objects=10 lights=2 aa=0 ambient=0.2 eff=0>
+<scene width=1200 height=720 objects=10 lights=2 aa=1 ambient=0.2 eff=0>
 <camera>
        <position>0, 0, 150</position>
    </camera>
    <light>
-       <position>-20, 30, 50</position>
+       <position>-30, 30, 50</position>
        <color>ffffff</color>
        <direction>0, 0, 0</direction>
        <radius>0</radius>
    </light>
    <light>
-        <position>20, 30, 50</position>
+        <position>30, 30, 50</position>
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
         <radius>0</radius>
    </light>
    <object type="plane">
          <position>0, 0, -50</position>
-         <color>ff0000</color>
+         <color>cd88af</color>
          <diffuse>100</diffuse>
          <specular>50</specular>
          <reflection>0</reflection>
@@ -24,7 +24,7 @@
    </object>
    <object type="plane">
          <position>-10, 50, -10</position>
-         <color>ffff00</color>
+         <color>9775aa</color>
          <diffuse>100</diffuse>
          <specular>50</specular>
          <reflection>0</reflection>
@@ -32,7 +32,7 @@
    </object>
    <object type="plane">
          <position>-10, -30, -10</position>
-         <color>000fff</color>
+         <color>260339</color>
          <diffuse>100</diffuse>
          <specular>50</specular>
          <reflection>0</reflection>
@@ -40,7 +40,7 @@
    </object>
    <object type="plane">
           <position>-50, -30, -5</position>
-          <color>ffffff</color>
+          <color>9775aa</color>
           <diffuse>100</diffuse>
           <specular>50</specular>
           <reflection>0</reflection>
@@ -48,7 +48,7 @@
    </object>
    <object type="plane">
           <position>50, -30, -5</position>
-          <color>ffffff</color>
+          <color>9775aa</color>
           <diffuse>100</diffuse>
           <specular>50</specular>
           <reflection>0</reflection>
@@ -59,7 +59,7 @@
           <radius>5</radius>
           <cut>0</cut>
           <axis>0, 1, 0</axis>
-          <color>10a231</color>
+          <color>ffffaa</color>
           <diffuse>50</diffuse>
           <specular>100</specular>
           <reflection>0</reflection>
@@ -70,39 +70,39 @@
            <radius>5</radius>
            <cut>0</cut>
            <axis>0, 1, 0</axis>
-           <color>10a231</color>
+           <color>ffffaa</color>
            <diffuse>50</diffuse>
            <specular>100</specular>
            <reflection>0</reflection>
            <texture>0</texture>
    </object>
    <object type="cylinder">
-             <position1>20, 0, 40</position1>
+             <position1>30, 0, 40</position1>
              <radius>5</radius>
              <cut>0</cut>
              <axis>0, 1, 0</axis>
-             <color>10a231</color>
+             <color>d4ee9f</color>
              <diffuse>50</diffuse>
              <specular>100</specular>
              <reflection>0</reflection>
              <texture>0</texture>
       </object>
       <object type="cylinder">
-              <position1>-20, 0, 40</position1>
+              <position1>-30, 0, 40</position1>
               <radius>5</radius>
               <cut>0</cut>
               <axis>0, 1, 0</axis>
-              <color>10a231</color>
+              <color>d4ee9f</color>
               <diffuse>50</diffuse>
               <specular>100</specular>
               <reflection>0</reflection>
               <texture>0</texture>
       </object>
       <object type="sphere">
-                    <position>0, -20, 0</position>
+                    <position>0, -20, 10</position>
                     <radius>10</radius>
                     <cut>0</cut>
-                    <color>10a231</color>
+                    <color>fdc212</color>
                     <diffuse>50</diffuse>
                     <specular>100</specular>
                     <reflection>0</reflection>
