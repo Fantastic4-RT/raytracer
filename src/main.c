@@ -61,7 +61,6 @@ void	default_values(t_main *main)
 	main->mxs.cam_angle = vec3_create(0, 0, 0);
 	main->mxs.dir_angle = vec3_create(0, 0, 0);
 	matrices(main);
-	main->cam.fov = 45;
 	main->cam.start = main->cam.ray.pos;
 	main->cam.ray.pos = m_apply(main->mxs.rot_cam, main->cam.ray.pos);
 }
@@ -76,10 +75,10 @@ int		main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error(1);
-	main.uv = 0;
 	main.pic = 0;
 	main.mode.start = 1;
 	main.mode.loaded = 0;
+	main.toon = 0;
 	read_file(fd, &main);
 	mlx_initialise(&main);
 	return (0);

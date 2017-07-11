@@ -34,8 +34,6 @@ void	cam_params(char *str, t_main *main, int pos_rot_fov)
 		main->cam.rot = vec3_fill_atoi(arr);
 		free_arr_tmp(arr, tmp);
 	}
-	else if (pos_rot_fov == 3)
-		main->cam.fov = ft_atoi(str) * RAD;
 }
 
 void	light_params(char *str, t_main *main, int pos_dir_col)
@@ -52,7 +50,7 @@ void	light_params(char *str, t_main *main, int pos_dir_col)
 						255, (color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
 	}
-	else
+	else if (pos_dir_col == 1 || pos_dir_col == 2)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen(pos_dir_col == 1 ?
 											"</position>" : "</direction>"));
@@ -63,6 +61,8 @@ void	light_params(char *str, t_main *main, int pos_dir_col)
 			main->light[main->light_i].ray.dir = vec3_fill_atoi(arr);
 		free_arr_tmp(arr, tmp);
 	}
+	else
+		main->light[main->light_i].rad = ft_atoi(str);
 }
 
 void	choose_object(char *str, t_main *main)
@@ -105,14 +105,14 @@ void	cam_light_obj_line(char *str, t_main *main, int cam_light_obj)
 		cam_params(str + ft_strlen("<position>"), main, 1);
 	if (cam_light_obj == 1 && ft_strstr(str, "<rotation>"))
 		cam_params(str + ft_strlen("<rotation>"), main, 2);
-	if (cam_light_obj == 1 && ft_strstr(str, "<fov>"))
-		cam_params(str + ft_strlen("<fov>"), main, 3);
 	if (cam_light_obj == 2 && ft_strstr(str, "<position>"))
 		light_params(str + ft_strlen("<position>"), main, 1);
 	if (cam_light_obj == 2 && ft_strstr(str, "<direction>"))
 		light_params(str + ft_strlen("<direction>"), main, 2);
 	if (cam_light_obj == 2 && ft_strstr(str, "<color>"))
 		light_params(str + ft_strlen("<color>"), main, 3);
+	if (cam_light_obj == 2 && ft_strstr(str, "<radius>"))
+		light_params(str + ft_strlen("<radius>"), main, 4);
 	if (cam_light_obj == 3 && ft_strstr(str, "<object"))
 	{
 		t = ft_strstr(str, "type=") + 6;

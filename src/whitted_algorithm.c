@@ -68,29 +68,29 @@ t_vec3	reflection(t_vec3 hitcol, t_ray ray, int depth, t_thread *th)
 
 void	phong_col(t_ray *lray, t_vec3 df_sp[], t_thread *th, t_ray *ray)
 {
-	t_vec3	reflectray_dir;
-	ssize_t curr;
+	ssize_t cur[2];
 	int		i;
-	double	t;
-	int		in_shadow;
+	double	t[2];
+	t_light	l;
 
 	i = -1;
 	while (++i < th->main.scene.lights)
 	{
-		curr = -1;
-		lray->dir = vec3_sub(th->light[i].ray.pos,
-							th->obj[th->main.curr].hitpoint);
-		t = sqrt(vec3_dp(lray->dir, lray->dir));
+		cur[0] = -1;
+		l = th->light[i];
+		if (!vec3_eq(l.ray.dir, vec3_zero()) && !l.rad)
+			l.ray.pos = vec3_add(th->obj[th->main.curr].hitpoint, l.ray.dir);
+		lray->dir = vec3_sub(l.ray.pos, th->obj[th->main.curr].hitpoint);
+		t[0] = vec3_length(lray->dir);
+		t[1] = vec3_length(vec3_sub(l.ray.dir, lray->dir)) && l.rad;
 		lray->dir = vec3_norm(lray->dir);
-		in_shadow = trace(*lray, &t, &curr, th);
-		df_sp[0] = vec3_add(df_sp[0], vec3_mult(th->light[i].color,
-				(1 - in_shadow * (th->obj[curr].mattype == 1 ?
-				th->obj[curr].mat.transp : 1)) * fmax(0., vec3_dp(lray->dir,
-				th->obj[th->main.curr].n))));
-		reflectray_dir = reflect_ray(vec3_invert(lray->dir),
-								th->obj[th->main.curr].n);
-		df_sp[1] = vec3_add(df_sp[1], vec3_mult(th->light[i].color, (1 -
-				in_shadow) * pow(fmax(0., -vec3_dp(reflectray_dir, ray->dir)),
+		cur[1] = trace(*lray, &t[0], &cur[0], th) || t[1] > l.rad;
+		df_sp[0] = vec3_add(df_sp[0], vec3_mult(l.color, (1 - cur[1] *
+				(th->obj[cur[0]].mattype == 1 ? th->obj[cur[0]].mat.transp :
+				1)) * fmax(0., vec3_dp(lray->dir, th->obj[th->main.curr].n))));
+		df_sp[1] = vec3_add(df_sp[1], vec3_mult(l.color, (1 - cur[1])
+				* pow(fmax(0., -vec3_dp(reflect_ray(vec3_invert(lray->dir),
+				th->obj[th->main.curr].n), ray->dir)),
 				th->obj[th->main.curr].mat.spec)));
 	}
 }
@@ -98,17 +98,23 @@ void	phong_col(t_ray *lray, t_vec3 df_sp[], t_thread *th, t_ray *ray)
 t_vec3	diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th)
 {
 	t_ray	lray;
-	t_vec3	df_sp[2];
+	t_vec3	df_sp[4];
 
-	df_sp[0] = vec3_create(0, 0, 0);
-	df_sp[1] = vec3_create(0, 0, 0);
+	df_sp[0] = vec3_zero();
+	df_sp[1] = vec3_zero();
 	lray.pos = (vec3_dp(ray->dir, th->obj[main->curr].n) < 0) ?
 			vec3_add(th->obj[main->curr].hitpoint,
 			vec3_mult(th->obj[main->curr].n, 0.00001)) :
 			vec3_sub(th->obj[main->curr].hitpoint,
 			vec3_mult(th->obj[main->curr].n, 0.00001));
 	phong_col(&lray, df_sp, th, ray);
-	hitcolor = vec3_add(hitcolor, vec3_add(vec3_mult(vec3_comp_dp(df_sp[0],
+	df_sp[2] = vec3_add(hitcolor, vec3_mult(vec3_comp_dp(df_sp[0],
+				th->obj[main->curr].mat.color), th->obj[main->curr].mat.diff));
+	df_sp[3].x = fmax(vec3_dp(th->obj[main->curr].n, lray.dir), 0.0);
+	if (main->toon == 1)
+		toon_effect(df_sp, &hitcolor, main);
+	else if (main->toon == 0)
+		hitcolor = vec3_add(hitcolor, vec3_add(vec3_mult(vec3_comp_dp(df_sp[0],
 				th->obj[main->curr].mat.color), th->obj[main->curr].mat.diff),
 													vec3_mult(df_sp[1], SPEC)));
 	return (hitcolor);
@@ -121,8 +127,9 @@ t_vec3	cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 	double	t;
 
 	if (depth > MAXDEPTH)
-		return (vec3_create(0., 0., 0.));
-	hitcol = vec3_create(0., 0., 0.);
+		return (vec3_zero());
+	hitcol = vec3_zero();
+	t = 2000000.0;
 	if (trace(ray, &t, &main->curr, th))
 	{
 		obj = &th->obj[main->curr];
@@ -130,15 +137,14 @@ t_vec3	cast_ray(t_thread *th, t_main *main, t_ray ray, int depth)
 		obj->n = vec3_norm(obj->normal(obj->data, obj->hitpoint));
 		main->diff_col = diffuse(vec3_mult(obj->mat.color, th->main.scene.amb),
 																&ray, main, th);
-		if (obj->texture != 0)
-			find_pixel_color(th, main);
+		obj->texture != 0 ? find_pixel_color(th, main) : 0;
 		if (obj->mattype == REFLECT_REFRACT)
 			hitcol = reflect_and_refract(hitcol, &ray, depth, th);
 		else if (obj->mattype == REFLECT)
 			hitcol = reflection(hitcol, ray, depth, th);
 		else
 			hitcol = diffuse(vec3_mult(obj->mat.color, th->main.scene.amb),
-																&ray, main, th);
+							&ray, main, th);
 	}
 	return (hitcol);
 }
