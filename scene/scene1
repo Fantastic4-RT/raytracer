@@ -66,45 +66,45 @@
           <texture>0</texture>
    </object>
    <object type="cylinder">
-           <position1>-20, 0, -5</position1>
-           <radius>5</radius>
-           <cut>0</cut>
-           <axis>0, 1, 0</axis>
-           <color>ffffaa</color>
-           <diffuse>50</diffuse>
-           <specular>100</specular>
-           <reflection>0</reflection>
-           <texture>0</texture>
+          <position1>-20, 0, -5</position1>
+          <radius>5</radius>
+          <cut>0</cut>
+          <axis>0, 1, 0</axis>
+          <color>ffffaa</color>
+          <diffuse>50</diffuse>
+          <specular>100</specular>
+          <reflection>0</reflection>
+          <texture>0</texture>
    </object>
    <object type="cylinder">
-             <position1>30, 0, 40</position1>
-             <radius>5</radius>
-             <cut>0</cut>
-             <axis>0, 1, 0</axis>
-             <color>d4ee9f</color>
-             <diffuse>50</diffuse>
-             <specular>100</specular>
-             <reflection>0</reflection>
-             <texture>0</texture>
-      </object>
-      <object type="cylinder">
-              <position1>-30, 0, 40</position1>
-              <radius>5</radius>
-              <cut>0</cut>
-              <axis>0, 1, 0</axis>
-              <color>d4ee9f</color>
-              <diffuse>50</diffuse>
-              <specular>100</specular>
-              <reflection>0</reflection>
-              <texture>0</texture>
-      </object>
-      <object type="sphere">
-                    <position>0, -20, 10</position>
-                    <radius>10</radius>
-                    <cut>0</cut>
-                    <color>fdc212</color>
-                    <diffuse>50</diffuse>
-                    <specular>100</specular>
-                    <reflection>0</reflection>
-                 </object>
+          <position1>30, 0, 40</position1>
+          <radius>5</radius>
+          <cut>0</cut>
+          <axis>0, 1, 0</axis>
+          <color>d4ee9f</color>
+          <diffuse>50</diffuse>
+          <specular>100</specular>
+          <reflection>0</reflection>
+          <texture>0</texture>
+   </object>
+   <object type="cylinder">
+          <position1>-30, 0, 40</position1>
+          <radius>5</radius>
+          <cut>0</cut>
+          <axis>0, 1, 0</axis>
+          <color>d4ee9f</color>
+          <diffuse>50</diffuse>
+          <specular>100</specular>
+          <reflection>0</reflection>
+          <texture>0</texture>
+   </object>
+   <object type="sphere">
+          <position>0, -20, 10</position>
+          <radius>10</radius>
+          <cut>0</cut>
+          <color>fdc212</color>
+          <diffuse>50</diffuse>
+          <specular>100</specular>
+          <reflection>0</reflection>
+   </object>
 </scene>
