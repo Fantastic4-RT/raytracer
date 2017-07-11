@@ -543,6 +543,7 @@ t_vec3				int_to_vec3(int color);
 void				perlin_noise(t_main *main, float zoom);
 void				generate_textures(t_main *main);
 void				change_texture(int keycode, t_main *main);
+void				toon_effect(t_vec3	df_sp[], t_vec3	*hitcol, t_main *main);
 /*
 ** textures.c
 */

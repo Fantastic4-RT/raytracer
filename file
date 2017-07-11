@@ -28,7 +28,7 @@
                      <diffuse>50</diffuse>
                      <specular>100</specular>
                      <reflection>0</reflection>
-                     <texture>1</texture>
+                     <texture>0</texture>
                   </object>
 </scene>
 
