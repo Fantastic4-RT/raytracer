@@ -285,6 +285,7 @@ typedef	struct		s_thread
 	t_main		main;
 	t_obj		*obj;
 	t_light		*light;
+	int			start;
 	int			end;
 }					t_thread;
 

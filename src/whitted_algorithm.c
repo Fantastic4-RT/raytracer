@@ -111,7 +111,9 @@ t_vec3	diffuse(t_vec3 hitcolor, t_ray *ray, t_main *main, t_thread *th)
 	df_sp[2] = vec3_add(hitcolor, vec3_mult(vec3_comp_dp(df_sp[0],
 				th->obj[main->curr].mat.color), th->obj[main->curr].mat.diff));
 	df_sp[3].x = fmax(vec3_dp(th->obj[main->curr].n, lray.dir), 0.0);
-	if (df_sp[3].x > 0.5 && df_sp[2].x < 0.95 && main->toon == 1)
+	if (df_sp[3].x > 0.95)
+		hitcolor = df_sp[2];
+	else if (df_sp[3].x > 0.5 && df_sp[2].x < 0.95 && main->toon == 1)
 		hitcolor = vec3_mult(df_sp[2], 0.7);
 	else if (df_sp[3].x > 0.2 && df_sp[3].x < 0.95 && main->toon == 1)
 		hitcolor = vec3_mult(df_sp[2], 0.2);

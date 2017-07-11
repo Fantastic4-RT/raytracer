@@ -81,7 +81,7 @@ int		main(int argc, char **argv)
 	/*
 		main.toon = 1;		PUT THIS INTO MOTION_BLUR OR SMTH ELSE PARAM
 	 */
-	main.toon = 0;
+	main.toon = 1;
 	read_file(fd, &main);
 	mlx_initialise(&main);
 	return (0);
