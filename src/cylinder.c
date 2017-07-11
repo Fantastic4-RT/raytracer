@@ -36,7 +36,7 @@ void	cyl_params_2(char *str, t_cyl *cyl, int param)
 	if (param == 5)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
-		color = ft_atoi_base(tmp, "0123456789abcdef");
+		color = ft_atoi_base(ft_lowercase(tmp), "0123456789abcdef");
 		cyl->mat.color = vec3_create((color >> 16 & 0xFF) / 255.,
 						(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);

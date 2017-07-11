@@ -50,8 +50,17 @@ void	error(int param)
 
 void	default_values(t_main *main)
 {
+	int		i;
+
+	i = -1;
 	main->light = (t_light *)malloc(sizeof(t_light) * main->scene.lights);
 	main->obj = (t_obj *)malloc(sizeof(t_obj) * main->scene.objs);
+	while (++i < main->scene.lights)
+	{
+		main->light[i].ray.pos = vec3_zero();
+		main->light[i].ray.dir = vec3_zero();
+		main->light[i].rad = 0;
+	}
 	main->obj_i = 0;
 	main->light_i = 0;
 	main->flag.cam = 0;
