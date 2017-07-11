@@ -1,5 +1,5 @@
 <scene width=1200 height=720 objects=10 lights=2 aa=1 ambient=0.2 eff=0>
-<camera>
+   <camera>
        <position>0, 0, 150</position>
    </camera>
    <light>
