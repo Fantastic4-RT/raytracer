@@ -55,8 +55,8 @@ double	sin_stripes(t_vec3 p, t_thread *th, int w)
 	int c1;
 	int c2;
 
-	c1 = 0xFF0000;
-	c2 = 0x00FF00;
+	c1 = 0xFFFFFF;
+	c2 = 0x000000;
 	if (th->obj[th->main.curr].texture == 1)
 	{
 		if (((sin(M_PI * p.x / w) > 0 && sin(M_PI * p.y / w) > 0))
