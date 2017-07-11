@@ -87,3 +87,29 @@ void	z_object_translation3(int keycode, t_main *main)
 				vec3_sub(data1->pos, vec3_create(0, 0, 1));
 	}
 }
+
+void	z_object_translation4(int keycode, t_main *main)
+{
+	t_torus	*data;
+
+	if (ft_strcmp(main->obj[main->mode.obj_index].type, "torus") == 0)
+	{
+		data = (t_torus *)main->obj[main->mode.obj_index].data;
+		data->pos = keycode == 14 ?
+					vec3_add(data->pos, vec3_create(0, 0, 1)) :
+					vec3_sub(data->pos, vec3_create(0, 0, 1));
+	}
+}
+
+void	z_object_rotation5(int keycode, t_main *main)
+{
+	t_torus	*data1;
+
+	if (ft_strcmp(main->obj[main->mode.obj_index].type, "torus") == 0)
+	{
+		data1 = (t_torus *)main->obj[main->mode.obj_index].data;
+		data1->axis = keycode == 14 ? m_apply(z_rot(OBJ_ROT * RAD),
+			data1->axis) : m_apply(z_rot(-OBJ_ROT * RAD), data1->axis);
+		z_dirextions_rot(keycode, main);
+	}
+}

@@ -19,6 +19,7 @@ void	rotate_objects(int keycode, t_main *main)
 		x_object_rotation1(keycode, main);
 		x_object_rotation2(keycode, main);
 		x_object_rotation3(keycode, main);
+		x_object_rotation4(keycode, main);
 		image(main);
 	}
 	else if (keycode == 13 || keycode == 1)
@@ -27,14 +28,12 @@ void	rotate_objects(int keycode, t_main *main)
 		y_object_rotation2(keycode, main);
 		y_object_rotation3(keycode, main);
 		y_object_rotation4(keycode, main);
+		y_object_rotation5(keycode, main);
 		image(main);
 	}
 	else if (keycode == 14 || keycode == 2)
 	{
-		z_object_rotation1(keycode, main);
-		z_object_rotation2(keycode, main);
-		z_object_rotation3(keycode, main);
-		z_object_rotation4(keycode, main);
+		z_obj_rot(keycode, main);
 		image(main);
 	}
 }
@@ -124,6 +123,7 @@ void	move_objects(int keycode, t_main *main)
 		x_object_translation1(keycode, main);
 		x_object_translation2(keycode, main);
 		x_object_translation3(keycode, main);
+		x_object_translation4(keycode, main);
 		image(main);
 	}
 	else if (keycode == 13 || keycode == 1)
@@ -131,6 +131,7 @@ void	move_objects(int keycode, t_main *main)
 		y_object_translation1(keycode, main);
 		y_object_translation2(keycode, main);
 		y_object_translation3(keycode, main);
+		y_object_translation4(keycode, main);
 		image(main);
 	}
 	else if (keycode == 14 || keycode == 2)
@@ -138,6 +139,7 @@ void	move_objects(int keycode, t_main *main)
 		z_object_translation1(keycode, main);
 		z_object_translation2(keycode, main);
 		z_object_translation3(keycode, main);
+		z_object_translation4(keycode, main);
 		image(main);
 	}
 }

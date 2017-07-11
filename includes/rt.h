@@ -37,6 +37,7 @@
 # define ROT_ANGLE 15* RAD
 # define OBJ_ROT 2
 # define TEXT_S 256
+# define MAX_DEGREE 4
 
 typedef struct		s_abs
 {
@@ -46,7 +47,52 @@ typedef struct		s_abs
 	double		discr;
 }					t_abs;
 
-typedef	struct		s_vec3
+typedef struct 	s_cube
+{
+	double	q;
+	double	p;
+	double	t;
+	double	u;
+	double	s_real;
+	double	s_abs;
+	double	s_phase;
+	double	u_abs;
+	double	u_phase;
+	double	u_real;
+}				t_cube;
+
+typedef struct 	s_quad
+{
+	double	helper_cubic[4];
+	double	helper_results[3];
+	double	quadratic_factor[3];
+	double	p;
+	double	e;
+	double	d;
+	double	c;
+	int		num_results;
+	int		num_quad_results;
+	double	quadratic[3];
+	double	quadratic_results[2];
+	double	s;
+}				t_quad;
+
+typedef struct	s_polynome4
+{
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+	double	e;
+	double	x[4];
+	t_cube	d_cube;
+	t_quad	d_quad;
+	double	poly[5];
+	double	normalized_poly[MAX_DEGREE + 1];
+	double	rev_poly[MAX_DEGREE + 1];
+}				t_polynome4;
+
+typedef	struct 	s_vec3
 {
 	double		x;
 	double		y;
@@ -172,6 +218,39 @@ typedef struct		s_cone
 	t_material	mat;
 	int			cone_hit;
 }					t_cone;
+
+typedef struct	s_inter_tor
+{
+	double		tmp_u;
+	double		tmp_v;
+	double		tmp_a;
+	double		tmp_b;
+	double		tmp_c;
+	double		tmp_d;
+}				t_inter_tor;
+
+typedef struct 	s_norm_tor
+{
+	t_vec3		a;
+	double		y;
+	t_vec3		b;
+	t_vec3		d;
+	double		c;
+	double		m;
+	t_vec3		k;
+	t_vec3		x;
+}				t_norm_tor;
+
+typedef struct 	s_torus
+{
+	t_vec3		pos;
+	t_vec3		axis;
+	double		r_min;
+	double		r_mjr;
+	t_material	mat;
+	t_inter_tor	intersect;
+	t_norm_tor	norm;
+}				t_torus;
 
 typedef struct		s_parab
 {
@@ -342,6 +421,7 @@ void				add_cone(char *str, t_main *main);
 int					inter_ray_sphere_cut(t_ray r, void *sphere, double *t);
 int					intersect_cylind_cut(t_ray r, void *cyl, double *t);
 int					intersect_parab(t_ray r, void *par, double *t);
+void				z_obj_rot(int keycode, t_main *main);
 /*
 ** cut_normals.c
 */
@@ -450,6 +530,7 @@ t_vec3				parab_norm(void *data, t_vec3 hitpoint);
 void				x_object_rotation1(int keycode, t_main *main);
 void				x_object_rotation2(int keycode, t_main *main);
 void				x_object_rotation3(int keycode, t_main *main);
+void				x_object_rotation4(int keycode, t_main *main);
 void				x_dirextions_rot(int keycode, t_main *main);
 /*
 ** obj_rotations_y.c
@@ -473,18 +554,23 @@ void				z_dirextions_rot(int keycode, t_main *main);
 void				x_object_translation1(int keycode, t_main *main);
 void				x_object_translation2(int keycode, t_main *main);
 void				x_object_translation3(int keycode, t_main *main);
+void				x_object_translation4(int keycode, t_main *main);
 /*
 ** obj_translations_y.c
 */
 void				y_object_translation1(int keycode, t_main *main);
 void				y_object_translation2(int keycode, t_main *main);
 void				y_object_translation3(int keycode, t_main *main);
+void				y_object_translation4(int keycode, t_main *main);
+void				y_object_rotation5(int keycode, t_main *main);
 /*
 ** obj_translations_z.c
 */
 void				z_object_translation1(int keycode, t_main *main);
 void				z_object_translation2(int keycode, t_main *main);
 void				z_object_translation3(int keycode, t_main *main);
+void				z_object_translation4(int keycode, t_main *main);
+void				z_object_rotation5(int keycode, t_main *main);
 /*
 ** object_functions.c
 */
@@ -601,4 +687,44 @@ t_vec3				ft_mb(t_thread *th);
 void				ft_check_type(t_thread *th);
 void				ft_check_type_minus(t_thread *th);
 t_vec3				ft_col_av1(t_vec3 *col);
+/*
+** 	torus.c
+*/
+void	*default_torus(t_torus *torus);
+void	torus_params(char *str, t_torus *torus, int param);
+void	fill_torus_data(char *str, t_torus *torus);
+void	add_torus(char *str, t_main *main);
+/*
+** 	torus_intrsect_normals.c
+*/
+double		fmin_custom(double a, double b);
+double		min_res(t_polynome4 *solve);
+int			solve_polynome_4(double *t, t_polynome4 *solve);
+t_vec3		torus_norm(void *data, t_vec3 hitpoint);
+int			intersect_torus(t_ray r, void *tor, double *t);
+/*
+** 	polynome_4_resolve_1.c
+*/
+int solve_real_poly_1(int degree, const double *poly, double *results, t_polynome4 *solve);
+void solve_real_poly_2(int degree, const double *poly, t_polynome4 *solve, double a);
+double stableness_score(double a, double b);
+int solve_normalized_poly(int degree, const double *poly, double *results, t_polynome4 *solve);
+void calc_shifted_coefs(double shift, int degree, const double *src, double *dst);
+/*
+** 	polynome_4_resolve_2.c
+*/
+void calc_binomials(int num_binoms, int stride, double *dst);
+void calc_powers(double x, int max_power, double *dst);
+int solve_depressed_poly(int degree, const double *poly, double *results, t_polynome4 *solve);
+double cubic_root(double x);
+int solve_depressed_quadratic(const double *poly, double *results);
+/*
+** 	polynome_4_resolve_3.c
+*/
+int solve_depressed_quartic_1(const double *poly, double *results, t_polynome4 *solve);
+void	solve_depressed_quartic_2(t_polynome4 *solve, double *results);
+void	solve_depressed_quartic_3(t_polynome4 *solve, double *results);
+int solve_depressed_cubic_1(const double *poly, double *results, t_polynome4 *solve);
+void	solve_depressed_cubic_2(t_polynome4 *solve);
+
 #endif

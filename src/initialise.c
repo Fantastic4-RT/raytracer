@@ -27,6 +27,8 @@ void	ml_d(t_obj *obj1, t_obj *obj2, char *str)
 	if (ft_strcmp(str, "paraboloid") == 0 &&
 										(obj1->data = malloc(sizeof(t_parab))))
 		*((t_parab *)obj1->data) = *((t_parab *)obj2->data);
+	if (ft_strcmp(str, "torus") == 0 && (obj1->data = malloc(sizeof(t_torus))))
+		*((t_torus *)obj1->data) = *((t_torus *)obj2->data);
 }
 
 void	pthreading(t_main *main)

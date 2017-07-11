@@ -83,6 +83,7 @@ int		main(int argc, char **argv)
 	main.scene.m_b = main.scene.eff == 1 ? 1 : 0;
 	main.scene.grey = main.scene.eff == 2 ? 1 : 0;
 	main.scene.sepia = main.scene.eff == 3 ? 1 : 0;
+	main.toon = main.scene.eff == 4 ? 1 : 0;
 	mlx_initialise(&main);
 	return (0);
 }

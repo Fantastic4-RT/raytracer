@@ -82,3 +82,12 @@ int		intersect_parab(t_ray r, void *par, double *t)
 	solve.discr = solve.b * solve.b - 4 * solve.a * solve.c;
 	return (solve_quadric(solve.discr, t, solve.b, solve.a));
 }
+
+void	z_obj_rot(int keycode, t_main *main)
+{
+	z_object_rotation1(keycode, main);
+	z_object_rotation2(keycode, main);
+	z_object_rotation3(keycode, main);
+	z_object_rotation4(keycode, main);
+	z_object_rotation5(keycode, main);
+}

@@ -102,3 +102,16 @@ void	x_object_rotation3(int keycode, t_main *main)
 		data3->axis = keycode == 12 ? m_apply(x_rot(OBJ_ROT * RAD), data3->axis)
 		: m_apply(x_rot(-OBJ_ROT * RAD), data3->axis);
 }
+
+void	x_object_rotation4(int keycode, t_main *main)
+{
+	t_torus	*data1;
+
+	if (ft_strcmp(main->obj[main->mode.obj_index].type, "torus") == 0)
+	{
+		data1 = (t_torus *)main->obj[main->mode.obj_index].data;
+		data1->axis = keycode == 12 ? m_apply(x_rot(OBJ_ROT * RAD),
+			data1->axis) : m_apply(x_rot(-OBJ_ROT * RAD), data1->axis);
+		x_dirextions_rot(keycode, main);
+	}
+}

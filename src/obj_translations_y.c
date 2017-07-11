@@ -87,3 +87,29 @@ void	y_object_translation3(int keycode, t_main *main)
 		}
 	}
 }
+
+void	y_object_translation4(int keycode, t_main *main)
+{
+	t_torus	*data;
+
+	if (ft_strcmp(main->obj[main->mode.obj_index].type, "torus") == 0)
+	{
+		data = (t_torus *)main->obj[main->mode.obj_index].data;
+		data->pos = keycode == 13 ?
+					vec3_add(data->pos, vec3_create(0, 1, 0)) :
+					vec3_sub(data->pos, vec3_create(0, 1, 0));
+	}
+}
+
+void	y_object_rotation5(int keycode, t_main *main)
+{
+	t_torus	*data1;
+
+	if (ft_strcmp(main->obj[main->mode.obj_index].type, "torus") == 0)
+	{
+		data1 = (t_torus *)main->obj[main->mode.obj_index].data;
+		data1->axis = keycode == 13 ? m_apply(y_rot(OBJ_ROT * RAD),
+			data1->axis) : m_apply(y_rot(-OBJ_ROT * RAD), data1->axis);
+		y_dirextions_rot(keycode, main);
+	}
+}
