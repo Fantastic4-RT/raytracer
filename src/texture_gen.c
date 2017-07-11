@@ -12,6 +12,18 @@
 
 #include "rt.h"
 
+void	toon_effect(t_vec3	df_sp[], t_vec3	*hitcolor, t_main *main)
+{
+	if (df_sp[3].x > 0.95 && main->toon == 1)
+		*hitcolor = df_sp[2];
+	else if (df_sp[3].x > 0.5 && df_sp[2].x < 0.95 && main->toon == 1)
+		*hitcolor = vec3_mult(df_sp[2], 0.7);
+	else if (df_sp[3].x > 0.2 && df_sp[3].x < 0.5 && main->toon == 1)
+		*hitcolor = vec3_mult(df_sp[2], 0.2);
+	else if (df_sp[3].x < 0.2 && main->toon == 1)
+		*hitcolor = vec3_mult(df_sp[2], 0.05);
+}
+
 t_vec3	int_to_vec3(int color)
 {
 	return (vec3_create(((color >> 16) & 0xFF) / 255.0,
