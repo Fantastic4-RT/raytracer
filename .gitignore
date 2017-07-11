@@ -50,6 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+RT
 rt
 .DS*
 ._.DS*
@@ -58,3 +59,4 @@ rt
 cmake-build-debug
 .idea
 CMakeLists.txt
+minilibx
