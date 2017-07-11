@@ -23,8 +23,8 @@
       <diffuse>50</diffuse>
       <specular>100</specular>
       <reflection>1</reflection>
-            <refraction>1.008</refraction>
-            <transparency>100<transparency>
+      <refraction>1.008</refraction>
+      <transparency>100<transparency>
    </object>
    <object type="sphere">
       <position>52, 10, 20</position>
@@ -33,8 +33,8 @@
       <diffuse>50</diffuse>
       <specular>100</specular>
       <reflection>1</reflection>
-            <refraction>1.01</refraction>
-            <transparency>100<transparency>
+      <refraction>1.01</refraction>
+      <transparency>100<transparency>
    </object>
    <object type="plane">
       <position>0, 0, -100</position>
@@ -129,11 +129,11 @@
       <specular>100</specular>
    </object>
    <object type="cylinder">
-       <position1>0, -20, -10</position1>
-       <axis>1, 0, 0</axis>
-       <radius>5</radius>
-       <color>9BC0D4</color>
-       <diffuse>50</diffuse>
-       <specular>100</specular>
+      <position1>0, -20, -10</position1>
+      <axis>1, 0, 0</axis>
+      <radius>5</radius>
+      <color>9BC0D4</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
    </object>
 </scene>
