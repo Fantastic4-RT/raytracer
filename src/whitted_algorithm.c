@@ -90,8 +90,8 @@ void	phong_col(t_ray *lray, t_vec3 df_sp[], t_thread *th, t_ray *ray)
 		double	a = ft_check_min(t[0], t[1]);
 		cur[1] = trace(*lray, &a, &cur[0], th) || t[1] > l.rad;
 		df_sp[0] = vec3_add(df_sp[0], vec3_mult(l.color, (1 - cur[1] *
-				(th->obj[cur[0]].mattype == 1 ? th->obj[cur[0]].mat.transp :
-				1)) * fmax(0., vec3_dp(lray->dir, th->obj[th->main.curr].n))));
+			(th->obj[cur[0]].mattype == 1 ? (1 - th->obj[cur[0]].mat.transp) :
+			1)) * fmax(0., vec3_dp(lray->dir, th->obj[th->main.curr].n))));
 		df_sp[1] = vec3_add(df_sp[1], vec3_mult(l.color, (1 - cur[1])
 				* pow(fmax(0., -vec3_dp(reflect_ray(vec3_invert(lray->dir),
 				th->obj[th->main.curr].n), ray->dir)),
