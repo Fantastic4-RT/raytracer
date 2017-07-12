@@ -31,7 +31,7 @@ void	*default_sphere(t_sphere *sphere)
 
 void	sphere_params_2(char *str, t_sphere *sphere, int param)
 {
-	sphere->rad = param == 2 ? ft_atoi(str) : sphere->rad;
+	sphere->rad = param == 2 ? ft_atof(str) : sphere->rad;
 	sphere->mat.diff = param == 5 ? ft_atoi(str) / 100. : sphere->mat.diff;
 	sphere->mat.spec = param == 6 ? ft_atoi(str) : sphere->mat.spec;
 	sphere->mat.reflect = param == 7 ? ft_atoi(str) : sphere->mat.reflect;

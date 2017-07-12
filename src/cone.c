@@ -17,8 +17,8 @@ void	*default_cone(t_cone *cone)
 	cone->p1 = vec3_create(0, 0, 0);
 	cone->p2 = vec3_create(0, 0, 0);
 	cone->axis = vec3_create(0, 0, 0);
-	cone->r1 = 1;
-	cone->r2 = 2;
+	cone->r1 = 0.0001;
+	cone->r2 = 0.0001;
 	cone->angle = 45;
 	cone->cut = 0;
 	cone->mat.color = vec3_create(0, 0, 0);
@@ -35,9 +35,9 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 	char	*tmp;
 	int		color;
 
-	cone->r1 = param == 3 ? ft_atoi(str) : cone->r1;
-	cone->r2 = param == 4 ? ft_atoi(str) : cone->r2;
-	cone->r1 == cone->r2 ? error(11) : 0;
+	cone->r1 = param == 3 ? ft_atof(str) : cone->r1;
+	cone->r2 = param == 4 ? ft_atof(str) : cone->r2;
+//	cone->r1 == cone->r2 ? error(11) : 0;
 	cone->angle = param == 6 ? ft_atoi(str) : cone->angle;
 	if (param == 7)
 	{

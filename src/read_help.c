@@ -28,7 +28,7 @@ t_vec3	vec3_fill_atoi(char **arr)
 {
 	if (!arr[0] || !arr[1] || !arr[2])
 		error(10);
-	return (vec3_create(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2])));
+	return (vec3_create(ft_atof(arr[0]), ft_atof(arr[1]), ft_atof(arr[2])));
 }
 
 void	scene_line(int fd, t_main *main)
@@ -68,6 +68,8 @@ void	set_flag(char *str, t_main *main, int set_rem)
 		main->flag.cam = ft_strcmp(str, "<camera>") == 0 ? 1 : 0;
 		main->flag.lgh = ft_strcmp(str, "<light>") == 0 ? 1 : 0;
 		main->flag.obj = ft_strstr(str, "<object") != 0 ? 1 : 0;
+		if (main->light_i == main->scene.lights && ft_strcmp(str, "<light>") == 0)
+			error(3);
 	}
 	else if (set_rem == 2)
 	{
