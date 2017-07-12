@@ -18,7 +18,7 @@ void	*default_cone(t_cone *cone)
 	cone->p2 = vec3_create(0, 0, 0);
 	cone->axis = vec3_create(0, 0, 0);
 	cone->r1 = 0.0001;
-	cone->r2 = 0.0001;
+	cone->r2 = 0.0002;
 	cone->angle = 45;
 	cone->cut = 0;
 	cone->mat.color = vec3_create(0, 0, 0);

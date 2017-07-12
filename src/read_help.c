@@ -107,8 +107,7 @@ void	read_file(int fd, t_main *main)
 			cam_light_obj_line(str, main, 3);
 		free(str);
 	}
-	if (ft_strstr(str, "/scene") != 0)
+	if (ft_strstr(str, "/scene") != 0 || main->obj_i >= main->scene.objs)
 		free(str);
-	main->obj_i == main->scene.objs ? 0 : error(2);
-	main->light_i == main->scene.lights ? 0 : error(3);
+	last_check(str, main);
 }

@@ -100,3 +100,11 @@ void	switch_cam_mode(int keycode, t_main *main)
 	camera_direction(keycode, main);
 	camera_position(keycode, main);
 }
+
+void	last_check(char *str, t_main *main)
+{
+	if (ft_strstr(str, "/scene") == 0)
+		error(12);
+	main->obj_i == main->scene.objs ? 0 : error(2);
+	main->light_i == main->scene.lights ? 0 : error(3);
+}

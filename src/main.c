@@ -45,6 +45,7 @@ void	error(int param)
 	param == 9 ? ft_putstr("Wrong object type.\n") : 0;
 	param == 10 ? ft_putstr("Wrong coords/axis.\n") : 0;
 	param == 11 ? ft_putstr("Invalid cone radii.\n") : 0;
+	param == 12 ? ft_putstr("You didn't use \"</scene>\" tag.\n") : 0;
 	exit(0);
 }
 

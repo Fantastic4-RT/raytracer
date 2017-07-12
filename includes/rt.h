@@ -409,6 +409,7 @@ void				switch_cam_mode(int keycode, t_main *main);
 void				camera_position(int keycode, t_main *main);
 void				camera_direction(int keycode, t_main *main);
 void				camera_rotation(int keycode, t_main *main);
+void				last_check(char *str, t_main *main);
 /*
 ** cone.c
 */
