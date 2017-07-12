@@ -1,19 +1,116 @@
-<scene width=1200 height=720 objects=3 lights=1 aa=0>
+<scene width=1200 height=720 objects=13 lights=2 aa=0>
     <camera>
         <position>0, 0, 50</position>
         <rotation>0, 0, 0</rotation>
         <fov>45</fov>
     </camera>
     <light>
-        <position>0, 50, 0</position>
+        <position>20, 50, 0</position>
         <color>ffffff</color>
-        <direction>0, 50, 0</direction>
-        <radius>5<radius>
+        <direction>20, 50, 0</direction>
+        <radius>20<radius>
     </light>
+        <light>
+            <position>-40, 50, 0</position>
+            <color>ffffff</color>
+            <direction>-40, 50, 0</direction>
+            <radius>20<radius>
+        </light>
     <object type="sphere">
-       <position>0, 0, 0</position>
-       <radius>5</radius>
-       <color>d1f103</color>
+       <position>0, -6, 0</position>
+       <radius>6</radius>
+       <color>E6E0CC</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="sphere">
+       <position>0, 3, 0</position>
+       <radius>4</radius>
+       <color>E6E0CC</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="plane">
+       <position>0, -10, 0</position>
+       <normal>0, 1, 0</position>
+       <color>f001f3</color>
+       <diffuse>50</diffuse>
+       <specular>500</specular>
+    </object>
+    <object type="plane">
+       <position>0, 0, -50</position>
+       <normal>0, 0, 1</position>
+       <color>f001f3</color>
+       <diffuse>50</diffuse>
+       <specular>500</specular>
+    </object>
+    <object type="cylinder">
+       <position1>-3, -3, 0</position1>
+       <position2>-8, 1, 0</position2>
+       <radius>0.1</radius>
+       <cut>1</cut>
+       <color>ffffaa</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="cylinder">
+       <position1>3, -3, 0</position1>
+       <position2>8, 1, 0</position2>
+       <radius>0.1</radius>
+       <cut>1</cut>
+       <color>ffffaa</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="cone">
+       <position1>0, 6, 0</position1>
+       <position2>0, 11, 0</position2>
+       <radius1>3</radius1>
+       <radius2>0</radius2>
+       <cut>1</cut>
+       <color>170E0B</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="sphere">
+       <position>-1, 4, 3.5</position>
+       <radius>0.3</radius>
+       <color>000000</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="sphere">
+       <position>1, 4, 3.5</position>
+       <radius>0.3</radius>
+       <color>000000</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="sphere">
+       <position>0, 3, 4</position>
+       <radius>0.5</radius>
+       <color>F2AC4E</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="sphere">
+       <position>0, -3, 5.3</position>
+       <radius>0.3</radius>
+       <color>000000</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="sphere">
+       <position>0, -7, 5.8</position>
+       <radius>0.3</radius>
+       <color>000000</color>
+       <diffuse>50</diffuse>
+       <specular>100</specular>
+    </object>
+    <object type="sphere">
+       <position>0, -5, 6</position>
+       <radius>0.3</radius>
+       <color>000000</color>
        <diffuse>50</diffuse>
        <specular>100</specular>
     </object>
