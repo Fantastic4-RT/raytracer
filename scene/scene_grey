@@ -1,0 +1,171 @@
+<scene width=1200 height=720 objects=16 lights=1 aa=0 ambient=0.2 eff=2>
+   <camera>
+       <position>0, 0, 55</position>
+       <rotation>0, 0, 0</rotation>
+   </camera>
+   <light>
+       <position>0, 1, 55</position>
+       <color>ffffff</color>
+       <direction>0, 0, 0</direction>
+       <radius>0</radius>
+   </light>
+   <object type="cylinder">
+      <position1>-5, -5, -8</position1>
+      <position2>-5, 10, -8</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>5, -5, -8</position1>
+      <position2>5, 10, -8</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>-7, 8, -8</position1>
+      <position2>7, 8, -8</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>-7, -5, -4</position1>
+      <position2>-7, 10, -4</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>7, -5, -4</position1>
+      <position2>7, 10, -4</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>-9, 8, -4</position1>
+      <position2>9, 8, -4</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>-9, -5, 0</position1>
+      <position2>-9, 10, 0</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>9, -5, 0</position1>
+      <position2>9, 10, 0</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>-11, 8, 0</position1>
+      <position2>11, 8, 0</position2>
+      <radius>1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>0, 1.5, -7</position1>
+      <position2>0, 1.5, -8</position2>
+      <radius>3</radius>
+      <cut>1</cut>
+      <color>ffffff</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>-4, 10, -8</position1>
+      <position2>-1, 2, -8</position2>
+      <radius>0.1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>4, 10, -8</position1>
+      <position2>1, 2, -8</position2>
+      <radius>0.1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+      <reflection>0</reflection>
+      <texture>0</texture>
+   </object>
+   <object type="cylinder">
+      <position1>-3, -5, -8</position1>
+      <position2>0, 2, -8</position2>
+      <radius>0.1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>3, -5, -8</position1>
+      <position2>0, 2, -8</position2>
+      <radius>0.1</radius>
+      <cut>1</cut>
+      <axis>0, 1, 0</axis>
+      <color>10a231</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="plane">
+      <position>0, -5, -10</position>
+      <cut>0</cut>
+      <normal>0, 1, 0</normal>
+      <color>ffffff</color>
+      <diffuse>100</diffuse>
+      <specular>50</specular>
+      <texture>2</texture>
+   </object>
+   <object type="plane">
+      <position>0, -10, -10</position>
+      <cut>0</cut>
+      <normal>0, 0, -1</normal>
+      <color>ffffff</color>
+      <diffuse>100</diffuse>
+      <specular>50</specular>
+      <texture>2</texture>
+   </object>
+</scene>

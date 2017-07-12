@@ -78,9 +78,6 @@ void	find_disturb_cd(t_thread *th, t_main *main, t_vec3 p)
 
 void	get_uv_coordinates(t_thread *th, t_main *main)
 {
-	int index;
-
-	index = th->obj[main->curr].texture - 9;
 	if (!ft_strcmp(th->obj[main->curr].type, "sphere") ||
 			!ft_strcmp(th->obj[main->curr].type, "torus"))
 		sphere_uv(th, main);
@@ -102,9 +99,9 @@ void	get_uv_coordinates(t_thread *th, t_main *main)
 
 void	find_pixel_color(t_thread *th, t_main *main)
 {
-	get_uv_coordinates(th, main);
 	if (th->main.obj[main->curr].texture >= 9)
 	{
+		get_uv_coordinates(th, main);
 		find_img_cd(th, main);
 	}
 	else

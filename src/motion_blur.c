@@ -44,9 +44,9 @@ void	ft_check_type_minus(t_thread *th)
 		if (ft_strcmp(th->obj[i].type, "sphere") == 0)
 			((t_sphere *)th->obj[i].data)->pos.y -= 2;
 		if (ft_strcmp(th->obj[i].type, "cylinder") == 0)
-			((t_sphere *)th->obj[i].data)->pos.x -= 2;
+			((t_sphere *)th->obj[i].data)->pos.y -= 2;
 		if (ft_strcmp(th->obj[i].type, "cone") == 0)
-			((t_sphere *)th->obj[i].data)->pos.x -= 2;
+			((t_sphere *)th->obj[i].data)->pos.y -= 2;
 		i++;
 	}
 }
@@ -61,9 +61,9 @@ void	ft_check_type(t_thread *th)
 		if (ft_strcmp(th->obj[i].type, "sphere") == 0)
 			((t_sphere *)th->obj[i].data)->pos.y += 0.1;
 		if (ft_strcmp(th->obj[i].type, "cylinder") == 0)
-			((t_sphere *)th->obj[i].data)->pos.x += 0.1;
+			((t_sphere *)th->obj[i].data)->pos.y += 0.1;
 		if (ft_strcmp(th->obj[i].type, "cone") == 0)
-			((t_sphere *)th->obj[i].data)->pos.x += 0.1;
+			((t_sphere *)th->obj[i].data)->pos.y += 0.1;
 		i++;
 	}
 }
