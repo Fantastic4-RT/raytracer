@@ -92,14 +92,11 @@ void	get_uv_coordinates(t_thread *th, t_main *main)
 		cylinder_uv(th, main);
 	else
 	{
-		th->obj[main->curr].uv.x = (int)(((th->obj[main->curr].hitpoint.x +
-				main->scene.wid / 2) - (int)(th->obj[main->curr].hitpoint.x +
-				main->scene.wid / 2)) * th->main.img[index].w)
-				% th->main.img[index].w;
-		th->obj[main->curr].uv.y = (int)(((th->obj[main->curr].hitpoint.y +
-				main->scene.hei / 2) - (int)(th->obj[main->curr].hitpoint.y +
-				main->scene.hei / 2)) * th->main.img[index].h)
-				% th->main.img[index].h;
+		th->obj[main->curr].uv = vec3_zero();
+		th->obj[main->curr].uv.x = (th->obj[main->curr].hitpoint.x
+									+ main->scene.wid / 2);
+		th->obj[main->curr].uv.y = (th->obj[main->curr].hitpoint.y
+									+ main->scene.hei / 2);
 	}
 }
 
