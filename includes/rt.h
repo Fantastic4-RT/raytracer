@@ -22,7 +22,7 @@
 # include <pthread.h>
 # include <fcntl.h>
 # include <time.h>
-# define THREADS 1
+# define THREADS 4
 # define WIDTH 1200
 # define HEIGHT 720
 # define ASPECT (double)WIDTH / (double)HEIGHT
@@ -203,6 +203,7 @@ typedef	struct		s_cyl
 	double		t_low_cap;
 	double		t_top_cap;
 	double		t_final;
+	int			cyl_hit;
 	t_material	mat;
 }					t_cyl;
 

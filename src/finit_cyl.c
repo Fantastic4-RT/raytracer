@@ -65,6 +65,12 @@ void	ft_caps(t_cyl *cyl, t_ray r, double *t, double *t_final)
 	t_min_caps = ft_check_min(cyl->t_top_cap, cyl->t_low_cap);
 	*t_final = ft_check_min(t_min_caps, *t_final);
 	cyl->t_final = *t_final;
+	if (cyl->t_final == t[0])
+		cyl->cyl_hit = 0;
+	else if (cyl->t_top_cap == cyl->t_final)
+		cyl->cyl_hit = 3;
+	else
+		cyl->cyl_hit = 2;
 }
 
 int		solve_quadric_cut(t_abs solve, double *t_final, t_cyl *cyl, t_ray r)
@@ -80,9 +86,9 @@ int		solve_quadric_cut(t_abs solve, double *t_final, t_cyl *cyl, t_ray r)
 		t[0] = (-solve.b + sqrt(solve.discr)) / (2 * solve.a);
 		t[1] = (-solve.b - sqrt(solve.discr)) / (2 * solve.a);
 		if (t[0] > t[1])
-		{
 			t[0] = t[1];
-		}
+		if (t[0] < 0)
+			return (0);
 		res = ft_check_between(cyl, r.pos, r.dir, t[0]);
 		ft_caps(cyl, r, t, &res);
 		if ((res > 0.001) && (res < *t_final))

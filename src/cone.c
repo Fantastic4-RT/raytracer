@@ -42,7 +42,7 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 	if (param == 7)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
-		color = ft_atoi_base(tmp, "0123456789abcdef");
+		color = ft_atoi_base(ft_lowercase(tmp), "0123456789abcdef");
 		cone->mat.color = vec3_create((color >> 16 & 0xFF) / 255.,
 							(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
@@ -51,7 +51,7 @@ void	cone_params_2(char *str, t_cone *cone, int param)
 	cone->mat.spec = param == 9 ? ft_atoi(str) : cone->mat.spec;
 	cone->mat.reflect = param == 10 ? ft_atoi(str) : cone->mat.reflect;
 	cone->mat.refract = param == 11 ? ft_atof(str) : cone->mat.refract;
-	cone->mat.transp = param == 12 ? ft_atof(str) : cone->mat.transp;
+	cone->mat.transp = param == 12 ? ft_atof(str) / 100. : cone->mat.transp;
 }
 
 void	cone_params(char *str, t_cone *cone, int param)
@@ -133,6 +133,8 @@ void	add_cone(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &cone_norm;
 	main->obj[main->obj_i].tmp_color = data->mat.color;
 	main->obj[main->obj_i].mat = data->mat;
+	if (data->cut != 0)
+		data->axis = vec3_norm(vec3_sub(data->p1, data->p2));
 	main->obj[main->obj_i].dir_y = vec3_norm(data->axis);
 	main->obj[main->obj_i].dir_x = vec3_norm(vec3_cross(data->axis,
 		vec3_add(data->axis, vec3_create(0.01, 0.01, 0.01))));

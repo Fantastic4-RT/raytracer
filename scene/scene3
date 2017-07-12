@@ -1,0 +1,110 @@
+<scene width=1200 height=720 objects=10 lights=1 aa=0 ambient=0.2 eff=0>
+    <camera>
+        <position>0, 70, 100</position>
+    </camera>
+    <light>
+        <position>0, 6, 40</position>
+        <color>ffffff</color>
+        <direction>0, 0, 0</direction>
+        <radius>0</radius>
+    </light>
+    <object type="paraboloid">
+        <position>0, -30, -20</position>
+        <axis>0, -1, 0</axis>
+        <kernel>3</kernel>
+        <color>d4ee9f</color>
+        <diffuse>50</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+        <texture>10</texture>
+    </object>
+    <object type="paraboloid">
+            <position>-25, -30, -15</position>
+            <axis>0, -1, 0</axis>
+            <kernel>3</kernel>
+            <color>d4ee9f</color>
+            <diffuse>50</diffuse>
+            <specular>100</specular>
+            <reflection>0</reflection>
+            <texture>10</texture>
+        </object>
+        <object type="paraboloid">
+                <position>-50, -30, -20</position>
+                <axis>0, -1, 0</axis>
+                <kernel>3</kernel>
+                <color>d4ee9f</color>
+                <diffuse>50</diffuse>
+                <specular>100</specular>
+                <reflection>0</reflection>
+                <texture>10</texture>
+            </object>
+            <object type="paraboloid">
+                    <position>25, -30, -15</position>
+                    <axis>0, -1, 0</axis>
+                    <kernel>3</kernel>
+                    <color>d4ee9f</color>
+                    <diffuse>50</diffuse>
+                    <specular>100</specular>
+                    <reflection>0</reflection>
+                    <texture>10</texture>
+                </object>
+                <object type="paraboloid">
+                        <position>50, -30, -20</position>
+                        <axis>0, -1, 0</axis>
+                        <kernel>3</kernel>
+                        <color>d4ee9f</color>
+                        <diffuse>50</diffuse>
+                        <specular>100</specular>
+                        <reflection>0</reflection>
+                        <texture>10</texture>
+                    </object>
+<object type="paraboloid">
+        <position>15, -20, -100</position>
+        <axis>0, -1, 0</axis>
+        <kernel>3</kernel>
+        <color>d4ee9f</color>
+        <diffuse>50</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+        <texture>10</texture>
+    </object>
+    <object type="paraboloid">
+            <position>-10, -30, -100</position>
+            <axis>0, -1, 0</axis>
+            <kernel>3</kernel>
+            <color>d4ee9f</color>
+            <diffuse>50</diffuse>
+            <specular>100</specular>
+            <reflection>0</reflection>
+            <texture>10</texture>
+        </object>
+        <object type="paraboloid">
+                <position>-35, -30, -100</position>
+                <axis>0, -1, 0</axis>
+                <kernel>3</kernel>
+                <color>d4ee9f</color>
+                <diffuse>50</diffuse>
+                <specular>100</specular>
+                <reflection>0</reflection>
+                <texture>10</texture>
+            </object>
+            <object type="paraboloid">
+                    <position>40, -30, -100</position>
+                    <axis>0, -1, 0</axis>
+                    <kernel>3</kernel>
+                    <color>d4ee9f</color>
+                    <diffuse>50</diffuse>
+                    <specular>100</specular>
+                    <reflection>0</reflection>
+                    <texture>10</texture>
+                </object>
+                <object type="paraboloid">
+                        <position>55, -30, -100</position>
+                        <axis>0, -1, 0</axis>
+                        <kernel>3</kernel>
+                        <color>d4ee9f</color>
+                        <diffuse>50</diffuse>
+                        <specular>100</specular>
+                        <reflection>0</reflection>
+                        <texture>10</texture>
+                    </object>

@@ -57,7 +57,7 @@ void	generate_textures(t_main *main)
 	main->img[0].data = mlx_get_data_addr(main->img[0].img, &main->img[0].bpp,
 		&main->img[0].sl, &main->img[0].endian);
 	main->img[1].img = mlx_xpm_file_to_image(main->mlx.mlx,
-		"textures/RedStone.xpm", &main->img[1].w, &main->img[1].h);
+		"textures/Azurite.xpm", &main->img[1].w, &main->img[1].h);
 	main->img[1].data = mlx_get_data_addr(main->img[1].img, &main->img[1].bpp,
 		&main->img[1].sl, &main->img[1].endian);
 	main->img[2].img = mlx_xpm_file_to_image(main->mlx.mlx, "textures/Sky.xpm",
@@ -69,7 +69,7 @@ void	generate_textures(t_main *main)
 	main->img[3].data = mlx_get_data_addr(main->img[3].img, &main->img[3].bpp,
 		&main->img[3].sl, &main->img[3].endian);
 	main->img[4].img = mlx_xpm_file_to_image(main->mlx.mlx,
-		"textures/Stone.xpm", &main->img[4].w, &main->img[4].h);
+		"textures/Beryllium.xpm", &main->img[4].w, &main->img[4].h);
 	main->img[4].data = mlx_get_data_addr(main->img[4].img, &main->img[4].bpp,
 		&main->img[4].sl, &main->img[4].endian);
 }

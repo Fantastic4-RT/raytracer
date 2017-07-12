@@ -1,0 +1,54 @@
+<scene width=1200 height=720 objects=6 lights=1 aa=1 ambient=0.2 eff=0>
+   <camera>
+       <position>0, 0, 150</position>
+   </camera>
+   <light>
+       <position>40, 0, 150</position>
+       <color>ffffff</color>
+   </light>
+   <object type="plane">
+      <position>0, -12, 0</position>
+      <normal>0, 1, 0</normal>
+      <color>b3b3b3</color>
+      <diffuse>100</diffuse>
+      <specular>50</specular>
+      <reflection>1</reflection>
+   </object>
+   <object type="plane">
+      <position>0, 0, -150</position>
+      <normal>0, 0, 1</normal>
+      <color>b3b3b3</color>
+      <diffuse>100</diffuse>
+      <specular>50</specular>
+   </object>
+   <object type="sphere">
+      <position>35, 10, -10</position>
+      <radius>15</radius>
+      <color>8F983F</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="sphere">
+      <position>0, 10, -10</position>
+      <radius>20</radius>
+      <color>20a3fa</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+      <reflection>1</reflection>
+   </object>
+   <object type="sphere">
+      <position>-35, 10, -10</position>
+      <radius>15</radius>
+      <color>E2B118</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+   <object type="cylinder">
+      <position1>0, 30, 20</position1>
+      <axis>1, 0, 0</axis>
+      <radius>5</radius>
+      <color>be9e11</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+   </object>
+</scene>

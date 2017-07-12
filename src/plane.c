@@ -38,7 +38,7 @@ void	plane_params_2(char *str, t_plane *plane, int param)
 	if (param == 3)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
-		color = ft_atoi_base(tmp, "0123456789abcdef");
+		color = ft_atoi_base(ft_lowercase(tmp), "0123456789abcdef");
 		plane->mat.color = vec3_create((color >> 16 & 0xFF) / 255.,
 							(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
@@ -119,7 +119,7 @@ void	add_plane(char *str, t_main *main)
 	main->obj[main->obj_i].mat = data->mat;
 	main->obj[main->obj_i].mattype = get_material_type(data->mat);
 	main->obj[main->obj_i].dir_x = vec3_create(1, 0, 0);
-	main->obj[main->obj_i].dir_y = vec3_create(0, 1, 0);
+	main->obj[main->obj_i].dir_y = data->normal;
 	main->obj[main->obj_i].texture = 0;
 	main->obj[main->obj_i].tmp_color = data->mat.color;
 	if (ft_strstr(str, "<texture>"))

@@ -36,7 +36,7 @@ void	cyl_params_2(char *str, t_cyl *cyl, int param)
 	if (param == 5)
 	{
 		tmp = ft_strsub(str, 0, ft_strlen(str) - ft_strlen("</color>"));
-		color = ft_atoi_base(tmp, "0123456789abcdef");
+		color = ft_atoi_base(ft_lowercase(tmp), "0123456789abcdef");
 		cyl->mat.color = vec3_create((color >> 16 & 0xFF) / 255.,
 						(color >> 8 & 0xFF) / 255., (color & 0xFF) / 255.);
 		free(tmp);
@@ -45,7 +45,7 @@ void	cyl_params_2(char *str, t_cyl *cyl, int param)
 	cyl->mat.spec = param == 7 ? ft_atoi(str) : cyl->mat.spec;
 	cyl->mat.reflect = param == 8 ? ft_atoi(str) : cyl->mat.reflect;
 	cyl->mat.refract = param == 9 ? ft_atof(str) : cyl->mat.refract;
-	cyl->mat.transp = param == 10 ? ft_atof(str) : cyl->mat.transp;
+	cyl->mat.transp = param == 10 ? ft_atof(str) / 100. : cyl->mat.transp;
 }
 
 void	cyl_params(char *str, t_cyl *cyl, int param)
@@ -115,6 +115,8 @@ void	add_cylinder(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &cylinder_norm;
 	else
 		main->obj[main->obj_i].normal = &cylinder_norm_cut;
+	if (data->cut != 0)
+		data->axis = vec3_norm(vec3_sub(data->p1, data->p2));
 	main->obj[main->obj_i].dir_y = vec3_norm(data->axis);
 	main->obj[main->obj_i].dir_x = vec3_norm(vec3_cross(data->axis,
 				vec3_add(data->axis, vec3_create(0.01, 0.01, 0.01))));
