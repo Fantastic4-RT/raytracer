@@ -12,17 +12,6 @@
 
 #include "rt.h"
 
-double		fmin_custom(double a, double b)
-{
-	if (a < 0 && b < 0)
-		return (-1);
-	else if (a < 0)
-		return (b);
-	else if (b < 0)
-		return (a);
-	return (fmin(a, b));
-}
-
 double		min_res(t_polynome4 *solve)
 {
 	double	res;
@@ -32,9 +21,9 @@ double		min_res(t_polynome4 *solve)
 	if (solve->x[0] <= 0 && solve->x[1] <= 0 && solve->x[2] <= 0 &&
 		solve->x[3] <= 0)
 		return (0);
-	a = fmin_custom(solve->x[0], solve->x[1]);
-	b = fmin_custom(solve->x[2], solve->x[3]);
-	res = fmin_custom(a, b);
+	a = ft_check_min(solve->x[0], solve->x[1]);
+	b = ft_check_min(solve->x[2], solve->x[3]);
+	res = ft_check_min(a, b);
 	return (res);
 }
 

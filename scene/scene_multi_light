@@ -1,0 +1,31 @@
+<scene width=1200 height=720 objects=2 lights=3 aa=0 ambient=0.2 eff=0>
+   <camera>
+       <position>0, 0, 150</position>
+       <rotation>0, 0, 0</rotation>
+   </camera>
+   <light>
+       <position>20, 40, 0</position>
+       <color>ffffff</color>
+   </light>
+      <light>
+          <position>-20, 40, 0</position>
+          <color>ffffff</color>
+   </light>
+   <light>
+          <position>0, 40, 0</position>
+          <color>ffffff</color>
+   </light>
+   <object type="sphere">
+       <position>0, -8, 0</position>
+       <radius>10</radius>
+       <color>f2f26b</color>
+       <diffuse>20</diffuse>
+       <specular>100</specular>
+   </object>
+   <object type="plane">
+     <position>0, -30, 0</position>
+     <normal>0, 1, 0</normal>
+     <color>ffffff</color>
+     <diffuse>20</diffuse>
+     <specular>500</specular>
+  </object>

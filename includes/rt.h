@@ -698,7 +698,6 @@ void				add_torus(char *str, t_main *main);
 /*
 ** 	torus_intrsect_normals.c
 */
-double				fmin_custom(double a, double b);
 double				min_res(t_polynome4 *solve);
 int					solve_polynome_4(double *t, t_polynome4 *solve);
 t_vec3				torus_norm(void *data, t_vec3 hitpoint);
