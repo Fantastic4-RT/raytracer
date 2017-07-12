@@ -1,0 +1,103 @@
+<scene width=1200 height=720 objects=9 lights=2 aa=0 ambient=0.4 eff=0>
+    <camera>
+        <position>0, 70, 135</position>
+    </camera>
+    <light>
+        <position>0, 100, 40</position>
+        <color>ffffff</color>
+        <direction>0, 100, 40</direction>
+        <radius>0</radius>
+    </light>
+    <light>
+            <position>0, 100, 40</position>
+            <color>ffffff</color>
+            <direction>0, 0, 0</direction>
+            <radius>0</radius>
+        </light>
+    <object type="plane">
+        <position>0, 0, -20</position>
+        <color>ffffff</color>
+        <diffuse>30</diffuse>
+        <specular>50</specular>
+        <reflection>0</reflection>
+        <normal>0, 0, 1</normal>
+    </object>
+    <object type="plane">
+        <position>0, -20, 0</position>
+        <color>ffffff</color>
+        <diffuse>30</diffuse>
+        <specular>50</specular>
+        <reflection>0</reflection>
+        <normal>0, 1, 0</normal>
+    </object>
+    </object>
+        <object type="sphere">
+        <position>-47, -7, 40</position>
+        <radius>2</radius>
+        <cut>0</cut>
+        <color>FF3328</color>
+        <diffuse>30</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+    </object>
+    </object>
+        <object type="sphere">
+        <position>-38, -5, 40</position>
+        <radius>4</radius>
+        <cut>0</cut>
+        <color>FF9328</color>
+        <diffuse>30</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+    </object>
+    </object>
+        <object type="sphere">
+        <position>-26, -4, 40</position>
+        <radius>5</radius>
+        <cut>0</cut>
+        <color>FFF028</color>
+        <diffuse>30</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+    </object>
+    </object>
+        <object type="sphere">
+        <position>-12, -3, 40</position>
+        <radius>6</radius>
+        <cut>0</cut>
+        <color>26F26B</color>
+        <diffuse>30</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+    </object>
+    </object>
+        <object type="sphere">
+        <position>4, -2, 40</position>
+        <radius>7</radius>
+        <cut>0</cut>
+        <color>2DB8ED</color>
+        <diffuse>30</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+    </object>
+    </object>
+        <object type="sphere">
+        <position>22, -1, 40</position>
+        <radius>8</radius>
+        <cut>0</cut>
+        <color>1A17B4</color>
+        <diffuse>30</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+    </object>
+    </object>
+        <object type="sphere">
+        <position>42, 0, 40</position>
+        <radius>9</radius>
+        <cut>0</cut>
+        <color>A700A7</color>
+        <diffuse>30</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+    </object>
+</scene>
