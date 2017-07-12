@@ -85,10 +85,10 @@ int		solve_quadric_cut(t_abs solve, double *t_final, t_cyl *cyl, t_ray r)
 	{
 		t[0] = (-solve.b + sqrt(solve.discr)) / (2 * solve.a);
 		t[1] = (-solve.b - sqrt(solve.discr)) / (2 * solve.a);
-		if (t[0] > t[1])
-			t[0] = t[1];
-		if (t[0] < 0)
+		if (t[0] < 0 && t[1] < 0)
 			return (0);
+		if (t[0] > 0 && t[1] > 0)
+			t[0] = ft_check_min(t[0], t[1]);
 		res = ft_check_between(cyl, r.pos, r.dir, t[0]);
 		ft_caps(cyl, r, t, &res);
 		if ((res > 0.001) && (res < *t_final))
