@@ -137,7 +137,7 @@
         <specular>100</specular>
         <reflection>0</reflection>
         <texture>10</texture>
-   </ect>
+   </object>
    <object type="cylinder">
               <position1>-60, 25, 30</position1>
               <radius>1</radius>
