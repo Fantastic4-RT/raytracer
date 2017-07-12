@@ -203,6 +203,7 @@ typedef	struct		s_cyl
 	double		t_low_cap;
 	double		t_top_cap;
 	double		t_final;
+	int			cyl_hit;
 	t_material	mat;
 }					t_cyl;
 
