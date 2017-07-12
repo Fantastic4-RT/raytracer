@@ -68,7 +68,8 @@ void	set_flag(char *str, t_main *main, int set_rem)
 		main->flag.cam = ft_strcmp(str, "<camera>") == 0 ? 1 : 0;
 		main->flag.lgh = ft_strcmp(str, "<light>") == 0 ? 1 : 0;
 		main->flag.obj = ft_strstr(str, "<object") != 0 ? 1 : 0;
-		if (main->light_i == main->scene.lights && ft_strcmp(str, "<light>") == 0)
+		if (main->light_i == main->scene.lights && ft_strcmp(str,
+															"<light>") == 0)
 			error(3);
 	}
 	else if (set_rem == 2)
