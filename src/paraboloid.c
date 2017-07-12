@@ -32,7 +32,7 @@ void	parab_params_2(char *str, t_parab *parab, int param)
 	parab->mat.spec = param == 6 ? ft_atoi(str) : parab->mat.spec;
 	parab->mat.reflect = param == 7 ? ft_atoi(str) : parab->mat.reflect;
 	parab->mat.refract = param == 8 ? ft_atof(str) : parab->mat.refract;
-	parab->mat.transp = param == 9 ? ft_atof(str) / 100.: parab->mat.transp;
+	parab->mat.transp = param == 9 ? ft_atof(str) / 100. : parab->mat.transp;
 }
 
 void	parab_params(char *str, t_parab *parab, int param)
