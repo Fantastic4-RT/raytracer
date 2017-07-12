@@ -1,15 +1,23 @@
-<scene width=1200 height=720 objects=10 lights=1 aa=0 ambient=0.2 eff=0>
+<scene width=1200 height=720 objects=17 lights=1 aa=0 ambient=0.4 eff=0>
     <camera>
         <position>0, 70, 100</position>
     </camera>
     <light>
-        <position>0, 6, 40</position>
+        <position>0, 100, -50</position>
         <color>ffffff</color>
         <direction>0, 0, 0</direction>
         <radius>0</radius>
     </light>
+    <object type="plane">
+            <position>0, 0, -200</position>
+            <color>716EC3</color>
+            <diffuse>100</diffuse>
+            <specular>50</specular>
+            <reflection>0</reflection>
+            <normal>0, 0, 1</normal>
+       </object>
     <object type="paraboloid">
-        <position>0, -30, -20</position>
+        <position>0, -35, -20</position>
         <axis>0, -1, 0</axis>
         <kernel>3</kernel>
         <color>d4ee9f</color>
@@ -19,7 +27,7 @@
         <texture>10</texture>
     </object>
     <object type="paraboloid">
-            <position>-25, -30, -15</position>
+            <position>-25, -35, -15</position>
             <axis>0, -1, 0</axis>
             <kernel>3</kernel>
             <color>d4ee9f</color>
@@ -29,7 +37,7 @@
             <texture>10</texture>
         </object>
         <object type="paraboloid">
-                <position>-50, -30, -20</position>
+                <position>-50, -35, -20</position>
                 <axis>0, -1, 0</axis>
                 <kernel>3</kernel>
                 <color>d4ee9f</color>
@@ -39,7 +47,7 @@
                 <texture>10</texture>
             </object>
             <object type="paraboloid">
-                    <position>25, -30, -15</position>
+                    <position>25, -35, -15</position>
                     <axis>0, -1, 0</axis>
                     <kernel>3</kernel>
                     <color>d4ee9f</color>
@@ -49,7 +57,7 @@
                     <texture>10</texture>
                 </object>
                 <object type="paraboloid">
-                        <position>50, -30, -20</position>
+                        <position>50, -35, -20</position>
                         <axis>0, -1, 0</axis>
                         <kernel>3</kernel>
                         <color>d4ee9f</color>
@@ -59,7 +67,7 @@
                         <texture>10</texture>
                     </object>
 <object type="paraboloid">
-        <position>15, -20, -100</position>
+        <position>15, -35, -150</position>
         <axis>0, -1, 0</axis>
         <kernel>3</kernel>
         <color>d4ee9f</color>
@@ -69,7 +77,7 @@
         <texture>10</texture>
     </object>
     <object type="paraboloid">
-            <position>-10, -30, -100</position>
+            <position>-10, -35, -150</position>
             <axis>0, -1, 0</axis>
             <kernel>3</kernel>
             <color>d4ee9f</color>
@@ -79,7 +87,7 @@
             <texture>10</texture>
         </object>
         <object type="paraboloid">
-                <position>-35, -30, -100</position>
+                <position>-35, -35, -150</position>
                 <axis>0, -1, 0</axis>
                 <kernel>3</kernel>
                 <color>d4ee9f</color>
@@ -89,7 +97,17 @@
                 <texture>10</texture>
             </object>
             <object type="paraboloid">
-                    <position>40, -30, -100</position>
+                            <position>-60, -35, -150</position>
+                            <axis>0, -1, 0</axis>
+                            <kernel>3</kernel>
+                            <color>d4ee9f</color>
+                            <diffuse>50</diffuse>
+                            <specular>100</specular>
+                            <reflection>0</reflection>
+                            <texture>10</texture>
+                        </object>
+            <object type="paraboloid">
+                    <position>40, -35, -150</position>
                     <axis>0, -1, 0</axis>
                     <kernel>3</kernel>
                     <color>d4ee9f</color>
@@ -99,12 +117,65 @@
                     <texture>10</texture>
                 </object>
                 <object type="paraboloid">
-                        <position>55, -30, -100</position>
-                        <axis>0, -1, 0</axis>
-                        <kernel>3</kernel>
-                        <color>d4ee9f</color>
-                        <diffuse>50</diffuse>
-                        <specular>100</specular>
-                        <reflection>0</reflection>
-                        <texture>10</texture>
-                    </object>
+                                    <position>65, -35, -150</position>
+                                    <axis>0, -1, 0</axis>
+                                    <kernel>3</kernel>
+                                    <color>d4ee9f</color>
+                                    <diffuse>50</diffuse>
+                                    <specular>100</specular>
+                                    <reflection>0</reflection>
+                                    <texture>10</texture>
+                                </object>
+<object type="paraboloid">
+    <position>-20, 5, -180</position>
+    <axis>1, 0, 0</axis>
+    <kernel>1</kernel>
+    <color>343F5D</color>
+    <diffuse>50</diffuse>
+    <specular>100</specular>
+    <reflection>0</reflection>
+    <texture>10</texture>
+</object>
+</object>
+        <object type="sphere">
+        <position>-10, 5, -11</position>
+        <radius>1</radius>
+        <cut>0</cut>
+        <color>ffffff</color>
+        <diffuse>50</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+   </object>
+   </object>
+           <object type="sphere">
+           <position>-10, 5, -9</position>
+           <radius>0.5</radius>
+           <cut>0</cut>
+           <color>000000</color>
+           <diffuse>50</diffuse>
+           <specular>100</specular>
+           <reflection>0</reflection>
+      </object>
+    <object type="cone">
+              <position1>40, 30, -16</position1>
+              <position2>35, 15, -16</position2>
+              <radius1>0</radius1>
+              <radius2>7</radius2>
+              <cut>1</cut>
+              <color>343F5D</color>
+              <diffuse>50</diffuse>
+              <specular>100</specular>
+              <reflection>0</reflection>
+         </object>
+         <object type="cone">
+                       <position1>38, 0, -16</position1>
+                       <position2>43, 0, 24</position2>
+                       <radius1>8</radius1>
+                       <radius2>0</radius2>
+                       <cut>1</cut>
+                       <color>343F5D</color>
+                       <diffuse>50</diffuse>
+                       <specular>100</specular>
+                       <reflection>0</reflection>
+                  </object>
+
