@@ -91,10 +91,10 @@
         <texture>10</texture>
    </object>
    <object type="cone">
-        <position1>-10, -15, 10</position1>
-        <position2>-13, 0, 10</position2>
-        <radius1>0</radius1>
-        <radius2>3</radius2>
+        <position2>-10, -15, 10</position2>
+        <position1>-13, 0, 10</position1>
+        <radius2>0</radius2>
+        <radius1>3</radius1>
         <cut>1</cut>
         <axis>0, 1, 0</axis>
         <color>d4ee9f</color>
@@ -128,17 +128,17 @@
         <texture>13</texture>
    </object>
    <object type="cone">
-           <position1>10, 30, -30</position1>
-           <angle>10</angle>
-           <cut>0</cut>
-           <axis>1, 0, 0</axis>
-           <color>d4ee9f</color>
-           <diffuse>50</diffuse>
-           <specular>100</specular>
-           <reflection>0</reflection>
-           <texture>10</texture>
-      </object>
-      <object type="cylinder">
+        <position1>10, 30, -30</position1>
+        <angle>10</angle>
+        <cut>0</cut>
+        <axis>1, 0, 0</axis>
+        <color>d4ee9f</color>
+        <diffuse>50</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+        <texture>10</texture>
+   </ect>
+   <object type="cylinder">
               <position1>-60, 25, 30</position1>
               <radius>1</radius>
               <cut>0</cut>
