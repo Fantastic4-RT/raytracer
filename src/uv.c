@@ -41,8 +41,8 @@ void	plane_uv(t_thread *th, t_main *main)
 	b = vec3_norm(vec3_cross(a, th->obj[main->curr].n));
 	p = vec3_sub(th->obj[main->curr].hitpoint,
 			((t_plane *)th->obj[main->curr].data)->pos);
-	th->obj[main->curr].uv.x = vec3_dp(b, p) / 10;
-	th->obj[main->curr].uv.y = vec3_dp(a, p) / 10;
+	th->obj[main->curr].uv.x = vec3_dp(b, p) / 20;
+	th->obj[main->curr].uv.y = vec3_dp(a, p) / 20;
 	if (th->obj[main->curr].uv.x < 0 && th->obj[main->curr].texture >= 9)
 		th->obj[main->curr].uv.x = TEXT_S + th->obj[main->curr].uv.x;
 	if (th->obj[main->curr].uv.y < 0 && th->obj[main->curr].texture >= 9)

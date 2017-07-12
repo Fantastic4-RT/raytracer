@@ -107,12 +107,14 @@ void	find_pixel_color(t_thread *th, t_main *main)
 {
 	get_uv_coordinates(th, main);
 	if (th->main.obj[main->curr].texture >= 9)
+	{
 		find_img_cd(th, main);
+	}
 	else
 	{
-		th->obj[main->curr].uv.x += (th->obj[main->curr].hitpoint.x
+		th->obj[main->curr].uv.x = (th->obj[main->curr].hitpoint.x
 							+ main->scene.wid / 2);
-		th->obj[main->curr].uv.y += (th->obj[main->curr].hitpoint.y
+		th->obj[main->curr].uv.y = (th->obj[main->curr].hitpoint.y
 							+ main->scene.hei / 2);
 		find_disturb_cd(th, main, th->obj[main->curr].uv);
 	}

@@ -82,9 +82,13 @@ void	phong_col(t_ray *lray, t_vec3 df_sp[], t_thread *th, t_ray *ray)
 			l.ray.pos = vec3_add(th->obj[th->main.curr].hitpoint, l.ray.dir);
 		lray->dir = vec3_sub(l.ray.pos, th->obj[th->main.curr].hitpoint);
 		t[0] = vec3_length(lray->dir);
-		t[1] = vec3_length(vec3_sub(l.ray.dir, lray->dir)) && l.rad;
+		if (l.rad)
+			t[1] = vec3_length(vec3_sub(l.ray.dir, lray->dir));
+		else
+			t[1] = 0;
 		lray->dir = vec3_norm(lray->dir);
-		cur[1] = trace(*lray, &t[0], &cur[0], th) || t[1] > l.rad;
+		double	a = ft_check_min(t[0], t[1]);
+		cur[1] = trace(*lray, &a, &cur[0], th) || t[1] > l.rad;
 		df_sp[0] = vec3_add(df_sp[0], vec3_mult(l.color, (1 - cur[1] *
 			(th->obj[cur[0]].mattype == 1 ? (1 - th->obj[cur[0]].mat.transp) :
 			1)) * fmax(0., vec3_dp(lray->dir, th->obj[th->main.curr].n))));

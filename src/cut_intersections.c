@@ -34,9 +34,9 @@ int		inter_ray_sphere_cut(t_ray r, void *sphere, double *t)
 	if (!tmp[0] && !tmp[1])
 		return (0);
 	if (tmp[0] && tmp[1])
-		*t = fmin(s->tt[0], s->tt[1]);
+		*t = ft_check_min(*t, ft_check_min(s->tt[0], s->tt[1]));
 	else
-		*t = tmp[0] ? s->tt[0] : s->tt[1];
+		*t = tmp[0] ? ft_check_min(*t, s->tt[0]) : ft_check_min(*t, s->tt[1]);
 	s->hit_obj = *t == s->tt[0] ? 0 : 1;
 	return (tmp[0] || tmp[1]);
 }
