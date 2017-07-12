@@ -139,36 +139,36 @@
         <texture>10</texture>
    </object>
    <object type="cylinder">
-              <position1>-60, 25, 30</position1>
-              <radius>1</radius>
-              <cut>0</cut>
-              <axis>-1, 1, -1</axis>
-              <color>d4ee9f</color>
-              <diffuse>50</diffuse>
-              <specular>100</specular>
-              <reflection>0</reflection>
-              <texture>13</texture>
-         </object>
-         <object type="cylinder">
-                       <position1>35, 5, 60</position1>
-                       <radius>1</radius>
-                       <cut>0</cut>
-                       <axis>-1, -1, -1</axis>
-                       <color>d4ee9f</color>
-                       <diffuse>50</diffuse>
-                       <specular>100</specular>
-                       <reflection>0</reflection>
-                       <texture>5</texture>
+        <position1>-60, 25, 30</position1>
+        <radius>1</radius>
+        <cut>0</cut>
+        <axis>-1, 1, -1</axis>
+        <color>d4ee9f</color>
+        <diffuse>50</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+        <texture>13</texture>
+   </object>
+   <object type="cylinder">
+        <position1>35, 5, 60</position1>
+        <radius>1</radius>
+        <cut>0</cut>
+        <axis>-1, -1, -1</axis>
+        <color>d4ee9f</color>
+        <diffuse>50</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+        <texture>5</texture>
    </object>
    <object type="sphere">
-           <position>-25, -13, 90</position>
-           <radius>5</radius>
-           <cut>1</cut>
-           <plane>-25, -15, 90</plane>
-           <color>fdc212</color>
-           <diffuse>50</diffuse>
-           <specular>100</specular>
-           <reflection>0</reflection>
-           <texture>6</texture>
-      </object>
+        <position>-25, -13, 90</position>
+        <radius>5</radius>
+        <cut>1</cut>
+        <plane>-25, -15, 90</plane>
+        <color>fdc212</color>
+        <diffuse>50</diffuse>
+        <specular>100</specular>
+        <reflection>0</reflection>
+        <texture>6</texture>
+   </object>
 </scene>

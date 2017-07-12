@@ -15,7 +15,7 @@
         <specular>50</specular>
         <reflection>0</reflection>
         <normal>0, 0, 1</normal>
-       </object>
+    </object>
     <object type="paraboloid">
         <position>0, -35, -20</position>
         <axis>0, -1, 0</axis>
