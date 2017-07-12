@@ -1,0 +1,99 @@
+<scene width=1200 height=720 objects=9 lights=1 aa=0 ambient=0.2 eff=0>
+   <camera>
+       <position>0, 0, 150</position>
+       <rotation>0, 0, 0</rotation>
+   </camera>
+   <light>
+       <position>0, 0, 100</position>
+       <color>ffffff</color>
+       <direction>0, 0, 0</direction>
+       <radius>0</radius>
+   </light>
+   <object type="torus">
+       <position>-34, 10, 10</position>
+       <axis>0, 0, 1</axis>
+       <radius_minor>2</radius_minor>
+       <radius_major>15</radius_major>
+       <color>0000ff</color>
+       <diffuse>50</diffuse>
+       <specular>500</specular>
+   </object>
+<object type="torus">
+       <position>0, 10, 10</position>
+       <axis>0, 0, 1</axis>
+       <radius_minor>2</radius_minor>
+       <radius_major>15</radius_major>
+       <color>000000</color>
+       <diffuse>50</diffuse>
+       <specular>500</specular>
+   </object>
+<object type="torus">
+       <position>34, 10, 10</position>
+       <axis>0, 0, 1</axis>
+       <radius_minor>2</radius_minor>
+       <radius_major>15</radius_major>
+       <color>ff0000</color>
+       <diffuse>50</diffuse>
+       <specular>500</specular>
+   </object>
+<object type="torus">
+       <position>-17, -7, 9</position>
+       <axis>0, 0, -1</axis>
+       <radius_minor>2</radius_minor>
+       <radius_major>15</radius_major>
+       <color>ffff00</color>
+       <diffuse>50</diffuse>
+       <specular>500</specular>
+   </object>
+<object type="torus">
+       <position>17, -7, 11</position>
+       <axis>0, 0, 1</axis>
+       <radius_minor>2</radius_minor>
+       <radius_major>15</radius_major>
+       <color>00ff00</color>
+       <diffuse>50</diffuse>
+       <specular>500</specular>
+   </object>
+<object type="plane">
+     <position>10, -32, 0</position>
+     <normal>0, 1, 0</normal>
+     <color>39d21a</color>
+     <diffuse>100</diffuse>
+     <specular>50</specular>
+     <reflection>0</reflection>
+     <transparency>50</transparency>
+  </object>
+<object type="plane">
+     <position>0, -5, 0</position>
+     <normal>0, 0, 1</normal>
+     <color>47adcd</color>
+     <diffuse>100</diffuse>
+     <specular>50</specular>
+     <reflection>0</reflection>
+     <transparency>50</transparency>
+  </object>
+<object type="cylinder">
+     <position1>17, -22, 11</position1>
+     <position2>17, -32, 11</position2>
+     <radius>1.9</radius>
+     <cut>1</cut>
+     <axis>0, 1, 0</axis>
+     <color>dccd81</color>
+     <diffuse>50</diffuse>
+     <specular>500</specular>
+     <reflection>0</reflection>
+     <texture>0</texture>
+   </object>
+<object type="cylinder">
+     <position1>-17, -22, 9</position1>
+     <position2>-17, -32, 9</position2>
+     <radius>1.9</radius>
+     <cut>1</cut>
+     <axis>0, 1, 0</axis>
+     <color>dccd81</color>
+     <diffuse>50</diffuse>
+     <specular>500</specular>
+     <reflection>0</reflection>
+     <texture>0</texture>
+   </object>
+</scene>

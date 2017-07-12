@@ -31,14 +31,32 @@
                      <texture>0</texture>
                   </object>
 </scene>
-<object type="torus">
-                      <position>0, 0, -10</position>
-                      <axis>0, 0, 1</axis>
-                      <radius_minor>5</radius_minor>
-                      <radius_major>8</radius_major>
-                      <color>f85f1f</color>
-                      <diffuse>50</diffuse>
-                      <specular>500</specular>
-                      <reflection>0</reflection>
-                      <refraction>0</refraction>
-                  </object>
+<object type="plane">
+     <position>0, -5, 0</position>
+     <normal>0, 1, 0</normal>
+     <color>555555</color>
+     <diffuse>100</diffuse>
+     <specular>50</specular>
+     <reflection>1</reflection>
+     <transparency>50</transparency>
+  </object>
+<object type="cylinder">
+      <position1>0, 30, 0</position1>
+      <axis>1, 0, 0</axis>
+      <radius>5</radius>
+      <color>ffffff</color>
+      <diffuse>50</diffuse>
+      <specular>100</specular>
+      <reflection>1</reflection>
+  </object>
+  <object type="torus">
+         <position>0, 0, -10</position>
+         <axis>0, 0, 1</axis>
+         <radius_minor>5</radius_minor>
+         <radius_major>8</radius_major>
+         <color>f85f1f</color>
+         <diffuse>50</diffuse>
+         <specular>500</specular>
+         <reflection>0</reflection>
+         <refraction>0</refraction>
+     </object>
