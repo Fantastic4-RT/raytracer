@@ -7,15 +7,15 @@
     <light>
         <position>20, 50, 0</position>
         <color>ffffff</color>
-        <direction>20, 50, 0</direction>
+        <direction>10, 50, 0</direction>
         <radius>20<radius>
     </light>
-        <light>
-            <position>-40, 50, 0</position>
-            <color>ffffff</color>
-            <direction>-40, 50, 0</direction>
-            <radius>20<radius>
-        </light>
+    <light>
+        <position>-20, 50, 0</position>
+        <color>ffffff</color>
+        <direction>-10, 50, 0</direction>
+        <radius>20<radius>
+    </light>
     <object type="sphere">
        <position>0, -6, 0</position>
        <radius>6</radius>
@@ -36,6 +36,7 @@
        <color>f001f3</color>
        <diffuse>50</diffuse>
        <specular>500</specular>
+       <texture>11</texture>
     </object>
     <object type="plane">
        <position>0, 0, -50</position>
@@ -43,13 +44,14 @@
        <color>f001f3</color>
        <diffuse>50</diffuse>
        <specular>500</specular>
+       <texture>11</texture>
     </object>
     <object type="cylinder">
        <position1>-3, -3, 0</position1>
        <position2>-8, 1, 0</position2>
        <radius>0.1</radius>
        <cut>1</cut>
-       <color>ffffaa</color>
+       <color>170E0B</color>
        <diffuse>50</diffuse>
        <specular>100</specular>
     </object>
@@ -58,7 +60,7 @@
        <position2>8, 1, 0</position2>
        <radius>0.1</radius>
        <cut>1</cut>
-       <color>ffffaa</color>
+       <color>170E0B</color>
        <diffuse>50</diffuse>
        <specular>100</specular>
     </object>
