@@ -115,6 +115,8 @@ void	add_cylinder(char *str, t_main *main)
 		main->obj[main->obj_i].normal = &cylinder_norm;
 	else
 		main->obj[main->obj_i].normal = &cylinder_norm_cut;
+	if (data->cut != 0)
+		data->axis = vec3_norm(vec3_sub(data->p1, data->p2));
 	main->obj[main->obj_i].dir_y = vec3_norm(data->axis);
 	main->obj[main->obj_i].dir_x = vec3_norm(vec3_cross(data->axis,
 				vec3_add(data->axis, vec3_create(0.01, 0.01, 0.01))));
